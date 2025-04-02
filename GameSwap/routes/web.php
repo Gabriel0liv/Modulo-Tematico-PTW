@@ -24,7 +24,22 @@ Route::get('/',function(){
     return view('compras', ['consoles' => $consoles], ['jogos' => $jogos]);
 });
 
+Route::get("/paginas/pagamento/pagamento1",function(){
+    return view('paginas.pagamento.pagamento1');
+});
+
+Route::get("/paginas/pagamento/pagamento2",function(){
+    return view('paginas.pagamento.pagamento2');
+});
+
+Route::get("/paginas/pagamento/pagamento3",function(){
+    return view('paginas.pagamento.pagamento3');
+});
+
 Route::get("/paginas/chat",function(){
     return view('paginas.chat');
 });
 
+Route::get("/paginas/anunciar",function(){
+    return view('paginas.anunciar');
+});

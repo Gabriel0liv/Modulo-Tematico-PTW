@@ -56,9 +56,9 @@
                 <i class="bi bi-cart text-white text-xl"></i>
                 <span class="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-4 w-4 flex items-center justify-center">1</span>
             </button>
-            <button class="inline-flex items-center justify-center whitespace-nowrap rounded-full text-sm font-medium bg-amber-400 hover:bg-amber-500 text-gray-800 px-5 py-2 transition-colors shadow-sm">
+            <a href="/paginas/anunciar" class="inline-flex items-center justify-center whitespace-nowrap rounded-full text-sm font-medium bg-amber-400 hover:bg-amber-500 text-gray-800 px-5 py-2 transition-colors shadow-sm">
                 Anunciar Produto
-            </button>
+            </a>
         </div>
     </div>
 </header>
