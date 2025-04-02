@@ -68,228 +68,52 @@
       <!-- Featured Consoles -->
       <div class="mt-12">
         <h2 class="text-2xl font-bold mb-6 text-gray-800">Consoles em Destaque</h2>
-  
         <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
-          <!-- Game Card 1 -->
-          <div class="rounded-lg border bg-card text-card-foreground shadow-sm overflow-hidden border-0 shadow-md hover:shadow-lg transition-shadow group">
-            <div class="relative">
-              <img
-                src="/placeholder.svg?height=180&width=180"
-                alt="FIFA 23"
-                class="w-full h-auto object-cover aspect-square group-hover:scale-105 transition-transform"
-              />
-              <div class="absolute top-2 right-2 bg-blue-600 text-white text-xs px-2 py-1 rounded-full">
-                PS5
-              </div>
-            </div>
-            <div class="p-3">
-              <h3 class="font-medium text-gray-800 truncate">Playstation 5</h3>
-              <p class="text-blue-600 font-bold">R$ 3500,90</p>
-            </div>
-          </div>
-  
-          <!-- Game Card 2 -->
-          <div class="rounded-lg border bg-card text-card-foreground shadow-sm overflow-hidden border-0 shadow-md hover:shadow-lg transition-shadow group">
-            <div class="relative">
-              <img
-                src="/placeholder.svg?height=180&width=180"
-                alt="Hogwarts Legacy"
-                class="w-full h-auto object-cover aspect-square group-hover:scale-105 transition-transform"
-              />
-              <div class="absolute top-2 right-2 bg-blue-600 text-white text-xs px-2 py-1 rounded-full">
-                Xbox Series X
-              </div>
-            </div>
-            <div class="p-3">
-              <h3 class="font-medium text-gray-800 truncate">Xbox Series X</h3>
-              <p class="text-blue-600 font-bold">R$ 2500,99</p>
-            </div>
-          </div>
-  
-          <!-- Game Card 3 -->
-          <div class="rounded-lg border bg-card text-card-foreground shadow-sm overflow-hidden border-0 shadow-md hover:shadow-lg transition-shadow group">
-            <div class="relative">
-              <img
-                src="/placeholder.svg?height=180&width=180"
-                alt="Mario Kart 8"
-                class="w-full h-auto object-cover aspect-square group-hover:scale-105 transition-transform"
-              />
-              <div class="absolute top-2 right-2 bg-blue-600 text-white text-xs px-2 py-1 rounded-full">
-                Nintendo Switch
-              </div>
-            </div>
-            <div class="p-3">
-              <h3 class="font-medium text-gray-800 truncate">Nintendo Switch 2</h3>
-              <p class="text-blue-600 font-bold">R$ 5000,99</p>
-            </div>
-          </div>
-  
-          <!-- Game Card 4 -->
-          <div class="rounded-lg border bg-card text-card-foreground shadow-sm overflow-hidden border-0 shadow-md hover:shadow-lg transition-shadow group">
-            <div class="relative">
-              <img
-                src="/placeholder.svg?height=180&width=180"
-                alt="Elden Ring"
-                class="w-full h-auto object-cover aspect-square group-hover:scale-105 transition-transform"
-              />
-              <div class="absolute top-2 right-2 bg-blue-600 text-white text-xs px-2 py-1 rounded-full">
-                PS5
-              </div>
-            </div>
-            <div class="p-3">
-              <h3 class="font-medium text-gray-800 truncate">Playstation 4</h3>
-              <p class="text-blue-600 font-bold">R$ 2000,90</p>
-            </div>
-          </div>
-  
-          <!-- Game Card 5 -->
-          <div class="rounded-lg border bg-card text-card-foreground shadow-sm overflow-hidden border-0 shadow-md hover:shadow-lg transition-shadow group">
-            <div class="relative">
-              <img
-                src="/placeholder.svg?height=180&width=180"
-                alt="Forza Horizon 5"
-                class="w-full h-auto object-cover aspect-square group-hover:scale-105 transition-transform"
-              />
-              <div class="absolute top-2 right-2 bg-blue-600 text-white text-xs px-2 py-1 rounded-full">
-                Xbox Series X
-              </div>
-            </div>
-            <div class="p-3">
-              <h3 class="font-medium text-gray-800 truncate">Xbox One</h3>
-              <p class="text-blue-600 font-bold">R$ 1500,00</p>
-            </div>
-          </div>
-  
-          <!-- Game Card 6 -->
-          <div class="rounded-lg border bg-card text-card-foreground shadow-sm overflow-hidden border-0 shadow-md hover:shadow-lg transition-shadow group">
-            <div class="relative">
-              <img
-                src="/placeholder.svg?height=180&width=180"
-                alt="The Last of Us Part II"
-                class="w-full h-auto object-cover aspect-square group-hover:scale-105 transition-transform"
-              />
-              <div class="absolute top-2 right-2 bg-blue-600 text-white text-xs px-2 py-1 rounded-full">
-                PS4
-              </div>
-            </div>
-            <div class="p-3">
-              <h3 class="font-medium text-gray-800 truncate">Nintendo Switch</h3>
-              <p class="text-blue-600 font-bold">R$ 2000,00</p>
-            </div>
-          </div>
+          @foreach ($consoles as $consoles)
           
+            <div class="rounded-lg border bg-card text-card-foreground shadow-sm overflow-hidden border-0 shadow-md hover:shadow-lg transition-shadow group">
+              <div class="relative">
+                  <img
+                      src="/placeholder.svg?height=180&width=180"
+                      alt="FIFA 23"
+                      class="w-full h-auto object-cover aspect-square group-hover:scale-105 transition-transform"
+                  />
+              <div class="absolute top-2 right-2 bg-blue-600 text-white text-xs px-2 py-1 rounded-full">
+                  {{$consoles['empresa']}}
+              </div>
+              </div>
+              <div class="p-3">
+                  <h3 class="font-medium text-gray-800 truncate">{{$consoles['nome']}}</h3>
+                  <p class="text-blue-600 font-bold">{{$consoles['preco']}}</p>
+              </div>
+            </div>
+          
+          @endforeach
         </div>
         <div class="mt-12">
           <h2 class="text-2xl font-bold mb-6 text-gray-800">Jogos em Destaque</h2>
     
           <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
-            <!-- Game Card 1 -->
+            @foreach ($jogos as $jogos)
+          
             <div class="rounded-lg border bg-card text-card-foreground shadow-sm overflow-hidden border-0 shadow-md hover:shadow-lg transition-shadow group">
               <div class="relative">
-                <img
-                  src="/placeholder.svg?height=180&width=180"
-                  alt="FIFA 23"
-                  class="w-full h-auto object-cover aspect-square group-hover:scale-105 transition-transform"
-                />
-                <div class="absolute top-2 right-2 bg-blue-600 text-white text-xs px-2 py-1 rounded-full">
-                  PS5
-                </div>
+                  <img
+                      src="/placeholder.svg?height=180&width=180"
+                      alt="FIFA 23"
+                      class="w-full h-auto object-cover aspect-square group-hover:scale-105 transition-transform"
+                  />
+              <div class="absolute top-2 right-2 bg-blue-600 text-white text-xs px-2 py-1 rounded-full">
+                  {{$jogos['plataforma']}}
+              </div>
               </div>
               <div class="p-3">
-                <h3 class="font-medium text-gray-800 truncate">FIFA 23</h3>
-                <p class="text-blue-600 font-bold">R$ 199,90</p>
+                  <h3 class="font-medium text-gray-800 truncate">{{$jogos['nome']}}</h3>
+                  <p class="text-blue-600 font-bold">{{$jogos['preco']}}</p>
               </div>
             </div>
-    
-            <!-- Game Card 2 -->
-            <div class="rounded-lg border bg-card text-card-foreground shadow-sm overflow-hidden border-0 shadow-md hover:shadow-lg transition-shadow group">
-              <div class="relative">
-                <img
-                  src="/placeholder.svg?height=180&width=180"
-                  alt="Hogwarts Legacy"
-                  class="w-full h-auto object-cover aspect-square group-hover:scale-105 transition-transform"
-                />
-                <div class="absolute top-2 right-2 bg-blue-600 text-white text-xs px-2 py-1 rounded-full">
-                  Xbox Series X
-                </div>
-              </div>
-              <div class="p-3">
-                <h3 class="font-medium text-gray-800 truncate">Hogwarts Legacy</h3>
-                <p class="text-blue-600 font-bold">R$ 249,90</p>
-              </div>
-            </div>
-    
-            <!-- Game Card 3 -->
-            <div class="rounded-lg border bg-card text-card-foreground shadow-sm overflow-hidden border-0 shadow-md hover:shadow-lg transition-shadow group">
-              <div class="relative">
-                <img
-                  src="/placeholder.svg?height=180&width=180"
-                  alt="Mario Kart 8"
-                  class="w-full h-auto object-cover aspect-square group-hover:scale-105 transition-transform"
-                />
-                <div class="absolute top-2 right-2 bg-blue-600 text-white text-xs px-2 py-1 rounded-full">
-                  Nintendo Switch
-                </div>
-              </div>
-              <div class="p-3">
-                <h3 class="font-medium text-gray-800 truncate">Mario Kart 8</h3>
-                <p class="text-blue-600 font-bold">R$ 299,90</p>
-              </div>
-            </div>
-    
-            <!-- Game Card 4 -->
-            <div class="rounded-lg border bg-card text-card-foreground shadow-sm overflow-hidden border-0 shadow-md hover:shadow-lg transition-shadow group">
-              <div class="relative">
-                <img
-                  src="/placeholder.svg?height=180&width=180"
-                  alt="Elden Ring"
-                  class="w-full h-auto object-cover aspect-square group-hover:scale-105 transition-transform"
-                />
-                <div class="absolute top-2 right-2 bg-blue-600 text-white text-xs px-2 py-1 rounded-full">
-                  PS5
-                </div>
-              </div>
-              <div class="p-3">
-                <h3 class="font-medium text-gray-800 truncate">Elden Ring</h3>
-                <p class="text-blue-600 font-bold">R$ 229,90</p>
-              </div>
-            </div>
-    
-            <!-- Game Card 5 -->
-            <div class="rounded-lg border bg-card text-card-foreground shadow-sm overflow-hidden border-0 shadow-md hover:shadow-lg transition-shadow group">
-              <div class="relative">
-                <img
-                  src="/placeholder.svg?height=180&width=180"
-                  alt="Forza Horizon 5"
-                  class="w-full h-auto object-cover aspect-square group-hover:scale-105 transition-transform"
-                />
-                <div class="absolute top-2 right-2 bg-blue-600 text-white text-xs px-2 py-1 rounded-full">
-                  Xbox Series X
-                </div>
-              </div>
-              <div class="p-3">
-                <h3 class="font-medium text-gray-800 truncate">Forza Horizon 5</h3>
-                <p class="text-blue-600 font-bold">R$ 199,90</p>
-              </div>
-            </div>
-    
-            <!-- Game Card 6 -->
-            <div class="rounded-lg border bg-card text-card-foreground shadow-sm overflow-hidden border-0 shadow-md hover:shadow-lg transition-shadow group">
-              <div class="relative">
-                <img
-                  src="/placeholder.svg?height=180&width=180"
-                  alt="The Last of Us Part II"
-                  class="w-full h-auto object-cover aspect-square group-hover:scale-105 transition-transform"
-                />
-                <div class="absolute top-2 right-2 bg-blue-600 text-white text-xs px-2 py-1 rounded-full">
-                  PS4
-                </div>
-              </div>
-              <div class="p-3">
-                <h3 class="font-medium text-gray-800 truncate">The Last of Us Part II</h3>
-                <p class="text-blue-600 font-bold">R$ 149,90</p>
-              </div>
-            </div>
+          
+            @endforeach
             
           </div>
       </div>
