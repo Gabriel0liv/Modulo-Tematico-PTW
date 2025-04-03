@@ -13,7 +13,7 @@
             </div>
           </div>
         </div>
-  
+
         <!-- Info Boxes -->
         <div class="lg:col-span-1 space-y-6">
           <div class="rounded-lg border bg-card text-card-foreground shadow-sm overflow-hidden border-0">
@@ -42,12 +42,12 @@
                   <span>Suporte prioritário</span>
                 </li>
               </ul>
-              <a href="/paginas/pagamento/pagamento1" class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium bg-blue-600 hover:bg-blue-700 text-white w-full px-4 py-2">
+              <a href="/membership-payment-gateway" class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium bg-blue-600 hover:bg-blue-700 text-white w-full px-4 py-2">
                 Assinar Agora
               </a>
             </div>
           </div>
-  
+
           <div class="rounded-lg border bg-card text-card-foreground shadow-sm overflow-hidden border-0">
             <div class="bg-gradient-to-r from-amber-400 to-amber-300 p-4">
               <h3 class="text-xl font-bold text-gray-800">Outra Informação</h3>
@@ -64,13 +64,13 @@
           </div>
         </div>
       </div>
-  
+
       <!-- Featured Consoles -->
       <div class="mt-12">
         <h2 class="text-2xl font-bold mb-6 text-gray-800">Consoles em Destaque</h2>
         <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
           @foreach ($consoles as $consoles)
-          
+
             <div class="rounded-lg border bg-card text-card-foreground shadow-sm overflow-hidden border-0 shadow-md hover:shadow-lg transition-shadow group">
               <div class="relative">
                   <img
@@ -87,16 +87,16 @@
                   <p class="text-blue-600 font-bold">{{$consoles['preco']}}</p>
               </div>
             </div>
-          
+
           @endforeach
         </div>
         <div class="mt-12">
           <h2 class="text-2xl font-bold mb-6 text-gray-800">Jogos em Destaque</h2>
-    
+
           <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
             @foreach ($jogos as $jogos)
-          
-            <div class="rounded-lg border bg-card text-card-foreground shadow-sm overflow-hidden border-0 shadow-md hover:shadow-lg transition-shadow group">
+
+            <div href="/" class="rounded-lg border bg-card text-card-foreground shadow-sm overflow-hidden border-0 shadow-md hover:shadow-lg transition-shadow group">
               <div class="relative">
                   <img
                       src="/placeholder.svg?height=180&width=180"
@@ -112,9 +112,9 @@
                   <p class="text-blue-600 font-bold">{{$jogos['preco']}}</p>
               </div>
             </div>
-          
+
             @endforeach
-            
+
           </div>
       </div>
 </x-layout>

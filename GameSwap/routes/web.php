@@ -24,22 +24,46 @@ Route::get('/',function(){
     return view('compras', ['consoles' => $consoles], ['jogos' => $jogos]);
 });
 
-Route::get("/paginas/pagamento/pagamento1",function(){
-    return view('paginas.pagamento.pagamento1');
+Route::get("/membership-payment-gateway",function(){
+    return view('paginas.pagamento.payment-gateway');
 });
 
-Route::get("/paginas/pagamento/pagamento2",function(){
-    return view('paginas.pagamento.pagamento2');
+Route::get("/membership-payment-gateway/step2",function(){
+    return view('paginas.pagamento.payment-gateway-step2');
 });
 
-Route::get("/paginas/pagamento/pagamento3",function(){
-    return view('paginas.pagamento.pagamento3');
+Route::get("/membership-payment-gateway/step3",function(){
+    return view('paginas.pagamento.payment-gateway-step3');
 });
 
-Route::get("/paginas/chat",function(){
+Route::get("/chat",function(){
     return view('paginas.chat');
 });
 
-Route::get("/paginas/anunciar",function(){
+Route::get("/anunciar",function(){
     return view('paginas.anunciar');
+});
+
+Route::get("/perfil",function(){
+    return view('paginas.perfil.perfil');
+});
+
+Route::get("/perfil/cartões",function(){
+    return view('paginas.perfil.perfilcartoes');
+});
+
+Route::get("/perfil/favoritos",function(){
+    return view('paginas.perfil.perfilfavoritos');
+});
+
+Route::get("/perfil/minhas compras",function(){
+    return view('paginas.perfil.perfilminhascompras');
+});
+
+Route::get("/perfil/minhas vendas",function(){
+    return view('paginas.perfil.perfilminhasvendas');
+});
+
+Route::get("/perfil/moradas",function(){
+    return view('paginas.perfil.perfilmoradas');
 });

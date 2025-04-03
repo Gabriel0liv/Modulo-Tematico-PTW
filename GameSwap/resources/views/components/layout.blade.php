@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     @vite('resources/css/app.css')
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
 </head>
@@ -20,13 +22,13 @@
                             <path d="M6 12H10" stroke="white" stroke-width="2.5" stroke-linecap="round" />
                             <path d="M8 10V14" stroke="white" stroke-width="2.5" stroke-linecap="round" />
                         </svg>
-                        
+
                     </div>
                 </div>
                 <a href="/" class="text-white font-bold text-xl tracking-tight">GAMESWAP</a>
             </div>
         </div>
-        
+
         <!-- Search Bar -->
         <div class="relative max-w-xl w-full mx-4">
             <input
@@ -41,21 +43,21 @@
 
         <!-- Navigation Icons and Anunciar Produto Button -->
         <div class="flex items-center space-x-6">
-            <button class="relative group" aria-label="Perfil">
+            <a href="/perfil" class="relative group" aria-label="Perfil">
                 <i class="bi bi-person-circle text-white text-xl"></i>
-            </button>
-            <button class="relative group" aria-label="Notificações">
+            </a>
+            <a class="relative group" aria-label="Notificações">
                 <i class="bi bi-bell text-white text-xl"></i>
                 <span class="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-4 w-4 flex items-center justify-center">3</span>
-            </button>
+            </a>
             <a href="/paginas/chat" class="relative group" aria-label="Mensagens">
                 <i class="bi bi-chat-dots text-white text-xl"></i>
                 <span class="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-4 w-4 flex items-center justify-center">2</span>
             </a>
-            <button class="relative group" aria-label="Carrinho">
+            <a class="relative group" aria-label="Carrinho">
                 <i class="bi bi-cart text-white text-xl"></i>
                 <span class="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-4 w-4 flex items-center justify-center">1</span>
-            </button>
+            </a>
             <a href="/paginas/anunciar" class="inline-flex items-center justify-center whitespace-nowrap rounded-full text-sm font-medium bg-amber-400 hover:bg-amber-500 text-gray-800 px-5 py-2 transition-colors shadow-sm">
                 Anunciar Produto
             </a>
@@ -92,7 +94,7 @@
             </a>
           </div>
         </div>
-        
+
         <!-- Coluna 2: Links Rápidos -->
         <div class="mb-6 md:mb-0">
           <h3 class="text-lg font-semibold mb-4">Links Rápidos</h3>
@@ -105,7 +107,7 @@
             <li><a href="#" class="text-blue-100 hover:text-white">Assinar Premium</a></li>
           </ul>
         </div>
-        
+
         <!-- Coluna 3: Categorias -->
         <div class="mb-6 md:mb-0">
           <h3 class="text-lg font-semibold mb-4">Categorias</h3>
@@ -118,7 +120,7 @@
             <li><a href="#" class="text-blue-100 hover:text-white">Jogos Retro</a></li>
           </ul>
         </div>
-        
+
         <!-- Coluna 4: Contato e Newsletter -->
         <div>
           <h3 class="text-lg font-semibold mb-4">Fique por dentro</h3>
@@ -132,7 +134,7 @@
         </div>
       </div>
     </div>
-    
+
     <!-- Barra inferior com copyright -->
     <div class="bg-blue-700 py-4">
       <div class="container mx-auto px-4 flex flex-col md:flex-row justify-between items-center">
@@ -150,6 +152,6 @@
     </div>
   </footer>
 
-  
+
 </body>
 </html>
