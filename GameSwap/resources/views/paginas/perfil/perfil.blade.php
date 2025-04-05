@@ -7,14 +7,14 @@
     <!-- Main Content -->
     <main class="flex-1 overflow-auto">
       <div class="container mx-auto py-8 px-6 max-w-4xl">
-        <div class="flex justify-between items-center mb-8">
+        <div class="flex justify-between items-center mb-8 " >
           <h1 class="text-2xl font-bold text-gray-800">Gerir Perfil</h1>
         </div>
 
         <!-- Personal Information -->
-        <div class="rounded-lg border bg-card text-card-foreground shadow-card mb-6">
+        <div class="rounded-lg border bg-card text-card-foreground shadow-card mb-6 ">
           <div class="flex flex-row items-center justify-between p-6 pb-2">
-            <h3 class="text-lg font-semibold leading-none tracking-tight">Informações Pessoais</h3>
+            <h3 class="text-lg font-semibold leading-none tracking-tight ">Informações Pessoais</h3>
             <button class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium text-primary bg-transparent hover:bg-gray-100 h-9 rounded-md px-3">
               <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />

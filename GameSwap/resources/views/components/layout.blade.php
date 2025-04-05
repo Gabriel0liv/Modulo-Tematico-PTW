@@ -10,7 +10,7 @@
     @vite('resources/css/app.css')
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
 </head>
-<body>
+<body class="flex flex-col min-h-screen">
   <header class="bg-gradient-to-r from-blue-600 to-blue-500 py-3 px-4 shadow-md">
     <div class="container mx-auto flex items-center justify-between">
         <!-- Logo -->
@@ -48,15 +48,15 @@
             </a>
             <a class="relative group" aria-label="Notificações">
                 <i class="bi bi-bell text-white text-xl"></i>
-                <span class="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-4 w-4 flex items-center justify-center">3</span>
+                
             </a>
             <a href="/paginas/chat" class="relative group" aria-label="Mensagens">
                 <i class="bi bi-chat-dots text-white text-xl"></i>
-                <span class="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-4 w-4 flex items-center justify-center">2</span>
+                
             </a>
             <a class="relative group" aria-label="Carrinho">
                 <i class="bi bi-cart text-white text-xl"></i>
-                <span class="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-4 w-4 flex items-center justify-center">1</span>
+                
             </a>
             <a href="/paginas/anunciar" class="inline-flex items-center justify-center whitespace-nowrap rounded-full text-sm font-medium bg-amber-400 hover:bg-amber-500 text-gray-800 px-5 py-2 transition-colors shadow-sm">
                 Anunciar Produto
@@ -65,7 +65,7 @@
     </div>
 </header>
 
-   <main class="container mx-auto py-8 px-4">
+   <main class="container mx-auto py-8 px-4 flex-1">
     {{ $slot }}
    </main>
 

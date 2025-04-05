@@ -35,11 +35,11 @@ Route::get("/membership-payment-gateway/step3",function(){
     return view('paginas.pagamento.payment-gateway-step3');
 });
 
-Route::get("/chat",function(){
+Route::get("/paginas/chat",function(){
     return view('paginas.chat');
 });
 
-Route::get("/anunciar",function(){
+Route::get("/paginas/anunciar",function(){
     return view('paginas.anunciar');
 });
 
@@ -55,11 +55,11 @@ Route::get("/perfil/favoritos",function(){
     return view('paginas.perfil.perfilfavoritos');
 });
 
-Route::get("/perfil/minhas compras",function(){
+Route::get("/perfil/minhas_compras",function(){
     return view('paginas.perfil.perfilminhascompras');
 });
 
-Route::get("/perfil/minhas vendas",function(){
+Route::get("/perfil/minhas_vendas",function(){
     return view('paginas.perfil.perfilminhasvendas');
 });
 
