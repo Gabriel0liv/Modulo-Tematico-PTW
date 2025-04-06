@@ -70,8 +70,8 @@
         <h2 class="text-2xl font-bold mb-6 text-gray-800">Consoles em Destaque</h2>
         <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
           @foreach ($produtos as $item)
-            @if (isset($item['categoria']) && $item['categoria'] == 'console')
-              <div class="rounded-lg border bg-card text-card-foreground shadow-sm overflow-hidden border-0 shadow-md hover:shadow-lg transition-shadow group">
+            @if (isset($item['tipo_produto']) && $item['tipo_produto'] == 'console')
+              <a href="/produto/{{$item['id']}}" class="rounded-lg border bg-card text-card-foreground shadow-sm overflow-hidden border-0 shadow-md hover:shadow-lg transition-shadow group">
                 <div class="relative">
                     <img
                         src="/placeholder.svg?height=180&width=180"
@@ -79,16 +79,16 @@
                         class="w-full h-auto object-cover aspect-square group-hover:scale-105 transition-transform"
                     />
                 <div class="absolute top-2 right-2 bg-blue-600 text-white text-xs px-2 py-1 rounded-full">
-                    {{$item['empresa']}}
+                    {{$item['publicador']}}
                 </div>
                 </div>
                 <div class="p-3">
                     <h3 class="font-medium text-gray-800 truncate">{{$item['nome']}}</h3>
                     <p class="text-blue-600 font-bold">{{$item['preco']}}</p>
                 </div>
-              </div>
+              </a>
             @endif
-            
+
 
           @endforeach
         </div>
@@ -97,8 +97,8 @@
 
           <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
             @foreach ($produtos as $item)
-            @if (isset($item['categoria']) && $item['categoria'] == 'jogo')
-              <div class="rounded-lg border bg-card text-card-foreground shadow-sm overflow-hidden border-0 shadow-md hover:shadow-lg transition-shadow group">
+            @if (isset($item['tipo_produto']) && $item['tipo_produto'] == 'jogo')
+              <a href="/produto/{{$item['id']}}" class="rounded-lg border bg-card text-card-foreground shadow-sm overflow-hidden border-0 shadow-md hover:shadow-lg transition-shadow group">
                 <div class="relative">
                     <img
                         src="/placeholder.svg?height=180&width=180"
@@ -106,16 +106,16 @@
                         class="w-full h-auto object-cover aspect-square group-hover:scale-105 transition-transform"
                     />
                 <div class="absolute top-2 right-2 bg-blue-600 text-white text-xs px-2 py-1 rounded-full">
-                    {{$item['empresa']}}
+                    {{$item['publicador']}}
                 </div>
                 </div>
                 <div class="p-3">
                     <h3 class="font-medium text-gray-800 truncate">{{$item['nome']}}</h3>
                     <p class="text-blue-600 font-bold">{{$item['preco']}}</p>
                 </div>
-              </div>
+              </a>
             @endif
-            
+
 
           @endforeach
 
