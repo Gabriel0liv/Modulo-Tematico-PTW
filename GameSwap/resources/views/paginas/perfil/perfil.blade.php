@@ -1,6 +1,8 @@
 <x-layout>
+  
   <div class="flex flex-1 overflow-hidden">
     <!-- Sidebar -->
+    
     <x-perfilSideBar>
     </x-perfilSideBar>
 

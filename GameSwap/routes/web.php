@@ -20,8 +20,9 @@ Route::get('/',function(){
     ];
     
 
-    return view('compras', ['produtos' => $produtos]);
+    return view('compras', ['produtos' => $produtos],  );
 });
+
 
 Route::get("/membership-payment-gateway",function(){
     return view('paginas.pagamento.payment-gateway');
@@ -44,7 +45,20 @@ Route::get("/paginas/anunciar",function(){
 });
 
 Route::get("/perfil",function(){
-    return view('paginas.perfil.perfil');
+    $utilizadores = [
+        [
+            "nome" => "Bananilson Farofa",
+            "id" => "1",
+            "username" => "Farofilson",
+            "data_de_nascimento" => "24/12/2004",
+            "Telemóvel" => "+351 911-058-351",
+            "tipo" => "utilizador_comum",
+            "NIF" => "000000000",
+            "email" => "bunda@gmail.com"
+        ]
+    ];
+    
+    return view('paginas.perfil.perfil', ['utilizadores' => $utilizadores]);
 });
 
 Route::get("/perfil/cartões",function(){
