@@ -39,7 +39,6 @@
                                 </div>
                                 <div class="text-right mt-2 sm:mt-0">
                                     <div class="font-bold text-lg text-gray-800">€29,99</div>
-                                    <div class="text-xs text-gray-500 line-through">€39,99</div>
                                 </div>
                             </div>
                             <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mt-2 pt-3 border-t border-gray-100">
@@ -150,7 +149,6 @@
                                 </div>
                                 <div class="text-right mt-2 sm:mt-0">
                                     <div class="font-bold text-lg text-gray-800">€19,99</div>
-                                    <div class="text-xs text-gray-500 line-through">€24,99</div>
                                 </div>
                             </div>
                             <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mt-2 pt-3 border-t border-gray-100">
@@ -248,10 +246,6 @@
                             <span class="font-medium">€99,97</span>
                         </div>
                         <div class="flex justify-between text-sm">
-                            <span class="text-gray-600">Desconto</span>
-                            <span class="font-medium text-green-600">-€15,00</span>
-                        </div>
-                        <div class="flex justify-between text-sm">
                             <span class="text-gray-600">Frete</span>
                             <span class="font-medium">€4,99</span>
                         </div>
@@ -267,11 +261,11 @@
                     <!-- Total -->
                     <div class="flex justify-between mb-6">
                         <span class="font-bold text-lg text-gray-800">Total</span>
-                        <span class="font-bold text-lg text-gray-800">€99,96</span>
+                        <span class="font-bold text-lg text-gray-800">€114,96</span>
                     </div>
 
                     <!-- Checkout Button -->
-                    <button class="w-full bg-secondary hover:bg-secondary-light text-gray-900 font-bold py-3.5 rounded-lg shadow-soft transition-all mb-4">
+                    <button class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3.5 rounded-lg shadow-soft transition-all mb-4">
                         Finalizar Compra
                     </button>
 
@@ -314,47 +308,4 @@
             </div>
         </div>
     </main>
-
-    <!-- Footer -->
-    <footer class="bg-gray-900 text-gray-400 py-8 mt-12">
-        <div class="container mx-auto px-4">
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
-                <div>
-                    <h3 class="text-white font-semibold mb-4">GameStore</h3>
-                    <p class="text-sm">A melhor loja de jogos online com os melhores preços e promoções exclusivas.</p>
-                </div>
-                <div>
-                    <h3 class="text-white font-semibold mb-4">Links Rápidos</h3>
-                    <ul class="space-y-2 text-sm">
-                        <li><a href="#" class="hover:text-white transition-all">Início</a></li>
-                        <li><a href="#" class="hover:text-white transition-all">Jogos</a></li>
-                        <li><a href="#" class="hover:text-white transition-all">Plataformas</a></li>
-                        <li><a href="#" class="hover:text-white transition-all">Promoções</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h3 class="text-white font-semibold mb-4">Suporte</h3>
-                    <ul class="space-y-2 text-sm">
-                        <li><a href="#" class="hover:text-white transition-all">FAQ</a></li>
-                        <li><a href="#" class="hover:text-white transition-all">Contato</a></li>
-                        <li><a href="#" class="hover:text-white transition-all">Política de Privacidade</a></li>
-                        <li><a href="#" class="hover:text-white transition-all">Termos de Uso</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h3 class="text-white font-semibold mb-4">Newsletter</h3>
-                    <p class="text-sm mb-2">Receba novidades e promoções exclusivas.</p>
-                    <div class="flex">
-                        <input type="email" placeholder="Seu e-mail" class="flex-1 py-2 px-3 rounded-l-lg text-gray-800 text-sm">
-                        <button class="bg-primary hover:bg-primary-dark text-white font-medium px-4 py-2 rounded-r-lg text-sm transition-all">
-                            Enviar
-                        </button>
-                    </div>
-                </div>
-            </div>
-            <div class="border-t border-gray-800 mt-8 pt-8 text-sm text-center">
-                &copy; 2025 GameStore. Todos os direitos reservados.
-            </div>
-        </div>
-    </footer>
 </x-layout>
