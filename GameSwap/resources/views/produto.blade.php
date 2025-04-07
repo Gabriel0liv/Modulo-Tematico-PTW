@@ -135,10 +135,10 @@
         </div>
 
         <div class="flex flex-col sm:flex-row gap-4">
-          <a href="#" class="bg-[#ffa94d] hover:bg-[#ff922b] text-[#212529] font-medium rounded-lg py-6 text-base transition-all flex-1 text-center">
+          <a href="#" class="bg-amber-400 hover:bg-amber-500 text-gray-800 font-medium rounded-lg py-6 text-base transition-all flex-1 text-center">
             Adicionar ao carrinho
           </a>
-          <a href="#" class="border border-[#0a66c2] text-[#0a66c2] hover:bg-[#0a66c2] hover:text-white font-medium rounded-lg py-6 text-base transition-all text-center">
+          <a href="#" class="bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg py-6 text-base transition-all text-center">
             Fazer oferta
           </a>
         </div>
