@@ -48,13 +48,19 @@
               <button id='user-profile-btn' class="relative group" aria-label="Perfil">
                   <i class="bi bi-person-circle text-white text-xl"></i>
               </button>
+              <!-- User Profile Button (Mobile) -->
+              <button id="user-profile-btn-mobile" class="md:hidden p-2 rounded-md text-white hover:bg-primary-500 transition-colors">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                  </svg>
+              </button>
               <!-- User Profile Info (Hidden until logged in) -->
-              <div id="user-profile-info" class="hidden items-center space-x-2">
+              <a href="/perfil" id="user-profile-info" class="hidden items-center space-x-2">
                   <div class="w-8 h-8 rounded-full bg-primary-300 flex items-center justify-center text-primary-800 font-bold">
                       <span id="user-initials">U</span>
                   </div>
                   <span id="username-display" class="text-white text-sm hidden md:inline-block">Usuário</span>
-              </div>
+              </a>
               <a class="relative group" aria-label="Notificações">
                   <i class="bi bi-bell text-white text-xl"></i>
 
@@ -101,13 +107,13 @@
                               <input type="password" id="password" class="w-full border border-neutral-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent">
                           </div>
                           <div class="text-right">
-                              <a href="#" class="text-sm text-primary-600 hover:text-primary-700">Esqueceu a senha?</a>
+                              <a href="#" class="text-sm text-blue-600 hover:text-blue-700">Esqueceu a senha?</a>
                           </div>
                           <button type="submit" class="btn-hover w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-4 rounded-lg shadow-sm transition-colors">
                               Iniciar Sessão
                           </button>
                           <div class="text-center text-sm text-neutral-600">
-                              Não tem conta? <a href="#" class="text-primary-600 hover:text-primary-700 font-medium">Registrar</a>
+                              Não tem conta? <a href="#" class="text-blue-600 hover:text-blue-700 font-medium">Registrar</a>
                           </div>
                       </div>
                   </form>
@@ -202,7 +208,6 @@
       </div>
     </div>
   </footer>
-
 
 </body>
 </html>

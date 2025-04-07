@@ -4,6 +4,7 @@ import './bootstrap';
 const loginModal = document.getElementById('login-modal');
 const loginForm = document.getElementById('login-form');
 const userProfileBtn = document.getElementById('user-profile-btn');
+const userProfileBtnMobile = document.getElementById('user-profile-btn-mobile');
 const userProfileInfo = document.getElementById('user-profile-info');
 const usernameDisplay = document.getElementById('username-display');
 const userInitials = document.getElementById('user-initials');
@@ -34,6 +35,7 @@ loginModal.addEventListener('click', function(e) {
 
 // Show login modal when user profile button is clicked
 userProfileBtn.addEventListener('click', toggleLoginModal);
+userProfileBtnMobile.addEventListener('click', toggleLoginModal);
 
 // Handle login form submission
 loginForm.addEventListener('submit', function(e) {
@@ -48,8 +50,8 @@ loginForm.addEventListener('submit', function(e) {
         return;
     }
 
-    //login process
-    login(username, password);
+    // Simulate login process
+    simulateLogin(username, password);
 });
 
 // Show error message
@@ -65,7 +67,7 @@ function showError(message) {
 }
 
 // Simulate login process (for demonstration)
-function login(username, password) {
+function simulateLogin(username, password) {
     // For demo purposes, let's consider "demo" / "password" as valid credentials
     if (username === 'demo' && password === 'password') {
         // Successful login
