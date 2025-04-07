@@ -286,20 +286,9 @@ Route::get("/paginas/anunciar",function(){
 });
 
 Route::get("/perfil",function(){
-    $utilizadores = [
-        [
-            "nome" => "Bananilson Farofa",
-            "id" => "1",
-            "username" => "Farofilson",
-            "data_de_nascimento" => "24/12/2004",
-            "Telemóvel" => "+351 911-058-351",
-            "tipo" => "utilizador_comum",
-            "NIF" => "000000000",
-            "email" => "bunda@gmail.com"
-        ]
-    ];
+   
 
-    return view('paginas.perfil.perfil', ['utilizadores' => $utilizadores]);
+    return view('paginas.perfil.perfil');
 });
 
 Route::get("/perfil/cartões",function(){
@@ -321,6 +310,28 @@ Route::get("/perfil/minhas_vendas",function(){
 Route::get("/perfil/moradas",function(){
     return view('paginas.perfil.perfilmoradas');
 });
+
+Route::get("/perfilAdmin/perfilA",function(){
+    return view('paginas.perfilAdmin.perfilA');
+});
+
+Route::get("/perfilAdmin/estatisticas",function(){
+    return view('paginas.perfilAdmin.estatisticas');
+});
+
+Route::get("/perfilAdmin/Edicao",function(){
+    return view('paginas.perfilAdmin.Edicao');
+});
+
+Route::get("/perfilAdmin/denuncias",function(){
+    return view('paginas.perfilAdmin.denuncias');
+});
+
+Route::get("/perfilAdmin/aprovar",function(){
+    return view('paginas.perfilAdmin.aprovar');
+});
+
+
 
 Route::get("/carrinho",function(){
     return view('paginas.carrinho');
