@@ -38,8 +38,8 @@
                   class="w-full py-2 pl-10 pr-4 rounded-full border border-gray-300 bg-white shadow-sm focus:ring-2 focus:ring-blue-400 transition-all"
                   placeholder="Buscar jogos, consoles, acessórios..."
               />
-              <div class="absolute left-3 top-1/2 transform -translate-y-1/2">
-                  <i class="bi bi-search text-gray-400"></i>
+              <div class="absolute inset-y-0 left-3 flex items-center">
+                <i class="bi bi-search text-gray-400 text-lg"></i>
               </div>
           </div>
 

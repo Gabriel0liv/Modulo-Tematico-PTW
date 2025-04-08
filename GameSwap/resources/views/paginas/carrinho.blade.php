@@ -28,14 +28,6 @@
                                 <div>
                                     <h3 class="font-semibold text-gray-800 text-lg">Jogo 1</h3>
                                     <p class="text-sm text-gray-500 mb-1">Plataforma 1</p>
-                                    <div class="flex items-center mb-3">
-                                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-primary-50 text-primary-dark">
-                                            Digital
-                                        </span>
-                                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-50 text-green-700 ml-2">
-                                            Em estoque
-                                        </span>
-                                    </div>
                                 </div>
                                 <div class="text-right mt-2 sm:mt-0">
                                     <div class="font-bold text-lg text-gray-800">€29,99</div>
@@ -83,14 +75,6 @@
                                 <div>
                                     <h3 class="font-semibold text-gray-800 text-lg">Jogo 2</h3>
                                     <p class="text-sm text-gray-500 mb-1">Plataforma 1</p>
-                                    <div class="flex items-center mb-3">
-                                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-secondary-50 text-secondary-700">
-                                            Físico
-                                        </span>
-                                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-50 text-blue-700 ml-2">
-                                            Envio em 24h
-                                        </span>
-                                    </div>
                                 </div>
                                 <div class="text-right mt-2 sm:mt-0">
                                     <div class="font-bold text-lg text-gray-800">€49,99</div>
@@ -138,14 +122,6 @@
                                 <div>
                                     <h3 class="font-semibold text-gray-800 text-lg">Jogo 3</h3>
                                     <p class="text-sm text-gray-500 mb-1">Plataforma 1</p>
-                                    <div class="flex items-center mb-3">
-                                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-primary-50 text-primary-dark">
-                                            Digital
-                                        </span>
-                                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-50 text-red-700 ml-2">
-                                            Promoção
-                                        </span>
-                                    </div>
                                 </div>
                                 <div class="text-right mt-2 sm:mt-0">
                                     <div class="font-bold text-lg text-gray-800">€19,99</div>
