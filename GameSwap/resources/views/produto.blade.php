@@ -361,145 +361,28 @@
       </div>
 
       <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-        <div class="bg-white rounded-xl shadow-sm overflow-hidden hover:shadow-md transition-shadow">
-          <div class="relative aspect-square">
-            <img src="https://via.placeholder.com/300" alt="God of War 2" class="w-full h-full object-cover">
-            <div class="absolute top-3 left-3">
-              <span class="bg-[#ff922b] text-[#212529] font-medium px-2 py-1 text-xs rounded-full">
-                Usado
-              </span>
-            </div>
-          </div>
-          <div class="p-4">
-            <h3 class="font-medium text-gray-900 mb-1">God of War 2</h3>
-            <p class="text-sm text-gray-500 mb-2">PlayStation 2</p>
-            <div class="flex items-center justify-between">
-              <span class="font-bold text-gray-900">€24,99</span>
-              <div class="flex">
-                <svg class="h-3 w-3 fill-[#fcc419] text-[#fcc419]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                  <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
-                </svg>
-                <svg class="h-3 w-3 fill-[#fcc419] text-[#fcc419]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                  <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
-                </svg>
-                <svg class="h-3 w-3 fill-[#fcc419] text-[#fcc419]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                  <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
-                </svg>
-                <svg class="h-3 w-3 fill-[#fcc419] text-[#fcc419]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                  <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
-                </svg>
-                <svg class="h-3 w-3 fill-[#fcc419] text-[#fcc419]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                  <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
-                </svg>
+        @foreach($produtosRelacionados as $produto)
+          <div class="bg-white rounded-xl shadow-sm overflow-hidden hover:shadow-md transition-shadow">
+              <div class="relative aspect-square">
+                  <img src="https://via.placeholder.com/300" alt="{{ $produto['nome'] }}" class="w-full h-full object-cover">
+                  <div class="absolute top-3 left-3">
+                      <span class="bg-[#ff922b] text-[#212529] font-medium px-2 py-1 text-xs rounded-full">
+                          {{ ucfirst($produto['estado']) }}
+                      </span>
+                  </div>
               </div>
-            </div>
+              <div class="p-4">
+                  <h3 class="font-medium text-gray-900 mb-1">{{ $produto['nome'] }}</h3>
+                  <p class="text-sm text-gray-500 mb-2">{{ $produto['console'] }}</p>
+                  <div class="flex items-center justify-between">
+                      <span class="font-bold text-gray-900">€{{ number_format($produto['preco'], 2, ',', '.') }}</span>
+                      {{-- estrelas aqui, se quiser manter --}}
+                  </div>
+              </div>
           </div>
-        </div>
+        @endforeach
 
-        <div class="bg-white rounded-xl shadow-sm overflow-hidden hover:shadow-md transition-shadow">
-          <div class="relative aspect-square">
-            <img src="https://via.placeholder.com/300" alt="God of War: Chains of Olympus" class="w-full h-full object-cover">
-            <div class="absolute top-3 left-3">
-              <span class="bg-[#ff922b] text-[#212529] font-medium px-2 py-1 text-xs rounded-full">
-                Usado
-              </span>
-            </div>
-          </div>
-          <div class="p-4">
-            <h3 class="font-medium text-gray-900 mb-1">God of War: Chains of Olympus</h3>
-            <p class="text-sm text-gray-500 mb-2">PSP</p>
-            <div class="flex items-center justify-between">
-              <span class="font-bold text-gray-900">€19,99</span>
-              <div class="flex">
-                <svg class="h-3 w-3 fill-[#fcc419] text-[#fcc419]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                  <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
-                </svg>
-                <svg class="h-3 w-3 fill-[#fcc419] text-[#fcc419]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                  <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
-                </svg>
-                <svg class="h-3 w-3 fill-[#fcc419] text-[#fcc419]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                  <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
-                </svg>
-                <svg class="h-3 w-3 fill-[#fcc419] text-[#fcc419]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                  <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
-                </svg>
-                <svg class="h-3 w-3 fill-[#fcc419] text-[#fcc419]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                  <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
-                </svg>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="bg-white rounded-xl shadow-sm overflow-hidden hover:shadow-md transition-shadow">
-          <div class="relative aspect-square">
-            <img src="https://via.placeholder.com/300" alt="God of War 3" class="w-full h-full object-cover">
-            <div class="absolute top-3 left-3">
-              <span class="bg-[#ff922b] text-[#212529] font-medium px-2 py-1 text-xs rounded-full">
-                Usado
-              </span>
-            </div>
-          </div>
-          <div class="p-4">
-            <h3 class="font-medium text-gray-900 mb-1">God of War 3</h3>
-            <p class="text-sm text-gray-500 mb-2">PlayStation 3</p>
-            <div class="flex items-center justify-between">
-              <span class="font-bold text-gray-900">€29,99</span>
-              <div class="flex">
-                <svg class="h-3 w-3 fill-[#fcc419] text-[#fcc419]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                  <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
-                </svg>
-                <svg class="h-3 w-3 fill-[#fcc419] text-[#fcc419]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                  <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
-                </svg>
-                <svg class="h-3 w-3 fill-[#fcc419] text-[#fcc419]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                  <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
-                </svg>
-                <svg class="h-3 w-3 fill-[#fcc419] text-[#fcc419]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                  <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
-                </svg>
-                <svg class="h-3 w-3 fill-[#fcc419] text-[#fcc419]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                  <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
-                </svg>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="bg-white rounded-xl shadow-sm overflow-hidden hover:shadow-md transition-shadow">
-          <div class="relative aspect-square">
-            <img src="https://via.placeholder.com/300" alt="God of War Collection" class="w-full h-full object-cover">
-            <div class="absolute top-3 left-3">
-              <span class="bg-[#ff922b] text-[#212529] font-medium px-2 py-1 text-xs rounded-full">
-                Usado
-              </span>
-            </div>
-          </div>
-          <div class="p-4">
-            <h3 class="font-medium text-gray-900 mb-1">God of War Collection</h3>
-            <p class="text-sm text-gray-500 mb-2">PlayStation 3</p>
-            <div class="flex items-center justify-between">
-              <span class="font-bold text-gray-900">€34,99</span>
-              <div class="flex">
-                <svg class="h-3 w-3 fill-[#fcc419] text-[#fcc419]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                  <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
-                </svg>
-                <svg class="h-3 w-3 fill-[#fcc419] text-[#fcc419]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                  <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
-                </svg>
-                <svg class="h-3 w-3 fill-[#fcc419] text-[#fcc419]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                  <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
-                </svg>
-                <svg class="h-3 w-3 fill-[#fcc419] text-[#fcc419]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                  <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
-                </svg>
-                <svg class="h-3 w-3 fill-[#fcc419] text-[#fcc419]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                  <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
-                </svg>
-              </div>
-            </div>
-          </div>
-        </div>
+        
       </div>
     </div>
   </main>

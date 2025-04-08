@@ -597,9 +597,13 @@ Route::get('/produto/{id}', function ($id) {
         ]
     ];
 
-
+    
     // Encontra o produto pelo ID
     $produto = collect($produtos)->firstWhere('id', $id);
+
+    $produtosRelacionados = collect($produtos)->filter(function ($p) use ($produto) {
+        return $p['publicador'] === $produto['publicador'] && $p['id'] !== $produto['id'];
+    });
 
     // Verifica se o produto existe
     if (!$produto) {
@@ -607,6 +611,6 @@ Route::get('/produto/{id}', function ($id) {
     }
 
     // Retorna a página com os dados do produto
-    return view('produto', ['produto' => $produto]);
+    return view('produto', ['produto' => $produto], ['produtosRelacionados' => $produtosRelacionados]);
 });
 
