@@ -3,8 +3,8 @@
     <div class="flex flex-1 overflow-hidden">
       <!-- Sidebar -->
       
-      <x-perfilSideBar>
-      </x-perfilSideBar>
+      <x-perfilAdminSideBar>
+      </x-perfilAdminSideBar>
   
       <!-- Main Content -->
       <main class="flex-1 overflow-auto">

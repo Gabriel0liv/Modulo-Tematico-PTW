@@ -55,6 +55,7 @@
                   </svg>
               </button>
               <!-- User Profile Info (Hidden until logged in) -->
+              
               <a href="/perfil" id="user-profile-info" class="hidden items-center space-x-2">
                   <div class="w-8 h-8 rounded-full bg-primary-300 flex items-center justify-center text-primary-800 font-bold">
                       <span id="user-initials">U</span>
