@@ -10,28 +10,23 @@
         'Segoe UI Symbol', 'Noto Color Emoji';
 }
 
-.login-modal {
+.modal {
     backdrop-filter: blur(8px);
     background-color: rgba(0, 0, 0, 0.4);
     opacity: 0;
     visibility: hidden;
     transition: opacity 0.3s ease, visibility 0.3s ease;
 }
-.login-modal.active {
+.modal.active {
     opacity: 1;
     visibility: visible;
 }
-.login-modal-content {
+.modal-content {
     transform: translateY(-20px);
     transition: transform 0.3s ease;
 }
-.login-modal.active .login-modal-content {
+.modal.active .modal-content {
     transform: translateY(0);
-}
-
-.btn-hover:hover {
-    transform: translateY(-1px);
-    transition: all 0.2s ease;
 }
 .shake {
     animation: shake 0.5s cubic-bezier(.36,.07,.19,.97) both;
@@ -50,4 +45,152 @@
 .error-message.active {
     max-height: 60px;
     margin-bottom: 1rem;
+}
+.success-message {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease, margin 0.3s ease;
+}
+.success-message.active {
+    max-height: 60px;
+    margin-bottom: 1rem;
+}
+
+/* Custom range slider styling */
+.price-slider {
+    -webkit-appearance: none;
+    width: 100%;
+    height: 6px;
+    border-radius: 5px;
+    background: #E5E7EB;
+    outline: none;
+}
+
+.price-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: #2563EB;
+    cursor: pointer;
+    border: 2px solid white;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.price-slider::-moz-range-thumb {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: #2563EB;
+    cursor: pointer;
+    border: 2px solid white;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+/* Custom select styling */
+.custom-select {
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%234B5563'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.5rem center;
+    background-size: 1.5em 1.5em;
+}
+
+/* Hover effect for game cards */
+.game-card {
+    transition: all 0.3s ease;
+}
+
+.game-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+.game-card .quick-actions {
+    opacity: 0;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    transform: translateY(10px);
+}
+
+.game-card:hover .quick-actions {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Mobile menu toggle */
+#mobile-filter-toggle:checked ~ .mobile-filter-menu {
+    display: block;
+}
+
+/* Custom checkbox styling */
+.custom-checkbox {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.custom-checkbox input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+.checkmark {
+    height: 18px;
+    width: 18px;
+    background-color: #fff;
+    border: 2px solid #D1D5DB;
+    border-radius: 4px;
+    position: relative;
+}
+
+.custom-checkbox:hover input ~ .checkmark {
+    border-color: #2563EB;
+}
+
+.custom-checkbox input:checked ~ .checkmark {
+    background-color: #2563EB;
+    border-color: #2563EB;
+}
+
+.checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+.custom-checkbox input:checked ~ .checkmark:after {
+    display: block;
+}
+
+.custom-checkbox .checkmark:after {
+    left: 5px;
+    top: 2px;
+    width: 6px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #F3F4F6;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #BFDBFE;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #93C5FD;
 }

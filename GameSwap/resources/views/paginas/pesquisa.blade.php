@@ -73,7 +73,7 @@
       background: #E5E7EB;
       outline: none;
     }
-    
+
     .price-slider::-webkit-slider-thumb {
       -webkit-appearance: none;
       appearance: none;
@@ -85,7 +85,7 @@
       border: 2px solid white;
       box-shadow: 0 1px 3px rgba(0,0,0,0.1);
     }
-    
+
     .price-slider::-moz-range-thumb {
       width: 18px;
       height: 18px;
@@ -109,7 +109,7 @@
     .game-card {
       transition: all 0.3s ease;
     }
-    
+
     .game-card:hover {
       transform: translateY(-4px);
       box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
@@ -120,7 +120,7 @@
       transition: opacity 0.3s ease, transform 0.3s ease;
       transform: translateY(10px);
     }
-    
+
     .game-card:hover .quick-actions {
       opacity: 1;
       transform: translateY(0);
@@ -210,7 +210,7 @@
     <aside class="w-64 bg-white shadow-md hidden md:block border-r border-gray-100 overflow-y-auto">
       <div class="p-6 sticky top-0">
         <h2 class="text-xl font-bold text-gray-800 mb-6">Filtros</h2>
-        
+
         <div class="space-y-6">
           <!-- Search in filters -->
           <div class="relative">
@@ -223,7 +223,7 @@
               <i class="fas fa-search text-gray-400 text-sm"></i>
             </div>
           </div>
-          
+
           <!-- Genre Filter -->
           <div class="space-y-3">
             <h3 class="text-sm font-semibold text-gray-700 uppercase tracking-wider">Gênero</h3>
@@ -264,7 +264,7 @@
               <i class="fas fa-chevron-down ml-1 text-xs"></i>
             </button>
           </div>
-          
+
           <!-- Developer Filter -->
           <div class="space-y-3">
             <h3 class="text-sm font-semibold text-gray-700 uppercase tracking-wider">Desenvolvedor</h3>
@@ -277,7 +277,7 @@
               <option value="ubisoft">Ubisoft</option>
             </select>
           </div>
-          
+
           <!-- Status Filter -->
           <div class="space-y-3">
             <h3 class="text-sm font-semibold text-gray-700 uppercase tracking-wider">Status</h3>
@@ -304,7 +304,7 @@
               </label>
             </div>
           </div>
-          
+
           <!-- Region Filter -->
           <div class="space-y-3">
             <h3 class="text-sm font-semibold text-gray-700 uppercase tracking-wider">Região</h3>
@@ -316,7 +316,7 @@
               <option value="br">Brasil</option>
             </select>
           </div>
-          
+
           <!-- Model Name Filter -->
           <div class="space-y-3">
             <h3 class="text-sm font-semibold text-gray-700 uppercase tracking-wider">Modelo</h3>
@@ -353,7 +353,7 @@
               </label>
             </div>
           </div>
-          
+
           <!-- Price Range Slider -->
           <div class="space-y-4">
             <h3 class="text-sm font-semibold text-gray-700 uppercase tracking-wider">Faixa de Preço</h3>
@@ -375,9 +375,9 @@
               </div>
             </div>
           </div>
-          
+
           <hr class="border-gray-100">
-          
+
           <!-- Apply Filters Button -->
           <div class="space-y-2">
             <button class="w-full bg-primary-600 hover:bg-primary-700 text-white py-2.5 px-4 rounded-lg font-medium transition-colors flex items-center justify-center">
@@ -391,7 +391,7 @@
         </div>
       </div>
     </aside>
-    
+
     <!-- Main Content -->
     <div class="flex-1">
       <!-- Mobile filter button -->
@@ -404,7 +404,7 @@
           <i class="fas fa-chevron-down text-sm text-gray-500"></i>
         </label>
         <input type="checkbox" id="mobile-filter-toggle" class="hidden">
-        
+
         <!-- Mobile filter menu (hidden by default) -->
         <div class="mobile-filter-menu hidden mt-2 p-4 border border-gray-200 rounded-lg bg-white">
           <!-- Mobile filters (simplified version) -->
@@ -415,26 +415,26 @@
               <option value="adventure">Aventura</option>
               <option value="rpg">RPG</option>
             </select>
-            
+
             <select class="custom-select w-full px-3 py-2 border border-gray-200 rounded-lg text-sm">
               <option value="">Desenvolvedor: Todos</option>
               <option value="nintendo">Nintendo</option>
               <option value="sony">Sony</option>
               <option value="microsoft">Microsoft</option>
             </select>
-            
+
             <div class="space-y-2">
               <label class="text-sm font-medium text-gray-700">Preço: €0 - €100</label>
               <input type="range" min="0" max="100" value="50" class="price-slider">
             </div>
-            
+
             <button class="w-full bg-primary-600 text-white py-2 px-4 rounded-lg font-medium">
               Aplicar
             </button>
           </div>
         </div>
       </div>
-      
+
       <!-- Game grid -->
       <main class="p-6">
         <div class="flex flex-col sm:flex-row justify-between items-center mb-8">
@@ -460,7 +460,7 @@
             </div>
           </div>
         </div>
-        
+
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
           <!-- Game Card 1 -->
           <div class="game-card bg-white rounded-xl shadow-sm overflow-hidden">
@@ -470,14 +470,14 @@
                   <i class="fas fa-gamepad text-4xl"></i>
                 </div>
               </div>
-              
+
               <!-- Badges -->
               <div class="absolute top-3 left-3 flex flex-col gap-1.5">
                 <span class="inline-flex items-center rounded-full bg-green-500 px-2.5 py-0.5 text-xs font-semibold text-white">
                   Novo
                 </span>
               </div>
-              
+
               <!-- Quick actions -->
               <div class="quick-actions absolute inset-0 bg-black/40 flex items-center justify-center gap-3">
                 <button class="bg-white text-gray-800 rounded-full p-2.5 hover:bg-gray-100 shadow-md">
@@ -488,7 +488,7 @@
                 </button>
               </div>
             </div>
-            
+
             <div class="p-4">
               <div class="flex items-start justify-between">
                 <div>
@@ -500,7 +500,7 @@
                   <span class="text-xs font-medium">4.5</span>
                 </div>
               </div>
-              
+
               <div class="mt-3 flex items-center justify-between">
                 <p class="font-bold text-gray-900">€XX,XX</p>
                 <a href="#" class="text-primary-600 hover:text-primary-700 text-sm font-medium">
@@ -509,7 +509,7 @@
               </div>
             </div>
           </div>
-          
+
           <!-- Game Card 2 -->
           <div class="game-card bg-white rounded-xl shadow-sm overflow-hidden">
             <div class="relative">
@@ -518,14 +518,14 @@
                   <i class="fas fa-gamepad text-4xl"></i>
                 </div>
               </div>
-              
+
               <!-- Badges -->
               <div class="absolute top-3 left-3 flex flex-col gap-1.5">
                 <span class="inline-flex items-center rounded-full bg-primary-500 px-2.5 py-0.5 text-xs font-semibold text-white">
                   Destaque
                 </span>
               </div>
-              
+
               <!-- Quick actions -->
               <div class="quick-actions absolute inset-0 bg-black/40 flex items-center justify-center gap-3">
                 <button class="bg-white text-gray-800 rounded-full p-2.5 hover:bg-gray-100 shadow-md">
@@ -536,7 +536,7 @@
                 </button>
               </div>
             </div>
-            
+
             <div class="p-4">
               <div class="flex items-start justify-between">
                 <div>
@@ -548,7 +548,7 @@
                   <span class="text-xs font-medium">4.8</span>
                 </div>
               </div>
-              
+
               <div class="mt-3 flex items-center justify-between">
                 <p class="font-bold text-gray-900">€XX,XX</p>
                 <a href="#" class="text-primary-600 hover:text-primary-700 text-sm font-medium">
@@ -557,7 +557,7 @@
               </div>
             </div>
           </div>
-          
+
           <!-- Game Card 3 -->
           <div class="game-card bg-white rounded-xl shadow-sm overflow-hidden">
             <div class="relative">
@@ -566,7 +566,7 @@
                   <i class="fas fa-gamepad text-4xl"></i>
                 </div>
               </div>
-              
+
               <!-- Quick actions -->
               <div class="quick-actions absolute inset-0 bg-black/40 flex items-center justify-center gap-3">
                 <button class="bg-white text-gray-800 rounded-full p-2.5 hover:bg-gray-100 shadow-md">
@@ -577,7 +577,7 @@
                 </button>
               </div>
             </div>
-            
+
             <div class="p-4">
               <div class="flex items-start justify-between">
                 <div>
@@ -589,7 +589,7 @@
                   <span class="text-xs font-medium">4.2</span>
                 </div>
               </div>
-              
+
               <div class="mt-3 flex items-center justify-between">
                 <p class="font-bold text-gray-900">€XX,XX</p>
                 <a href="#" class="text-primary-600 hover:text-primary-700 text-sm font-medium">
@@ -598,7 +598,7 @@
               </div>
             </div>
           </div>
-          
+
           <!-- Game Card 4 -->
           <div class="game-card bg-white rounded-xl shadow-sm overflow-hidden">
             <div class="relative">
@@ -607,7 +607,7 @@
                   <i class="fas fa-gamepad text-4xl"></i>
                 </div>
               </div>
-              
+
               <!-- Quick actions -->
               <div class="quick-actions absolute inset-0 bg-black/40 flex items-center justify-center gap-3">
                 <button class="bg-white text-gray-800 rounded-full p-2.5 hover:bg-gray-100 shadow-md">
@@ -618,7 +618,7 @@
                 </button>
               </div>
             </div>
-            
+
             <div class="p-4">
               <div class="flex items-start justify-between">
                 <div>
@@ -630,7 +630,7 @@
                   <span class="text-xs font-medium">4.0</span>
                 </div>
               </div>
-              
+
               <div class="mt-3 flex items-center justify-between">
                 <p class="font-bold text-gray-900">€XX,XX</p>
                 <a href="#" class="text-primary-600 hover:text-primary-700 text-sm font-medium">
@@ -639,7 +639,7 @@
               </div>
             </div>
           </div>
-          
+
           <!-- Game Card 5 -->
           <div class="game-card bg-white rounded-xl shadow-sm overflow-hidden">
             <div class="relative">
@@ -648,14 +648,14 @@
                   <i class="fas fa-gamepad text-4xl"></i>
                 </div>
               </div>
-              
+
               <!-- Badges -->
               <div class="absolute top-3 left-3 flex flex-col gap-1.5">
                 <span class="inline-flex items-center rounded-full bg-green-500 px-2.5 py-0.5 text-xs font-semibold text-white">
                   Novo
                 </span>
               </div>
-              
+
               <!-- Quick actions -->
               <div class="quick-actions absolute inset-0 bg-black/40 flex items-center justify-center gap-3">
                 <button class="bg-white text-gray-800 rounded-full p-2.5 hover:bg-gray-100 shadow-md">
@@ -666,7 +666,7 @@
                 </button>
               </div>
             </div>
-            
+
             <div class="p-4">
               <div class="flex items-start justify-between">
                 <div>
@@ -678,7 +678,7 @@
                   <span class="text-xs font-medium">4.7</span>
                 </div>
               </div>
-              
+
               <div class="mt-3 flex items-center justify-between">
                 <p class="font-bold text-gray-900">€XX,XX</p>
                 <a href="#" class="text-primary-600 hover:text-primary-700 text-sm font-medium">
@@ -687,12 +687,12 @@
               </div>
             </div>
           </div>
-          
+
           <!-- Additional Game Cards (6-10) -->
           <!-- Repeat the game card structure for more cards -->
           <!-- For brevity, I'm showing 5 cards but you can duplicate as needed -->
         </div>
-        
+
         <!-- Pagination -->
         <div class="mt-12 flex justify-center">
           <nav class="flex items-center gap-1">
@@ -719,22 +719,22 @@
     // Simple script for price range slider
     document.addEventListener('DOMContentLoaded', function() {
       const priceSliders = document.querySelectorAll('.price-slider');
-      
+
       priceSliders.forEach(slider => {
         slider.addEventListener('input', function() {
           const value = this.value;
           const min = this.min ? this.min : 0;
           const max = this.max ? this.max : 100;
           const percentage = ((value - min) * 100) / (max - min);
-          
+
           this.style.background = `linear-gradient(to right, #2563EB ${percentage}%, #e5e7eb ${percentage}%)`;
         });
-        
+
         // Trigger the input event to set initial gradient
         const event = new Event('input');
         slider.dispatchEvent(event);
       });
-      
+
       // Custom checkbox functionality
       const checkboxes = document.querySelectorAll('.custom-checkbox input');
       checkboxes.forEach(checkbox => {
