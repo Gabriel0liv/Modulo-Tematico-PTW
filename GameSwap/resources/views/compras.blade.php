@@ -42,7 +42,7 @@
                   <span>Suporte prioritário</span>
                 </li>
               </ul>
-              <a href="/membership-payment-gateway" class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium bg-blue-600 hover:bg-blue-700 text-white w-full px-4 py-2">
+              <a href="{{route('assinatura')}}" class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium bg-blue-600 hover:bg-blue-700 text-white w-full px-4 py-2">
                 Assinar Agora
               </a>
             </div>

@@ -65,7 +65,7 @@
               </div>
             </div>
 
-            <a href="/membership-payment-gateway/step2" class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-4 py-2 w-full bg-blue-600 hover:bg-blue-700 text-white">
+            <a href="{{route('assinatura-2')}}" class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-4 py-2 w-full bg-blue-600 hover:bg-blue-700 text-white">
               Continuar para Pagamento
             </a>
           </form>

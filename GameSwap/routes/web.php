@@ -267,79 +267,77 @@ Route::get('/',function(){
 
 Route::get("/membership-payment-gateway",function(){
     return view('paginas.pagamento.payment-gateway');
-});
+})->name('assinatura');
 
 Route::get("/membership-payment-gateway/step2",function(){
     return view('paginas.pagamento.payment-gateway-step2');
-});
+})->name('assinatura-2');
 
 Route::get("/membership-payment-gateway/step3",function(){
     return view('paginas.pagamento.payment-gateway-step3');
-});
+})->name('assinatura-3');
 
 Route::get("/paginas/chat",function(){
     return view('paginas.chat');
-});
+})->name('mensagensPage');
 
 Route::get("/paginas/anunciar",function(){
     return view('paginas.anunciar');
-});
+})->name('anunciarPage');
 
 Route::get("/perfil",function(){
-   
-
     return view('paginas.perfil.perfil');
-});
+})->name('perfilPage');
 
 Route::get("/perfil/cartões",function(){
     return view('paginas.perfil.perfilcartoes');
-});
+})->name('perfil-cartões');
 
 Route::get("/perfil/favoritos",function(){
     return view('paginas.perfil.perfilfavoritos');
-});
+})->name('perfil-Favoritos');
 
 Route::get("/perfil/minhas_compras",function(){
     return view('paginas.perfil.perfilminhascompras');
-});
+})->name('perfil-Compras');
 
 Route::get("/perfil/minhas_vendas",function(){
     return view('paginas.perfil.perfilminhasvendas');
-});
+})->name('perfil-Vendas');
 
 Route::get("/perfil/moradas",function(){
     return view('paginas.perfil.perfilmoradas');
-});
+})->name('perfil-Moradas');
 
 Route::get("/perfilAdmin/perfilA",function(){
     return view('paginas.perfilAdmin.perfilA');
-});
+})->name('perfil-AdminPage');
 
 Route::get("/perfilAdmin/estatisticas",function(){
     return view('paginas.perfilAdmin.estatisticas');
-});
+})->name('perfilAdmin-Estatiscas');
 
 Route::get("/perfilAdmin/Edicao",function(){
     return view('paginas.perfilAdmin.Edicao');
-});
+})->name('perfilAdmin-Edição');
 
 Route::get("/perfilAdmin/denuncias",function(){
     return view('paginas.perfilAdmin.denuncias');
-});
+})->name('perfilAdmin-Denuncias');
 
 Route::get("/perfilAdmin/aprovar",function(){
     return view('paginas.perfilAdmin.aprovar');
-});
+})->name('perfilAdmin-AprovarAnuncios');
 
 
 
 Route::get("/carrinho",function(){
     return view('paginas.carrinho');
-});
+})->name('carrinhoPage');
 
 Route::get("/pesquisa",function(){
     return view('paginas.pesquisa');
-});
+})->name('pesquisaPage');
 
 Route::get('/produto/{id}', function ($id) {
     $produtos = [
@@ -612,5 +610,5 @@ Route::get('/produto/{id}', function ($id) {
 
     // Retorna a página com os dados do produto
     return view('produto', ['produto' => $produto], ['produtosRelacionados' => $produtosRelacionados]);
-});
+})->name('produtoPage');
 

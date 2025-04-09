@@ -10,31 +10,31 @@
         <nav class="flex-1 p-4">
             <ul class="space-y-1 pl-1">
                 <li>
-                    <a href="/perfilAdmin/denuncias" class="flex items-center gap-4 px-3 py-2 rounded-md text-gray-700 hover:bg-gray-100 hover:text-blue-600 transition-all">
+                    <a href="{{route('perfilAdmin-Denuncias')}}" class="flex items-center gap-4 px-3 py-2 rounded-md text-gray-700 hover:bg-gray-100 hover:text-blue-600 transition-all">
                         <i class="bi bi-flag-fill text-xl"></i>
                         <span>Denúncias</span>
                     </a>
                 </li>
                 <li>
-                    <a href="/perfilAdmin/estatisticas" class="flex items-center gap-4 px-3 py-2 rounded-md text-gray-700 hover:bg-gray-100 hover:text-blue-600 transition-all">
+                    <a href="{{route('perfilAdmin-Estatisticas')}}" class="flex items-center gap-4 px-3 py-2 rounded-md text-gray-700 hover:bg-gray-100 hover:text-blue-600 transition-all">
                         <i class="bi bi-bar-chart-line text-xl"></i>
                         <span>Estatísticas do Site</span>
                     </a>
                 </li>
                 <li>
-                    <a href="/perfilAdmin/aprovar" class="flex items-center gap-4 px-3 py-2 rounded-md text-gray-700 hover:bg-gray-100 hover:text-blue-600 transition-all">
+                    <a href="{{route('perfilAdmin-Aprovar')}}" class="flex items-center gap-4 px-3 py-2 rounded-md text-gray-700 hover:bg-gray-100 hover:text-blue-600 transition-all">
                         <i class="bi bi-check-circle text-xl"></i>
                         <span>Aprovar Anúncios</span>
                     </a>
                 </li>
                 <li>
-                    <a href="/perfilAdmin/perfilA" class="flex items-center gap-4 px-3 py-2 rounded-md text-gray-700 hover:bg-gray-100 hover:text-blue-600 transition-all">
+                    <a href="{{route('perfil-AdminPage')}}" class="flex items-center gap-4 px-3 py-2 rounded-md text-gray-700 hover:bg-gray-100 hover:text-blue-600 transition-all">
                         <i class="bi bi-person text-xl"></i>
                         <span>Gerir Perfil</span>
                     </a>
                 </li>
                 <li>
-                    <a href="/perfilAdmin/Edicao" class="flex items-center gap-4 px-3 py-2 rounded-md text-gray-700 hover:bg-gray-100 hover:text-blue-600 transition-all">
+                    <a href="{{route('perfilAdmin-Edição')}}" class="flex items-center gap-4 px-3 py-2 rounded-md text-gray-700 hover:bg-gray-100 hover:text-blue-600 transition-all">
                         <i class="bi bi-gear text-xl"></i>
                         <span>Edição do Site</span>
                     </a>
