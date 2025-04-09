@@ -8,8 +8,8 @@
               Encontre os melhores jogos e consoles com os melhores preços. Compre, venda ou troque com outros gamers.
             </p>
             <div class="flex flex-wrap gap-4 justify-center">
-              <button class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium bg-white text-blue-800 hover:bg-blue-50 px-4 py-2">Explorar Consoles</button>
-              <button class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium bg-transparent border border-white text-white hover:bg-blue-800 px-4 py-2">Ver Jogos</button>
+              <a class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium bg-white text-blue-800 hover:bg-blue-50 px-4 py-2" href="/pesquisa">Explorar Consoles</a>
+              <a class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium bg-transparent border border-white text-white hover:bg-blue-800 px-4 py-2" href="/pesquisa">Ver Jogos</a>
             </div>
           </div>
         </div>
