@@ -461,237 +461,58 @@
           </div>
         </div>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
-          <!-- Game Card 1 -->
-          <div class="game-card bg-white rounded-xl shadow-sm overflow-hidden">
-            <div class="relative">
-              <div class="bg-gray-200 aspect-square relative overflow-hidden">
-                <div class="absolute inset-0 bg-gradient-to-br from-gray-300 to-gray-100 flex items-center justify-center text-gray-400">
-                  <i class="fas fa-gamepad text-4xl"></i>
-                </div>
-              </div>
+          <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
+              @foreach ($produtos as $produto)
+                  <div class="game-card bg-white rounded-xl shadow-sm overflow-hidden flex flex-col h-full">
+                      <div class="relative">
+                          <div class="bg-gray-200 aspect-square relative overflow-hidden">
+                              <div class="absolute inset-0 bg-gradient-to-br from-gray-300 to-gray-100 flex items-center justify-center text-gray-400">
+                                  <i class="fas fa-gamepad text-4xl"></i>
+                              </div>
+                          </div>
 
-              <!-- Badges -->
-              <div class="absolute top-3 left-3 flex flex-col gap-1.5">
-                <span class="inline-flex items-center rounded-full bg-green-500 px-2.5 py-0.5 text-xs font-semibold text-white">
-                  Novo
-                </span>
-              </div>
+                          <!-- Badges -->
+                          <div class="absolute top-3 left-3 flex flex-col gap-1.5">
+                    <span class="inline-flex items-center rounded-full bg-green-500 px-2.5 py-0.5 text-xs font-semibold text-white">
+                        Novo
+                    </span>
+                          </div>
 
-              <!-- Quick actions -->
-              <div class="quick-actions absolute inset-0 bg-black/40 flex items-center justify-center gap-3">
-                <button class="bg-white text-gray-800 rounded-full p-2.5 hover:bg-gray-100 shadow-md">
-                  <i class="fas fa-shopping-cart text-sm"></i>
-                </button>
-                <button class="bg-white text-gray-800 rounded-full p-2.5 hover:bg-gray-100 shadow-md">
-                  <i class="fas fa-star text-sm"></i>
-                </button>
-              </div>
-            </div>
+                          <!-- Quick actions -->
+                          <div class="quick-actions absolute inset-0 bg-black/40 flex items-center justify-center gap-3">
+                              <button class="bg-white text-gray-800 rounded-full p-2.5 hover:bg-gray-100 shadow-md">
+                                  <i class="fas fa-shopping-cart text-sm"></i>
+                              </button>
+                              <button class="bg-white text-gray-800 rounded-full p-2.5 hover:bg-gray-100 shadow-md">
+                                  <i class="fas fa-star text-sm"></i>
+                              </button>
+                          </div>
+                      </div>
 
-            <div class="p-4">
-              <div class="flex items-start justify-between">
-                <div>
-                  <h3 class="font-medium text-gray-800 hover:text-primary-600 transition-colors">Jogo Recomendado</h3>
-                  <p class="text-sm text-muted mt-0.5">Plataforma</p>
-                </div>
-                <div class="flex items-center gap-1 text-secondary-400">
-                  <i class="fas fa-star text-xs"></i>
-                  <span class="text-xs font-medium">4.5</span>
-                </div>
-              </div>
+                      <div class="p-4 flex flex-col justify-between flex-grow">
+                          <div>
+                              <div class="flex items-start justify-between">
+                                  <div>
+                                      <h3 class="font-medium text-gray-800 hover:text-primary-600 transition-colors">{{$produto['nome']}}</h3>
+                                      <p class="text-sm text-muted mt-0.5">{{$produto['console']}}</p>
+                                  </div>
+                                  <div class="flex items-center gap-1 text-secondary-400">
+                                      <i class="fas fa-star text-xs"></i>
+                                      <span class="text-xs font-medium">4.5</span>
+                                  </div>
+                              </div>
+                          </div>
 
-              <div class="mt-3 flex items-center justify-between">
-                <p class="font-bold text-gray-900">€XX,XX</p>
-                <a href="#" class="text-primary-600 hover:text-primary-700 text-sm font-medium">
-                  Ver detalhes
-                </a>
-              </div>
-            </div>
+                          <div class="mt-3 flex items-center justify-between">
+                              <p class="font-bold text-gray-900">R$ {{$produto['preco']}}</p>
+                              <a href="/produto/{{$produto['id']}}" class="text-primary-600 hover:text-primary-700 text-sm font-medium">
+                                  Ver detalhes
+                              </a>
+                          </div>
+                      </div>
+                  </div>
+              @endforeach
           </div>
-
-          <!-- Game Card 2 -->
-          <div class="game-card bg-white rounded-xl shadow-sm overflow-hidden">
-            <div class="relative">
-              <div class="bg-gray-200 aspect-square relative overflow-hidden">
-                <div class="absolute inset-0 bg-gradient-to-br from-gray-300 to-gray-100 flex items-center justify-center text-gray-400">
-                  <i class="fas fa-gamepad text-4xl"></i>
-                </div>
-              </div>
-
-              <!-- Badges -->
-              <div class="absolute top-3 left-3 flex flex-col gap-1.5">
-                <span class="inline-flex items-center rounded-full bg-primary-500 px-2.5 py-0.5 text-xs font-semibold text-white">
-                  Destaque
-                </span>
-              </div>
-
-              <!-- Quick actions -->
-              <div class="quick-actions absolute inset-0 bg-black/40 flex items-center justify-center gap-3">
-                <button class="bg-white text-gray-800 rounded-full p-2.5 hover:bg-gray-100 shadow-md">
-                  <i class="fas fa-shopping-cart text-sm"></i>
-                </button>
-                <button class="bg-white text-gray-800 rounded-full p-2.5 hover:bg-gray-100 shadow-md">
-                  <i class="fas fa-star text-sm"></i>
-                </button>
-              </div>
-            </div>
-
-            <div class="p-4">
-              <div class="flex items-start justify-between">
-                <div>
-                  <h3 class="font-medium text-gray-800 hover:text-primary-600 transition-colors">Jogo Recomendado</h3>
-                  <p class="text-sm text-muted mt-0.5">Plataforma</p>
-                </div>
-                <div class="flex items-center gap-1 text-secondary-400">
-                  <i class="fas fa-star text-xs"></i>
-                  <span class="text-xs font-medium">4.8</span>
-                </div>
-              </div>
-
-              <div class="mt-3 flex items-center justify-between">
-                <p class="font-bold text-gray-900">€XX,XX</p>
-                <a href="#" class="text-primary-600 hover:text-primary-700 text-sm font-medium">
-                  Ver detalhes
-                </a>
-              </div>
-            </div>
-          </div>
-
-          <!-- Game Card 3 -->
-          <div class="game-card bg-white rounded-xl shadow-sm overflow-hidden">
-            <div class="relative">
-              <div class="bg-gray-200 aspect-square relative overflow-hidden">
-                <div class="absolute inset-0 bg-gradient-to-br from-gray-300 to-gray-100 flex items-center justify-center text-gray-400">
-                  <i class="fas fa-gamepad text-4xl"></i>
-                </div>
-              </div>
-
-              <!-- Quick actions -->
-              <div class="quick-actions absolute inset-0 bg-black/40 flex items-center justify-center gap-3">
-                <button class="bg-white text-gray-800 rounded-full p-2.5 hover:bg-gray-100 shadow-md">
-                  <i class="fas fa-shopping-cart text-sm"></i>
-                </button>
-                <button class="bg-white text-gray-800 rounded-full p-2.5 hover:bg-gray-100 shadow-md">
-                  <i class="fas fa-star text-sm"></i>
-                </button>
-              </div>
-            </div>
-
-            <div class="p-4">
-              <div class="flex items-start justify-between">
-                <div>
-                  <h3 class="font-medium text-gray-800 hover:text-primary-600 transition-colors">Jogo Recomendado</h3>
-                  <p class="text-sm text-muted mt-0.5">Plataforma</p>
-                </div>
-                <div class="flex items-center gap-1 text-secondary-400">
-                  <i class="fas fa-star text-xs"></i>
-                  <span class="text-xs font-medium">4.2</span>
-                </div>
-              </div>
-
-              <div class="mt-3 flex items-center justify-between">
-                <p class="font-bold text-gray-900">€XX,XX</p>
-                <a href="#" class="text-primary-600 hover:text-primary-700 text-sm font-medium">
-                  Ver detalhes
-                </a>
-              </div>
-            </div>
-          </div>
-
-          <!-- Game Card 4 -->
-          <div class="game-card bg-white rounded-xl shadow-sm overflow-hidden">
-            <div class="relative">
-              <div class="bg-gray-200 aspect-square relative overflow-hidden">
-                <div class="absolute inset-0 bg-gradient-to-br from-gray-300 to-gray-100 flex items-center justify-center text-gray-400">
-                  <i class="fas fa-gamepad text-4xl"></i>
-                </div>
-              </div>
-
-              <!-- Quick actions -->
-              <div class="quick-actions absolute inset-0 bg-black/40 flex items-center justify-center gap-3">
-                <button class="bg-white text-gray-800 rounded-full p-2.5 hover:bg-gray-100 shadow-md">
-                  <i class="fas fa-shopping-cart text-sm"></i>
-                </button>
-                <button class="bg-white text-gray-800 rounded-full p-2.5 hover:bg-gray-100 shadow-md">
-                  <i class="fas fa-star text-sm"></i>
-                </button>
-              </div>
-            </div>
-
-            <div class="p-4">
-              <div class="flex items-start justify-between">
-                <div>
-                  <h3 class="font-medium text-gray-800 hover:text-primary-600 transition-colors">Jogo Recomendado</h3>
-                  <p class="text-sm text-muted mt-0.5">Plataforma</p>
-                </div>
-                <div class="flex items-center gap-1 text-secondary-400">
-                  <i class="fas fa-star text-xs"></i>
-                  <span class="text-xs font-medium">4.0</span>
-                </div>
-              </div>
-
-              <div class="mt-3 flex items-center justify-between">
-                <p class="font-bold text-gray-900">€XX,XX</p>
-                <a href="#" class="text-primary-600 hover:text-primary-700 text-sm font-medium">
-                  Ver detalhes
-                </a>
-              </div>
-            </div>
-          </div>
-
-          <!-- Game Card 5 -->
-          <div class="game-card bg-white rounded-xl shadow-sm overflow-hidden">
-            <div class="relative">
-              <div class="bg-gray-200 aspect-square relative overflow-hidden">
-                <div class="absolute inset-0 bg-gradient-to-br from-gray-300 to-gray-100 flex items-center justify-center text-gray-400">
-                  <i class="fas fa-gamepad text-4xl"></i>
-                </div>
-              </div>
-
-              <!-- Badges -->
-              <div class="absolute top-3 left-3 flex flex-col gap-1.5">
-                <span class="inline-flex items-center rounded-full bg-green-500 px-2.5 py-0.5 text-xs font-semibold text-white">
-                  Novo
-                </span>
-              </div>
-
-              <!-- Quick actions -->
-              <div class="quick-actions absolute inset-0 bg-black/40 flex items-center justify-center gap-3">
-                <button class="bg-white text-gray-800 rounded-full p-2.5 hover:bg-gray-100 shadow-md">
-                  <i class="fas fa-shopping-cart text-sm"></i>
-                </button>
-                <button class="bg-white text-gray-800 rounded-full p-2.5 hover:bg-gray-100 shadow-md">
-                  <i class="fas fa-star text-sm"></i>
-                </button>
-              </div>
-            </div>
-
-            <div class="p-4">
-              <div class="flex items-start justify-between">
-                <div>
-                  <h3 class="font-medium text-gray-800 hover:text-primary-600 transition-colors">Jogo Recomendado</h3>
-                  <p class="text-sm text-muted mt-0.5">Plataforma</p>
-                </div>
-                <div class="flex items-center gap-1 text-secondary-400">
-                  <i class="fas fa-star text-xs"></i>
-                  <span class="text-xs font-medium">4.7</span>
-                </div>
-              </div>
-
-              <div class="mt-3 flex items-center justify-between">
-                <p class="font-bold text-gray-900">€XX,XX</p>
-                <a href="#" class="text-primary-600 hover:text-primary-700 text-sm font-medium">
-                  Ver detalhes
-                </a>
-              </div>
-            </div>
-          </div>
-
-          <!-- Additional Game Cards (6-10) -->
-          <!-- Repeat the game card structure for more cards -->
-          <!-- For brevity, I'm showing 5 cards but you can duplicate as needed -->
-        </div>
 
         <!-- Pagination -->
         <div class="mt-12 flex justify-center">
