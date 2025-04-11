@@ -14,7 +14,7 @@
           </div>
         </div>
         
-        <form class="space-y-6">
+        <form id="formPublicar" class="space-y-6" action="/anunciar" method="POST" enctype="multipart/form-data">
           <!-- Product Photos -->
           <div>
             <label class="block text-text font-medium mb-2">Fotos do Produto</label>
@@ -208,7 +208,7 @@
         
 // Validações do formulário
     document.addEventListener('DOMContentLoaded', function () {
-        const form = document.querySelector('form'); // Seleciona o formulário principal
+        const form = document.getElementById('formPublicar'); // Seleciona o formulário principal
         const productName = document.getElementById('product-name'); // Campo do nome do produto
         const productPrice = document.getElementById('product-price'); // Campo do preço do produto
         const gameCategory = document.getElementById('game-category'); // Campo da categoria do jogo

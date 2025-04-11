@@ -36,7 +36,7 @@
                     <p class="text-sm text-muted-foreground">Preencha suas informações para continuar</p>
                 </div>
                 <div class="p-6 pt-0">
-                    <form class="space-y-4">
+                    <form id="formpay1" class="space-y-4" action="{{ route('assinatura-2') }}" method="GET" >
                         <div class="space-y-2">
                             <label for="name" class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">Nome Completo</label>
                             <input id="name" name="name" class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50" required />
@@ -64,9 +64,12 @@
                             </div>
                         </div>
 
-                        <a href="{{route('assinatura-2')}}" class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-4 py-2 w-full bg-blue-600 hover:bg-blue-700 text-white">
+                        <!--<a href="{{route('assinatura-2')}}" class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-4 py-2 w-full bg-blue-600 hover:bg-blue-700 text-white">
                             Continuar para Pagamento
-                        </a>
+                        </a> -->
+                        <button type="submit" class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-4 py-2 w-full bg-blue-600 hover:bg-blue-700 text-white">
+                            Continuar para Pagamento
+                        </button>
                     </form>
                 </div>
             </div>
@@ -78,7 +81,7 @@
         lucide.createIcons();
 
         document.addEventListener('DOMContentLoaded', function() {
-            const form = document.querySelector('form'); // Seleciona o formulário principal
+            const form = document.getElementById('formPay1'); // Seleciona o formulário principal
             const nameField = document.getElementById('name'); // Campo do nome completo
             const emailField = document.getElementById('email'); // Campo do email
             const addressField = document.getElementById('address'); // Campo do endereço
@@ -137,6 +140,7 @@
                     zipCodeField.focus();
                     isValid = false;
                 } else if (!zipCodeRegex.test(zipCodeField.value)) {
+                    // Verifica se o CEP está no formato correto
                     alert('Insira um CEP válido no formato 12345-678.');
                     zipCodeField.focus();
                     isValid = false;
@@ -145,6 +149,10 @@
                 // Impede o envio do formulário se alguma validação falhar
                 if (!isValid) {
                     event.preventDefault();
+                } else {
+                    // Redireciona para a próxima página se o formulário for válido
+
+                    window.location.href = "{{route('assinatura-2')}}"; // Substitua pela rota da próxima página
                 }
             });
 

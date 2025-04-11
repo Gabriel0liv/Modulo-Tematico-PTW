@@ -49,7 +49,7 @@
                         </div>
                     </div>
 
-                    <form class="space-y-4">
+                    <form id="formPay2" class="space-y-4" action="{{ route('assinatura-3') }}" method="GET">
                         <div class="space-y-2">
                             <label for="cardNumber" class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">Número do Cartão</label>
                             <div class="relative">
@@ -69,19 +69,22 @@
                                 <input id="cvv" name="cvv" placeholder="123" class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50" required />
                             </div>
                         </div>
-
+                        <!--
                         <div class="pt-4">
                             <a href="{{route('assinatura-3')}}" class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-4 py-2 w-full bg-blue-600 hover:bg-blue-700 text-white">
                                 Finalizar Pagamento
-                            </a>
-                        </div>
-                    </form>
+                            </a> -->
+                        <button type="submit" class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-4 py-2 w-full bg-blue-600 hover:bg-blue-700 text-white">
+                            Finalizar Pagamento
+                        </button>
                 </div>
-                <div class="flex items-center p-6 pt-0 flex flex-col space-y-2 text-center text-xs text-gray-500 border-t pt-4">
-                    <p>Seus dados de pagamento são processados com segurança.</p>
-                    <p>Você pode cancelar sua assinatura a qualquer momento.</p>
-                </div>
+                </form>
             </div>
+            <div class="flex items-center p-6 pt-0 flex flex-col space-y-2 text-center text-xs text-gray-500 border-t pt-4">
+                <p>Seus dados de pagamento são processados com segurança.</p>
+                <p>Você pode cancelar sua assinatura a qualquer momento.</p>
+            </div>
+        </div>
         </div>
     </main>
 
@@ -90,10 +93,17 @@
         lucide.createIcons();
 
         document.addEventListener('DOMContentLoaded', function() {
-            const form = document.querySelector('form'); // Seleciona o formulário principal
+            console.log('DOM completamente carregado e analisado');
+            const form = document.getElementById('formPay2'); // Seleciona o formulário principal
             const cardNumberField = document.getElementById('cardNumber'); // Campo do número do cartão
             const expiryDateField = document.getElementById('expiryDate'); // Campo da data de validade
             const cvvField = document.getElementById('cvv'); // Campo do CVV
+
+            // Verifica se os elementos existem no DOM
+            if (!form || !cardNumberField || !expiryDateField || !cvvField) {
+                console.error('Erro: Formulário ou campos não encontrados no DOM.');
+                return;
+            }
 
             // Adiciona um evento de validação ao enviar o formulário
             form.addEventListener('submit', function(event) {
@@ -101,11 +111,12 @@
 
                 // Validação do número do cartão
                 const cardNumberRegex = /^[0-9]{16}$/; // Regex para validar 16 dígitos
-                if (cardNumberField.value.trim() === '') {
+                const cardNumberValue = cardNumberField.value.replace(/\s+/g, ''); // Remove espaços
+                if (cardNumberValue === '') {
                     alert('O número do cartão é obrigatório.');
                     cardNumberField.focus();
                     isValid = false;
-                } else if (!cardNumberRegex.test(cardNumberField.value.replace(/\s+/g, ''))) {
+                } else if (!cardNumberRegex.test(cardNumberValue)) {
                     alert('Insira um número de cartão válido com 16 dígitos.');
                     cardNumberField.focus();
                     isValid = false;
@@ -113,17 +124,18 @@
 
                 // Validação da data de validade
                 const expiryDateRegex = /^(0[1-9]|1[0-2])\/\d{2}$/; // Regex para validar formato MM/AA
-                if (expiryDateField.value.trim() === '') {
+                const expiryDateValue = expiryDateField.value.trim(); // Remove espaços extras
+                if (expiryDateValue === '') {
                     alert('A data de validade é obrigatória.');
                     expiryDateField.focus();
                     isValid = false;
-                } else if (!expiryDateRegex.test(expiryDateField.value)) {
+                } else if (!expiryDateRegex.test(expiryDateValue)) {
                     alert('Insira uma data de validade válida no formato MM/AA.');
                     expiryDateField.focus();
                     isValid = false;
                 } else {
                     // Verifica se a data de validade não está no passado
-                    const [month, year] = expiryDateField.value.split('/');
+                    const [month, year] = expiryDateValue.split('/');
                     const currentDate = new Date();
                     const expiryDate = new Date(`20${year}`, month - 1); // Converte para formato de data
                     if (expiryDate < currentDate) {
@@ -135,11 +147,12 @@
 
                 // Validação do CVV
                 const cvvRegex = /^[0-9]{3}$/; // Regex para validar 3 dígitos
-                if (cvvField.value.trim() === '') {
+                const cvvValue = cvvField.value.trim(); // Remove espaços extras
+                if (cvvValue === '') {
                     alert('O CVV é obrigatório.');
                     cvvField.focus();
                     isValid = false;
-                } else if (!cvvRegex.test(cvvField.value)) {
+                } else if (!cvvRegex.test(cvvValue)) {
                     alert('Insira um CVV válido com 3 dígitos.');
                     cvvField.focus();
                     isValid = false;
@@ -147,7 +160,9 @@
 
                 // Impede o envio do formulário se alguma validação falhar
                 if (!isValid) {
-                    event.preventDefault();
+                    event.preventDefault(); // Bloqueia o envio do formulário
+                } else {
+                    console.log('Formulário enviado com sucesso!');
                 }
             });
 
