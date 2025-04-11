@@ -14,7 +14,7 @@
           </div>
         </div>
         
-        <form class="space-y-6">
+        <form id="formPublicar" class="space-y-6" action="/anunciar" method="POST" enctype="multipart/form-data">
           <!-- Product Photos -->
           <div>
             <label class="block text-text font-medium mb-2">Fotos do Produto</label>
@@ -206,6 +206,91 @@
         // Initialize Lucide icons
         lucide.createIcons();
         
+// Validações do formulário
+    document.addEventListener('DOMContentLoaded', function () {
+        const form = document.getElementById('formPublicar'); // Seleciona o formulário principal
+        const productName = document.getElementById('product-name'); // Campo do nome do produto
+        const productPrice = document.getElementById('product-price'); // Campo do preço do produto
+        const gameCategory = document.getElementById('game-category'); // Campo da categoria do jogo
+        const productDescription = document.getElementById('product-description'); // Campo da descrição do produto
+        const consoleType = document.getElementById('console-type'); // Campo do tipo de console
+
+        // Adiciona um evento de validação ao enviar o formulário
+        form.addEventListener('submit', function (event) {
+            let isValid = true; // Flag para rastrear se o formulário é válido
+
+            // Validação do nome do produto
+            if (productName.value.trim() === '') {
+                alert('O nome do produto é obrigatório.');
+                productName.focus();
+                isValid = false;
+            } else if (productName.value.length < 3) {
+                alert('O nome do produto deve ter pelo menos 3 caracteres.');
+                productName.focus();
+                isValid = false;
+            }
+
+            // Validação do preço do produto
+            if (productPrice.value.trim() === '') {
+                alert('O preço do produto é obrigatório.');
+                productPrice.focus();
+                isValid = false;
+            } else if (isNaN(productPrice.value) || parseFloat(productPrice.value) <= 0) {
+                alert('Insira um preço válido maior que zero.');
+                productPrice.focus();
+                isValid = false;
+            }
+
+            // Validação da categoria do jogo
+            if (gameCategory.value === '') {
+                alert('Selecione uma categoria de jogo.');
+                gameCategory.focus();
+                isValid = false;
+            }
+
+            // Validação da descrição do produto
+            if (productDescription.value.trim() === '') {
+                alert('A descrição do produto é obrigatória.');
+                productDescription.focus();
+                isValid = false;
+            } else if (productDescription.value.length > 1000) {
+                alert('A descrição do produto não pode exceder 1000 caracteres.');
+                productDescription.focus();
+                isValid = false;
+            }
+
+            // Validação do tipo de console
+            if (consoleType.value === '') {
+                alert('Selecione um tipo de console.');
+                consoleType.focus();
+                isValid = false;
+            }
+
+            // Impede o envio do formulário se alguma validação falhar
+            if (!isValid) {
+                event.preventDefault();
+            }
+        });
+
+        // Validação em tempo real para o campo de preço (apenas números e ponto decimal)
+        productPrice.addEventListener('input', function () {
+            this.value = this.value.replace(/[^0-9.]/g, ''); // Remove caracteres inválidos
+        });
+
+        // Validação em tempo real para o campo de descrição (limite de caracteres)
+        productDescription.addEventListener('input', function () {
+            const count = this.value.length;
+            const charCount = document.getElementById('char-count');
+            charCount.textContent = count;
+
+            if (count > 1000) {
+                charCount.classList.add('text-red-500', 'font-bold');
+            } else {
+                charCount.classList.remove('text-red-500', 'font-bold');
+            }
+        });
+    });
+
         // Character counter for description
         const descriptionField = document.getElementById('product-description');
         const charCount = document.getElementById('char-count');
@@ -296,5 +381,7 @@
             }
           });
         });
+
+
     </script>
 </x-layout>
