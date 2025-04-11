@@ -264,7 +264,6 @@ Route::get('/',function(){
     return view('compras', ['produtos' => $produtos],  );
 });
 
-
 Route::get("/membership-payment-gateway",function(){
     return view('paginas.pagamento.payment-gateway');
 })->name('assinatura');
@@ -328,8 +327,6 @@ Route::get("/perfilAdmin/denuncias",function(){
 Route::get("/perfilAdmin/aprovar",function(){
     return view('paginas.perfilAdmin.aprovar');
 })->name('perfilAdmin-AprovarAnuncios');
-
-
 
 Route::get("/carrinho",function(){
     return view('paginas.carrinho');
