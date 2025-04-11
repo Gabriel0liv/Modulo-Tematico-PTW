@@ -262,4 +262,32 @@ function loginSuccess(username) {
     setTimeout(() => {
         successToast.remove();
     }, 3000);
+
+    // Simple script for price range slider
+    document.addEventListener('DOMContentLoaded', function() {
+        const priceSliders = document.querySelectorAll('.price-slider');
+
+        priceSliders.forEach(slider => {
+            slider.addEventListener('input', function() {
+                const value = this.value;
+                const min = this.min ? this.min : 0;
+                const max = this.max ? this.max : 100;
+                const percentage = ((value - min) * 100) / (max - min);
+
+                this.style.background = `linear-gradient(to right, #2563EB ${percentage}%, #e5e7eb ${percentage}%)`;
+            });
+
+            // Trigger the input event to set initial gradient
+            const event = new Event('input');
+            slider.dispatchEvent(event);
+        });
+
+        // Custom checkbox functionality
+        const checkboxes = document.querySelectorAll('.custom-checkbox input');
+        checkboxes.forEach(checkbox => {
+            checkbox.addEventListener('change', function() {
+                // Additional functionality can be added here if needed
+            });
+        });
+    });
 }
