@@ -310,23 +310,23 @@ Route::get("/perfil/moradas",function(){
 
 Route::get("/perfilAdmin/perfilA",function(){
     return view('paginas.perfilAdmin.perfilA');
-})->name('perfil-AdminPage');
+});
 
 Route::get("/perfilAdmin/estatisticas",function(){
     return view('paginas.perfilAdmin.estatisticas');
-})->name('perfilAdmin-Estatiscas');
+});
 
 Route::get("/perfilAdmin/Edicao",function(){
     return view('paginas.perfilAdmin.Edicao');
-})->name('perfilAdmin-Edição');
+});
 
 Route::get("/perfilAdmin/denuncias",function(){
     return view('paginas.perfilAdmin.denuncias');
-})->name('perfilAdmin-Denuncias');
+});
 
 Route::get("/perfilAdmin/aprovar",function(){
     return view('paginas.perfilAdmin.aprovar');
-})->name('perfilAdmin-AprovarAnuncios');
+});
 
 Route::get("/carrinho",function(){
     return view('paginas.carrinho');
