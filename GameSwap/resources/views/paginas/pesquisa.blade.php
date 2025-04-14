@@ -75,8 +75,13 @@
 
                     <!-- Status Filter -->
                     <div class="space-y-3">
-                        <h3 class="text-sm font-semibold text-gray-700 uppercase tracking-wider">Status</h3>
+                        <h3 class="text-sm font-semibold text-gray-700 uppercase tracking-wider">Estado</h3>
                         <div class="space-y-2">
+                            <label class="custom-checkbox flex items-center">
+                                <input type="checkbox" class="sr-only">
+                                <span class="checkmark mr-2"></span>
+                                <span class="text-sm text-gray-700">Selado</span>
+                            </label>
                             <label class="custom-checkbox flex items-center">
                                 <input type="checkbox" class="sr-only">
                                 <span class="checkmark mr-2"></span>
@@ -85,17 +90,12 @@
                             <label class="custom-checkbox flex items-center">
                                 <input type="checkbox" class="sr-only">
                                 <span class="checkmark mr-2"></span>
+                                <span class="text-sm text-gray-700">Semi novo</span>
+                            </label>
+                            <label class="custom-checkbox flex items-center">
+                                <input type="checkbox" class="sr-only">
+                                <span class="checkmark mr-2"></span>
                                 <span class="text-sm text-gray-700">Usado</span>
-                            </label>
-                            <label class="custom-checkbox flex items-center">
-                                <input type="checkbox" class="sr-only">
-                                <span class="checkmark mr-2"></span>
-                                <span class="text-sm text-gray-700">Digital</span>
-                            </label>
-                            <label class="custom-checkbox flex items-center">
-                                <input type="checkbox" class="sr-only">
-                                <span class="checkmark mr-2"></span>
-                                <span class="text-sm text-gray-700">Pré-venda</span>
                             </label>
                         </div>
                     </div>
@@ -185,8 +185,7 @@
                             <i class="fas fa-filter mr-2 text-sm"></i>
                             Aplicar Filtros
                         </button>
-                        <button
-                            class="w-full text-gray-500 hover:text-gray-700 py-2 px-4 rounded-lg font-medium transition-colors text-sm">
+                        <button class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3.5 rounded-lg shadow-soft transition-all mb-4">
                             Limpar Filtros
                         </button>
                     </div>
@@ -264,62 +263,25 @@
                     </div>
                 </div>
 
-                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
-                    @foreach ($produtos as $produto)
-                        <div class="game-card bg-white rounded-xl shadow-sm overflow-hidden flex flex-col h-full">
-                            <div class="relative">
-                                <div class="bg-gray-200 aspect-square relative overflow-hidden">
-                                    <div
-                                        class="absolute inset-0 bg-gradient-to-br from-gray-300 to-gray-100 flex items-center justify-center text-gray-400">
-                                        <i class="fas fa-gamepad text-4xl"></i>
+                <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
+                    @foreach ($produtos as $item)
+
+                            <a href="/produto/{{$item['id']}}" class="rounded-lg border bg-card text-card-foreground shadow-sm overflow-hidden border-0 shadow-md hover:shadow-lg transition-shadow group">
+                                <div class="relative">
+                                    <img
+                                        src="/placeholder.svg?height=180&width=180"
+                                        alt="FIFA 23"
+                                        class="w-full h-auto object-cover aspect-square group-hover:scale-105 transition-transform"
+                                    />
+                                    <div class="absolute top-2 right-2 bg-blue-600 text-white text-xs px-2 py-1 rounded-full">
+                                        {{$item['publicador']}}
                                     </div>
                                 </div>
-
-                                <!-- Badges -->
-                                <div class="absolute top-3 left-3 flex flex-col gap-1.5">
-                    <span
-                        class="inline-flex items-center rounded-full bg-green-500 px-2.5 py-0.5 text-xs font-semibold text-white">
-                        Novo
-                    </span>
+                                <div class="p-3">
+                                    <h3 class="font-medium text-gray-800 truncate">{{$item['nome']}}</h3>
+                                    <p class="text-blue-600 font-bold">€ {{$item['preco']}}</p>
                                 </div>
-
-                                <!-- Quick actions -->
-                                <div
-                                    class="quick-actions absolute inset-0 bg-black/40 flex items-center justify-center gap-3">
-                                    <button
-                                        class="bg-white text-gray-800 rounded-full p-2.5 hover:bg-gray-100 shadow-md">
-                                        <i class="fas fa-shopping-cart text-sm"></i>
-                                    </button>
-                                    <button
-                                        class="bg-white text-gray-800 rounded-full p-2.5 hover:bg-gray-100 shadow-md">
-                                        <i class="fas fa-star text-sm"></i>
-                                    </button>
-                                </div>
-                            </div>
-
-                            <div class="p-4 flex flex-col justify-between flex-grow">
-                                <div>
-                                    <div class="flex items-start justify-between">
-                                        <div>
-                                            <h3 class="font-medium text-gray-800 hover:text-primary-600 transition-colors">{{$produto['nome']}}</h3>
-                                            <p class="text-sm text-muted mt-0.5">{{$produto['console']}}</p>
-                                        </div>
-                                        <div class="flex items-center gap-1 text-secondary-400">
-                                            <i class="fas fa-star text-xs"></i>
-                                            <span class="text-xs font-medium">4.5</span>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="mt-3 flex items-center justify-between">
-                                    <p class="font-bold text-gray-900">R$ {{$produto['preco']}}</p>
-                                    <a href="/produto/{{$produto['id']}}"
-                                       class="text-primary-600 hover:text-primary-700 text-sm font-medium">
-                                        Ver detalhes
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
+                            </a>
                     @endforeach
                 </div>
 

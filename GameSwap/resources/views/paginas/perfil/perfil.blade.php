@@ -1,8 +1,8 @@
 <x-layout>
-  
+
   <div class="flex flex-1 overflow-hidden">
     <!-- Sidebar -->
-    
+
     <x-perfilSideBar>
     </x-perfilSideBar>
 
@@ -37,10 +37,6 @@
               <div>
                 <label class="text-sm font-medium text-gray-500 mb-1 block">Telemóvel</label>
                 <p class="text-gray-800">912 345 678</p>
-              </div>
-              <div>
-                <label class="text-sm font-medium text-gray-500 mb-1 block">NIF</label>
-                <p class="text-gray-800">123456789</p>
               </div>
             </div>
           </div>
@@ -100,7 +96,7 @@
             <p class="text-gray-600 mb-4">
               Ao cancelar a sua conta, todos os seus dados serão permanentemente eliminados. Esta ação não pode ser revertida.
             </p>
-            <button class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium bg-destructive text-destructive-foreground hover:bg-destructive-hover h-10 px-4 py-2">
+            <button class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium bg-red-50 border  border-red-200 hover:border-red-300 text-red-600 hover:text-red-700  h-10 px-4 py-2">
               Cancelar Conta
             </button>
           </div>

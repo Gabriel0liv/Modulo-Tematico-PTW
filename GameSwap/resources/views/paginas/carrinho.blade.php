@@ -204,17 +204,6 @@
                 <div class="bg-white rounded-xl shadow-soft p-6 sticky top-4">
                     <h2 class="text-xl font-bold text-gray-800 mb-6">Resumo do Pedido</h2>
 
-                    <!-- Coupon Code -->
-                    <div class="mb-6">
-                        <div class="flex">
-                            <input type="text" placeholder="Código promocional"
-                                class="flex-1 py-2.5 px-3 rounded-l-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent text-gray-700 placeholder-gray-400 text-sm">
-                            <button class="bg-primary hover:bg-primary-dark text-white font-medium px-4 py-2.5 rounded-r-lg text-sm transition-all">
-                                Aplicar
-                            </button>
-                        </div>
-                    </div>
-
                     <!-- Order Details -->
                     <div class="space-y-3 mb-6">
                         <div class="flex justify-between text-sm">
@@ -244,25 +233,6 @@
                     <button class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3.5 rounded-lg shadow-soft transition-all mb-4">
                         Finalizar Compra
                     </button>
-
-                    <!-- Payment Methods -->
-                    <div class="mb-4">
-                        <p class="text-xs text-gray-500 mb-2 text-center">Métodos de pagamento aceitos</p>
-                        <div class="flex justify-center space-x-2">
-                            <div class="w-10 h-6 bg-gray-200 rounded"></div>
-                            <div class="w-10 h-6 bg-gray-200 rounded"></div>
-                            <div class="w-10 h-6 bg-gray-200 rounded"></div>
-                            <div class="w-10 h-6 bg-gray-200 rounded"></div>
-                        </div>
-                    </div>
-
-                    <!-- Secure Checkout -->
-                    <div class="flex items-center justify-center text-xs text-gray-500">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
-                        </svg>
-                        Pagamento seguro e criptografado
-                    </div>
 
                     <!-- Delivery Information -->
                     <div class="mt-6 pt-6 border-t border-gray-200">

@@ -4,7 +4,7 @@
           <i data-lucide="tag" class="h-6 w-6 text-primary mr-2"></i>
           <h1 class="text-2xl font-bold text-text">Anunciar Produto</h1>
         </div>
-        
+
         <div class="bg-blue-50 border-l-4 border-primary p-4 mb-6 rounded-r-lg">
           <div class="flex">
             <i data-lucide="info" class="h-5 w-5 text-primary mr-2"></i>
@@ -13,7 +13,7 @@
             </div>
           </div>
         </div>
-        
+
         <form id="formPublicar" class="space-y-6" action="#" method="POST" enctype="multipart/form-data">
           <!-- Product Photos -->
           <div>
@@ -43,30 +43,30 @@
               Adicione até 6 fotos do seu produto. A primeira foto será a capa do anúncio.
             </p>
           </div>
-          
+
           <!-- Product Name -->
           <div>
             <label for="product-name" class="block text-text font-medium mb-2">Nome do Produto</label>
-            <input 
-              type="text" 
-              id="product-name" 
+            <input
+              type="text"
+              id="product-name"
               class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
               placeholder="Ex: PlayStation 5 com 2 controles"
               required
             />
             <p class="text-xs text-gray-500 mt-1">Seja específico. Inclua detalhes como marca, modelo e edição.</p>
           </div>
-          
+
           <!-- Product Price -->
           <div>
             <label for="product-price" class="block text-text font-medium mb-2">Preço do Produto</label>
             <div class="relative">
               <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                <span class="text-gray-500">R$</span>
+                <span class="text-gray-500">€</span>
               </div>
-              <input 
-                type="number" 
-                id="product-price" 
+              <input
+                type="number"
+                id="product-price"
                 class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
                 placeholder="0,00"
                 step="0.01"
@@ -75,20 +75,24 @@
               />
             </div>
             <div class="mt-2 flex items-center">
-              <div class="flex-1">
-                <p class="text-xs text-gray-500">Preço médio de mercado: <span class="text-primary font-medium">R$ 250,00 - R$ 350,00</span></p>
-              </div>
               <div class="flex items-center">
                 <input type="checkbox" id="accept-offers" class="mr-2" />
                 <label for="accept-offers" class="text-sm text-gray-600">Aceito ofertas</label>
               </div>
             </div>
           </div>
-          
+
           <!-- Product Condition -->
           <div>
             <label class="block text-text font-medium mb-2">Estado do Produto</label>
-            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+            <div class="grid grid-cols-1 sm:grid-cols-4 gap-1">
+                <div>
+                    <input type="radio" id="condition-refurbished" name="condition" value="selado" class="hidden peer" />
+                    <label for="condition-refurbished" class="flex items-center justify-center p-3 text-gray-500 bg-white border border-gray-300 rounded-lg cursor-pointer peer-checked:border-primary peer-checked:bg-primary/10 peer-checked:text-primary hover:bg-gray-50">
+                        <i data-lucide="package-check" class="h-4 w-4 mr-2"></i>
+                        Selado
+                    </label>
+                </div>
               <div>
                 <input type="radio" id="condition-new" name="condition" value="novo" class="hidden peer" required checked />
                 <label for="condition-new" class="flex items-center justify-center p-3 text-gray-500 bg-white border border-gray-300 rounded-lg cursor-pointer peer-checked:border-primary peer-checked:bg-primary/10 peer-checked:text-primary hover:bg-gray-50">
@@ -97,27 +101,27 @@
                 </label>
               </div>
               <div>
-                <input type="radio" id="condition-used" name="condition" value="usado" class="hidden peer" />
+                <input type="radio" id="condition-used" name="condition" value="semi novo" class="hidden peer" />
                 <label for="condition-used" class="flex items-center justify-center p-3 text-gray-500 bg-white border border-gray-300 rounded-lg cursor-pointer peer-checked:border-primary peer-checked:bg-primary/10 peer-checked:text-primary hover:bg-gray-50">
                   <i data-lucide="package-open" class="h-4 w-4 mr-2"></i>
-                  Usado
+                  Semi novo
                 </label>
               </div>
               <div>
-                <input type="radio" id="condition-refurbished" name="condition" value="recondicionado" class="hidden peer" />
+                <input type="radio" id="condition-refurbished" name="condition" value="usado" class="hidden peer" />
                 <label for="condition-refurbished" class="flex items-center justify-center p-3 text-gray-500 bg-white border border-gray-300 rounded-lg cursor-pointer peer-checked:border-primary peer-checked:bg-primary/10 peer-checked:text-primary hover:bg-gray-50">
                   <i data-lucide="package-check" class="h-4 w-4 mr-2"></i>
-                  Recondicionado
+                  Usado
                 </label>
               </div>
             </div>
           </div>
-          
+
           <!-- Game Category -->
           <div>
             <label for="game-category" class="block text-text font-medium mb-2">Categoria de Jogo</label>
-            <select 
-              id="game-category" 
+            <select
+              id="game-category"
               class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
               required
             >
@@ -136,13 +140,13 @@
             </select>
             <p class="text-xs text-gray-500 mt-1">Escolha a categoria que melhor descreve seu jogo.</p>
           </div>
-          
+
           <!-- Product Description -->
           <div>
             <label for="product-description" class="block text-text font-medium mb-2">Descrição do Produto</label>
-            <textarea 
-              id="product-description" 
-              rows="4" 
+            <textarea
+              id="product-description"
+              rows="4"
               class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
               placeholder="Descreva o produto, mencione detalhes importantes como tempo de uso, acessórios incluídos, etc."
               required
@@ -152,12 +156,12 @@
               <p class="text-xs text-gray-500"><span id="char-count">0</span>/1000 caracteres</p>
             </div>
           </div>
-          
+
           <!-- Console Type -->
           <div>
             <label for="console-type" class="block text-text font-medium mb-2">Tipo de Console</label>
-            <select 
-              id="console-type" 
+            <select
+              id="console-type"
               class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
               required
             >
@@ -174,7 +178,7 @@
               <option value="outro">Outro</option>
             </select>
           </div>
-          
+
           <!-- Delivery Options -->
           <div>
             <label class="block text-text font-medium mb-2">Opções de Entrega</label>
@@ -189,11 +193,11 @@
               </div>
             </div>
           </div>
-          
+
           <!-- Submit Button -->
           <div class="flex justify-end">
-            <button 
-              type="submit" 
+            <button
+              type="submit"
               class="bg-primary text-white px-6 py-3 rounded-lg font-medium hover:bg-primary/90 transition flex items-center"
             >
               <i data-lucide="check-circle" class="h-5 w-5 mr-2"></i>
@@ -205,7 +209,7 @@
     <script>
         // Initialize Lucide icons
         lucide.createIcons();
-        
+
 
     </script>
 </x-layout>
