@@ -17,16 +17,7 @@
           <!-- Logo -->
           <div class="flex items-center">
               <div class="relative flex items-center">
-                  <div class="relative mr-2">
-                      <div class="w-10 h-10 bg-blue-700 rounded-lg flex items-center justify-center shadow-inner">
-                          <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-                               xmlns="http://www.w3.org/2000/svg">
-                              <path d="M6 12H10" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
-                              <path d="M8 10V14" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
-                          </svg>
 
-                      </div>
-                  </div>
                   <a href="/" class="text-white font-bold text-xl tracking-tight">GAMESWAP</a>
               </div>
           </div>
@@ -55,7 +46,7 @@
                   </svg>
               </button>
               <!-- User Profile Info (Hidden until logged in) -->
-              
+
               <a href="{{route('perfilPage')}}" id="user-profile-info" class="hidden items-center space-x-2">
                   <div class="w-8 h-8 rounded-full bg-primary-300 flex items-center justify-center text-primary-800 font-bold">
                       <span id="user-initials">U</span>

@@ -22,7 +22,7 @@
             </div>
             <div class="p-6 pt-0 p-4">
               <div class="mb-3">
-                <span class="text-blue-600 font-bold text-lg">R$ 19,90</span>
+                <span class="text-blue-600 font-bold text-lg">€ 19,90</span>
                 <span class="text-gray-500 text-sm"> / mês</span>
               </div>
               <p class="text-sm text-gray-600 mb-3">
@@ -84,7 +84,7 @@
                 </div>
                 <div class="p-3">
                     <h3 class="font-medium text-gray-800 truncate">{{$item['nome']}}</h3>
-                    <p class="text-blue-600 font-bold">{{$item['preco']}}</p>
+                    <p class="text-blue-600 font-bold">€ {{$item['preco']}}</p>
                 </div>
               </a>
             @endif
@@ -111,7 +111,7 @@
                 </div>
                 <div class="p-3">
                     <h3 class="font-medium text-gray-800 truncate">{{$item['nome']}}</h3>
-                    <p class="text-blue-600 font-bold">{{$item['preco']}}</p>
+                    <p class="text-blue-600 font-bold">€ {{$item['preco']}}</p>
                 </div>
               </a>
             @endif

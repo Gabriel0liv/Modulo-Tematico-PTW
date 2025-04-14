@@ -107,7 +107,7 @@
               <span class="text-sm text-gray-500">(32 avaliações)</span>
             </div>
             <h1 class="text-3xl font-bold text-gray-900">{{$produto['nome']}}</h1>
-            <p class="text-gray-500 mt-1">{{$produto['console']}} • Jogo Original • Platinum Edition</p>
+            <p class="text-gray-500 mt-1">{{$produto['console']}}</p>
           </div>
 
           <div class="flex items-end gap-3">
@@ -214,56 +214,7 @@
             </div>
           </div>
 
-          <div id="shipping" class="tab-content mt-4">
-            <div class="bg-white rounded-lg p-4 space-y-4">
-              <div class="flex items-center gap-3 p-3 border border-gray-200 rounded-lg">
-                <div class="p-2 rounded-full bg-[#e7f5ff]">
-                  <svg class="h-5 w-5 text-[#0a66c2]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                  </svg>
-                </div>
-                <div>
-                  <div class="font-medium">Envio padrão</div>
-                  <div class="text-sm text-gray-500">2-3 dias úteis • €3,99</div>
-                </div>
-              </div>
-              <div class="flex items-center gap-3 p-3 border border-gray-200 rounded-lg">
-                <div class="p-2 rounded-full bg-[#e7f5ff]">
-                  <svg class="h-5 w-5 text-[#0a66c2]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
-                  </svg>
-                </div>
-                <div>
-                  <div class="font-medium">Envio expresso</div>
-                  <div class="text-sm text-gray-500">1 dia útil • €5,99</div>
-                </div>
-              </div>
-              <div class="flex items-center gap-3 p-3 border border-gray-200 rounded-lg">
-                <div class="p-2 rounded-full bg-[#e7f5ff]">
-                  <svg class="h-5 w-5 text-[#0a66c2]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                  </svg>
-                </div>
-                <div>
-                  <div class="font-medium">Retirada local</div>
-                  <div class="text-sm text-gray-500">{{$produto['morada']}} • Grátis</div>
-                </div>
-              </div>
-            </div>
-          </div>
 
-          <div class="tabs grid w-full grid-cols-3 bg-gray-100 rounded-lg p-1 mt-4">
-            <a href="#description" class="tab text-center py-2 px-4 rounded-md hover:bg-white/50 transition-colors">
-              Descrição
-            </a>
-            <a href="#details" class="tab text-center py-2 px-4 rounded-md hover:bg-white/50 transition-colors">
-              Detalhes
-            </a>
-            <a href="#shipping" class="tab text-center py-2 px-4 rounded-md hover:bg-white/50 transition-colors">
-              Envio
-            </a>
-          </div>
         </div>
       </div>
     </div>
@@ -382,7 +333,7 @@
           </div>
         @endforeach
 
-        
+
       </div>
     </div>
   </main>
