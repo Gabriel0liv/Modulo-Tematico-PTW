@@ -18,6 +18,8 @@ const registerLink = document.getElementById("register-link");
 const loginLink = document.getElementById("login-link");
 const forgotPasswordLink = document.getElementById("forgot-password-link");
 const backToLoginLink = document.getElementById("back-to-login");
+const notificationModal = document.getElementById("notification-modal");
+const notificationBtn = document.getElementById("notification-btn");
 
 // Initialize - hide error messages
 loginError.classList.remove("active");
@@ -31,9 +33,7 @@ function showModal(modal) {
     loginModal.classList.remove("active");
     registerModal.classList.remove("active");
     resetPasswordModal.classList.remove("active");
-
-    // Show the requested modal
-    modal.classList.add("active");
+    notificationModal.classList.remove("active")
 
     // Reset forms and errors
     loginForm.reset();
@@ -43,6 +43,9 @@ function showModal(modal) {
     registerError.classList.remove("active");
     resetError.classList.remove("active");
     resetSuccess.classList.remove("active");
+
+    // Show the requested modal
+    modal.classList.add("active");
 }
 
 // Close modal when clicking outside
@@ -57,6 +60,7 @@ function setupModalBackdropClose(modal) {
 setupModalBackdropClose(loginModal);
 setupModalBackdropClose(registerModal);
 setupModalBackdropClose(resetPasswordModal);
+setupModalBackdropClose(notificationModal);
 
 // Show login modal when user profile button is clicked
 userProfileBtn.addEventListener("click", function () {
@@ -86,6 +90,10 @@ forgotPasswordLink.addEventListener("click", function (e) {
 backToLoginLink.addEventListener("click", function (e) {
     e.preventDefault();
     showModal(loginModal);
+});
+
+notificationBtn.addEventListener("click", function (){
+    showModal(notificationModal);
 });
 
 // Show error message

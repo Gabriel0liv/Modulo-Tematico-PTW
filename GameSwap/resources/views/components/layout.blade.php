@@ -53,10 +53,15 @@
                   </div>
                   <span id="username-display" class="text-white text-sm hidden md:inline-block">Usuário</span>
               </a>
-              <a class="relative group" aria-label="Notificações">
-                  <i class="bi bi-bell text-white text-xl"></i>
-
-              </a>
+              <div class="relative group">
+                  <button id="notification-btn" class="relative group z-50" aria-label="Notificações">
+                      <i class="bi bi-bell text-white text-xl"></i>
+                  </button>
+                  <!-- notification modal -->
+                  <div id="notification-modal" class="modal absolute top-full left-1/2 -translate-x-1/2 mt-2 w-64 bg-white shadow-lg rounded-lg p-4 z-40">
+                        <p>Sem novas notificações.</p>
+                  </div>
+              </div>
               <a href="{{route('mensagensPage')}}" class="relative group" aria-label="Mensagens">
                   <i class="bi bi-chat-dots text-white text-xl"></i>
 
