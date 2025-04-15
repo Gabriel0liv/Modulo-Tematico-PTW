@@ -14,7 +14,7 @@
             </div>
         </div>
 
-        <form id="formPublicar" class="space-y-6" action="#" method="POST" enctype="multipart/form-data">
+        <form id="formPublicar" class="space-y-6" action="/" method="GET">
             <!-- Product Photos -->
             <div>
                 <label class="block text-text font-medium mb-2">Fotos do Produto</label>
@@ -164,7 +164,7 @@
 
             <!-- Submit Button -->
             <div class="flex justify-end">
-                <button type="submit" class="bg-primary text-white px-6 py-3 rounded-lg font-medium hover:bg-primary/90 transition flex items-center">
+                <button type="submit" class="bg-primary text-black px-6 py-3 rounded-lg font-medium hover:bg-primary/90 transition flex items-center">
                     <i data-lucide="check-circle" class="h-5 w-5 mr-2"></i>
                     Publicar Anúncio
                 </button>
@@ -175,8 +175,178 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            console.log(typeof initAnunciarProdutoValidation); // Deve exibir "function"
-            initAnunciarProdutoValidation();
+            
+            const form = document.getElementById("formPublicar"); // Seleciona o formulário principal
+            //alert(form.innerHTML);
+            const productName = document.getElementById("product-name"); // Campo do nome do produto
+            const productPrice = document.getElementById("product-price"); // Campo do preço do produto
+            const gameCategory = document.getElementById("game-category"); // Campo da categoria do jogo
+            const productDescription = document.getElementById("product-description"); // Campo da descrição do produto
+            const consoleType = document.getElementById("console-type"); // Campo do tipo de console
+
+            // Adiciona um evento de validação ao enviar o formulário
+            form.addEventListener("submit", function(event) {
+                //event.preventDefault(); // Impede o envio padrão do formulário
+                
+                let isValid = true; // Flag para rastrear se o formulário é válido
+                
+                // Validação do nome do produto
+                if (productName.value.trim() === "") {
+                    alert("O nome do produto é obrigatório.");
+                    productName.focus();
+                    isValid = false;
+                } else if (productName.value.length < 3) {
+                    alert("O nome do produto deve ter pelo menos 3 caracteres.");
+                    productName.focus();
+                    isValid = false;
+                }
+                
+                // Validação do preço do produto
+                if (productPrice.value.trim() === "") {
+                    alert("O preço do produto é obrigatório.");
+                    productPrice.focus();
+                    isValid = false;
+                } else if (
+                    isNaN(productPrice.value) ||
+                    parseFloat(productPrice.value) <= 0
+                ) {
+                    alert("Insira um preço válido maior que zero.");
+                    productPrice.focus();
+                    isValid = false;
+                }
+
+                // Validação da categoria do jogo
+                if (gameCategory.value === "") {
+                    alert("Selecione uma categoria de jogo.");
+                    gameCategory.focus();
+                    isValid = false;
+                }
+
+                // Validação da descrição do produto
+                if (productDescription.value.trim() === "") {
+                    alert("A descrição do produto é obrigatória.");
+                    productDescription.focus();
+                    isValid = false;
+                } else if (productDescription.value.length > 1000) {
+                    alert("A descrição do produto não pode exceder 1000 caracteres.");
+                    productDescription.focus();
+                    isValid = false;
+                }
+
+                // Validação do tipo de console
+                if (consoleType.value === "") {
+                    alert("Selecione um tipo de console.");
+                    consoleType.focus();
+                    isValid = false;
+                }
+
+                // Impede o envio do formulário se alguma validação falhar
+                if (!isValid) {
+                    event.preventDefault();
+                }
+            });
+
+            //  alidação em tempo real para o campo de preço (apenas números e ponto decimal)
+            productPrice.addEventListener("input", function() {
+                this.value = this.value.replace(/[^0-9.]/g, ""); // Remove caracteres inválidos
+            });
+
+            // Validação em tempo real para o campo de descrição (limite de caracteres)
+            productDescription.addEventListener("input", function() {
+                const count = this.value.length;
+                const charCount = document.getElementById("char-count");
+                charCount.textContent = count;
+
+                if (count > 1000) {
+                    charCount.classList.add("text-red-500", "font-bold");
+                } else {
+                    charCount.classList.remove("text-red-500", "font-bold");
+                }
+            });
+
+            // Character counter for description
+            const descriptionField = document.getElementById("product-description");
+            const charCount = document.getElementById("char-count");
+
+            // Make the file upload areas clickable
+            document.querySelectorAll(".photo-upload").forEach((area) => {
+                area.addEventListener("click", () => {
+                    area.querySelector('input[type="file"]').click();
+                });
+
+                const fileInput = area.querySelector('input[type="file"]');
+                fileInput.addEventListener("change", (e) => {
+                    if (e.target.files.length > 0) {
+                        // Show preview of the image
+                        const file = e.target.files[0];
+                        const reader = new FileReader();
+
+                        reader.onload = function(event) {
+                            // Replace the icon with the image preview
+                            const isMain = area.querySelector(".top-2") !== null;
+                            let mainTag = "";
+
+                            if (isMain) {
+                                mainTag = `<div class="absolute top-2 left-2 bg-primary text-white text-xs px-2 py-1 rounded">
+                    Principal
+                  </div>`;
+                            }
+
+                            area.innerHTML = `
+                  <div class="relative w-full h-full">
+                    ${mainTag}
+                    <img src="${event.target.result}" class="w-full h-full object-cover rounded-lg" />
+                    <button type="button" class="absolute top-2 right-2 bg-white rounded-full p-1 shadow-md remove-image">
+                      <i data-lucide="x" class="h-4 w-4 text-gray-500"></i>
+                    </button>
+                    <input type="file" class="hidden" accept="image/*" />
+                  </div>
+                `;
+
+                            // Re-initialize icons
+                            lucide.createIcons();
+
+                            // Add event listener to remove button
+                            area.querySelector(".remove-image").addEventListener(
+                                "click"
+                                , (e) => {
+                                    e.stopPropagation();
+
+                                    // Restore original content
+                                    if (isMain) {
+                                        area.innerHTML = `
+                      <div class="absolute top-2 left-2 bg-primary text-white text-xs px-2 py-1 rounded">
+                        Principal
+                      </div>
+                      <i data-lucide="image-plus" class="h-10 w-10 text-gray-400 mb-2"></i>
+                      <span class="text-sm text-gray-500">Adicionar foto principal</span>
+                      <input type="file" class="hidden" accept="image/*" />
+                    `;
+                                    } else {
+                                        area.innerHTML = `
+                      <i data-lucide="image-plus" class="h-10 w-10 text-gray-400 mb-2"></i>
+                      <span class="text-sm text-gray-500">Adicionar foto</span>
+                      <input type="file" class="hidden" accept="image/*" />
+                    `;
+                                    }
+
+                                    lucide.createIcons();
+
+                                    // Re-add click event to the area
+                                    area.addEventListener("click", () => {
+                                        area.querySelector(
+                                            'input[type="file"]'
+                                        ).click();
+                                    });
+                                }
+                            );
+                        };
+
+                        reader.readAsDataURL(file);
+                    }
+                });
+            });
+
         });
 
         // Initialize Lucide icons

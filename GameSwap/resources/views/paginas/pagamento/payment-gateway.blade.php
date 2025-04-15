@@ -36,7 +36,7 @@
                     <p class="text-sm text-muted-foreground">Preencha suas informações para continuar</p>
                 </div>
                 <div class="p-6 pt-0">
-                    <form id="formpay1" class="space-y-4" action="{{ route('assinatura-2') }}" method="GET" >
+                    <form id="formPay1" class="space-y-4" action="{{ route('assinatura-2') }}" method="HEAD">
                         <div class="space-y-2">
                             <label for="name" class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">Nome Completo</label>
                             <input id="name" name="name" class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50" required />
@@ -77,6 +77,104 @@
     </main>
 
     <script>
+
+        // Verifica se o DOM está completamente carregado
+        document.addEventListener("DOMContentLoaded", function() {
+        alert("oi");
+            const formPay1 = document.getElementById("formPay1"); // Seleciona o    formulário principal
+            //alert(formPay1.innerHTML)
+            const nameField = document.getElementById("name"); // Campo do nome completo
+            const emailField = document.getElementById("email"); // Campo do email
+            const addressField = document.getElementById("address"); // Campo do endereço
+            const cityField = document.getElementById("city"); // Campo da cidade
+            const zipCodeField = document.getElementById("zipCode"); // Campo do CEP
+
+            // Adiciona um evento de validação ao enviar o formulário
+            formPay1.addEventListener("submit", function(event) {
+                let isValid = true; // Flag para rastrear se o formulário é válido
+
+                
+                // Validação do nome completo
+                if (nameField.value.trim() === "") {
+                    alert("O nome completo é obrigatório.");
+                    nameField.focus();
+                    isValid = false;
+                } else if (nameField.value.length < 3) {
+                    alert("O nome completo deve ter pelo menos 3 caracteres.");
+                    nameField.focus();
+                    isValid = false;
+                }
+
+                // Validação do email
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Regex para validar email
+                if (emailField.value.trim() === "") {
+                    alert("O email é obrigatório.");
+                    emailField.focus();
+                    isValid = false;
+                } else if (!emailRegex.test(emailField.value)) {
+                    alert("Insira um email válido.");
+                    emailField.focus();
+                    isValid = false;
+                }
+
+                // Validação do endereço
+                if (addressField.value.trim() === "") {
+                    alert("O endereço é obrigatório.");
+                    addressField.focus();
+                    isValid = false;
+                } else if (addressField.value.length < 5) {
+                    alert("O endereço deve ter pelo menos 5 caracteres.");
+                    addressField.focus();
+                    isValid = false;
+                }
+
+                // Validação da cidade
+                if (cityField.value.trim() === "") {
+                    alert("A cidade é obrigatória.");
+                    cityField.focus();
+                    isValid = false;
+                }
+
+                // Validação do CEP
+                const zipCodeRegex = /^[0-9]{5}-?[0-9]{3}$/; // Regex para validar CEP (formato 12345-678 ou 12345678)
+                if (zipCodeField.value.trim() === "") {
+                    alert("O CEP é obrigatório.");
+                    zipCodeField.focus();
+                    isValid = false;
+                } else if (!zipCodeRegex.test(zipCodeField.value)) {
+                    // Verifica se o CEP está no formato correto
+                    alert("Insira um CEP válido no formato 12345-678.");
+                    zipCodeField.focus();
+                    isValid = false;
+                }
+
+                // Impede o envio do formulário se alguma validação falhar
+                if (!isValid) {
+                    event.preventDefault();
+                } else {
+                    // Redireciona para a próxima página se o formulário for válido
+
+                    window.location.href = "{{route('assinatura-2')}}"; // Substitua pela rota da próxima página
+                }
+            });
+
+            // Validação em tempo real para o campo de email
+            emailField.addEventListener("input", function() {
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!emailRegex.test(emailField.value)) {
+                    emailField.classList.add("border-red-500"); // Adiciona uma borda vermelha se o email for inválido
+                } else {
+                    emailField.classList.remove("border-red-500"); // Remove a borda vermelha se o email for válido
+                }
+            });
+
+            // Validação em tempo real para o campo de CEP
+            zipCodeField.addEventListener("input", function() {
+                this.value = this.value.replace(/[^0-9-]/g, ""); // Permite apenas números e o caractere "-"
+            });
+        });
+
+
         // Initialize Lucide icons
         lucide.createIcons();
 

@@ -264,6 +264,10 @@ Route::get('/',function(){
     return view('compras', ['produtos' => $produtos],  );
 });
 
+Route::get('/components/layout', function () {
+    return view('components.layout');
+})->name('layoutPage');
+
 Route::get("/membership-payment-gateway",function(){
     return view('paginas.pagamento.payment-gateway');
 })->name('assinatura');
