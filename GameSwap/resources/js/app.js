@@ -18,8 +18,10 @@ const registerLink = document.getElementById("register-link");
 const loginLink = document.getElementById("login-link");
 const forgotPasswordLink = document.getElementById("forgot-password-link");
 const backToLoginLink = document.getElementById("back-to-login");
-const notificationModal = document.getElementById("notification-modal");
-const notificationBtn = document.getElementById("notification-btn");
+const notificationModal = document.getElementById("notificationModal");
+const notificationBtn = document.getElementById("notificationBtn");
+
+console.log(notificationModal);
 
 // Initialize - hide error messages
 loginError.classList.remove("active");
@@ -92,9 +94,10 @@ backToLoginLink.addEventListener("click", function (e) {
     showModal(loginModal);
 });
 
-notificationBtn.addEventListener("click", function (){
+notificationBtn.addEventListener("click", function() {
     showModal(notificationModal);
 });
+
 
 // Show error message
 function showError(errorElement, errorTextElement, message) {
