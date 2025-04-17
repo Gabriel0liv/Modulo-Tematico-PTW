@@ -80,7 +80,6 @@
 
         // Verifica se o DOM está completamente carregado
         document.addEventListener("DOMContentLoaded", function() {
-        alert("oi");
             const formPay1 = document.getElementById("formPay1"); // Seleciona o    formulário principal
             //alert(formPay1.innerHTML)
             const nameField = document.getElementById("name"); // Campo do nome completo
