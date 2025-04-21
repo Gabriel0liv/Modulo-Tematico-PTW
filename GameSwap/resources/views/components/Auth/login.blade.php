@@ -14,6 +14,7 @@
             </div>
 
             <form id="login-form" action="{{route('login')}}" method="POST">
+                @csrf
                 <div class="space-y-4">
                     <div>
                         <label for="username" class="block text-sm font-medium text-gray-700 mb-1">Nome de usuário:</label>

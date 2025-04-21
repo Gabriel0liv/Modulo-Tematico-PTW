@@ -42,8 +42,7 @@ class AuthController extends Controller
         
         if(Auth::attempt($validar)){
             $request->session()->regenerate();
-
-            return redirect()->route('pagina-inicial');
+            return redirect()->route('pagina_inicial');
         }
 
         throw ValidationException::withMessages([
