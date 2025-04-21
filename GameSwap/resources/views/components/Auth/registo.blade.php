@@ -13,36 +13,37 @@
                 </div>
             </div>
 
-            <form id="register-form" class="overflow-y-auto max-h-[60vh]">
+            <form id="register-form" action="{{route('criarRegisto')}}" method="POST" class="overflow-y-auto max-h-[60vh]">
+                @csrf
                 <div class="space-y-4">
                     <div>
                         <label for="register-name" class="block text-sm font-medium text-gray-700 mb-1">Nome completo: <span class="text-red-500">*</span></label>
-                        <input type="text" id="register-name" class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="Seu nome completo">
+                        <input type="text" id="register-name" name="register_name" class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="Seu nome completo">
                     </div>
                     <div>
                         <label for="register-email" class="block text-sm font-medium text-gray-700 mb-1">Email: <span class="text-red-500">*</span></label>
-                        <input type="email" id="register-email" class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="seu@email.com">
+                        <input type="email" id="register-email" name="register_email" class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="seu@email.com">
                     </div>
                     <div>
                         <label for="register-phone" class="block text-sm font-medium text-gray-700 mb-1">Telefone: <span class="text-red-500">*</span></label>
-                        <input type="tel" id="register-phone" class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="+351 XXX XXX XXX">
+                        <input type="text" id="register-phone" name="register_phone" class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="+351 XXX XXX XXX">
                     </div>
                     <div>
                         <label for="register-dob" class="block text-sm font-medium text-gray-700 mb-1">Data de nascimento: <span class="text-red-500">*</span></label>
-                        <input type="date" id="register-dob" class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                        <input type="date" id="register-dob" name="register_dob" class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
                     </div>
                     <div>
                         <label for="register-username" class="block text-sm font-medium text-gray-700 mb-1">Nome de usuário: <span class="text-red-500">*</span></label>
-                        <input type="text" id="register-username" class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="Escolha um nome de usuário">
+                        <input type="text" id="register-username" name="register_username" class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="Escolha um nome de usuário">
                     </div>
                     <div>
                         <label for="register-password" class="block text-sm font-medium text-gray-700 mb-1">Senha: <span class="text-red-500">*</span></label>
-                        <input type="password" id="register-password" class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="Mínimo 8 caracteres">
+                        <input type="password" id="register-password" name="register_password" class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="Mínimo 8 caracteres">
                         <p class="text-xs text-gray-500 mt-1">A senha deve conter pelo menos 8 caracteres, incluindo letras maiúsculas, minúsculas e números.</p>
                     </div>
                     <div>
                         <label for="register-confirm-password" class="block text-sm font-medium text-gray-700 mb-1">Confirmar senha: <span class="text-red-500">*</span></label>
-                        <input type="password" id="register-confirm-password" class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                        <input type="password" id="register-confirm-password" name="register_password_confirmation" class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
                     </div>
                     <div class="flex items-start">
                         <div class="flex items-center h-5">

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -262,11 +263,15 @@ Route::get('/',function(){
 
 
     return view('compras', ['produtos' => $produtos],  );
-});
+})->name('pagina_inicial');
 
 Route::get('/components/layout', function () {
     return view('components.layout');
 })->name('layoutPage');
+
+Route::post('/registo',[AuthController::class,'criarRegisto'])->name('criarRegisto');
+Route::post('/login',[AuthController::class,'login'])->name('login');
+Route::post('/logout',[AuthController::class,'logout'])->name('logout');
 
 Route::get("/membership-payment-gateway",function(){
     return view('paginas.pagamento.payment-gateway');
