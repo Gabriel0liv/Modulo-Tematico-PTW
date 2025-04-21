@@ -147,9 +147,6 @@ loginForm.addEventListener("submit", function (e) {
     if (!isValid) {
         event.preventDefault();
     }*/
-
-    // Simulate login process
-    simulateLogin(username, password);
 });
 
 // Handle registration form submission
@@ -291,9 +288,6 @@ registerForm.addEventListener("submit", function (e) {
         terms.focus();
         isValid = false;
     }
-
-    // Simulate registration process
-    simulateRegistration(name, email, username);
 });
 
 // Handle password reset form submission
@@ -323,67 +317,7 @@ resetForm.addEventListener("submit", function (e) {
         return;
     }
 
-    // Simulate password reset process
-    simulatePasswordReset(email);
 });
-
-// Simulate login process (for demonstration)
-function simulateLogin(username, password) {
-    // For demo purposes, let's consider "demo" / "password" as valid credentials
-    if (username === "demo" && password === "password") {
-        // Successful login
-        loginSuccess(username);
-    } else {
-        // Failed login
-        showError(
-            loginError,
-            document.getElementById("error-message-text"),
-            "Nome de usuário ou senha incorretos. Por favor, tente novamente."
-        );
-    }
-}
-
-// Simulate registration process (for demonstration)
-function simulateRegistration(name, email, username) {
-    // For demo purposes, always succeed
-    setTimeout(() => {
-        // Close the modal
-        registerModal.classList.remove("active");
-
-        // Show success message
-        const successToast = document.createElement("div");
-        successToast.className =
-            "fixed bottom-4 right-4 bg-green-500 text-white px-4 py-2 rounded-lg shadow-lg z-50";
-        successToast.textContent =
-            "Registro concluído com sucesso! Você já pode fazer login.";
-        document.body.appendChild(successToast);
-
-        // Remove success message after 3 seconds
-        setTimeout(() => {
-            successToast.remove();
-            // Show login modal
-            showModal(loginModal);
-        }, 3000);
-    }, 1000);
-}
-
-// Simulate password reset process (for demonstration)
-function simulatePasswordReset(email) {
-    // For demo purposes, always succeed
-    setTimeout(() => {
-        // Show success message
-        resetError.classList.remove("active");
-        resetSuccess.classList.add("active");
-
-        // Hide the form
-        document.getElementById("reset-form-container").style.display = "none";
-
-        // After 3 seconds, return to login
-        setTimeout(() => {
-            showModal(loginModal);
-        }, 3000);
-    }, 1000);
-}
 
 // Handle successful login
 function loginSuccess(username) {
