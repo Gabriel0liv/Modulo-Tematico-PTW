@@ -38,6 +38,11 @@ class AuthController extends Controller
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
             return redirect()->route('pagina_inicial');
+
+            $user = Auth::user();
+            if($user->tipo === 'admin'){
+                return redirect()->route('perfilAdmin');
+            }
         }
 
         // Lançar exceção se as credenciais forem inválidas
