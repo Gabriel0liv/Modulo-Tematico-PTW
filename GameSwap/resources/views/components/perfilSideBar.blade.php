@@ -69,12 +69,12 @@
         <form action="{{route('logout')}}" method="POST">
             @csrf
             <div class="p-4 mt-auto border-t border-gray-200">
-                <a href="#" class="flex items-center gap-3 px-4 py-3 bg-red-50 border  border-red-200 hover:border-red-300 text-red-600 hover:text-red-700 rounded-md transition-colors">
+                <button class="flex items-center gap-3 px-4 py-3 bg-red-50 border  border-red-200 hover:border-red-300 text-red-600 hover:text-red-700 rounded-md transition-colors">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
                     </svg>
                     <span>Sair</span>
-                </a>
+                </button>
             </div>
         </form>
     </div>

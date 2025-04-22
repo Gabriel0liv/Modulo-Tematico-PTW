@@ -43,6 +43,11 @@ class AuthController extends Controller
         if(Auth::attempt($validar)){
             $request->session()->regenerate();
             return redirect()->route('pagina_inicial');
+
+            $user = Auth::user();
+            if($user->tipo === 'admin'){
+                return redirect()->route('perfilAdmin');
+            }
         }
 
         throw ValidationException::withMessages([

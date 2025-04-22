@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 
@@ -261,7 +262,6 @@ Route::get('/',function(){
     ];
 
 
-
     return view('compras', ['produtos' => $produtos],  );
 })->name('pagina_inicial');
 
@@ -319,7 +319,7 @@ Route::get("/perfil/moradas",function(){
 
 Route::get("/perfilAdmin",function(){
     return view('paginas.perfilAdmin.perfilA');
-});
+})->name('perfilAdmin');
 
 Route::get("/perfilAdmin/estatisticas",function(){
     return view('paginas.perfilAdmin.estatisticas');
