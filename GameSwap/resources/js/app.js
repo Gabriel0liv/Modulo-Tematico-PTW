@@ -10,10 +10,6 @@ const userProfileBtnMobile = document.getElementById("user-profile-btn-mobile");
 const userProfileInfo = document.getElementById("user-profile-info");
 const usernameDisplay = document.getElementById("username-display");
 const userInitials = document.getElementById("user-initials");
-const loginError = document.getElementById("login-error");
-const registerError = document.getElementById("register-error");
-const resetError = document.getElementById("reset-error");
-const resetSuccess = document.getElementById("reset-success");
 const registerLink = document.getElementById("register-link");
 const loginLink = document.getElementById("login-link");
 const forgotPasswordLink = document.getElementById("forgot-password-link");
@@ -22,9 +18,6 @@ const notificationModal = document.getElementById("notificationModal");
 const notificationBtn = document.getElementById("notificationBtn");
 
 // Initialize - hide error messages
-loginError.classList.remove("active");
-registerError.classList.remove("active");
-resetError.classList.remove("active");
 resetSuccess.classList.remove("active");
 
 // Toggle modals
@@ -37,10 +30,6 @@ function showModal(modal) {
     loginForm.reset();
     registerForm.reset();
     resetForm.reset();
-    loginError.classList.remove("active");
-    registerError.classList.remove("active");
-    resetError.classList.remove("active");
-    resetSuccess.classList.remove("active");
 
     modal.classList.add("active");
 }
@@ -83,15 +72,57 @@ backToLoginLink.addEventListener("click", (e) => {
 
 notificationBtn.addEventListener("click", () => showModal(notificationModal));
 
-// Show error
-function showError(errorElement, errorTextElement, message) {
-    errorTextElement.textContent = message;
-    errorElement.classList.add("active");
-    errorElement.closest("form").classList.add("shake");
-    setTimeout(() => {
-        errorElement.closest("form").classList.remove("shake");
-    }, 500);
-}
+
+// Capturar erros de validação no formulário de login
+loginForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const formData = new FormData(loginForm);
+    const response = await fetch(loginForm.action, {
+        method: "POST",
+        body: formData,
+        headers: {
+            "X-CSRF-TOKEN": document.querySelector('input[name="_token"]').value,
+        },
+    });
+
+    if (response.ok) {
+        window.location.href = "/"; // Redireciona para a página inicial
+    } else {
+        const errors = await response.json();
+        const errorContainer = document.getElementById("login-error");
+        const errorMessage = document.getElementById("error-message-text");
+
+
+        errorContainer.classList.add("active");
+        errorMessage.textContent = errors.username || errors.password || "Erro ao fazer login.";
+    }
+});
+
+// Capturar erros de validação no formulário de registro
+registerForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const formData = new FormData(registerForm);
+    const response = await fetch(registerForm.action, {
+        method: "POST",
+        body: formData,
+        headers: {
+            "X-CSRF-TOKEN": document.querySelector('input[name="_token"]').value,
+        },
+    });
+
+    if (response.ok) {
+        window.location.href = "/"; // Redireciona para a página inicial
+    } else {
+        const errors = await response.json();
+        const errorContainer = document.getElementById("register-error");
+        const errorMessage = document.getElementById("register-error-text");
+
+        errorContainer.classList.add("active");
+        errorMessage.textContent = Object.values(errors).join(" ");
+    }
+});
 
 // Simulação pós-login (frontend)
 function loginSuccess(username) {
@@ -113,10 +144,3 @@ function loginSuccess(username) {
         successToast.remove();
     }, 3000);
 }
-
-
-// Validações ANUNCIAR PRODUTO
-
-//validações pagamento de subscrição 1º etapa
-
-// validações pagamento de subscrição 2º etapa

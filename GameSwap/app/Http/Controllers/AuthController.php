@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\LoginUserRequest;
+use App\Http\Requests\RegisterUserRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -9,48 +11,42 @@ use Illuminate\Validation\ValidationException;
 
 class AuthController extends Controller
 {
-    public function criarRegisto (Request $request)
+    public function criarRegisto (RegisterUserRequest $request)
     {
-        $validar = $request->validate([
-            'register_name' => 'required|string|max:255',
-            'register_email' => 'required|email|unique:users,email',
-            'register_phone' => 'required|string|max:255',
-            'register_dob' =>   'required|date',
-            'register_username' => 'required|string|max:255',
-            'register_password' => 'required|string|min:8|confirmed'
-        ]);
 
         $user = new User();
-        $user->name = $request->input('register_name');
-        $user->email = $request->input('register_email');
-        $user->contato = $request->input('register_phone');
-        $user->dataNascimento = $request->input('register_dob');
-        $user->username = $request->input('register_username');
-        $user->password = $request->input('register_password');
+        $user->name = $request->input('name');
+        $user->email = $request->input('email');
+        $user->contato = $request->input('phone');
+        $user->dataNascimento = $request->input('birthdate');
+        $user->username = $request->input('username');
+        $user->password = bcrypt($request->input('password')); // Certifique-se de criptografar a senha
+        $user->passsword_confirmation = bcrypt($request->input('password_confirmation')); // Certifique-se de criptografar a senha
         $user->save();
-        
+
         Auth::login($user);
 
         return redirect()->route('pagina_inicial');
     }
 
-    public function login (Request $request){
-        $validar = $request->validate([
-            'username' => 'required|string',
-            'password' => 'required|string'
-        ]);
-        
-        if(Auth::attempt($validar)){
+    public function login (LoginUserRequest $request){
+
+        // Obter as credenciais do request
+        $credentials = $request->only('username', 'password');
+
+        // Tentar autenticar o utilizador
+        if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
             return redirect()->route('pagina_inicial');
         }
 
+        // Lançar exceção se as credenciais forem inválidas
         throw ValidationException::withMessages([
-            'credentials' => 'Credenciais incorretas'
+            'username' => 'O nome de utilizador ou a palavra-passe estão incorretos.',
         ]);
-        
+
     }
-    
+
     public function logout(Request $request){
         Auth::logout();
 
