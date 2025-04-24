@@ -18,7 +18,7 @@ const notificationModal = document.getElementById("notificationModal");
 const notificationBtn = document.getElementById("notificationBtn");
 
 // Initialize - hide error messages
-resetSuccess.classList.remove("active");
+
 
 // Toggle modals
 function showModal(modal) {
@@ -65,82 +65,135 @@ forgotPasswordLink.addEventListener("click", (e) => {
     showModal(resetPasswordModal);
 });
 
-backToLoginLink.addEventListener("click", (e) => {
-    e.preventDefault();
-    showModal(loginModal);
-});
+document.addEventListener("DOMContentLoaded", function () {
+    const userProfileBtn = document.getElementById("user-profile-btn");
+    const loginModal = document.getElementById("login-modal");
+    const registerModal = document.getElementById("register-modal");
+    const notificationModal = document.getElementById("notificationModal");
 
-notificationBtn.addEventListener("click", () => showModal(notificationModal));
+    const loginForm = document.getElementById("login-form");
+    const registerForm = document.getElementById("register-form");
 
+    const loginErrorContainer = document.getElementById("login-error");
+    const loginErrorText = document.getElementById("error-message-text");
 
-// Capturar erros de validação no formulário de login
-loginForm.addEventListener("submit", async (e) => {
-    e.preventDefault();
+    const registerErrorContainer = document.getElementById("register-error");
+    const registerErrorText = document.getElementById("register-error-text");
 
-    const formData = new FormData(loginForm);
-    const response = await fetch(loginForm.action, {
-        method: "POST",
-        body: formData,
-        headers: {
-            "X-CSRF-TOKEN": document.querySelector('input[name="_token"]').value,
-        },
+    const registerLink = document.getElementById("register-link");
+    const backToLoginLink = document.getElementById("backToLoginLink");
+
+    const notificationBtn = document.getElementById("notificationBtn");
+
+    // Helper para mostrar modal
+    function showModal(modal) {
+        document.querySelectorAll(".modal").forEach(m => m.classList.add("hidden"));
+        modal?.classList.remove("hidden");
+    }
+
+    // Abrir modal de login ao clicar no botão de utilizador
+    if (userProfileBtn && loginModal) {
+        userProfileBtn.addEventListener("click", () => showModal(loginModal));
+    }
+
+    // Alternar entre login e registo
+    if (registerLink && registerModal) {
+        registerLink.addEventListener("click", (e) => {
+            e.preventDefault();
+            showModal(registerModal);
+        });
+    }
+
+    if (backToLoginLink && loginModal) {
+        backToLoginLink.addEventListener("click", (e) => {
+            e.preventDefault();
+            showModal(loginModal);
+        });
+    }
+
+    // Mostrar notificações
+    if (notificationBtn && notificationModal) {
+        notificationBtn.addEventListener("click", () => {
+            notificationModal.classList.toggle("hidden");
+        });
+    }
+
+    // Fechar modal ao clicar fora do conteúdo
+    document.querySelectorAll(".modal").forEach(modal => {
+        modal.addEventListener("click", function (e) {
+            if (e.target === modal) {
+                modal.classList.add("hidden");
+                if (loginErrorContainer) loginErrorContainer.classList.add("hidden");
+                if (registerErrorContainer) registerErrorContainer.classList.add("hidden");
+            }
+        });
     });
 
-    if (response.ok) {
-        window.location.href = "/"; // Redireciona para a página inicial
-    } else {
-        const errors = await response.json();
-        const errorContainer = document.getElementById("login-error");
-        const errorMessage = document.getElementById("error-message-text");
+    // Submissão do login
+    if (loginForm) {
+        loginForm.addEventListener("submit", async (e) => {
+            e.preventDefault();
+            const formData = new FormData(loginForm);
 
+            const response = await fetch(loginForm.action, {
+                method: "POST",
+                body: formData,
+                headers: {
+                    "X-CSRF-TOKEN": document.querySelector('input[name="_token"]').value,
+                },
+            });
 
-        errorContainer.classList.add("active");
-        errorMessage.textContent = errors.username || errors.password || "Erro ao fazer login.";
+            if (response.ok) {
+                window.location.href = "/";
+            } else {
+                const errors = await response.json();
+                loginErrorText.textContent = errors.username || errors.password || "Erro ao fazer login.";
+                loginErrorContainer?.classList.remove("hidden");
+            }
+        });
+    }
+
+    // Submissão do registo
+    if (registerForm) {
+        registerForm.addEventListener("submit", async (e) => {
+            e.preventDefault();
+            const formData = new FormData(registerForm);
+
+            const response = await fetch(registerForm.action, {
+                method: "POST",
+                body: formData,
+                headers: {
+                    "X-CSRF-TOKEN": document.querySelector('input[name="_token"]').value,
+                },
+            });
+
+            if (response.ok) {
+                window.location.href = "/";
+            } else {
+                const errors = await response.json();
+                registerErrorText.textContent = Object.values(errors).join(" ");
+                registerErrorContainer?.classList.remove("hidden");
+            }
+        });
+    }
+
+    // Simulação pós-login (frontend)
+    function loginSuccess(username) {
+        loginModal.classList.add("hidden");
+        userProfileBtn?.classList.add("hidden");
+        document.getElementById("user-profile-info")?.classList.remove("hidden");
+        document.getElementById("user-profile-info")?.classList.add("flex");
+
+        document.getElementById("username-display").textContent = username;
+        document.getElementById("user-initials").textContent = username.charAt(0).toUpperCase();
+
+        const successToast = document.createElement("div");
+        successToast.className = "fixed bottom-4 right-4 bg-green-500 text-white px-4 py-2 rounded-lg shadow-lg z-50";
+        successToast.textContent = "Login bem-sucedido!";
+        document.body.appendChild(successToast);
+
+        setTimeout(() => {
+            successToast.remove();
+        }, 3000);
     }
 });
-
-// Capturar erros de validação no formulário de registro
-registerForm.addEventListener("submit", async (e) => {
-    e.preventDefault();
-
-    const formData = new FormData(registerForm);
-    const response = await fetch(registerForm.action, {
-        method: "POST",
-        body: formData,
-        headers: {
-            "X-CSRF-TOKEN": document.querySelector('input[name="_token"]').value,
-        },
-    });
-
-    if (response.ok) {
-        window.location.href = "/"; // Redireciona para a página inicial
-    } else {
-        const errors = await response.json();
-        const errorContainer = document.getElementById("register-error");
-        const errorMessage = document.getElementById("register-error-text");
-
-        errorContainer.classList.add("active");
-        errorMessage.textContent = Object.values(errors).join(" ");
-    }
-});
-
-// Simulação pós-login (frontend)
-function loginSuccess(username) {
-    loginModal.classList.remove("active");
-    userProfileBtn.classList.add("hidden");
-    userProfileBtnMobile.classList.add("hidden");
-    userProfileInfo.classList.remove("hidden");
-    userProfileInfo.classList.add("flex");
-    usernameDisplay.textContent = username;
-    userInitials.textContent = username.charAt(0).toUpperCase();
-
-    const successToast = document.createElement("div");
-    successToast.className =
-        "fixed bottom-4 right-4 bg-green-500 text-white px-4 py-2 rounded-lg shadow-lg z-50";
-    successToast.textContent = "Login bem-sucedido!";
-    document.body.appendChild(successToast);
-
-    setTimeout(() => {
-        successToast.remove();
-    }, 3000);
-}

@@ -6,7 +6,7 @@
                 <a href="/" class="text-white font-bold text-xl tracking-tight">GAMESWAP</a>
             </div>
         </div>
-    
+
         <!-- Search Bar -->
         <div class="relative max-w-xl w-full mx-4">
             <input
@@ -18,7 +18,7 @@
               <i class="bi bi-search text-gray-400 text-lg"></i>
             </div>
         </div>
-    
+
         <!-- Navigation Icons and Anunciar Produto Button -->
         <div class="flex items-center space-x-6">
             <button id='user-profile-btn' class="relative group" aria-label="Perfil">
@@ -31,12 +31,13 @@
                 </svg>
             </button>
             <!-- User Profile Info (Hidden until logged in) -->
-    
+
             <a href="{{route('perfilPage')}}" id="user-profile-info" class="hidden items-center space-x-2">
                 <div class="w-8 h-8 rounded-full bg-primary-300 flex items-center justify-center text-primary-800 font-bold">
                     <span id="user-initials">U</span>
                 </div>
                 <span id="username-display" class="text-white text-sm hidden md:inline-block">Usuário</span>
+
             </a>
             <div class="relative group">
                 <button id="notificationBtn" class="relative group z-50" aria-label="Notificações">
@@ -49,34 +50,34 @@
             </div>
             <a href="{{route('mensagensPage')}}" class="relative group" aria-label="Mensagens">
                 <i class="bi bi-chat-dots text-white text-xl"></i>
-    
+
             </a>
             <a href="{{route('carrinhoPage')}}" class="relative group" aria-label="Carrinho">
                 <i class="bi bi-cart text-white text-xl"></i>
-    
+
             </a>
             <a href="{{route('anunciarPage')}}"
                class="inline-flex items-center justify-center whitespace-nowrap rounded-full text-sm font-medium bg-amber-400 hover:bg-amber-500 text-gray-800 px-5 py-2 transition-colors shadow-sm">
                 Anunciar Produto
             </a>
-            
+
         </div>
     </div>
-    
+
     <!-- Login Modal -->
     <x-Auth.login>
     </x-Auth.login>
-    
+
     <!-- Registration Modal -->
     <x-Auth.registo>
     </x-Auth.registo>
-    
+
     <!-- Password Reset Modal -->
     <div id="reset-password-modal" class="modal fixed inset-0 z-50 flex items-center justify-center">
         <div class="modal-content bg-white rounded-xl shadow-elevated max-w-md w-full mx-4 overflow-hidden">
             <div class="p-6">
                 <h2 class="text-2xl font-bold text-gray-800 text-center mb-6">Recuperar Senha</h2>
-    
+
                 <!-- Error Message -->
                 <div id="reset-error" class="error-message bg-red-50 border border-red-200 text-red-600 rounded-lg px-4 py-3 text-sm">
                     <div class="flex items-center">
@@ -86,7 +87,7 @@
                         <span id="reset-error-text">Email não encontrado. Por favor, verifique e tente novamente.</span>
                     </div>
                 </div>
-    
+
                 <!-- Success Message -->
                 <div id="reset-success" class="success-message bg-green-50 border border-green-200 text-green-600 rounded-lg px-4 py-3 text-sm">
                     <div class="flex items-center">
@@ -96,7 +97,7 @@
                         <span>Email enviado com sucesso! Verifique sua caixa de entrada para redefinir sua senha.</span>
                     </div>
                 </div>
-    
+
                 <div id="reset-form-container">
                     <p class="text-gray-600 mb-6">Digite seu endereço de email e enviaremos um link para redefinir sua senha.</p>
                     <form id="reset-form">

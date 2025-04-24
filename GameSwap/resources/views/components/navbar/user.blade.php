@@ -19,6 +19,8 @@
         </div>
     </div>
 
+    <p>Estou logado</p>
+
     <!-- Navigation Icons and Anunciar Produto Button -->
     <div class="flex items-center space-x-6">
         <button id='user-profile-btn' class="relative group" aria-label="Perfil">
@@ -37,6 +39,7 @@
                 {{ Auth::user()->username }}
             </span>
         </a>
+
         <div class="relative group">
             <button id="notificationBtn" class="relative group z-50" aria-label="Notificações">
                 <i class="bi bi-bell text-white text-xl"></i>
@@ -58,6 +61,6 @@
            class="inline-flex items-center justify-center whitespace-nowrap rounded-full text-sm font-medium bg-amber-400 hover:bg-amber-500 text-gray-800 px-5 py-2 transition-colors shadow-sm">
             Anunciar Produto
         </a>
-        
+
     </div>
 </div>
