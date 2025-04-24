@@ -33,7 +33,7 @@ return new class extends Migration
             $table->timestamps(); // Campos created_at e updated_at
 
             // Relacionamentos
-            $table->foreign('id_categoria')->references('id')->on('categorias')->onDelete('cascade');
+            //$table->foreign('id_categoria')->references('id')->on('categorias')->onDelete('cascade');
             $table->foreign('id_anunciante')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('id_comprador')->references('id')->on('users')->onDelete('set null');
         });
