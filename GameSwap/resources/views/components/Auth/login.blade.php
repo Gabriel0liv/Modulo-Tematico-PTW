@@ -3,7 +3,7 @@
         <div class="p-6">
             <h2 class="text-2xl font-bold text-gray-800 text-center mb-6">Iniciar Sessão</h2>
 
-            <!-- Error Message -->
+            <!-- Error Message
             <div id="login-error" class="error-message bg-red-50 border border-red-200 text-red-600 rounded-lg px-4 py-3 text-sm">
                 <div class="flex items-center">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-red-500" viewBox="0 0 20 20" fill="currentColor">
@@ -11,7 +11,7 @@
                     </svg>
                     <span id="error-message-text">Nome de usuário ou senha incorretos. Por favor, tente novamente.</span>
                 </div>
-            </div>
+            </div>-->
 
             <form id="login-form" action="{{route('login')}}" method="POST">
                 @csrf
@@ -19,10 +19,16 @@
                     <div>
                         <label for="username" class="block text-sm font-medium text-gray-700 mb-1">Nome de usuário:</label>
                         <input type="text" id="username" name="username" class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="Seu nome de usuário">
+                        @error('username')
+                        <div class="error">{{ $message }}</div>
+                        @enderror
                     </div>
                     <div>
                         <label for="password" class="block text-sm font-medium text-gray-700 mb-1">Palavra passe:</label>
                         <input type="password" id="password" name="password" class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                        @error('password')
+                        <div class="error">{{ $message }}</div>
+                        @enderror
                     </div>
                     <div class="text-right">
                         <a href="#" id="forgot-password-link" class="text-sm text-blue-600 hover:text-blue-700">Esqueceu a senha?</a>

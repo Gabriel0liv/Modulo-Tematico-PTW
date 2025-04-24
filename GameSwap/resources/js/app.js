@@ -10,9 +10,6 @@ const userProfileBtnMobile = document.getElementById("user-profile-btn-mobile");
 const userProfileInfo = document.getElementById("user-profile-info");
 const usernameDisplay = document.getElementById("username-display");
 const userInitials = document.getElementById("user-initials");
-const loginError = document.getElementById("login-error");
-const registerError = document.getElementById("register-error");
-const resetError = document.getElementById("reset-error");
 const resetSuccess = document.getElementById("reset-success");
 const registerLink = document.getElementById("register-link");
 const loginLink = document.getElementById("login-link");
@@ -20,12 +17,6 @@ const forgotPasswordLink = document.getElementById("forgot-password-link");
 const backToLoginLink = document.getElementById("back-to-login");
 const notificationModal = document.getElementById("notificationModal");
 const notificationBtn = document.getElementById("notificationBtn");
-
-// Initialize - hide error messages
-loginError.classList.remove("active");
-registerError.classList.remove("active");
-resetError.classList.remove("active");
-resetSuccess.classList.remove("active");
 
 // Toggle modals
 function showModal(modal) {
@@ -37,9 +28,6 @@ function showModal(modal) {
     loginForm.reset();
     registerForm.reset();
     resetForm.reset();
-    loginError.classList.remove("active");
-    registerError.classList.remove("active");
-    resetError.classList.remove("active");
     resetSuccess.classList.remove("active");
 
     modal.classList.add("active");
