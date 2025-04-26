@@ -15,13 +15,12 @@ class RegisterUserRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:users,email',
-            'password' => 'required|string|min:6|confirmed',
-            'phone' => 'required|string|regex:/^\+?[0-9\s]+$/|max:15',
-            'birthdate' => 'required|date|before_or_equal:' . Carbon::now()->subYears(13)->toDateString(),
-            'username' => 'required|string|max:255|unique:users,username',
-            'password_confirmation' => 'required_with:password|same:password',
+            'register_name' => 'required|string|max:255',
+            'register_email' => 'required|email|unique:users,email',
+            'register_phone' => 'required|string|max:255',
+            'register_dob' =>   'required|date',
+            'register_username' => 'required|string|max:255',
+            'register_password' => 'required|string|min:8|confirmed'
         ];
     }
 
@@ -29,27 +28,23 @@ class RegisterUserRequest extends FormRequest
     {
         return [
             // Mensagens de erro personalizadas para cada regra de validação
-            'name.required' => 'Preencha todos os campos obrigatórios.',
-            'email.required' => 'Preencha todos os campos obrigatórios.',
-            'email.email' => 'O email inserido não é válido.',
-            'email.unique' => 'Este email já está registado.',
-            'password.required' => 'Preencha todos os campos obrigatórios.',
-            'password.min' => 'A palavra-passe deve ter pelo menos :min caracteres.',
-            'password.confirmed' => 'A confirmação da palavra-passe não coincide.',
-            'phone.required' => 'Preencha todos os campos obrigatórios.',
-            'phone.string' => 'Numero de telefone invalido.',
-            'phone.max' => 'O telefone não pode ter mais de :max caracteres.',
-            'phone.regex' => 'O telefone deve conter apenas números e espaços.',
-            'birthdate.required' => 'Preencha todos os campos obrigatórios.',
-            'birthdate.date' => 'A data de nascimento deve ser uma data válida.',
-            'birthdate.before_or_equal' => 'O Utilizador deve ter mais de 13 anos.',
-            'username.required' => 'Preencha todos os campos obrigatórios.',
-            'username.string' => 'Nome de utilizador invalido.',
-            'username.max' => 'O nome de utilizador não pode ter mais de :max caracteres.',
-            'username.unique' => 'Este nome de utilizador já está registado.',
-            'password_confirmation.required_with' => 'Preencha todos os campos obrigatórios.',
-            'password_confirmation.same' => 'A confirmação da palavra-passe não coincide com a palavra-passe.',
-
+            'register_name.required' => 'Preencha todos os campos obrigatórios.',
+            'register_name.string' => 'Nome de utilizador invalido.',
+            'register_name.max' => 'O nome de utilizador não pode ter mais de :max caracteres.',
+            'register_email.required' => 'Preencha todos os campos obrigatórios.',
+            'register_email.email' => 'O email inserido não é válido.',
+            'register_email.unique' => 'Este email já está registado.',
+            'register_password.required' => 'Preencha todos os campos obrigatórios.',
+            'register_password.min' => 'A palavra-passe deve ter pelo menos :min caracteres.',
+            'register_password.confirmed' => 'A confirmação da palavra-passe não coincide.',
+            'register_phone.required' => 'Preencha todos os campos obrigatórios.',
+            'register_phone.string' => 'Numero de telefone invalido.',
+            'register_phone.max' => 'O telefone não pode ter mais de :max caracteres.',
+            'register_dob.required' => 'Preencha todos os campos obrigatórios.',
+            'register_dob.date' => 'A data de nascimento deve ser uma data válida.',
+            'register_username.required' => 'Preencha todos os campos obrigatórios.',
+            'register_username.string' => 'Nome de utilizador invalido.',
+            'register_username.max' => 'O nome de utilizador não pode ter mais de :max caracteres.',
         ];
     }
 }

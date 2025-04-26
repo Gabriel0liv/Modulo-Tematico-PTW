@@ -23,9 +23,9 @@ class LoginUserRequest extends FormRequest
     {
         return [
             'username.required' => 'Preencha todos os campos obrigatórios.',
-            'username.string' => 'Nome de utilizador inválido.',
+            'username.string' => 'Nome de utilizador invalido.',
             'password.required' => 'Preencha todos os campos obrigatórios.',
-            'password.string' => 'Palavra-passe inválida.'
+            'password.string' => 'Password invalida.'
         ];
     }
 }

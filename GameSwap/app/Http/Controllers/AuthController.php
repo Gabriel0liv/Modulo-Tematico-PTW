@@ -13,15 +13,13 @@ class AuthController extends Controller
 {
     public function criarRegisto (RegisterUserRequest $request)
     {
-
         $user = new User();
-        $user->name = $request->input('name');
-        $user->email = $request->input('email');
-        $user->contato = $request->input('phone');
-        $user->dataNascimento = $request->input('birthdate');
-        $user->username = $request->input('username');
-        $user->password = bcrypt($request->input('password')); // Certifique-se de criptografar a senha
-        $user->passsword_confirmation = bcrypt($request->input('password_confirmation')); // Certifique-se de criptografar a senha
+        $user->name = $request->input('register_name');
+        $user->email = $request->input('register_email');
+        $user->contato = $request->input('register_phone');
+        $user->dataNascimento = $request->input('register_dob');
+        $user->username = $request->input('register_username');
+        $user->password = $request->input('register_password');
         $user->save();
 
         Auth::login($user);
@@ -31,11 +29,7 @@ class AuthController extends Controller
 
     public function login (LoginUserRequest $request){
 
-        // Obter as credenciais do request
-        $credentials = $request->only('username', 'password');
-
-        // Tentar autenticar o utilizador
-        if (Auth::attempt($credentials)) {
+        if(Auth::attempt($request->only('username', 'password'))){
             $request->session()->regenerate();
             return redirect()->route('pagina_inicial');
 
@@ -45,9 +39,8 @@ class AuthController extends Controller
             }
         }
 
-        // Lançar exceção se as credenciais forem inválidas
         throw ValidationException::withMessages([
-            'username' => 'O nome de utilizador ou a palavra-passe estão incorretos.',
+            'credentials' => 'Credenciais incorretas'
         ]);
 
     }
