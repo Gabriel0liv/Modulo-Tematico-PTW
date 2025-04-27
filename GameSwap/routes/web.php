@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\UsersController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -272,6 +273,17 @@ Route::get('/components/layout', function () {
 Route::post('/registo',[AuthController::class,'criarRegisto'])->name('criarRegisto');
 Route::post('/login',[AuthController::class,'login'])->name('login');
 Route::post('/logout',[AuthController::class,'logout'])->name('logout');
+
+Route::post('paginas/editarPerfil', [UsersController::class, 'atualizarInformacoes'])->name('user.atualizar');
+Route::post('paginas/cancelarConta', [UsersController::class, 'deletarConta'])->name('user.deletar');
+
+Route::get('paginas/editarPerfil',function (){
+   return view('paginas.editarPerfil');
+})->name('editarPerfil');
+
+Route::get('paginas/cancelarConta',function (){
+    return view('paginas.cancelarConta');
+})->name('cancelarConta');
 
 Route::get("/membership-payment-gateway",function(){
     return view('paginas.pagamento.payment-gateway');

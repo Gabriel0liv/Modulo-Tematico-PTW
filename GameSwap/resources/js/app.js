@@ -103,6 +103,7 @@ function loginSuccess(username) {
 }
 
 
+
 // Validações ANUNCIAR PRODUTO
 
 //validações pagamento de subscrição 1º etapa
