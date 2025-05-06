@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UsersController;
+use App\Http\Controllers\ProdutoController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -269,6 +270,9 @@ Route::get('/',function(){
 Route::get('/components/layout', function () {
     return view('components.layout');
 })->name('layoutPage');
+
+// rota para o controller de produtos
+Route::post('/produtos/store', [ProdutoController::class, 'store'])->name('produtos.store');
 
 Route::post('/registo',[AuthController::class,'criarRegisto'])->name('criarRegisto');
 Route::post('/login',[AuthController::class,'login'])->name('login');
