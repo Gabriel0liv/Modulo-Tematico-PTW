@@ -67,7 +67,7 @@
           </ul>
         </div>
 
-        <!-- Coluna 3: Categorias -->
+        <!-- Coluna 3: Categoria -->
         <div class="mb-6 md:mb-0">
           <h3 class="text-lg font-semibold mb-4">Categorias</h3>
           <ul class="space-y-2">
