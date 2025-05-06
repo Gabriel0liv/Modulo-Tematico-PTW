@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\UsersController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProdutoController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -262,24 +262,32 @@ Route::get('/',function(){
             "morada" => "Rua Exemplo 1, Cacia, Aveiro"
         ]
     ];
-
-
-    return view('compras', ['produtos' => $produtos],  );
+    return view('compras', ['produtos' => $produtos]);
 })->name('pagina_inicial');
 
+// Rotas de Layout
 Route::get('/components/layout', function () {
     return view('components.layout');
 })->name('layoutPage');
 
+
+
+
 // rota para o controller de produtos
 Route::post('/produtos/store', [ProdutoController::class, 'store'])->name('produtos.store');
 
+
+
+// rotas para o controller de autenticação
 Route::post('/registo',[AuthController::class,'criarRegisto'])->name('criarRegisto');
 Route::post('/login',[AuthController::class,'login'])->name('login');
 Route::post('/logout',[AuthController::class,'logout'])->name('logout');
 
-Route::post('paginas/editarPerfil', [UsersController::class, 'atualizarInformacoes'])->name('user.atualizar');
-Route::post('paginas/cancelarConta', [UsersController::class, 'deletarConta'])->name('user.deletar');
+
+
+//Rotas de perfil de Utilizador
+Route::post('paginas/editarPerfil', [UserController::class, 'atualizarInformacoes'])->name('user.atualizar');
+Route::post('paginas/cancelarConta', [UserController::class, 'deletarConta'])->name('user.deletar');
 
 Route::get('paginas/editarPerfil',function (){
    return view('paginas.editarPerfil');
@@ -289,6 +297,9 @@ Route::get('paginas/cancelarConta',function (){
     return view('paginas.cancelarConta');
 })->name('cancelarConta');
 
+
+
+// Rotas de pagamento
 Route::get("/membership-payment-gateway",function(){
     return view('paginas.pagamento.payment-gateway');
 })->name('assinatura');
@@ -301,6 +312,9 @@ Route::get("/membership-payment-gateway/step3",function(){
     return view('paginas.pagamento.payment-gateway-step3');
 })->name('assinatura-3');
 
+
+
+// Rotas de mensagens e anúncios
 Route::get("/paginas/chat",function(){
     return view('paginas.chat');
 })->name('mensagensPage');
@@ -309,6 +323,9 @@ Route::get("/paginas/anunciar",function(){
     return view('paginas.anunciar');
 })->name('anunciarPage');
 
+
+
+// Rotas de perfil
 Route::get("/perfil",function(){
     return view('paginas.perfil.perfil');
 })->name('perfilPage');
@@ -333,6 +350,9 @@ Route::get("/perfil/moradas",function(){
     return view('paginas.perfil.perfilmoradas');
 })->name('perfil-Moradas');
 
+
+
+// Rotas de perfil administrativo
 Route::get("/perfilAdmin",function(){
     return view('paginas.perfilAdmin.perfilA');
 })->name('perfilAdmin');
@@ -353,6 +373,9 @@ Route::get("/perfilAdmin/aprovar",function(){
     return view('paginas.perfilAdmin.aprovar');
 });
 
+
+
+// Rotas de carrinho e pesquisa
 Route::get("/carrinho",function(){
     return view('paginas.carrinho');
 })->name('carrinhoPage');
@@ -616,6 +639,9 @@ Route::get("/pesquisa",function(){
     return view('paginas.pesquisa', ['produtos' => $produtos]);
 })->name('pesquisaPage');
 
+
+
+// Rota de produto com ID
 Route::get('/produto/{id}', function ($id) {
     $produtos = [
         [

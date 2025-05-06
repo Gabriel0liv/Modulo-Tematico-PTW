@@ -14,7 +14,9 @@
             </div>
         </div>
 
-        <form id="formPublicar" class="space-y-6" action="/" method="GET">
+        <form id="formPublicar" class="space-y-6" action="{{ route('produtos.store') }}" method="POST">
+            @csrf
+            <!-- Token CSRF obrigatório para segurança -->
             <!-- Product Photos -->
             <div>
                 <label class="block text-text font-medium mb-2">Fotos do Produto</label>
@@ -47,7 +49,7 @@
             <!-- Product Name -->
             <div>
                 <label for="product-name" class="block text-text font-medium mb-2">Nome do Produto</label>
-                <input type="text" id="product-name" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary" placeholder="Ex: PlayStation 5 com 2 controles" required />
+                <input type="text" id="product-name" name="nome" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary" placeholder="Ex: PlayStation 5" required />
                 <p class="text-xs text-gray-500 mt-1">Seja específico. Inclua detalhes como marca, modelo e edição.</p>
             </div>
 
@@ -58,7 +60,7 @@
                     <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                         <span class="text-gray-500">R$</span>
                     </div>
-                    <input type="number" id="product-price" class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary" placeholder="0,00" step="0.01" min="0" required />
+                    <input type="number" id="product-price" name="preco" class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary" placeholder="0,00" step="0.01" min="0" required />
                 </div>
                 <div class="mt-2 flex items-center">
                     <div class="flex-1">
@@ -76,21 +78,21 @@
                 <label class="block text-text font-medium mb-2">Estado do Produto</label>
                 <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
                     <div>
-                        <input type="radio" id="condition-new" name="condition" value="novo" class="hidden peer" required checked />
+                        <input type="radio" id="condition-new" name="estado" value="novo" class="hidden peer" required checked />
                         <label for="condition-new" class="flex items-center justify-center p-3 text-gray-500 bg-white border border-gray-300 rounded-lg cursor-pointer peer-checked:border-primary peer-checked:bg-primary/10 peer-checked:text-primary hover:bg-gray-50">
                             <i data-lucide="package" class="h-4 w-4 mr-2"></i>
                             Novo
                         </label>
                     </div>
                     <div>
-                        <input type="radio" id="condition-used" name="condition" value="usado" class="hidden peer" />
+                        <input type="radio" id="condition-used" name="estado" value="usado" class="hidden peer" />
                         <label for="condition-used" class="flex items-center justify-center p-3 text-gray-500 bg-white border border-gray-300 rounded-lg cursor-pointer peer-checked:border-primary peer-checked:bg-primary/10 peer-checked:text-primary hover:bg-gray-50">
                             <i data-lucide="package-open" class="h-4 w-4 mr-2"></i>
                             Usado
                         </label>
                     </div>
                     <div>
-                        <input type="radio" id="condition-refurbished" name="condition" value="recondicionado" class="hidden peer" />
+                        <input type="radio" id="condition-refurbished" name="estado" value="recondicionado" class="hidden peer" />
                         <label for="condition-refurbished" class="flex items-center justify-center p-3 text-gray-500 bg-white border border-gray-300 rounded-lg cursor-pointer peer-checked:border-primary peer-checked:bg-primary/10 peer-checked:text-primary hover:bg-gray-50">
                             <i data-lucide="package-check" class="h-4 w-4 mr-2"></i>
                             Recondicionado
@@ -102,19 +104,19 @@
             <!-- Game Category -->
             <div>
                 <label for="game-category" class="block text-text font-medium mb-2">Categoria de Jogo</label>
-                <select id="game-category" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary" required>
+                <select id="game-category" name="id_categoria" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary" required>
                     <option value="" disabled selected>Selecione uma categoria</option>
-                    <option value="acao">Ação</option>
-                    <option value="aventura">Aventura</option>
-                    <option value="rpg">RPG</option>
-                    <option value="estrategia">Estratégia</option>
-                    <option value="esporte">Esporte</option>
-                    <option value="corrida">Corrida</option>
-                    <option value="simulacao">Simulação</option>
-                    <option value="fps">FPS</option>
-                    <option value="plataforma">Plataforma</option>
-                    <option value="puzzle">Puzzle</option>
-                    <option value="outro">Outro</option>
+                    <option value="1">Ação</option>
+                    <option value="2">Aventura</option>
+                    <option value="3">RPG</option>
+                    <option value="4">Estratégia</option>
+                    <option value="5">Esporte</option>
+                    <option value="6">Corrida</option>
+                    <option value="7">Simulação</option>
+                    <option value="8">FPS</option>
+                    <option value="9">Plataforma</option>
+                    <option value="10">Puzzle</option>
+                    <option value="11">Outro</option>
                 </select>
                 <p class="text-xs text-gray-500 mt-1">Escolha a categoria que melhor descreve seu jogo.</p>
             </div>
@@ -122,7 +124,7 @@
             <!-- Product Description -->
             <div>
                 <label for="product-description" class="block text-text font-medium mb-2">Descrição do Produto</label>
-                <textarea id="product-description" rows="4" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary" placeholder="Descreva o produto, mencione detalhes importantes como tempo de uso, acessórios incluídos, etc." required></textarea>
+                <textarea id="product-description" name="descricao" rows="4" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary" placeholder="Descreva o produto, mencione detalhes importantes como tempo de uso, acessórios incluídos, etc." required></textarea>
                 <div class="flex justify-between mt-1">
                     <p class="text-xs text-gray-500">Seja detalhado e honesto sobre o estado do produto.</p>
                     <p class="text-xs text-gray-500"><span id="char-count">0</span>/1000 caracteres</p>
@@ -132,7 +134,7 @@
             <!-- Console Type -->
             <div>
                 <label for="console-type" class="block text-text font-medium mb-2">Tipo de Console</label>
-                <select id="console-type" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary" required>
+                <select id="console-type" name="console" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary" required>
                     <option value="" disabled selected>Selecione um console</option>
                     <option value="ps5">PlayStation 5</option>
                     <option value="ps4">PlayStation 4</option>
@@ -175,7 +177,7 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            
+
             const form = document.getElementById("formPublicar"); // Seleciona o formulário principal
             //alert(form.innerHTML);
             const productName = document.getElementById("product-name"); // Campo do nome do produto
@@ -187,9 +189,9 @@
             // Adiciona um evento de validação ao enviar o formulário
             form.addEventListener("submit", function(event) {
                 //event.preventDefault(); // Impede o envio padrão do formulário
-                
+
                 let isValid = true; // Flag para rastrear se o formulário é válido
-                
+
                 // Validação do nome do produto
                 if (productName.value.trim() === "") {
                     alert("O nome do produto é obrigatório.");
@@ -200,7 +202,7 @@
                     productName.focus();
                     isValid = false;
                 }
-                
+
                 // Validação do preço do produto
                 if (productPrice.value.trim() === "") {
                     alert("O preço do produto é obrigatório.");

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Produto;
+use Illuminate\Support\Facades\Log;
 
 class produtoController extends Controller
 {
@@ -15,34 +16,39 @@ class produtoController extends Controller
     }
 
 
-
     public function store(Request $request)
     {
-        // Validação dos dados
-        $request->validate([
+        Log::info('Dados recebidos:', $request->all());
+// Validação dos dados
+        $validatedData = $request->validate([
             'nome' => 'required|string|max:255',
             'preco' => 'required|numeric|min:0',
             'estado' => 'required|in:novo,usado',
             'id_categoria' => 'required|exists:categorias,id',
             'descricao' => 'required|string|max:1000',
-            'console' => 'nullable|string|max:255',
         ]);
+
+        Log::info('Dados validados:', $validatedData);
+
 
         // Criação do produto
         Produto::create([
             'nome' => $request->input('nome'),
-            'preco' => $request->input('preco'),
-            'estado' => $request->input('estado'),
-            'id_categoria' => $request->input('id_categoria'),
             'descricao' => $request->input('descricao'),
-            'console' => $request->input('console')
-            //'id_anunciante' => auth()->id(), // ID do utilizador autenticado
+            'preco' => $request->input('preco'),
+            'id_categoria' => $request->input('id_categoria'),
+            'estado' => $request->input('estado'),
+            'tipo_produto' => 'fisico',
+            'id_anunciante' => auth()->id(), // ID do usuário autenticado
+            'console' => $request->input('console'),
         ]);
+
+
+        Log::info('Produto criado com sucesso.');
 
         // Redireciona com mensagem de sucesso
         return redirect()->route('pagina_inicial')->with('success', 'Produto anunciado com sucesso!');
     }
-
 
 
     public function show($id)
@@ -57,11 +63,13 @@ class produtoController extends Controller
         // Validação e atualização do produto
         return redirect()->route('produtos.index');
     }
+
     public function destroy($id)
     {
         // Lógica para excluir um produto
         return redirect()->route('produtos.index');
     }
+
     public function search(Request $request)
     {
         // Lógica para pesquisar produtos
@@ -69,6 +77,7 @@ class produtoController extends Controller
         // Implementar a lógica de pesquisa no banco de dados
         return view('produtos.search', compact('query'));
     }
+
     public function filter(Request $request)
     {
         // Lógica para filtrar produtos
@@ -76,6 +85,7 @@ class produtoController extends Controller
         // Implementar a lógica de filtragem no banco de dados
         return view('produtos.filter', compact('filters'));
     }
+
     public function sort(Request $request)
     {
         // Lógica para ordenar produtos
@@ -100,6 +110,7 @@ class produtoController extends Controller
         // Implementar a lógica de adição aos favoritos no banco de dados
         return redirect()->route('produtos.index');
     }
+
     public function removeFromFavorites(Request $request)
     {
         // Lógica para remover produto dos favoritos
@@ -132,6 +143,7 @@ class produtoController extends Controller
         // Implementar a lógica de adição ao carrinho no banco de dados
         return redirect()->route('produtos.index');
     }
+
     public function removeFromCart(Request $request)
     {
         // Lógica para remover produto do carrinho
