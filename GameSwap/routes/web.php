@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProdutoController;
 use Illuminate\Support\Facades\Auth;
@@ -361,10 +362,6 @@ Route::get("/perfilAdmin/estatisticas",function(){
     return view('paginas.perfilAdmin.estatisticas');
 });
 
-Route::get("/perfilAdmin/Edicao",function(){
-    return view('paginas.perfilAdmin.Edicao');
-});
-
 Route::get("/perfilAdmin/denuncias",function(){
     return view('paginas.perfilAdmin.denuncias');
 });
@@ -372,6 +369,12 @@ Route::get("/perfilAdmin/denuncias",function(){
 Route::get("/perfilAdmin/aprovar",function(){
     return view('paginas.perfilAdmin.aprovar');
 });
+
+// Rotas de categorias
+Route::get("/perfilAdmin/Edicao", [CategoriaController::class, 'edicao'])->name('categoria.editar');;
+Route::post("/perfilAdmin/Edicao", [CategoriaController::class, 'adicionarCategoria'])->name('categoria.adicionar');
+Route::post("/perfilAdmin/Edicao/{id}", [CategoriaController::class, 'editarCategoria'])->name('categoria.editarCategoria');
+Route::post("/perfilAdmin/Edicao/{id}/eliminar", [CategoriaController::class, 'eliminarCategoria'])->name('categoria.eliminarCategoria');
 
 
 

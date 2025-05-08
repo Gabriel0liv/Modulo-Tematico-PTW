@@ -5,9 +5,9 @@
         </x-perfilAdminSideBar>
 
         <main id="edicao-site" class="mb-10 ">
-    
+
             <h2 class="text-2xl font-bold mb-6">Edição do Site</h2>
-            
+
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div class="bg-white p-6 rounded-lg shadow-md">
                     <h3 class="text-lg font-semibold mb-4">Banners da Página Inicial</h3>
@@ -25,7 +25,7 @@
                                 </div>
                             </div>
                         </div>
-                        
+
                         <div class="border border-gray-200 rounded-md p-4">
                             <div class="h-32 bg-gray-200 rounded-md mb-3"></div>
                             <div class="flex justify-between items-center">
@@ -39,61 +39,48 @@
                                 </div>
                             </div>
                         </div>
-                        
+
                         <button class="w-full py-2 border-2 border-dashed border-gray-300 rounded-md text-gray-500 hover:text-gray-700 hover:border-gray-400 transition">
                             <i class="fas fa-plus mr-2"></i> Adicionar Novo Banner
                         </button>
                     </div>
                 </div>
-                
+
                 <div class="bg-white p-6 rounded-lg shadow-md">
                     <h3 class="text-lg font-semibold mb-4">Categorias</h3>
                     <div class="space-y-4">
+                        @foreach ($categorias as $categoria)
                         <div class="flex justify-between items-center p-3 border border-gray-200 rounded-md">
                             <div class="flex items-center">
                                 <div class="h-10 w-10 bg-blue-100 rounded-full flex items-center justify-center mr-3">
                                     <i class="fas fa-gamepad text-blue-600"></i>
                                 </div>
-                                <p>Consoles</p>
                             </div>
-                            <div>
-                                <button class="text-blue-600 mr-2">Editar</button>
-                                <button class="text-red-600">Remover</button>
-                            </div>
-                        </div>
-                        
-                        <div class="flex justify-between items-center p-3 border border-gray-200 rounded-md">
-                            <div class="flex items-center">
-                                <div class="h-10 w-10 bg-green-100 rounded-full flex items-center justify-center mr-3">
-                                    <i class="fas fa-compact-disc text-green-600"></i>
+                            <div class="flex justify-between items-center p-3">
+                                <div class="flex-1">
+                                    <form action="{{ route('categoria.editarCategoria', $categoria->id) }}" method="POST" class="flex items-center">
+                                        @csrf
+                                        <input type="text" name="nome" value="{{ $categoria->nome }}" class="flex-1 p-2 border border-gray-300 rounded-md mr-2">
+                                        <button type="submit" class="text-blue-600 mr-2">Salvar</button>
+                                    </form>
                                 </div>
-                                <p>Jogos</p>
-                            </div>
-                            <div>
-                                <button class="text-blue-600 mr-2">Editar</button>
-                                <button class="text-red-600">Remover</button>
-                            </div>
-                        </div>
-                        
-                        <div class="flex justify-between items-center p-3 border border-gray-200 rounded-md">
-                            <div class="flex items-center">
-                                <div class="h-10 w-10 bg-purple-100 rounded-full flex items-center justify-center mr-3">
-                                    <i class="fas fa-headset text-purple-600"></i>
-                                </div>
-                                <p>Acessórios</p>
-                            </div>
-                            <div>
-                                <button class="text-blue-600 mr-2">Editar</button>
-                                <button class="text-red-600">Remover</button>
+                                <form action="{{ route('categoria.eliminarCategoria', $categoria->id) }}" method="POST">
+                                    @csrf
+                                    <button type="submit" class="text-red-600">Remover</button>
+                                </form>
                             </div>
                         </div>
-                        
-                        <button class="w-full py-2 border-2 border-dashed border-gray-300 rounded-md text-gray-500 hover:text-gray-700 hover:border-gray-400 transition">
-                            <i class="fas fa-plus mr-2"></i> Adicionar Nova Categoria
-                        </button>
+                        @endforeach
+
+                        <form action="{{ route('categoria.adicionar') }}" method="POST" class="space-y-4">
+                            @csrf
+                            <button class="w-full py-2 border-2 border-dashed border-gray-300 rounded-md text-gray-500 hover:text-gray-700 hover:border-gray-400 transition"}>
+                                <i class="fas fa-plus mr-2"></i> Adicionar Nova Categoria
+                            </button>
+                        </form>
                     </div>
                 </div>
-                
+
                 <div class="bg-white p-6 rounded-lg shadow-md">
                     <h3 class="text-lg font-semibold mb-4">Configurações do Site</h3>
                     <div class="space-y-4">
@@ -123,7 +110,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="bg-white p-6 rounded-lg shadow-md">
                     <h3 class="text-lg font-semibold mb-4">SEO e Metadados</h3>
                     <div class="space-y-4">
@@ -146,7 +133,7 @@
                     </div>
                 </div>
             </div>
-            
+
             <div class="mt-6 flex justify-end">
                 <button class="bg-gray-200 text-gray-800 px-4 py-2 rounded-md mr-2">Cancelar</button>
                 <button class="bg-blue-600 text-white px-4 py-2 rounded-md">Salvar Alterações</button>

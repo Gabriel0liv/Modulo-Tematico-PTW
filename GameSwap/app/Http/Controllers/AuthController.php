@@ -27,22 +27,22 @@ class AuthController extends Controller
         return redirect()->route('pagina_inicial');
     }
 
-    public function login (LoginUserRequest $request){
-
-        if(Auth::attempt($request->only('username', 'password'))){
+    public function login(LoginUserRequest $request)
+    {
+        if (Auth::attempt($request->only('username', 'password'))) {
             $request->session()->regenerate();
-            return redirect()->route('pagina_inicial');
 
             $user = Auth::user();
-            if($user->tipo === 'admin'){
+            if ($user->tipo === 'admin') {
                 return redirect()->route('perfilAdmin');
             }
+
+            return redirect()->route('pagina_inicial');
         }
 
         throw ValidationException::withMessages([
             'credentials' => 'Credenciais incorretas'
         ]);
-
     }
 
     public function logout(Request $request){
