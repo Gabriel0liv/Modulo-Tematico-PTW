@@ -320,7 +320,7 @@ Route::get("/paginas/chat",function(){
     return view('paginas.chat');
 })->name('mensagensPage');
 
-Route::get("/paginas/anunciar", [CategoriaController::class, 'anunciar'] , function(){
+Route::get("/paginas/anunciar", function(){
     return view('paginas.anunciar');
 })->name('anunciarPage');
 
