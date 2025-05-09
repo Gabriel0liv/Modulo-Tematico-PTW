@@ -106,17 +106,9 @@
                 <label for="game-category" class="block text-text font-medium mb-2">Categoria de Jogo</label>
                 <select id="game-category" name="id_categoria" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary" required>
                     <option value="" disabled selected>Selecione uma categoria</option>
-                    <option value="1">Ação</option>
-                    <option value="2">Aventura</option>
-                    <option value="3">RPG</option>
-                    <option value="4">Estratégia</option>
-                    <option value="5">Esporte</option>
-                    <option value="6">Corrida</option>
-                    <option value="7">Simulação</option>
-                    <option value="8">FPS</option>
-                    <option value="9">Plataforma</option>
-                    <option value="10">Puzzle</option>
-                    <option value="11">Outro</option>
+                    @foreach($categorias as $categoria)
+                    <option value="{{$categoria->id}}">{{$categoria->nome}}</option>
+                    @endforeach
                 </select>
                 <p class="text-xs text-gray-500 mt-1">Escolha a categoria que melhor descreve seu jogo.</p>
             </div>

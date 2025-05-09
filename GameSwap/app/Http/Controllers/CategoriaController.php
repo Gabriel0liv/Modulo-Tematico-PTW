@@ -13,6 +13,13 @@ class CategoriaController
 
         return view('paginas.perfilAdmin.Edicao', ['categorias' => $categorias]);
     }
+
+    public function anunciar()
+    {
+        $categorias = Categoria::all();
+
+        return view('paginas.anunciar', ['categorias' => $categorias]);
+    }
     public function adicionarCategoria(){
         $baseNome = "novaCategoria";
         $nome = $baseNome;
