@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Morada;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class UserController
 {
@@ -41,5 +43,24 @@ class UserController
         $user->delete();
 
         return redirect()->route('pagina_inicial');
+    }
+
+    public function adicionarMorada(Request $request){
+
+        $validatedData = $request->validate([
+            'morada' => 'required|string|max:255',
+            'codigo_postal' => 'required|string|max:255',
+            'distrito' => 'required|string|max:255',
+            'localidade' => 'required|string|max:255',
+        ]);
+
+        Morada::create([
+            'user_id' => auth()->id(),
+            'morada' => $validatedData['morada'],
+            'codigo_postal' => $validatedData['codigo_postal'],
+            'distrito' => $validatedData['distrito'],
+            'localidade' => $validatedData['localidade'],
+        ]);
+
     }
 }

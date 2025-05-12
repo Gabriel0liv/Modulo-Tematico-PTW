@@ -28,7 +28,7 @@ class User extends Authenticatable
         'password',
     ];
 
-  
+
 
     /**
      * The attributes that should be hidden for serialization.
@@ -56,6 +56,10 @@ class User extends Authenticatable
     public function isAdmin(): bool
     {
         return $this->tipo === \App\TipoUer::Admin;
-    } 
-    
+    }
+    public function moradas()
+    {
+        return $this->hasMany(Morada::class);
+    }
+
 }
