@@ -19,7 +19,7 @@ class UserController
 
         $user->save();
 
-        return redirect()->route('perfilPage');
+
 
     }
 
@@ -52,6 +52,7 @@ class UserController
             'codigo_postal' => 'required|string|max:255',
             'distrito' => 'required|string|max:255',
             'localidade' => 'required|string|max:255',
+            'nome_morada' => 'required|string|max:255',
         ]);
 
         Morada::create([
@@ -60,7 +61,15 @@ class UserController
             'codigo_postal' => $validatedData['codigo_postal'],
             'distrito' => $validatedData['distrito'],
             'localidade' => $validatedData['localidade'],
+            'nome_morada' => $validatedData['nome_morada'],
         ]);
 
+        return redirect()->route('perfil-Moradas');
+    }
+
+    public function mostrarMoradas()
+    {
+        $moradas = auth()->user()->moradas; // Usa a relação definida no modelo User
+        return view('paginas.perfil.perfilmoradas', compact('moradas'));
     }
 }

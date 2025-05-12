@@ -289,6 +289,16 @@ Route::post('/logout',[AuthController::class,'logout'])->name('logout');
 //Rotas de perfil de Utilizador
 Route::post('paginas/editarPerfil', [UserController::class, 'atualizarInformacoes'])->name('user.atualizar');
 Route::post('paginas/cancelarConta', [UserController::class, 'deletarConta'])->name('user.deletar');
+Route::post('paginas/adicionarMorada', [UserController::class, 'adicionarMorada'])->name('moradas.adicionar');
+Route::get('/perfil/moradas', [UserController::class, 'mostrarMoradas'])->name('perfil.moradas');
+
+
+
+
+Route::get('paginas/adicionarMorada', function () {
+    return view('paginas.adicionarMorada');
+})->name('paginas.adicionarMoradas');;
+
 
 Route::get('paginas/editarPerfil',function (){
    return view('paginas.editarPerfil');
@@ -349,9 +359,8 @@ Route::get("/perfil/minhas_vendas",function(){
     return view('paginas.perfil.perfilminhasvendas');
 })->name('perfil-Vendas');
 
-Route::get("/perfil/moradas",function(){
-    return view('paginas.perfil.perfilmoradas');
-})->name('perfil-Moradas');
+
+
 
 
 
