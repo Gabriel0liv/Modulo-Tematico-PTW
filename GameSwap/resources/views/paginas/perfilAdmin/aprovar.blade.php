@@ -5,16 +5,13 @@
         </x-perfilAdminSideBar>
 
         <main id="aprovar-anuncios" class="mb-10 ">
-
-
-
             <div class="flex justify-between items-center mb-6">
                 <h2 class="text-2xl font-bold">Aprovar Anúncios</h2>
                 <div class="flex space-x-2">
-                    <button class="bg-blue-600 text-white px-4 py-2 rounded-md">Todos</button>
-                    <button class="bg-gray-200 text-gray-800 px-4 py-2 rounded-md">Pendentes</button>
-                    <button class="bg-gray-200 text-gray-800 px-4 py-2 rounded-md">Aprovados</button>
-                    <button class="bg-gray-200 text-gray-800 px-4 py-2 rounded-md">Rejeitados</button>
+                    <button id="todosAnunciosBtn" class="bg-blue-600 text-white px-4 py-2 rounded-md">Todos</button>
+                    <button id="anunciosPendentesBtn" class="bg-gray-200 text-gray-800 px-4 py-2 rounded-md">Pendentes</button>
+                    <button id="anunciosAprovadosBtn" class="bg-gray-200 text-gray-800 px-4 py-2 rounded-md">Aprovados</button>
+                    <button id="anunciosRejeitadosBtn" class="bg-gray-200 text-gray-800 px-4 py-2 rounded-md">Rejeitados</button>
                 </div>
             </div>
 

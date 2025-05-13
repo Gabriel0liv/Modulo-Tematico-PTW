@@ -226,3 +226,33 @@ function removerMorada(index) {
     localStorage.setItem('moradas', JSON.stringify(moradas));
     mostrarMoradas();
 }
+
+// Script para os componentes da pagina aprovar
+const divAnunciosAprovarAnuncios = document.getElementById(divAnunciosAprovarAnuncios);
+const todosAnunciosBtn = document.getElementById("todosAnunciosBtn");
+const anunciosPendentesBtn = document.getElementById("anunciosPendentesBtn");
+const anunciosAprovadosBtn = document.getElementById("anunciosAprovadosBtn");
+const anunciosRejeitadosBtn = document.getElementById("anunciosRejeitadosBtn");
+
+// Funções para alterar o conteúdo da divAnunciosAprovarAnuncios
+function mostrarTodosAnuncios() {
+    divAnunciosAprovarAnuncios.innerHTML = "<x-AprovarAnuncios_anuncios.todosAnuncios :produtos=\"$produtos\" />";
+}
+
+function mostrarAnunciosPendentes() {
+    divAnunciosAprovarAnuncios.innerHTML = "<x-AprovarAnuncios_anuncios.anunciosPendentes :produtos=\"$produtos\" />";
+}
+
+function mostrarAnunciosAprovados() {
+    divAnunciosAprovarAnuncios.innerHTML = "<x-AprovarAnuncios_anuncios.anunciosAprovados :produtos=\"$produtos\" />"
+    }
+
+function mostrarAnunciosRejeitados() {
+    divAnunciosAprovarAnuncios.innerHTML = "<x-AprovarAnuncios_anuncios.anunciosReprovados :produtos=\"$produtos\" />";
+}
+
+// Adicionando eventos aos botões
+todosAnunciosBtn.addEventListener("click", mostrarTodosAnuncios);
+anunciosAprovadosBtn.addEventListener("click", mostrarAnunciosAprovados);
+anunciosPendentesBtn.addEventListener("click", mostrarAnunciosPendentes);
+anunciosRejeitadosBtn.addEventListener("click", mostrarAnunciosRejeitados);
