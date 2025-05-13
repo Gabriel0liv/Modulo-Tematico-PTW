@@ -53,8 +53,9 @@ class produtoController extends Controller
 
     public function show($id)
     {
+        $produto = Produto::find($id);
         // Lógica para mostrar um produto específico
-        return view('produtos.show', compact('id'));
+        return view('produto', ['produto' => $produto]);
     }
 
     public function update(Request $request, $id)
@@ -94,12 +95,25 @@ class produtoController extends Controller
         return view('produtos.sort', compact('sortBy'));
     }
 
-    public function moderate(Request $request)
+    public function aprovarAnuncios(Request $request)
     {
-        // Lógica para moderar produtos
-        $productId = $request->input('product_id');
+        $produtos = Produto::all();
         // Implementar a lógica de moderação no banco de dados
-        return redirect()->route('produtos.index');
+        return view('paginas.perfilAdmin.aprovar', ['produtos' => $produtos]);
+    }
+
+    public function aprovar($id){
+        $produto = Produto::find($id);
+        $produto->moderado = 1;
+        $produto->save();
+        return redirect()->back()->with('success', 'Produto aprovado com sucesso!');
+    }
+
+    public function reprovar($id){
+        $produto = Produto::find($id);
+        $produto->moderado = 2;
+        $produto->save();
+        return redirect()->back()->with('success', 'Produto reprovado com sucesso!');
     }
 
 

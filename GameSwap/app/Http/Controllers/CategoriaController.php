@@ -10,7 +10,6 @@ class CategoriaController
     public function edicao()
     {
         $categorias = Categoria::all();
-
         return view('paginas.perfilAdmin.Edicao', ['categorias' => $categorias]);
     }
 

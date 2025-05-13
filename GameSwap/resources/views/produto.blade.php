@@ -6,15 +6,15 @@
       <svg class="h-3 w-3 mx-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
       </svg>
-      <a href="#" class="hover:text-[#0a66c2] hover:underline">{{$produto['tipo_produto']}}</a>
+      <a href="#" class="hover:text-[#0a66c2] hover:underline">{{$produto->tipo_produto}}</a>
       <svg class="h-3 w-3 mx-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
       </svg>
-      <a href="#" class="hover:text-[#0a66c2] hover:underline">{{$produto['console']}}</a>
+      <a href="#" class="hover:text-[#0a66c2] hover:underline">{{$produto->console}}</a>
       <svg class="h-3 w-3 mx-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
       </svg>
-      <span class="text-gray-700 font-medium">{{$produto['nome']}}</span>
+      <span class="text-gray-700 font-medium">{{$produto->nome}}</span>
     </div>
   </div>
 
@@ -38,7 +38,7 @@
 
             <div class="absolute top-4 left-4 flex gap-2">
               <span class="bg-[#ff922b] text-[#212529] font-medium px-3 py-1 rounded-full text-sm">
-                {{$produto['estado']}}
+                {{$produto->estado}}
               </span>
               <span class="bg-[#4dabf7] text-white font-medium px-3 py-1 rounded-full text-sm">
                 Platinum
@@ -106,12 +106,12 @@
               </div>
               <span class="text-sm text-gray-500">(32 avaliações)</span>
             </div>
-            <h1 class="text-3xl font-bold text-gray-900">{{$produto['nome']}}</h1>
-            <p class="text-gray-500 mt-1">{{$produto['console']}}</p>
+            <h1 class="text-3xl font-bold text-gray-900">{{$produto->nome}}</h1>
+            <p class="text-gray-500 mt-1">{{$produto->console}}</p>
           </div>
 
           <div class="flex items-end gap-3">
-            <span class="text-3xl font-bold text-gray-900">R${{$produto['preco']}}</span>
+            <span class="text-3xl font-bold text-gray-900">R${{$produto->preco}}</span>
           </div>
 
           <div class="flex items-center gap-1 text-gray-600">
@@ -119,7 +119,7 @@
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
             </svg>
-            <span>{{$produto['morada']}}</span>
+            <span>{{$produto->morada}}</span>
             <span class="mx-2">•</span>
             <a href="#" class="text-[#0a66c2]">Ver no mapa</a>
           </div>
@@ -128,7 +128,7 @@
             <svg class="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
             </svg>
-            <span>Vendido por <a href="#" class="font-medium text-[#0a66c2] hover:underline">{{$produto['id_anunciante']}}</a></span>
+            <span>Vendido por <a href="#" class="font-medium text-[#0a66c2] hover:underline">{{$produto->id_anunciante}}</a></span>
             <span class="mx-2">•</span>
             <span class="text-[#2b8a3e]">Vendedor verificado</span>
           </div>
@@ -150,7 +150,7 @@
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
               </svg>
             </div>
-            <span>Produto em {{$produto['estado']}}</span>
+            <span>Produto em {{$produto->estado}}</span>
           </div>
           <div class="flex items-center gap-3 p-3 rounded-lg bg-white shadow-sm">
             <div class="p-2 rounded-full bg-[#e7f5ff]">
@@ -181,35 +181,35 @@
         <!-- CSS-only Tabs -->
         <div class="relative">
           <div id="description" class="tab-content mt-4 text-gray-700 space-y-4">
-            {{$produto['descricao']}}
+            {{$produto->descricao}}
           </div>
 
           <div id="details" class="tab-content mt-4">
             <div class="bg-white rounded-lg p-4 space-y-3">
               <div class="grid grid-cols-2 gap-2 text-sm">
                 <div class="text-gray-500">Plataforma</div>
-                <div class="font-medium">{{$produto['console']}}</div>
+                <div class="font-medium">{{$produto->console}}</div>
 
                 <div class="text-gray-500">Gênero</div>
                 <div class="font-medium">Ação, Aventura</div>
 
                 <div class="text-gray-500">Desenvolvedor</div>
-                <div class="font-medium">{{$produto['desenvolvedor']}}</div>
+                <div class="font-medium">{{$produto->desenvolvedor}}</div>
 
                 <div class="text-gray-500">Publicador</div>
-                <div class="font-medium">{{$produto['publicador']}}</div>
+                <div class="font-medium">{{$produto->publicador}}</div>
 
                 <div class="text-gray-500">Ano de lançamento</div>
-                <div class="font-medium">{{$produto['ano_lancamento']}}</div>
+                <div class="font-medium">{{$produto->ano_lancamento}}</div>
 
                 <div class="text-gray-500">Idioma</div>
-                <div class="font-medium">{{$produto['idiomas']}}</div>
+                <div class="font-medium">{{$produto->idiomas}}</div>
 
                 <div class="text-gray-500">Classificação</div>
-                <div class="font-medium">{{$produto['classificacao']}}</div>
+                <div class="font-medium">{{$produto->classificacao}}</div>
 
                 <div class="text-gray-500">Estado</div>
-                <div class="font-medium">{{$produto['estado']}}</div>
+                <div class="font-medium">{{$produto->estado}}</div>
               </div>
             </div>
           </div>
@@ -312,26 +312,24 @@
       </div>
 
       <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-        @foreach($produtosRelacionados as $produto)
           <div class="bg-white rounded-xl shadow-sm overflow-hidden hover:shadow-md transition-shadow">
               <div class="relative aspect-square">
-                  <img src="https://via.placeholder.com/300" alt="{{ $produto['nome'] }}" class="w-full h-full object-cover">
+                  <img src="https://via.placeholder.com/300" alt="chupe-chupe" class="w-full h-full object-cover">
                   <div class="absolute top-3 left-3">
                       <span class="bg-[#ff922b] text-[#212529] font-medium px-2 py-1 text-xs rounded-full">
-                          {{ ucfirst($produto['estado']) }}
+                          chupe-chupe
                       </span>
                   </div>
               </div>
               <div class="p-4">
-                  <h3 class="font-medium text-gray-900 mb-1">{{ $produto['nome'] }}</h3>
-                  <p class="text-sm text-gray-500 mb-2">{{ $produto['console'] }}</p>
+                  <h3 class="font-medium text-gray-900 mb-1">chupe-chupe</h3>
+                  <p class="text-sm text-gray-500 mb-2">chupe-chupe</p>
                   <div class="flex items-center justify-between">
-                      <span class="font-bold text-gray-900">€{{ number_format($produto['preco'], 2, ',', '.') }}</span>
+                      <span class="font-bold text-gray-900">€chupe-chupe</span>
                       {{-- estrelas aqui, se quiser manter --}}
                   </div>
               </div>
           </div>
-        @endforeach
 
 
       </div>
