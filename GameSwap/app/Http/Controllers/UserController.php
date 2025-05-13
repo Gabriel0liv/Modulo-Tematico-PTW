@@ -64,7 +64,7 @@ class UserController
             'nome_morada' => $validatedData['nome_morada'],
         ]);
 
-        return redirect()->route('perfil-Moradas');
+        return redirect()->route('perfil.moradas');
     }
 
     public function mostrarMoradas()

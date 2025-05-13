@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoriaController;
+use App\Http\Controllers\MoradaController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProdutoController;
 use Illuminate\Support\Facades\Auth;
@@ -292,6 +293,11 @@ Route::post('paginas/cancelarConta', [UserController::class, 'deletarConta'])->n
 Route::post('paginas/adicionarMorada', [UserController::class, 'adicionarMorada'])->name('moradas.adicionar');
 Route::get('/perfil/moradas', [UserController::class, 'mostrarMoradas'])->name('perfil.moradas');
 
+
+
+Route::get('/perfil/moradas/{id}/editar', [MoradaController::class, 'editarForm'])->name('moradas.editar.form');
+Route::post('/perfil/moradas/{id}/editar', [MoradaController::class, 'editarMorada'])->name('moradas.editar');
+Route::delete('/perfil/moradas/{id}/apagar', [MoradaController::class, 'apagarMorada'])->name('moradas.apagar');
 
 
 
