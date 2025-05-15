@@ -7,6 +7,12 @@
         'Segoe UI Symbol', 'Noto Color Emoji';
 }
 
+.input-error {
+    margin-top: 0.5rem;
+    color: red;
+    font-size: 0.875rem;
+}
+
 .modal {
     backdrop-filter: blur(8px);
     background-color: rgba(0, 0, 0, 0.4);

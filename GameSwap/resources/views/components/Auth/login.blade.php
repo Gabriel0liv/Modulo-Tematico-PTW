@@ -1,4 +1,4 @@
-<div id="login-modal" class="modal fixed inset-0 z-50 flex items-center justify-center">
+<div id="login-modal" class="modal @if(session('showLoginModal')) active @endif fixed inset-0 z-50 flex items-center justify-center">
     <div class="modal-content bg-white rounded-xl shadow-elevated max-w-md w-full mx-4 overflow-hidden">
         <div class="p-6">
             <h2 class="text-2xl font-bold text-gray-800 text-center mb-6">Iniciar Sessão</h2>

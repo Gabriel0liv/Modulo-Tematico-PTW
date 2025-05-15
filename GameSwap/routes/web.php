@@ -281,9 +281,17 @@ Route::post('/produtos/store', [ProdutoController::class, 'store'])->name('produ
 
 
 // rotas para o controller de autenticação
-Route::post('/registo',[AuthController::class,'criarRegisto'])->name('criarRegisto');
-Route::post('/login',[AuthController::class,'login'])->name('login');
+Route::post('paginas/auth/registoPage',[AuthController::class,'criarRegisto'])->name('criarRegisto');
+Route::post('paginas/auth/loginPage',[AuthController::class,'login'])->name('login');
 Route::post('/logout',[AuthController::class,'logout'])->name('logout');
+Route::get('/paginas/auth/registoPage', function () {
+   return view('paginas.auth.registoPage');
+})->name('registoPage');
+Route::get('/paginas/auth/loginPage', function () {
+    return view('paginas.auth.loginPage');
+})->name('loginPage');
+
+
 
 
 

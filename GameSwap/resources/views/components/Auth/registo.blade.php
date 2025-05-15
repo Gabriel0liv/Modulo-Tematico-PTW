@@ -13,7 +13,7 @@
                 </div>
             </div>-->
 
-            <form id="register-form" action="{{route('criarRegisto')}}" method="POST" class="overflow-y-auto max-h-[60vh]">
+            <form id="register-form" action="" method="POST" class="overflow-y-auto max-h-[60vh]">
                 @csrf
                 <div class="space-y-4">
                     <div>

@@ -7,6 +7,7 @@ const registerForm = document.getElementById("register-form");
 const resetForm = document.getElementById("reset-form");
 const userProfileBtn = document.getElementById("user-profile-btn");
 const userProfileBtnMobile = document.getElementById("user-profile-btn-mobile");
+const anunciarButton = document.getElementById("anunciar-button");
 const userProfileInfo = document.getElementById("user-profile-info");
 const usernameDisplay = document.getElementById("username-display");
 const userInitials = document.getElementById("user-initials");
@@ -47,6 +48,7 @@ setupModalBackdropClose(resetPasswordModal);
 setupModalBackdropClose(notificationModal);
 
 userProfileBtn.addEventListener("click", () => showModal(loginModal));
+anunciarButton.addEventListener("click", () => showModal(loginModal));
 userProfileBtnMobile.addEventListener("click", () => showModal(loginModal));
 
 registerLink.addEventListener("click", (e) => {

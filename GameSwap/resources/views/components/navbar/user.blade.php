@@ -46,10 +46,6 @@
                   <p>Sem novas notificações.</p>
             </div>
         </div>
-        <a href="{{route('mensagensPage')}}" class="relative group" aria-label="Mensagens">
-            <i class="bi bi-chat-dots text-white text-xl"></i>
-
-        </a>
         <a href="{{route('carrinhoPage')}}" class="relative group" aria-label="Carrinho">
             <i class="bi bi-cart text-white text-xl"></i>
 
@@ -58,6 +54,6 @@
            class="inline-flex items-center justify-center whitespace-nowrap rounded-full text-sm font-medium bg-amber-400 hover:bg-amber-500 text-gray-800 px-5 py-2 transition-colors shadow-sm">
             Anunciar Produto
         </a>
-        
+
     </div>
 </div>
