@@ -8,7 +8,6 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     @vite(['resources/js/app.js', 'resources/css/app.css'])
-
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
 </head>
 <body class="flex flex-col min-h-screen">
@@ -112,6 +111,6 @@
   </footer>
 
 
-
+  @stack('scripts')
 </body>
 </html>

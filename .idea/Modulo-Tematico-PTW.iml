@@ -119,6 +119,7 @@
       <excludeFolder url="file://$MODULE_DIR$/GameSwap/vendor/vlucas/phpdotenv" />
       <excludeFolder url="file://$MODULE_DIR$/GameSwap/vendor/voku/portable-ascii" />
       <excludeFolder url="file://$MODULE_DIR$/GameSwap/vendor/webmozart/assert" />
+      <excludeFolder url="file://$MODULE_DIR$/GameSwap/vendor/livewire/livewire" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

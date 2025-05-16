@@ -45,13 +45,17 @@ class UserController
         return redirect()->route('pagina_inicial');
     }
 
-    public function adicionarMorada(Request $request){
-
+    public function adicionarMorada(Request $request)
+    {
         $validatedData = $request->validate([
             'morada' => 'required|string|max:255',
-            'codigo_postal' => 'required|string|max:255',
-            'distrito' => 'required|string|max:255',
-            'localidade' => 'required|string|max:255',
+            // Código Postal no formato 0000-000
+            'codigo_postal' => [
+                'required',
+                'regex:/^\d{4}-\d{3}$/'
+            ],
+            'distrito_id' => 'required|exists:distritos,id',
+            'concelho_id' => 'required|exists:concelhos,id',
             'nome_morada' => 'required|string|max:255',
         ]);
 
@@ -59,8 +63,8 @@ class UserController
             'user_id' => auth()->id(),
             'morada' => $validatedData['morada'],
             'codigo_postal' => $validatedData['codigo_postal'],
-            'distrito' => $validatedData['distrito'],
-            'localidade' => $validatedData['localidade'],
+            'distrito_id' => $validatedData['distrito_id'],
+            'concelho_id' => $validatedData['concelho_id'],
             'nome_morada' => $validatedData['nome_morada'],
         ]);
 
@@ -69,7 +73,9 @@ class UserController
 
     public function mostrarMoradas()
     {
-        $moradas = auth()->user()->moradas; // Usa a relação definida no modelo User
+        $moradas = Morada::with(['distrito', 'concelho'])
+            ->where('user_id', auth()->id())
+            ->get();
         return view('paginas.perfil.perfilmoradas', compact('moradas'));
     }
 }

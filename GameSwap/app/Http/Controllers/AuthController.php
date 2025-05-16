@@ -17,7 +17,7 @@ class AuthController extends Controller
             'register_name' => 'required|string|max:255',
             'register_email' => 'required|email|unique:users,email',
             'register_phone' => 'string|max:20',
-            'register_dob' => 'date',
+            'register_dob' => ['required', 'date', 'before_or_equal:' . now()->subYears(18)->format('Y-m-d')],
             'register_username' => 'required|string|unique:users,username|max:255',
             'register_password' => 'required|string|min:8|confirmed',
         ]);

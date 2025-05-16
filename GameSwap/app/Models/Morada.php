@@ -11,8 +11,8 @@ class Morada extends Model
         'user_id',
         'morada',
         'codigo_postal',
-        'distrito',
-        'localidade',
+        'distrito_id',
+        'concelho_id',
         'nome_morada',
     ];
 
@@ -20,6 +20,15 @@ class Morada extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function distrito() {
+        return $this->belongsTo(Distrito::class);
+    }
+
+    public function concelho() {
+        return $this->belongsTo(Concelho::class);
+    }
+
     public function setMoradaAttribute($value)
     {
         $this->attributes['morada'] = Crypt::encryptString($value);

@@ -300,18 +300,17 @@ Route::post('paginas/editarPerfil', [UserController::class, 'atualizarInformacoe
 Route::post('paginas/cancelarConta', [UserController::class, 'deletarConta'])->name('user.deletar');
 Route::post('paginas/adicionarMorada', [UserController::class, 'adicionarMorada'])->name('moradas.adicionar');
 Route::get('/perfil/moradas', [UserController::class, 'mostrarMoradas'])->name('perfil.moradas');
+Route::get('/paginas/adicionarMorada', [MoradaController::class, 'index'])->name('moradas.adicionar.form');
 
 
 
 Route::get('/perfil/moradas/{id}/editar', [MoradaController::class, 'editarForm'])->name('moradas.editar.form');
 Route::post('/perfil/moradas/{id}/editar', [MoradaController::class, 'editarMorada'])->name('moradas.editar');
 Route::delete('/perfil/moradas/{id}/apagar', [MoradaController::class, 'apagarMorada'])->name('moradas.apagar');
+Route::get('/concelhos/{distritoId}', [MoradaController::class, 'obterConcelhosPorDistrito']);
 
 
 
-Route::get('paginas/adicionarMorada', function () {
-    return view('paginas.adicionarMorada');
-})->name('paginas.adicionarMoradas');;
 
 
 Route::get('paginas/editarPerfil',function (){

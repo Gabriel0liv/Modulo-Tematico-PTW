@@ -16,8 +16,8 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->string('morada');
             $table->string('codigo_postal');
-            $table->string('distrito');
-            $table->string('localidade');
+            $table->unsignedBigInteger('distrito_id');
+            $table->unsignedBigInteger('concelho_id');
             $table->timestamps();
         });
     }
