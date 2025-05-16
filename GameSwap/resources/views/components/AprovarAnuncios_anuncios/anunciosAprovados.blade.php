@@ -15,7 +15,7 @@
             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{$produto->preco}}</td>
             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{$produto->created_at}}</td>
             <td class="px-6 py-4 whitespace-nowrap">
-                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">Pendente</span>
+                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">Aprovado</span>
             </td>
             <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
                 <a href="/produto/{{$produto->id}}" class="text-blue-600 hover:text-blue-900 mr-3">Ver</a>

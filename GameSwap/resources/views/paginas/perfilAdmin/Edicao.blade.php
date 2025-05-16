@@ -61,12 +61,12 @@
                                     <form action="{{ route('categoria.editarCategoria', $categoria->id) }}" method="POST" class="flex items-center">
                                         @csrf
                                         <input type="text" name="nome" value="{{ $categoria->nome }}" class="flex-1 p-2 border border-gray-300 rounded-md mr-2">
-                                        <button type="submit" class="text-blue-600 mr-2">Salvar</button>
+                                        <button type="submit" class="flex items-center gap-3 px-4 py-3 bg-blue-50 border  border-blue-200 hover:border-blue-300 text-blue-600 hover:text-blue-700 rounded-md transition-colors mr-2">Salvar</button>
                                     </form>
                                 </div>
                                 <form action="{{ route('categoria.eliminarCategoria', $categoria->id) }}" method="POST">
                                     @csrf
-                                    <button type="submit" class="text-red-600">Remover</button>
+                                    <button type="submit" class="flex items-center gap-3 px-4 py-3 bg-red-50 border  border-red-200 hover:border-red-300 text-red-600 hover:text-red-700 rounded-md transition-colors">Remover</button>
                                 </form>
                             </div>
                         </div>

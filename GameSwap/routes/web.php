@@ -375,8 +375,6 @@ Route::get("/perfil/minhas_vendas",function(){
 
 
 
-
-
 // Rotas de perfil administrativo
 Route::get("/perfilAdmin",function(){
     return view('paginas.perfilAdmin.perfilA');

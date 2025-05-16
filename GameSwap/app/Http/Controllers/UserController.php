@@ -19,6 +19,7 @@ class UserController
 
         $user->save();
 
+        return redirect()->route('perfilAdmin');
 
 
     }

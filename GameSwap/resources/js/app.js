@@ -258,3 +258,23 @@ todosAnunciosBtn.addEventListener("click", mostrarTodosAnuncios);
 anunciosAprovadosBtn.addEventListener("click", mostrarAnunciosAprovados);
 anunciosPendentesBtn.addEventListener("click", mostrarAnunciosPendentes);
 anunciosRejeitadosBtn.addEventListener("click", mostrarAnunciosRejeitados);
+
+
+// Script esconder a senha
+    const inputEditPassword = document.getElementById("inputEditPassword");
+    const mostrarPasswordBtn = document.getElementById("mostrarPasswordBtn");
+
+    function censurarSenha() {
+        if (inputEditPassword && mostrarPasswordBtn) {
+            if (inputEditPassword.type === "password") {
+                inputEditPassword.type = "text";
+            } else {
+                inputEditPassword.type = "password";
+            }
+        }
+    }
+
+    mostrarPasswordBtn.addEventListener("click", () => {
+        console.log("Botão de mostrar senha clicado");
+        censurarSenha();
+    });
