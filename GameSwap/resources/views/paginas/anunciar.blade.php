@@ -158,8 +158,7 @@
 
             <!-- Submit Button -->
             <div class="flex justify-end">
-                <button type="submit" class="bg-primary text-black px-6 py-3 rounded-lg font-medium hover:bg-primary/90 transition flex items-center">
-                    <i data-lucide="check-circle" class="h-5 w-5 mr-2"></i>
+                <button type="submit" class="bg-blue-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-blue-700 transition text-center justify-center flex">
                     Publicar Anúncio
                 </button>
             </div>

@@ -56,9 +56,9 @@
               <p class="text-sm text-gray-600 mb-4">Receba notificações sobre novos jogos e ofertas especiais.</p>
               <div class="flex gap-2">
                 <input placeholder="Seu email" class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 text-sm" />
-                <button class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium h-9 rounded-md px-3 bg-amber-400 hover:bg-amber-500 text-gray-800">
-                  Inscrever
-                </button>
+                  <button class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded text-sm font-medium transition">
+                      Inscrever
+                  </button>
               </div>
             </div>
           </div>

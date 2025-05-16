@@ -61,7 +61,7 @@
             </div>
 
             <div class="text-right">
-                <button type="submit" class="px-6 py-2 bg-yellow-400 hover:bg-yellow-500 text-white font-semibold rounded-lg shadow-md">
+                <button type="submit" class="px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg shadow-md">
                     Salvar Alterações
                 </button>
             </div>

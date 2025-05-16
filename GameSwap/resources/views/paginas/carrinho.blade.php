@@ -48,7 +48,7 @@
                                     </button>
                                 </div>
                                 <div class="flex space-x-3">
-                                    <button class="text-primary hover:text-primary-dark transition-all text-sm font-medium">
+                                    <button class="text-sm font-medium border border-blue-500 text-blue-600 px-3 py-1 rounded hover:bg-blue-50 transition-all">
                                         Salvar para depois
                                     </button>
                                     <button class="text-gray-400 hover:text-red-500 transition-all">
@@ -61,6 +61,7 @@
                         </div>
                     </div>
                 </div>
+                <hr class="border-t border-gray-200 my-4" />
 
                 <!-- Cart Item 2 -->
                 <div class="bg-white rounded-xl shadow-soft p-5 hover:shadow-medium transition-all duration-300">
@@ -95,7 +96,7 @@
                                     </button>
                                 </div>
                                 <div class="flex space-x-3">
-                                    <button class="text-primary hover:text-primary-dark transition-all text-sm font-medium">
+                                    <button class="text-sm font-medium border border-blue-500 text-blue-600 px-3 py-1 rounded hover:bg-blue-50 transition-all">
                                         Salvar para depois
                                     </button>
                                     <button class="text-gray-400 hover:text-red-500 transition-all">
@@ -108,6 +109,7 @@
                         </div>
                     </div>
                 </div>
+                <hr class="border-t border-gray-200 my-4" />
 
                 <!-- Cart Item 3 -->
                 <div class="bg-white rounded-xl shadow-soft p-5 hover:shadow-medium transition-all duration-300">
@@ -142,7 +144,7 @@
                                     </button>
                                 </div>
                                 <div class="flex space-x-3">
-                                    <button class="text-primary hover:text-primary-dark transition-all text-sm font-medium">
+                                    <button class="text-sm font-medium border border-blue-500 text-blue-600 px-3 py-1 rounded hover:bg-blue-50 transition-all">
                                         Salvar para depois
                                     </button>
                                     <button class="text-gray-400 hover:text-red-500 transition-all">
