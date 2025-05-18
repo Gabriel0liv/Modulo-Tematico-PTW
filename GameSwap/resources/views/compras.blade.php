@@ -71,7 +71,7 @@
         <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
           @foreach ($produtos as $item)
             @if (isset($item['tipo_produto']) && $item['tipo_produto'] == 'console')
-              <a href="/produto/{{$item['id']}}" class="rounded-lg border bg-card text-card-foreground shadow-sm overflow-hidden border-0 shadow-md hover:shadow-lg transition-shadow group">
+              <a href="/jogo/{{$item['id']}}" class="rounded-lg border bg-card text-card-foreground shadow-sm overflow-hidden border-0 shadow-md hover:shadow-lg transition-shadow group">
                 <div class="relative">
                     <img
                         src="/placeholder.svg?height=180&width=180"
@@ -98,7 +98,7 @@
           <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
             @foreach ($produtos as $item)
             @if (isset($item['tipo_produto']) && $item['tipo_produto'] == 'jogo')
-              <a href="/produto/{{$item['id']}}" class="rounded-lg border bg-card text-card-foreground shadow-sm overflow-hidden border-0 shadow-md hover:shadow-lg transition-shadow group">
+              <a href="/jogo/{{$item['id']}}" class="rounded-lg border bg-card text-card-foreground shadow-sm overflow-hidden border-0 shadow-md hover:shadow-lg transition-shadow group">
                 <div class="relative">
                     <img
                         src="/placeholder.svg?height=180&width=180"
@@ -119,6 +119,7 @@
 
           @endforeach
 
-          </div>
-      </div>
+          </div> <!-- Fechando a grid de jogos em destaque -->
+        </div> <!-- Fechando a seção de jogos em destaque -->
+      </div> <!-- Fechando o layout principal -->
 </x-layout>

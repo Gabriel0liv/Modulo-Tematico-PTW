@@ -11,17 +11,18 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('moradas', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('user_id')->constrained()->cascadeOnDelete();
-            $table->string('morada');
-            $table->string('codigo_postal');
-            $table->unsignedBigInteger('distrito_id');
-            $table->unsignedBigInteger('concelho_id');
-            $table->timestamps();
-        });
+        if (!Schema::hasTable('moradas')) {
+            Schema::create('moradas', function (Blueprint $table) {
+                $table->id();
+                $table->foreignId('user_id')->constrained()->cascadeOnDelete();
+                $table->string('morada');
+                $table->string('codigo_postal');
+                $table->unsignedBigInteger('distrito_id');
+                $table->unsignedBigInteger('concelho_id');
+                $table->timestamps();
+            });
+        }
     }
-
     /**
      * Reverse the migrations.
      */

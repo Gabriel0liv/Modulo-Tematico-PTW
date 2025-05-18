@@ -4,7 +4,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\MoradaController;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\ProdutoController;
+use App\Http\Controllers\jogoController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -16,7 +16,7 @@ Route::get('/',function(){
             "nome" => "Playstation 5",
             "data_publicacao" => "2025-04-06 10:00:00",
             "id_anunciante" => 2,
-            "descricao" => "Descricao do produto Playstation 5.",
+            "descricao" => "Descricao do jogo Playstation 5.",
             "preco" => 549.99,
             "id_categoria" => 1,
             "estado" => "usado",
@@ -37,7 +37,7 @@ Route::get('/',function(){
             "nome" => "Playstation 4",
             "data_publicacao" => "2025-04-06 10:00:00",
             "id_anunciante" => 3,
-            "descricao" => "Descricao do produto Playstation 4.",
+            "descricao" => "Descricao do jogo Playstation 4.",
             "preco" => 200.00,
             "id_categoria" => 1,
             "estado" => "novo",
@@ -58,7 +58,7 @@ Route::get('/',function(){
             "nome" => "Xbox Series X",
             "data_publicacao" => "2025-04-06 10:00:00",
             "id_anunciante" => 4,
-            "descricao" => "Descricao do produto Xbox Series X.",
+            "descricao" => "Descricao do jogo Xbox Series X.",
             "preco" => 549.99,
             "id_categoria" => 1,
             "estado" => "usado",
@@ -79,7 +79,7 @@ Route::get('/',function(){
             "nome" => "Xbox One",
             "data_publicacao" => "2025-04-06 10:00:00",
             "id_anunciante" => 5,
-            "descricao" => "Descricao do produto Xbox One.",
+            "descricao" => "Descricao do jogo Xbox One.",
             "preco" => 180.00,
             "id_categoria" => 1,
             "estado" => "novo",
@@ -100,7 +100,7 @@ Route::get('/',function(){
             "nome" => "Nintendo Switch",
             "data_publicacao" => "2025-04-06 10:00:00",
             "id_anunciante" => 6,
-            "descricao" => "Descricao do produto Nintendo Switch.",
+            "descricao" => "Descricao do jogo Nintendo Switch.",
             "preco" => 329.99,
             "id_categoria" => 1,
             "estado" => "usado",
@@ -121,7 +121,7 @@ Route::get('/',function(){
             "nome" => "Nintendo Switch 2",
             "data_publicacao" => "2025-04-06 10:00:00",
             "id_anunciante" => 1,
-            "descricao" => "Descricao do produto Nintendo Switch 2.",
+            "descricao" => "Descricao do jogo Nintendo Switch 2.",
             "preco" => 449.99,
             "id_categoria" => 1,
             "estado" => "novo",
@@ -142,7 +142,7 @@ Route::get('/',function(){
             "nome" => "Metal Gear V: Phantom Pain",
             "data_publicacao" => "2025-04-06 10:00:00",
             "id_anunciante" => 2,
-            "descricao" => "Descricao do produto Metal Gear V: Phantom Pain.",
+            "descricao" => "Descricao do jogo Metal Gear V: Phantom Pain.",
             "preco" => 20.00,
             "id_categoria" => 2,
             "estado" => "usado",
@@ -163,7 +163,7 @@ Route::get('/',function(){
             "nome" => "Death Stranding: Director's Cut",
             "data_publicacao" => "2025-04-06 10:00:00",
             "id_anunciante" => 3,
-            "descricao" => "Descricao do produto Death Stranding: Director's Cut.",
+            "descricao" => "Descricao do jogo Death Stranding: Director's Cut.",
             "preco" => 40.00,
             "id_categoria" => 2,
             "estado" => "novo",
@@ -184,7 +184,7 @@ Route::get('/',function(){
             "nome" => "Elden Ring",
             "data_publicacao" => "2025-04-06 10:00:00",
             "id_anunciante" => 4,
-            "descricao" => "Descricao do produto Elden Ring.",
+            "descricao" => "Descricao do jogo Elden Ring.",
             "preco" => 30.00,
             "id_categoria" => 2,
             "estado" => "usado",
@@ -205,7 +205,7 @@ Route::get('/',function(){
             "nome" => "Dark Souls: Prepare to Die",
             "data_publicacao" => "2025-04-06 10:00:00",
             "id_anunciante" => 5,
-            "descricao" => "Descricao do produto Dark Souls: Prepare to Die.",
+            "descricao" => "Descricao do jogo Dark Souls: Prepare to Die.",
             "preco" => 35.00,
             "id_categoria" => 2,
             "estado" => "novo",
@@ -226,7 +226,7 @@ Route::get('/',function(){
             "nome" => "Devil May Cry",
             "data_publicacao" => "2025-04-06 10:00:00",
             "id_anunciante" => 6,
-            "descricao" => "Descricao do produto Devil May Cry.",
+            "descricao" => "Descricao do jogo Devil May Cry.",
             "preco" => 15.00,
             "id_categoria" => 2,
             "estado" => "usado",
@@ -247,7 +247,7 @@ Route::get('/',function(){
             "nome" => "Yakuza 0(2013)",
             "data_publicacao" => "2025-04-06 10:00:00",
             "id_anunciante" => 1,
-            "descricao" => "Descricao do produto Yakuza 0(2013).",
+            "descricao" => "Descricao do jogo Yakuza 0(2013).",
             "preco" => 25.00,
             "id_categoria" => 2,
             "estado" => "novo",
@@ -275,9 +275,9 @@ Route::get('/components/layout', function () {
 
 
 
-// rota para o controller de produtos
-Route::post('/produtos/store', [ProdutoController::class, 'store'])->name('produtos.store');
-
+// rota para o controller de produtos (jogo)
+Route::post('/jogo/store', [JogoController::class, 'store'])->name('jogo.store');
+Route::get('/jogo/{id}', [JogoController::class, 'show'])->name('jogo.show');
 
 
 // rotas para o controller de autenticação
@@ -388,9 +388,9 @@ Route::get("/perfilAdmin/denuncias",function(){
     return view('paginas.perfilAdmin.denuncias');
 });
 
-Route::get("/perfilAdmin/aprovar", [ProdutoController::class, 'aprovarAnuncios']);
-Route::post("/perfilAdmin/aprovar/{id}", [ProdutoController::class, 'aprovar'])->name('produto.aprovar');
-Route::post("/perfilAdmin/reprovar/{id}", [ProdutoController::class, 'reprovar'])->name('produto.reprovar');
+Route::get("/perfilAdmin/aprovar", [JogoController::class, 'aprovarAnuncios']);
+Route::post("/perfilAdmin/aprovar/{id}", [JogoController::class, 'aprovar'])->name('jogo.aprovar');
+Route::post("/perfilAdmin/reprovar/{id}", [JogoController::class, 'reprovar'])->name('jogo.reprovar');
 
 
 
@@ -414,7 +414,7 @@ Route::get("/pesquisa",function(){
             "nome" => "Playstation 5",
             "data_publicacao" => "2025-04-06 10:00:00",
             "id_anunciante" => 2,
-            "descricao" => "Descricao do produto Playstation 5.",
+            "descricao" => "Descricao do jogo Playstation 5.",
             "preco" => 549.99,
             "id_categoria" => 1,
             "estado" => "usado",
@@ -435,7 +435,7 @@ Route::get("/pesquisa",function(){
             "nome" => "Playstation 4",
             "data_publicacao" => "2025-04-06 10:00:00",
             "id_anunciante" => 3,
-            "descricao" => "Descricao do produto Playstation 4.",
+            "descricao" => "Descricao do jogo Playstation 4.",
             "preco" => 200.00,
             "id_categoria" => 1,
             "estado" => "novo",
@@ -456,7 +456,7 @@ Route::get("/pesquisa",function(){
             "nome" => "Xbox Series X",
             "data_publicacao" => "2025-04-06 10:00:00",
             "id_anunciante" => 4,
-            "descricao" => "Descricao do produto Xbox Series X.",
+            "descricao" => "Descricao do jogo Xbox Series X.",
             "preco" => 549.99,
             "id_categoria" => 1,
             "estado" => "usado",
@@ -477,7 +477,7 @@ Route::get("/pesquisa",function(){
             "nome" => "Xbox One",
             "data_publicacao" => "2025-04-06 10:00:00",
             "id_anunciante" => 5,
-            "descricao" => "Descricao do produto Xbox One.",
+            "descricao" => "Descricao do jogo Xbox One.",
             "preco" => 180.00,
             "id_categoria" => 1,
             "estado" => "novo",
@@ -498,7 +498,7 @@ Route::get("/pesquisa",function(){
             "nome" => "Nintendo Switch",
             "data_publicacao" => "2025-04-06 10:00:00",
             "id_anunciante" => 6,
-            "descricao" => "Descricao do produto Nintendo Switch.",
+            "descricao" => "Descricao do jogo Nintendo Switch.",
             "preco" => 329.99,
             "id_categoria" => 1,
             "estado" => "usado",
@@ -519,7 +519,7 @@ Route::get("/pesquisa",function(){
             "nome" => "Nintendo Switch 2",
             "data_publicacao" => "2025-04-06 10:00:00",
             "id_anunciante" => 1,
-            "descricao" => "Descricao do produto Nintendo Switch 2.",
+            "descricao" => "Descricao do jogo Nintendo Switch 2.",
             "preco" => 449.99,
             "id_categoria" => 1,
             "estado" => "novo",
@@ -540,7 +540,7 @@ Route::get("/pesquisa",function(){
             "nome" => "Metal Gear V: Phantom Pain",
             "data_publicacao" => "2025-04-06 10:00:00",
             "id_anunciante" => 2,
-            "descricao" => "Descricao do produto Metal Gear V: Phantom Pain.",
+            "descricao" => "Descricao do jogo Metal Gear V: Phantom Pain.",
             "preco" => 20.00,
             "id_categoria" => 2,
             "estado" => "usado",
@@ -561,7 +561,7 @@ Route::get("/pesquisa",function(){
             "nome" => "Death Stranding: Director's Cut",
             "data_publicacao" => "2025-04-06 10:00:00",
             "id_anunciante" => 3,
-            "descricao" => "Descricao do produto Death Stranding: Director's Cut.",
+            "descricao" => "Descricao do jogo Death Stranding: Director's Cut.",
             "preco" => 40.00,
             "id_categoria" => 2,
             "estado" => "novo",
@@ -582,7 +582,7 @@ Route::get("/pesquisa",function(){
             "nome" => "Elden Ring",
             "data_publicacao" => "2025-04-06 10:00:00",
             "id_anunciante" => 4,
-            "descricao" => "Descricao do produto Elden Ring.",
+            "descricao" => "Descricao do jogo Elden Ring.",
             "preco" => 30.00,
             "id_categoria" => 2,
             "estado" => "usado",
@@ -603,7 +603,7 @@ Route::get("/pesquisa",function(){
             "nome" => "Dark Souls: Prepare to Die",
             "data_publicacao" => "2025-04-06 10:00:00",
             "id_anunciante" => 5,
-            "descricao" => "Descricao do produto Dark Souls: Prepare to Die.",
+            "descricao" => "Descricao do jogo Dark Souls: Prepare to Die.",
             "preco" => 35.00,
             "id_categoria" => 2,
             "estado" => "novo",
@@ -624,7 +624,7 @@ Route::get("/pesquisa",function(){
             "nome" => "Devil May Cry",
             "data_publicacao" => "2025-04-06 10:00:00",
             "id_anunciante" => 6,
-            "descricao" => "Descricao do produto Devil May Cry.",
+            "descricao" => "Descricao do jogo Devil May Cry.",
             "preco" => 15.00,
             "id_categoria" => 2,
             "estado" => "usado",
@@ -645,7 +645,7 @@ Route::get("/pesquisa",function(){
             "nome" => "Yakuza 0(2013)",
             "data_publicacao" => "2025-04-06 10:00:00",
             "id_anunciante" => 1,
-            "descricao" => "Descricao do produto Yakuza 0(2013).",
+            "descricao" => "Descricao do jogo Yakuza 0(2013).",
             "preco" => 25.00,
             "id_categoria" => 2,
             "estado" => "novo",
@@ -667,6 +667,4 @@ Route::get("/pesquisa",function(){
 })->name('pesquisaPage');
 
 
-// Rota de produto com ID
-Route::get('/produto/{id}', [ProdutoController::class, 'show'])->name('produtoPage');
 

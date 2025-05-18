@@ -141,6 +141,14 @@
                 </select>
             </div>
 
+            <div>
+                <label for="product-highlight" class="block text-text font-medium mb-2">Destacar Produto</label>
+                <div class="flex items-center">
+                    <input type="checkbox" id="product-highlight" name="destaque" value="1" class="mr-2" />
+                    <label for="product-highlight" class="text-sm text-gray-600">Marque para destacar este produto.</label>
+                </div>
+            </div>
+
             <!-- Delivery Options -->
             <div>
                 <label class="block text-text font-medium mb-2">Opções de Entrega</label>
@@ -171,10 +179,10 @@
 
             const form = document.getElementById("formPublicar"); // Seleciona o formulário principal
             //alert(form.innerHTML);
-            const productName = document.getElementById("product-name"); // Campo do nome do produto
-            const productPrice = document.getElementById("product-price"); // Campo do preço do produto
+            const productName = document.getElementById("product-name"); // Campo do nome do jogo
+            const productPrice = document.getElementById("product-price"); // Campo do preço do jogo
             const gameCategory = document.getElementById("game-category"); // Campo da categoria do jogo
-            const productDescription = document.getElementById("product-description"); // Campo da descrição do produto
+            const productDescription = document.getElementById("product-description"); // Campo da descrição do jogo
             const consoleType = document.getElementById("console-type"); // Campo do tipo de console
 
             // Adiciona um evento de validação ao enviar o formulário
@@ -183,20 +191,20 @@
 
                 let isValid = true; // Flag para rastrear se o formulário é válido
 
-                // Validação do nome do produto
+                // Validação do nome do jogo
                 if (productName.value.trim() === "") {
-                    alert("O nome do produto é obrigatório.");
+                    alert("O nome do jogo é obrigatório.");
                     productName.focus();
                     isValid = false;
                 } else if (productName.value.length < 3) {
-                    alert("O nome do produto deve ter pelo menos 3 caracteres.");
+                    alert("O nome do jogo deve ter pelo menos 3 caracteres.");
                     productName.focus();
                     isValid = false;
                 }
 
-                // Validação do preço do produto
+                // Validação do preço do jogo
                 if (productPrice.value.trim() === "") {
-                    alert("O preço do produto é obrigatório.");
+                    alert("O preço do jogo é obrigatório.");
                     productPrice.focus();
                     isValid = false;
                 } else if (
@@ -215,13 +223,13 @@
                     isValid = false;
                 }
 
-                // Validação da descrição do produto
+                // Validação da descrição do jogo
                 if (productDescription.value.trim() === "") {
-                    alert("A descrição do produto é obrigatória.");
+                    alert("A descrição do jogo é obrigatória.");
                     productDescription.focus();
                     isValid = false;
                 } else if (productDescription.value.length > 1000) {
-                    alert("A descrição do produto não pode exceder 1000 caracteres.");
+                    alert("A descrição do jogo não pode exceder 1000 caracteres.");
                     productDescription.focus();
                     isValid = false;
                 }
