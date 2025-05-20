@@ -24,36 +24,14 @@
         </div>
 
         <!-- Formulário de JOGO -->
-        <form id="form-jogo" class="space-y-6" action="{{ route('jogo.store') }}" method="POST">
+        <form id="form-jogo" class="space-y-6" action="{{ route('jogo.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
             <!-- Token CSRF obrigatório para segurança -->
             <!-- Product Photos -->
             <div>
                 <label class="block text-text font-medium mb-2">Fotos do Produto</label>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                    <div class="border-2 border-dashed border-gray-300 rounded-lg p-4 flex flex-col items-center justify-center h-40 cursor-pointer hover:bg-gray-50 transition relative photo-upload">
-                        <div class="absolute top-2 left-2 bg-primary text-white text-xs px-2 py-1 rounded">
-                            Principal
-                        </div>
-                        <i data-lucide="image-plus" class="h-10 w-10 text-gray-400 mb-2"></i>
-                        <span class="text-sm text-gray-500">Adicionar foto principal</span>
-                        <input type="file" class="hidden" accept="image/*" />
-                    </div>
-                    <div class="border-2 border-dashed border-gray-300 rounded-lg p-4 flex flex-col items-center justify-center h-40 cursor-pointer hover:bg-gray-50 transition photo-upload">
-                        <i data-lucide="image-plus" class="h-10 w-10 text-gray-400 mb-2"></i>
-                        <span class="text-sm text-gray-500">Adicionar foto</span>
-                        <input type="file" class="hidden" accept="image/*" />
-                    </div>
-                    <div class="border-2 border-dashed border-gray-300 rounded-lg p-4 flex flex-col items-center justify-center h-40 cursor-pointer hover:bg-gray-50 transition photo-upload">
-                        <i data-lucide="image-plus" class="h-10 w-10 text-gray-400 mb-2"></i>
-                        <span class="text-sm text-gray-500">Adicionar foto</span>
-                        <input type="file" class="hidden" accept="image/*" />
-                    </div>
-                </div>
-                <p class="text-sm text-gray-500 mt-2 flex items-center">
-                    <i data-lucide="info" class="h-4 w-4 mr-1"></i>
-                    Adicione até 6 fotos do seu produto. A primeira foto será a capa do anúncio.
-                </p>
+                <input type="file" name="imagens[]" accept="image/*" multiple required class="block w-full text-sm text-gray-500"/>
+                <p class="text-sm text-gray-500 mt-2">Adicione até 6 fotos. A primeira será a capa do anúncio.</p>
             </div>
 
             <!-- Product Name -->
@@ -191,7 +169,7 @@
                 <label class="block text-text font-medium mb-2">Fotos do Console</label>
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                     <div class="border-2 border-dashed border-gray-300 rounded-lg p-4 flex flex-col items-center justify-center h-40 cursor-pointer hover:bg-gray-50 transition relative photo-upload">
-                        <input type="file" name="fotos[]" accept="image/*" class="absolute inset-0 opacity-0 cursor-pointer" multiple>
+                        <input type="file" name="imagens[]" accept="image/*" class="absolute inset-0 opacity-0 cursor-pointer" multiple required>
                         <span class="text-gray-400">Clique para adicionar fotos</span>
                     </div>
                 </div>

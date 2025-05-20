@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\jogo;
 use Illuminate\Support\Facades\Log;
+use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
+
 
 class JogoController extends Controller
 {
@@ -21,23 +23,40 @@ class JogoController extends Controller
         $validatedData = $request->validate([
             'nome' => 'required|string|max:255',
             'preco' => 'required|numeric|min:0',
-            'estado' => 'required|in:novo,usado',
+            'estado' => 'required|in:novo,usado,recondicionado', // Incluído recondicionado
             'id_categoria' => 'required|exists:categorias,id',
             'descricao' => 'required|string|max:1000',
             'destaque' => 'nullable|boolean',
+            'imagens'   => 'required',
+            'imagens.*' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
-        jogo::create([
+        $jogo = jogo::create([
             'nome' => $validatedData['nome'],
             'descricao' => $validatedData['descricao'],
             'preco' => $validatedData['preco'],
             'id_categoria' => $validatedData['id_categoria'],
             'estado' => $validatedData['estado'],
-            'tipo_produto' => 'fisico',
+            'tipo_produto' => $request->input('tipo_produto', 'jogo'), // Usa o valor do form
             'id_anunciante' => auth()->id(),
             'console' => $request->input('console'),
-            'destaque' => $request->boolean('destaque'), // Captura o valor booleano
+            'destaque' => $request->boolean('destaque'),
         ]);
+
+        if ($request->hasFile('imagens')) {
+            foreach ($request->file('imagens') as $imagem) {
+                $folder = 'imagens_gameswap/jogos/' . $jogo->id;
+                $uploadedFileUrl = Cloudinary::upload($imagem->getRealPath(), [
+                    'folder' => $folder
+                ])->getSecurePath();
+                \App\Models\Imagem::create([
+                    'jogo_id' => $jogo->id,
+                    'caminho' => $uploadedFileUrl,
+                ]);
+            }
+        } else {
+            \Log::warning('Nenhuma imagem recebida no request');
+        }
 
         return redirect()->route('pagina_inicial')->with('success', 'Produto anunciado com sucesso!');
     }

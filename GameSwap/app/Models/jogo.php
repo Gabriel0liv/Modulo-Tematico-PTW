@@ -26,6 +26,10 @@ class jogo extends Model
         'destaque',
     ];
 
+    public function imagens()
+    {
+        return $this->hasMany(Imagem::class);
+    }
 
     /** @use HasFactory<\Database\Factories\ProdutoFactory> */
     use HasFactory;
