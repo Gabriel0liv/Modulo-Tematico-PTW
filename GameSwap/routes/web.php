@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoriaController;
+use App\Http\Controllers\ConsoleController;
 use App\Http\Controllers\MoradaController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\jogoController;
@@ -275,9 +276,12 @@ Route::get('/components/layout', function () {
 
 
 
-// rota para o controller de produtos (jogo)
+// rota para o controller de jogos
 Route::post('/jogo/store', [JogoController::class, 'store'])->name('jogo.store');
 Route::get('/jogo/{id}', [JogoController::class, 'show'])->name('jogo.show');
+
+// rota para controller de console
+Route::post('/console/store', [ConsoleController::class, 'store'])->name('console.store');
 
 
 // rotas para o controller de autenticação

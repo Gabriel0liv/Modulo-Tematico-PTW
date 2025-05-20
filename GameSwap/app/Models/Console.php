@@ -14,13 +14,13 @@ class Console extends Model
         'nome',
         'tipo_produto',
         'tipo_console',
+        'preco',
         'id_anunciante',
         'id_comprador',
-        'classificacao',
         'moderado',
         'destaque',
         'descricao',
-        'preco',
+        'estado',
     ];
 
 }
