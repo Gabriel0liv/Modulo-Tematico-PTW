@@ -14,7 +14,7 @@
             </div>
         </div>
 
-        <form id="formPublicar" class="space-y-6" action="{{ route('produtos.store') }}" method="POST">
+        <form id="formPublicar" class="space-y-6" action="{{ route('jogo.store') }}" method="POST">
             @csrf
             <!-- Token CSRF obrigatório para segurança -->
             <!-- Product Photos -->
