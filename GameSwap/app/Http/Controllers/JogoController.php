@@ -50,9 +50,11 @@ class JogoController extends Controller
                 $fileName = $imagem->getClientOriginalName();
                 $uploadedFileUrl = $googleDriveService->upload($filePath, $fileName);
 
+                // Aqui adiciona o registro na tabela imagens
                 \App\Models\Imagem::create([
                     'jogo_id' => $jogo->id,
                     'caminho' => $uploadedFileUrl,
+                    // Se quiser adicionar a flag 'principal', pode incluir aqui também
                 ]);
             }
         } else {
@@ -61,6 +63,7 @@ class JogoController extends Controller
 
         return redirect()->route('pagina_inicial')->with('success', 'Produto anunciado com sucesso!');
     }
+
 
     public function show($id)
     {
