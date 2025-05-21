@@ -5,8 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\jogo;
 use Illuminate\Support\Facades\Log;
-use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
-
+use App\Services\GoogleDriveService;
 
 class JogoController extends Controller
 {
@@ -23,7 +22,7 @@ class JogoController extends Controller
         $validatedData = $request->validate([
             'nome' => 'required|string|max:255',
             'preco' => 'required|numeric|min:0',
-            'estado' => 'required|in:novo,usado,recondicionado', // Incluído recondicionado
+            'estado' => 'required|in:novo,usado,recondicionado',
             'id_categoria' => 'required|exists:categorias,id',
             'descricao' => 'required|string|max:1000',
             'destaque' => 'nullable|boolean',
@@ -37,18 +36,20 @@ class JogoController extends Controller
             'preco' => $validatedData['preco'],
             'id_categoria' => $validatedData['id_categoria'],
             'estado' => $validatedData['estado'],
-            'tipo_produto' => $request->input('tipo_produto', 'jogo'), // Usa o valor do form
+            'tipo_produto' => $request->input('tipo_produto', 'jogo'),
             'id_anunciante' => auth()->id(),
             'console' => $request->input('console'),
             'destaque' => $request->boolean('destaque'),
         ]);
 
+        $googleDriveService = new GoogleDriveService();
+
         if ($request->hasFile('imagens')) {
             foreach ($request->file('imagens') as $imagem) {
-                $folder = 'imagens_gameswap/jogos/' . $jogo->id;
-                $uploadedFileUrl = Cloudinary::upload($imagem->getRealPath(), [
-                    'folder' => $folder
-                ])->getSecurePath();
+                $filePath = $imagem->getRealPath();
+                $fileName = $imagem->getClientOriginalName();
+                $uploadedFileUrl = $googleDriveService->upload($filePath, $fileName);
+
                 \App\Models\Imagem::create([
                     'jogo_id' => $jogo->id,
                     'caminho' => $uploadedFileUrl,
