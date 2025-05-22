@@ -89,21 +89,21 @@
                 <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
                     <div>
                         <input type="radio" id="condition-new" name="estado" value="novo" class="hidden peer" required checked />
-                        <label for="condition-new" class="flex items-center justify-center p-3 text-gray-500 bg-white border border-gray-300 rounded-lg cursor-pointer peer-checked:border-primary peer-checked:bg-primary/10 peer-checked:text-primary hover:bg-gray-50">
+                        <label for="condition-new" class="flex items-center justify-center p-3 border border-gray-300 rounded-lg cursor-pointer text-gray-500 bg-white hover:bg-gray-50 peer-checked:border-blue-600 peer-checked:text-blue-600 peer-checked:bg-white">
                             <i data-lucide="package" class="h-4 w-4 mr-2"></i>
                             Novo
                         </label>
                     </div>
                     <div>
                         <input type="radio" id="condition-used" name="estado" value="usado" class="hidden peer" />
-                        <label for="condition-used" class="flex items-center justify-center p-3 text-gray-500 bg-white border border-gray-300 rounded-lg cursor-pointer peer-checked:border-primary peer-checked:bg-primary/10 peer-checked:text-primary hover:bg-gray-50">
+                        <label for="condition-used" class="flex items-center justify-center p-3 border border-gray-300 rounded-lg cursor-pointer text-gray-500 bg-white hover:bg-gray-50 peer-checked:border-blue-600 peer-checked:text-blue-600 peer-checked:bg-white">
                             <i data-lucide="package-open" class="h-4 w-4 mr-2"></i>
                             Usado
                         </label>
                     </div>
                     <div>
                         <input type="radio" id="condition-refurbished" name="estado" value="recondicionado" class="hidden peer" />
-                        <label for="condition-refurbished" class="flex items-center justify-center p-3 text-gray-500 bg-white border border-gray-300 rounded-lg cursor-pointer peer-checked:border-primary peer-checked:bg-primary/10 peer-checked:text-primary hover:bg-gray-50">
+                        <label for="condition-refurbished" class="flex items-center justify-center p-3 border border-gray-300 rounded-lg cursor-pointer text-gray-500 bg-white hover:bg-gray-50 peer-checked:border-blue-600 peer-checked:text-blue-600 peer-checked:bg-white">
                             <i data-lucide="package-check" class="h-4 w-4 mr-2"></i>
                             Recondicionado
                         </label>
