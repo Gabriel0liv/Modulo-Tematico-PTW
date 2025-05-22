@@ -9,7 +9,7 @@
       <div class="container mx-auto py-8 px-6 max-w-4xl">
         <div class="flex justify-between items-center mb-8">
           <h1 class="text-2xl font-bold text-gray-800">Moradas Adicionadas</h1>
-          <a href="{{route('moradas.adicionar.form')}}" id="addAdressBtn" class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium bg-primary text-primary-foreground hover:bg-primary-hover h-10 px-4 py-2">
+            <a href="{{route('moradas.adicionar.form')}}" id="addAdressBtn" class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium border border-blue-600 text-blue-600 bg-white hover:bg-blue-50 h-10 px-4 py-2 transition">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
             </svg>

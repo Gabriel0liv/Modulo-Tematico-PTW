@@ -17,7 +17,7 @@
         <!-- Seletor de tipo de produto -->
         <div class="mb-6">
             <label class="block text-text font-medium mb-2">Tipo de Produto</label>
-            <select id="tipo-produto" name="tipo_produto" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary" required>
+            <select id="tipo-produto" name="tipo_produto" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary">
                 <option value="jogo" selected>Jogo</option>
                 <option value="console">Console</option>
             </select>
@@ -30,14 +30,14 @@
             <!-- Product Photos -->
             <div>
                 <label class="block text-text font-medium mb-2">Fotos do Produto</label>
-                <input type="file" name="imagens[]" accept="image/*" multiple required class="block w-full text-sm text-gray-500"/>
+                <input type="file" name="imagens[]" accept="image/*" multiple class="block w-full text-sm text-gray-500"/>
                 <p class="text-sm text-gray-500 mt-2">Adicione até 6 fotos. A primeira será a capa do anúncio.</p>
             </div>
 
             <!-- Product Name -->
             <div>
                 <label for="product-name" class="block text-text font-medium mb-2">Nome do Produto</label>
-                <input type="text" id="product-name" name="nome" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary" placeholder="Ex: PlayStation 5" required />
+                <input type="text" id="product-name" name="nome" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary" placeholder="Ex: PlayStation 5" />
                 <p class="text-xs text-gray-500 mt-1">Seja específico. Inclua detalhes como marca, modelo e edição.</p>
             </div>
 
@@ -48,7 +48,7 @@
                     <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                         <span class="text-gray-500">R$</span>
                     </div>
-                    <input type="number" id="product-price" name="preco" class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary" placeholder="0,00" step="0.01" min="0" required />
+                    <input type="number" id="product-price" name="preco" class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary" placeholder="0,00" step="0.01" min="0" />
                 </div>
                 <div class="mt-2 flex items-center">
                     <div class="flex-1">
@@ -66,7 +66,7 @@
                 <label class="block text-text font-medium mb-2">Estado do Produto</label>
                 <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
                     <div>
-                        <input type="radio" id="condition-new" name="estado" value="novo" class="hidden peer" required checked />
+                        <input type="radio" id="condition-new" name="estado" value="novo" class="hidden peer" checked />
                         <label for="condition-new" class="flex items-center justify-center p-3 border border-gray-300 rounded-lg cursor-pointer text-gray-500 bg-white hover:bg-gray-50 peer-checked:border-blue-600 peer-checked:text-blue-600 peer-checked:bg-white">
                             <i data-lucide="package" class="h-4 w-4 mr-2"></i>
                             Novo
@@ -92,7 +92,7 @@
             <!-- Game Category -->
             <div>
                 <label for="game-category" class="block text-text font-medium mb-2">Categoria de Jogo</label>
-                <select id="game-category" name="id_categoria" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary" required>
+                <select id="game-category" name="id_categoria" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary">
                     <option value="" disabled selected>Selecione uma categoria</option>
                     @foreach($categorias as $categoria)
                     <option value="{{$categoria->id}}">{{$categoria->nome}}</option>
@@ -104,7 +104,7 @@
             <!-- Product Description -->
             <div>
                 <label for="product-description" class="block text-text font-medium mb-2">Descrição do Produto</label>
-                <textarea id="product-description" name="descricao" rows="4" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary" placeholder="Descreva o produto, mencione detalhes importantes como tempo de uso, acessórios incluídos, etc." required></textarea>
+                <textarea id="product-description" name="descricao" rows="4" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary" placeholder="Descreva o produto, mencione detalhes importantes como tempo de uso, acessórios incluídos, etc."></textarea>
                 <div class="flex justify-between mt-1">
                     <p class="text-xs text-gray-500">Seja detalhado e honesto sobre o estado do produto.</p>
                     <p class="text-xs text-gray-500"><span id="char-count">0</span>/1000 caracteres</p>
@@ -114,7 +114,7 @@
             <!-- Console Type -->
             <div>
                 <label for="console-type" class="block text-text font-medium mb-2">Tipo de Console</label>
-                <select id="console-type" name="console" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary" required>
+                <select id="console-type" name="console" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary">
                     <option value="" disabled selected>Selecione um console</option>
                     <option value="ps5">PlayStation 5</option>
                     <option value="ps4">PlayStation 4</option>
@@ -169,7 +169,7 @@
                 <label class="block text-text font-medium mb-2">Fotos do Console</label>
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                     <div class="border-2 border-dashed border-gray-300 rounded-lg p-4 flex flex-col items-center justify-center h-40 cursor-pointer hover:bg-gray-50 transition relative photo-upload">
-                        <input type="file" name="imagens[]" accept="image/*" class="absolute inset-0 opacity-0 cursor-pointer" multiple required>
+                        <input type="file" name="imagens[]" accept="image/*" class="absolute inset-0 opacity-0 cursor-pointer" multiple>
                         <span class="text-gray-400">Clique para adicionar fotos</span>
                     </div>
                 </div>
@@ -182,14 +182,14 @@
             <!-- Nome do Console -->
             <div>
                 <label for="console-nome" class="block text-text font-medium mb-2">Nome do Console</label>
-                <input type="text" id="console-nome" name="nome" class="w-full px-4 py-2 border border-gray-300 rounded-lg" placeholder="Ex: PlayStation 5" required />
+                <input type="text" id="console-nome" name="nome" class="w-full px-4 py-2 border border-gray-300 rounded-lg" placeholder="Ex: PlayStation 5" />
                 <p class="text-xs text-gray-500 mt-1">Inclua marca, modelo e edição se aplicável.</p>
             </div>
 
             <!-- Tipo de Console -->
             <div>
                 <label for="console-tipo" class="block text-text font-medium mb-2">Tipo de Console</label>
-                <select id="console-tipo" name="tipo_console" class="w-full px-4 py-2 border border-gray-300 rounded-lg" required>
+                <select id="console-tipo" name="tipo_console" class="w-full px-4 py-2 border border-gray-300 rounded-lg">
                     <option value="" disabled selected>Selecione o tipo</option>
                     <option value="ps5">PlayStation 5</option>
                     <option value="ps4">PlayStation 4</option>
@@ -209,7 +209,7 @@
                     <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                         <span class="text-gray-500">€</span>
                     </div>
-                    <input type="number" id="console-preco" name="preco" class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg" placeholder="0,00" step="0.01" min="0" required />
+                    <input type="number" id="console-preco" name="preco" class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg" placeholder="0,00" step="0.01" min="0" />
                 </div>
             </div>
 
@@ -218,7 +218,7 @@
                 <label class="block text-text font-medium mb-2">Estado do Console</label>
                 <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
                     <div>
-                        <input type="radio" id="console-novo" name="estado" value="novo" class="hidden peer" required />
+                        <input type="radio" id="console-novo" name="estado" value="novo" class="hidden peer"  />
                         <label for="console-novo" class="flex items-center justify-center p-3 text-gray-500 bg-white border border-gray-300 rounded-lg cursor-pointer peer-checked:border-primary peer-checked:bg-primary/10 peer-checked:text-primary hover:bg-gray-50">
                             Novo
                         </label>
@@ -241,7 +241,7 @@
             <!-- Descrição -->
             <div>
                 <label for="console-descricao" class="block text-text font-medium mb-2">Descrição</label>
-                <textarea id="console-descricao" name="descricao" rows="4" class="w-full px-4 py-2 border border-gray-300 rounded-lg" placeholder="Descreva o console, acessórios inclusos, estado de conservação, etc." required></textarea>
+                <textarea id="console-descricao" name="descricao" rows="4" class="w-full px-4 py-2 border border-gray-300 rounded-lg" placeholder="Descreva o console, acessórios inclusos, estado de conservação, etc."></textarea>
                 <div class="flex justify-between mt-1">
                     <p class="text-xs text-gray-500">Seja detalhado e honesto sobre o estado do console.</p>
                     <p class="text-xs text-gray-500"><span id="char-count-console">0</span>/1000 caracteres</p>
@@ -282,196 +282,117 @@
 
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', () => {
+            const jogoForm = document.getElementById('form-jogo');
+            const consoleForm = document.getElementById('form-console');
 
-            const form1 = document.getElementById("form-jogo"); // Seleciona o formulário principal
-            //alert(form.innerHTML);
-            const productName = document.getElementById("product-name"); // Campo do nome do jogo
-            const productPrice = document.getElementById("product-price"); // Campo do preço do jogo
-            const gameCategory = document.getElementById("game-category"); // Campo da categoria do jogo
-            const productDescription = document.getElementById("product-description"); // Campo da descrição do jogo
-            const consoleType = document.getElementById("console-type"); // Campo do tipo de console
-
-            document.getElementById('tipo-produto').addEventListener('change', function() {
-                if (this.value === 'jogo') {
-                    document.getElementById('form-jogo').style.display = '';
-                    document.getElementById('form-console').style.display = 'none';
-                } else {
-                    document.getElementById('form-jogo').style.display = 'none';
-                    document.getElementById('form-console').style.display = '';
+            function showError(input, message) {
+                input.classList.add('border-red-500');
+                let errorEl = input.nextElementSibling;
+                if (!errorEl || !errorEl.classList.contains('input-error')) {
+                    errorEl = document.createElement('p');
+                    errorEl.className = 'text-red-500 text-sm mt-1 input-error';
+                    input.parentNode.appendChild(errorEl);
                 }
-            });
+                errorEl.textContent = message;
+                errorEl.classList.remove('hidden');
+            }
 
-            // Adiciona um evento de validação ao enviar o formulário
-            form1.addEventListener("submit", function(event) {
-                //event.preventDefault(); // Impede o envio padrão do formulário
+            function clearError(input) {
+                input.classList.remove('border-red-500');
+                const errorEl = input.parentNode.querySelector('.input-error');
+                if (errorEl) errorEl.classList.add('hidden');
+            }
 
-                let isValid = true; // Flag para rastrear se o formulário é válido
-
-                // Validação do nome do jogo
-                if (productName.value.trim() === "") {
-                    alert("O nome do jogo é obrigatório.");
-                    productName.focus();
-                    isValid = false;
-                } else if (productName.value.length < 3) {
-                    alert("O nome do jogo deve ter pelo menos 3 caracteres.");
-                    productName.focus();
-                    isValid = false;
-                }
-
-                // Validação do preço do jogo
-                if (productPrice.value.trim() === "") {
-                    alert("O preço do jogo é obrigatório.");
-                    productPrice.focus();
-                    isValid = false;
-                } else if (
-                    isNaN(productPrice.value) ||
-                    parseFloat(productPrice.value) <= 0
-                ) {
-                    alert("Insira um preço válido maior que zero.");
-                    productPrice.focus();
-                    isValid = false;
-                }
-
-                // Validação da categoria do jogo
-                if (gameCategory.value === "") {
-                    alert("Selecione uma categoria de jogo.");
-                    gameCategory.focus();
-                    isValid = false;
-                }
-
-                // Validação da descrição do jogo
-                if (productDescription.value.trim() === "") {
-                    alert("A descrição do jogo é obrigatória.");
-                    productDescription.focus();
-                    isValid = false;
-                } else if (productDescription.value.length > 1000) {
-                    alert("A descrição do jogo não pode exceder 1000 caracteres.");
-                    productDescription.focus();
-                    isValid = false;
-                }
-
-                // Validação do tipo de console
-                if (consoleType.value === "") {
-                    alert("Selecione um tipo de console.");
-                    consoleType.focus();
-                    isValid = false;
-                }
-
-                // Impede o envio do formulário se alguma validação falhar
-                if (!isValid) {
-                    event.preventDefault();
-                }
-            });
-
-            //  alidação em tempo real para o campo de preço (apenas números e ponto decimal)
-            productPrice.addEventListener("input", function() {
-                this.value = this.value.replace(/[^0-9.]/g, ""); // Remove caracteres inválidos
-            });
-
-            // Validação em tempo real para o campo de descrição (limite de caracteres)
-            productDescription.addEventListener("input", function() {
-                const count = this.value.length;
-                const charCount = document.getElementById("char-count");
-                charCount.textContent = count;
-
-                if (count > 1000) {
-                    charCount.classList.add("text-red-500", "font-bold");
-                } else {
-                    charCount.classList.remove("text-red-500", "font-bold");
-                }
-            });
-
-            // Character counter for description
-            const descriptionField = document.getElementById("product-description");
-            const charCount = document.getElementById("char-count");
-
-            // Make the file upload areas clickable
-            document.querySelectorAll(".photo-upload").forEach((area) => {
-                area.addEventListener("click", () => {
-                    area.querySelector('input[type="file"]').click();
-                });
-
-                const fileInput = area.querySelector('input[type="file"]');
-                fileInput.addEventListener("change", (e) => {
-                    if (e.target.files.length > 0) {
-                        // Show preview of the image
-                        const file = e.target.files[0];
-                        const reader = new FileReader();
-
-                        reader.onload = function(event) {
-                            // Replace the icon with the image preview
-                            const isMain = area.querySelector(".top-2") !== null;
-                            let mainTag = "";
-
-                            if (isMain) {
-                                mainTag = `<div class="absolute top-2 left-2 bg-primary text-white text-xs px-2 py-1 rounded">
-                    Principal
-                  </div>`;
-                            }
-
-                            area.innerHTML = `
-                  <div class="relative w-full h-full">
-                    ${mainTag}
-                    <img src="${event.target.result}" class="w-full h-full object-cover rounded-lg" />
-                    <button type="button" class="absolute top-2 right-2 bg-white rounded-full p-1 shadow-md remove-image">
-                      <i data-lucide="x" class="h-4 w-4 text-gray-500"></i>
-                    </button>
-                    <input type="file" class="hidden" accept="image/*" />
-                  </div>
-                `;
-
-                            // Re-initialize icons
-                            lucide.createIcons();
-
-                            // Add event listener to remove button
-                            area.querySelector(".remove-image").addEventListener(
-                                "click"
-                                , (e) => {
-                                    e.stopPropagation();
-
-                                    // Restore original content
-                                    if (isMain) {
-                                        area.innerHTML = `
-                      <div class="absolute top-2 left-2 bg-primary text-white text-xs px-2 py-1 rounded">
-                        Principal
-                      </div>
-                      <i data-lucide="image-plus" class="h-10 w-10 text-gray-400 mb-2"></i>
-                      <span class="text-sm text-gray-500">Adicionar foto principal</span>
-                      <input type="file" class="hidden" accept="image/*" />
-                    `;
-                                    } else {
-                                        area.innerHTML = `
-                      <i data-lucide="image-plus" class="h-10 w-10 text-gray-400 mb-2"></i>
-                      <span class="text-sm text-gray-500">Adicionar foto</span>
-                      <input type="file" class="hidden" accept="image/*" />
-                    `;
-                                    }
-
-                                    lucide.createIcons();
-
-                                    // Re-add click event to the area
-                                    area.addEventListener("click", () => {
-                                        area.querySelector(
-                                            'input[type="file"]'
-                                        ).click();
-                                    });
-                                }
-                            );
-                        };
-
-                        reader.readAsDataURL(file);
+            function validarDescricao(input, counter) {
+                input.addEventListener('input', () => {
+                    const count = input.value.length;
+                    counter.textContent = count;
+                    if (count > 1000) {
+                        counter.classList.add('text-red-500');
+                        input.classList.add('border-red-500');
+                    } else {
+                        counter.classList.remove('text-red-500');
+                        input.classList.remove('border-red-500');
                     }
                 });
+            }
+
+            async function validarFormulario(formulario, tipo) {
+                let isValid = true;
+
+                const nome = formulario.querySelector('[name="nome"]');
+                const preco = formulario.querySelector('[name="preco"]');
+                const estado = formulario.querySelector('[name="estado"]:checked');
+                const descricao = formulario.querySelector('textarea[name="descricao"]');
+                const imagens = formulario.querySelector('input[type="file"]');
+                const charCounter = formulario.querySelector('span[id^="char-count"]');
+                const categoria = formulario.querySelector('[name="id_categoria"]');
+                const consoleTipo = formulario.querySelector('[name="console"]') || formulario.querySelector('[name="tipo_console"]');
+
+                const campos = [nome, preco, descricao, imagens, consoleTipo];
+                if (tipo === 'jogo') campos.push(categoria);
+
+                campos.forEach(campo => clearError(campo));
+
+                if (!nome.value.trim()) {
+                    showError(nome, "O nome é obrigatório.");
+                    isValid = false;
+                } else if (nome.value.trim().length < 3) {
+                    showError(nome, "O nome deve ter pelo menos 3 caracteres.");
+                    isValid = false;
+                }
+
+                if (!preco.value || parseFloat(preco.value) <= 0) {
+                    showError(preco, "Insira um preço válido.");
+                    isValid = false;
+                }
+
+                if (!estado) {
+                    const label = formulario.querySelector('label[for*="condition"], label[for*="console"]');
+                    if (label) showError(label, "Escolha o estado do produto.");
+                    isValid = false;
+                }
+
+                if (!descricao.value.trim()) {
+                    showError(descricao, "A descrição é obrigatória.");
+                    isValid = false;
+                } else if (descricao.value.length > 1000) {
+                    showError(descricao, "Máximo de 1000 caracteres.");
+                    isValid = false;
+                }
+
+                if (!consoleTipo || !consoleTipo.value) {
+                    showError(consoleTipo, "Escolha um tipo de console.");
+                    isValid = false;
+                }
+
+                if (tipo === 'jogo' && (!categoria || !categoria.value)) {
+                    showError(categoria, "Selecione uma categoria.");
+                    isValid = false;
+                }
+
+                if (!imagens.files || imagens.files.length === 0) {
+                    showError(imagens, "Adicione pelo menos uma imagem.");
+                    isValid = false;
+                }
+
+                return isValid;
+            }
+
+            jogoForm.addEventListener('submit', async (e) => {
+                const valido = await validarFormulario(jogoForm, 'jogo');
+                if (!valido) e.preventDefault();
             });
 
+            consoleForm.addEventListener('submit', async (e) => {
+                const valido = await validarFormulario(consoleForm, 'console');
+                if (!valido) e.preventDefault();
+            });
 
-
-
+            // descrição tempo real
+            validarDescricao(document.getElementById('product-description'), document.getElementById('char-count'));
+            validarDescricao(document.getElementById('console-descricao'), document.getElementById('char-count-console'));
         });
-
-        // Initialize Lucide icons
-        //lucide.createIcons();
-
     </script>
 </x-layout>

@@ -286,6 +286,7 @@ Route::post('/console/store', [ConsoleController::class, 'store'])->name('consol
 // rotas para o controller de autenticação
 Route::post('paginas/auth/registoPage',[AuthController::class,'criarRegisto'])->name('criarRegisto');
 Route::post('paginas/auth/loginPage',[AuthController::class,'login'])->name('login');
+Route::get('/verificar-username', [UserController::class, 'verificarUsername'])->name('verificar.username');
 Route::post('/logout',[AuthController::class,'logout'])->name('logout');
 Route::get('/paginas/auth/registoPage', function () {
    return view('paginas.auth.registoPage');

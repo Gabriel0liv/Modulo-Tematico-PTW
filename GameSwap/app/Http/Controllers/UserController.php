@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Morada;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -15,7 +16,10 @@ class UserController
         $user->dataNascimento = $request->input('dataNascimento');
         $user->contato = $request->input('contato');
         $user->email = $request->input('email');
-        $user->password = $request->input('password');
+
+        if ($request->filled('password')) {
+            $user->password = bcrypt($request->input('password'));
+        }
 
         $user->save();
 
@@ -78,5 +82,12 @@ class UserController
             ->where('user_id', auth()->id())
             ->get();
         return view('paginas.perfil.perfilmoradas', compact('moradas'));
+    }
+
+    public function verificarUsername(Request $request)
+    {
+        $existe = \App\Models\User::where('username', $request->username)->exists();
+
+        return response()->json(['existe' => $existe]);
     }
 }

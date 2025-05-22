@@ -67,9 +67,8 @@ class AuthController extends Controller
         }
 
         // Se falhar a autenticação
-        return back()->withErrors([
-            'username' => 'As credenciais fornecidas estão incorretas.',
-        ])->withInput();
+        return back()->with('error', 'Username ou password incorretos.')->withInput();
+
     }
 
     public function logout(Request $request){
