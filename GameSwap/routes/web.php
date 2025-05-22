@@ -6,6 +6,7 @@ use App\Http\Controllers\ConsoleController;
 use App\Http\Controllers\MoradaController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\jogoController;
+use App\Http\Controllers\ProdutoController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -390,9 +391,9 @@ Route::get("/perfilAdmin/denuncias",function(){
     return view('paginas.perfilAdmin.denuncias');
 });
 
-Route::get("/perfilAdmin/aprovar", [JogoController::class, 'aprovarAnuncios']);
-Route::post("/perfilAdmin/aprovar/{id}", [JogoController::class, 'aprovar'])->name('jogo.aprovar');
-Route::post("/perfilAdmin/reprovar/{id}", [JogoController::class, 'reprovar'])->name('jogo.reprovar');
+Route::get("/perfilAdmin/aprovar", [ProdutoController::class, 'aprovarAnuncios']);
+Route::post("/perfilAdmin/aprovar/{id}", [ProdutoController::class, 'aprovar'])->name('jogo.aprovar');
+Route::post("/perfilAdmin/reprovar/{id}", [ProdutoController::class, 'reprovar'])->name('jogo.reprovar');
 
 
 
