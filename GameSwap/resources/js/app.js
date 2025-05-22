@@ -19,59 +19,18 @@ const backToLoginLink = document.getElementById("back-to-login");
 const notificationModal = document.getElementById("notificationModal");
 const notificationBtn = document.getElementById("notificationBtn");
 
-// Toggle modals
-function showModal(modal) {
-    loginModal.classList.remove("active");
-    registerModal.classList.remove("active");
-    resetPasswordModal.classList.remove("active");
-    notificationModal.classList.remove("active");
-
-    loginForm.reset();
-    registerForm.reset();
-    resetForm.reset();
-    resetSuccess.classList.remove("active");
-
-    modal.classList.add("active");
-}
-
-function setupModalBackdropClose(modal) {
-    modal.addEventListener("click", function (e) {
-        if (e.target === modal) {
-            modal.classList.remove("active");
-        }
-    });
-}
-
-setupModalBackdropClose(loginModal);
-setupModalBackdropClose(registerModal);
-setupModalBackdropClose(resetPasswordModal);
-setupModalBackdropClose(notificationModal);
-
-userProfileBtn.addEventListener("click", () => showModal(loginModal));
-anunciarButton.addEventListener("click", () => showModal(loginModal));
-userProfileBtnMobile.addEventListener("click", () => showModal(loginModal));
-
-registerLink.addEventListener("click", (e) => {
-    e.preventDefault();
-    showModal(registerModal);
+// Função para alternar a visibilidade do modal
+notificationBtn.addEventListener("click", (event) => {
+    event.stopPropagation(); // Evita que o clique no botão feche o modal
+    notificationModal.classList.toggle("active");
 });
 
-loginLink.addEventListener("click", (e) => {
-    e.preventDefault();
-    showModal(loginModal);
+// Fecha o modal ao clicar fora dele
+document.addEventListener("click", (event) => {
+    if (!notificationModal.contains(event.target) && notificationModal.classList.contains("active")) {
+        notificationModal.classList.remove("active");
+    }
 });
-
-forgotPasswordLink.addEventListener("click", (e) => {
-    e.preventDefault();
-    showModal(resetPasswordModal);
-});
-
-backToLoginLink.addEventListener("click", (e) => {
-    e.preventDefault();
-    showModal(loginModal);
-});
-
-notificationBtn.addEventListener("click", () => showModal(notificationModal));
 
 // Show error
 function showError(errorElement, errorTextElement, message) {
@@ -278,3 +237,5 @@ anunciosRejeitadosBtn.addEventListener("click", mostrarAnunciosRejeitados);
         console.log("Botão de mostrar senha clicado");
         censurarSenha();
     });
+
+

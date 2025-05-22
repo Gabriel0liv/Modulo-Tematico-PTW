@@ -93,10 +93,18 @@ class JogoController extends Controller
 
     public function search(Request $request)
     {
-        // Lógica para pesquisar produtos
         $query = $request->input('query');
-        // Implementar a lógica de pesquisa no banco de dados
-        return view('produtos.search', compact('query'));
+        $jogos = Jogo::search($query)->paginate(10);
+
+        return view('paginas.pesquisa', compact('jogos', 'query'));
+    }
+
+    public function searchSuggestions(Request $request)
+    {
+        $query = $request->input('query');
+        $jogos = Jogo::search($query)->take(5)->get();
+
+        return response()->json($jogos);
     }
 
     public function filter(Request $request)
@@ -187,4 +195,6 @@ class JogoController extends Controller
         // Implementar a lógica de remoção do carrinho no banco de dados
         return redirect()->route('produtos.index');
     }
+
+
 }
