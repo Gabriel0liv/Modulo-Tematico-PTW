@@ -9,14 +9,21 @@
 
         <!-- Search Bar -->
         <div class="relative max-w-xl w-full mx-4">
-            <input
-                type="text"
-                class="w-full py-2 pl-10 pr-4 rounded-full border border-gray-300 bg-white shadow-sm focus:ring-2 focus:ring-blue-400 transition-all"
-                placeholder="Buscar jogos, consoles, acessórios..."
-            />
-            <div class="absolute inset-y-0 left-3 flex items-center">
-              <i class="bi bi-search text-gray-400 text-lg"></i>
-            </div>
+            <form action="{{ route('pesquisaPage') }}" method="GET" class="relative">
+                <input
+                    type="text"
+                    id="search-input"
+                    name="query"
+                    class="w-full py-2 pl-10 pr-4 rounded-full border border-gray-300 bg-white shadow-sm focus:ring-2 focus:ring-blue-400 transition-all"
+                    placeholder="Buscar jogos, consoles, acessórios..."
+                    value="{{ request('query') }}"
+                />
+                <div class="absolute inset-y-0 left-3 flex items-center">
+                    <i class="bi bi-search text-gray-400 text-lg"></i>
+                </div>
+            </form>
+            <!-- Autocomplete Suggestions -->
+            <div id="autocomplete-results" class="absolute w-full bg-white shadow-lg rounded-lg mt-2 hidden z-50"></div>
         </div>
 
         <!-- Navigation Icons and Anunciar Produto Button -->
@@ -53,5 +60,48 @@
         </div>
     </div>
 
+    @push('scripts')
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                const searchInput = document.getElementById('search-input');
+                const resultsContainer = document.getElementById('autocomplete-results');
+
+                searchInput.addEventListener('input', function () {
+                    const query = searchInput.value;
+
+                    if (query.length > 2) {
+                        fetch(`/api/search-suggestions?query=${query}`)
+                            .then(response => response.json())
+                            .then(data => {
+                                resultsContainer.innerHTML = '';
+                                if (data.length > 0) {
+                                    data.forEach(item => {
+                                        const suggestion = document.createElement('div');
+                                        suggestion.classList.add('p-2', 'hover:bg-gray-100', 'cursor-pointer');
+                                        suggestion.innerHTML = `<strong>${item.nome}</strong> - ${item.console}`;
+                                        suggestion.addEventListener('click', () => {
+                                            searchInput.value = item.nome;
+                                            resultsContainer.classList.add('hidden');
+                                        });
+                                        resultsContainer.appendChild(suggestion);
+                                    });
+                                    resultsContainer.classList.remove('hidden');
+                                } else {
+                                    resultsContainer.classList.add('hidden');
+                                }
+                            });
+                    } else {
+                        resultsContainer.classList.add('hidden');
+                    }
+                });
+
+                document.addEventListener('click', function (e) {
+                    if (!resultsContainer.contains(e.target) && e.target !== searchInput) {
+                        resultsContainer.classList.add('hidden');
+                    }
+                });
+            });
+        </script>
+    @endpush
 
 

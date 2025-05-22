@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\jogo;
 use Illuminate\Support\Facades\Log;
+use App\Services\GoogleDriveService;
 
 class JogoController extends Controller
 {
@@ -21,26 +22,48 @@ class JogoController extends Controller
         $validatedData = $request->validate([
             'nome' => 'required|string|max:255',
             'preco' => 'required|numeric|min:0',
-            'estado' => 'required|in:novo,usado',
+            'estado' => 'required|in:novo,usado,recondicionado',
             'id_categoria' => 'required|exists:categorias,id',
             'descricao' => 'required|string|max:1000',
             'destaque' => 'nullable|boolean',
+            'imagens'   => 'required',
+            'imagens.*' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
-        jogo::create([
+        $jogo = jogo::create([
             'nome' => $validatedData['nome'],
             'descricao' => $validatedData['descricao'],
             'preco' => $validatedData['preco'],
             'id_categoria' => $validatedData['id_categoria'],
             'estado' => $validatedData['estado'],
-            'tipo_produto' => 'fisico',
+            'tipo_produto' => $request->input('tipo_produto', 'jogo'),
             'id_anunciante' => auth()->id(),
             'console' => $request->input('console'),
-            'destaque' => $request->boolean('destaque'), // Captura o valor booleano
+            'destaque' => $request->boolean('destaque'),
         ]);
+
+        $googleDriveService = new GoogleDriveService();
+
+        if ($request->hasFile('imagens')) {
+            foreach ($request->file('imagens') as $imagem) {
+                $filePath = $imagem->getRealPath();
+                $fileName = $imagem->getClientOriginalName();
+                $uploadedFileUrl = $googleDriveService->upload($filePath, $fileName);
+
+                // Aqui adiciona o registro na tabela imagens
+                \App\Models\Imagem::create([
+                    'jogo_id' => $jogo->id,
+                    'caminho' => $uploadedFileUrl,
+                    // Se quiser adicionar a flag 'principal', pode incluir aqui também
+                ]);
+            }
+        } else {
+            \Log::warning('Nenhuma imagem recebida no request');
+        }
 
         return redirect()->route('pagina_inicial')->with('success', 'Produto anunciado com sucesso!');
     }
+
 
     public function show($id)
     {
@@ -70,10 +93,18 @@ class JogoController extends Controller
 
     public function search(Request $request)
     {
-        // Lógica para pesquisar produtos
         $query = $request->input('query');
-        // Implementar a lógica de pesquisa no banco de dados
-        return view('produtos.search', compact('query'));
+        $jogos = Jogo::search($query)->paginate(10);
+
+        return view('paginas.pesquisa', compact('jogos', 'query'));
+    }
+
+    public function searchSuggestions(Request $request)
+    {
+        $query = $request->input('query');
+        $jogos = Jogo::search($query)->take(5)->get();
+
+        return response()->json($jogos);
     }
 
     public function filter(Request $request)
@@ -164,4 +195,6 @@ class JogoController extends Controller
         // Implementar a lógica de remoção do carrinho no banco de dados
         return redirect()->route('produtos.index');
     }
+
+
 }
