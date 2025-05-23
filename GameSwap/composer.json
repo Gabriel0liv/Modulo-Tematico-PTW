@@ -16,7 +16,8 @@
         "laravel/framework": "^12.0",
         "laravel/scout": "^10.15",
         "laravel/tinker": "^2.10.1",
-        "livewire/livewire": "^3.6"
+        "livewire/livewire": "^3.6",
+        "stripe/stripe-php": "^17.2"
     },
     "require-dev": {
         "fakerphp/faker": "^1.23",

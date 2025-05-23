@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\ConsoleController;
 use App\Http\Controllers\MoradaController;
+use App\Http\Controllers\StripeController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\jogoController;
 use App\Http\Controllers\ProdutoController;
@@ -314,8 +315,15 @@ Route::delete('/perfil/moradas/{id}/apagar', [MoradaController::class, 'apagarMo
 Route::get('/concelhos/{distritoId}', [MoradaController::class, 'obterConcelhosPorDistrito']);
 
 
-
-
+Route::get('/paginas/adicionarCartão', function () {
+    return view('paginas.adicionarCartão');
+})->name('cart.adicionar');
+Route::middleware('auth')->group(function () {
+    Route::get('/stripe/setup-intent', [StripeController::class, 'createSetupIntent']);
+    Route::post('/stripe/save-card', [StripeController::class, 'storePaymentMethod']);
+    Route::post('/stripe/set-default/{id}', [StripeController::class, 'setDefaultCard'])->name('stripe.set-default');
+});
+Route::post('/cartao/adicionar', [StripeController::class, 'storePaymentMethodForm'])->name('cartao.store');
 
 Route::get('paginas/editarPerfil',function (){
    return view('paginas.editarPerfil');
@@ -360,9 +368,7 @@ Route::get("/perfil",function(){
     return view('paginas.perfil.perfil');
 })->name('perfilPage');
 
-Route::get("/perfil/cartões",function(){
-    return view('paginas.perfil.perfilcartoes');
-})->name('perfil-cartões');
+Route::get("/perfil/cartões", [StripeController::class, 'listarCartoes'])->name('perfil-cartões');
 
 Route::get("/perfil/favoritos",function(){
     return view('paginas.perfil.perfilfavoritos');

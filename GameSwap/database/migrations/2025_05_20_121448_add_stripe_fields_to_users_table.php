@@ -11,13 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        if (!Schema::hasTable('categorias')) {
-            Schema::create('categorias', function (Blueprint $table) {
-                $table->id();
-                $table->string('nome')->unique();
-                $table->timestamps();
-            });
-        }
+        Schema::table('users', function (Blueprint $table) {
+            $table->string('stripe_customer_id')->nullable()->after('email');
+        });
     }
 
     /**
@@ -25,6 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('categorias');
+        Schema::table('users', function (Blueprint $table) {
+            $table->dropColumn(['stripe_customer_id', 'default_payment_method']);
+        });
     }
 };

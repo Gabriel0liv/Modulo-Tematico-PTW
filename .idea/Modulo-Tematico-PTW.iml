@@ -120,6 +120,7 @@
       <excludeFolder url="file://$MODULE_DIR$/GameSwap/vendor/voku/portable-ascii" />
       <excludeFolder url="file://$MODULE_DIR$/GameSwap/vendor/webmozart/assert" />
       <excludeFolder url="file://$MODULE_DIR$/GameSwap/vendor/livewire/livewire" />
+      <excludeFolder url="file://$MODULE_DIR$/GameSwap/vendor/stripe/stripe-php" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

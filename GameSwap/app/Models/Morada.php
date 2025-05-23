@@ -31,23 +31,43 @@ class Morada extends Model
 
     public function setMoradaAttribute($value)
     {
-        $this->attributes['morada'] = Crypt::encryptString($value);
+        $this->attributes['morada'] = $value
+            ? Crypt::encryptString($value)
+            : null;
     }
 
     public function getMoradaAttribute($value)
     {
-        return Crypt::decryptString($value);
+        if (!$value) return null;
+
+        try {
+            return Crypt::decryptString($value);
+        } catch (\Exception $e) {
+            // Loga o erro se quiser (opcional)
+            \Log::warning("Falha ao descriptografar morada (ID: {$this->id})");
+
+            // Retorna texto de fallback ou nulo
+            return '[morada inválida]';
+        }
     }
 
-    // Mutator para encriptar código postal
     public function setCodigoPostalAttribute($value)
     {
-        $this->attributes['codigo_postal'] = Crypt::encryptString($value);
+        $this->attributes['codigo_postal'] = $value
+            ? Crypt::encryptString($value)
+            : null;
     }
 
-    // Accessor para desencriptar código postal
     public function getCodigoPostalAttribute($value)
     {
-        return Crypt::decryptString($value);
+        if (!$value) return null;
+
+        try {
+            return Crypt::decryptString($value);
+        } catch (\Exception $e) {
+            \Log::warning("Falha ao descriptografar código postal (ID: {$this->id})");
+
+            return '[código postal inválido]';
+        }
     }
 }

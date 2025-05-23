@@ -2,7 +2,7 @@
 <x-layout>
 
     <div class="max-w-6xl mx-auto p-4">
-        <h1 class="text-2xl font-bold mb-6">Adicionar Morada</h1>
+        <h1 class="text-2xl font-bold mb-6">Editar Morada</h1>
 
         <form action="{{ route('moradas.editar', $morada->id) }}" method="POST">
             @csrf
@@ -34,13 +34,19 @@
                     </div>
 
                     <div>
-                        <label for="distrito" class="block text-sm text-gray-600 mb-1">Distrito</label>
-                        <input type="text" id="distrito" name="distrito" class="w-full px-3 py-2 border border-gray-300 rounded-md" value="{{$morada->distrito}}" required>
+                        <label for="distrito_id" class="block text-sm text-gray-600 mb-1">Distrito</label>
+                        <select id="distrito" name="distrito_id"  class="w-full px-3 py-2 border border-gray-300 rounded-md" required>
+                            <option value="">Selecione um distrito</option>
+                            @foreach($distritos as $distrito)
+                                <option value="{{ $distrito->id }}">{{ $distrito->nome }}</option>
+                            @endforeach
+                        </select>
                     </div>
-
                     <div>
-                        <label for="localidade" class="block text-sm text-gray-600 mb-1">Localidade</label>
-                        <input type="text" id="localidade" name="localidade" class="w-full px-3 py-2 border border-gray-300 rounded-md" value="{{$morada->localidade}}" required>
+                        <label for="concelho_id" class="block text-sm text-gray-600 mb-1">Concelho</label>
+                        <select id="localidade" name="concelho_id"  class="w-full px-3 py-2 border border-gray-300 rounded-md" required>
+                            <option value="">Selecione um concelho</option>
+                        </select>
                     </div>
                 </div>
             </div>
@@ -52,4 +58,35 @@
             </div>
         </form>
     </div>
+    @push('scripts')
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                const distritoSelect = document.getElementById('distrito');
+                const concelhoSelect = document.getElementById('localidade');
+
+                distritoSelect.addEventListener('change', function () {
+                    const distritoId = this.value;
+                    concelhoSelect.innerHTML = '<option value="">Carregando...</option>';
+
+                    if (!distritoId) {
+                        concelhoSelect.innerHTML = '<option value="">Selecione um concelho</option>';
+                        return;
+                    }
+
+                    fetch(`/concelhos/${distritoId}`)
+                        .then(response => response.json())
+                        .then(data => {
+                            concelhoSelect.innerHTML = '<option value="">Selecione um concelho</option>';
+                            data.forEach(concelho => {
+                                concelhoSelect.innerHTML += `<option value="${concelho.id}">${concelho.nome}</option>`;
+                            });
+                        })
+                        .catch(error => {
+                            console.error('Erro ao carregar concelhos:', error);
+                            concelhoSelect.innerHTML = '<option value="">Erro ao carregar concelhos</option>';
+                        });
+                });
+            });
+        </script>
+    @endpush
 </x-layout>

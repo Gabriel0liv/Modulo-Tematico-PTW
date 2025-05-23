@@ -129,6 +129,7 @@
       <path value="$PROJECT_DIR$/GameSwap/vendor/ramsey/collection" />
       <path value="$PROJECT_DIR$/GameSwap/vendor/ramsey/uuid" />
       <path value="$PROJECT_DIR$/GameSwap/vendor/livewire/livewire" />
+      <path value="$PROJECT_DIR$/GameSwap/vendor/stripe/stripe-php" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="8.2" />

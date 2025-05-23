@@ -12,11 +12,15 @@ class MoradaController extends Controller
     public function editarMorada(Request $request, $id)
     {
         $validated = $request->validate([
-            'nome_morada' => 'required|string|max:255',
             'morada' => 'required|string|max:255',
-            'codigo_postal' => 'required|string|max:255',
-            'localidade' => 'required|string|max:255',
-            'distrito' => 'required|string|max:255',
+            // Código Postal no formato 0000-000
+            'codigo_postal' => [
+                'required',
+                'regex:/^\d{4}-\d{3}$/'
+            ],
+            'distrito_id' => 'required|exists:distritos,id',
+            'concelho_id' => 'required|exists:concelhos,id',
+            'nome_morada' => 'required|string|max:255',
         ]);
 
         $morada = Auth::user()->moradas()->where('id', $id)->first();
@@ -33,7 +37,8 @@ class MoradaController extends Controller
     public function editarForm($id)
     {
         $morada = Auth::user()->moradas()->where('id', $id)->firstOrFail();
-        return view('paginas.editarMorada', compact('morada'));
+        $distritos = Distrito::all(); // Carrega os distritos
+        return view('paginas.editarMorada', compact('morada', 'distritos'));
     }
 
     public function apagarMorada($id)
