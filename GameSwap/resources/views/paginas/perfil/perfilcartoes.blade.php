@@ -20,20 +20,19 @@
         <div class="space-y-4">
           <!-- Card 1 - Primary -->
             @foreach ($cartoes as $cartao)
-                <div class="rounded-lg border border-primary/50 bg-primary-light/30 text-card-foreground shadow-card">
-                    <div class="flex flex-row items-center justify-between p-6 pb-2">
-                        <div class="flex items-center">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
-                            </svg>
-                            <h3 class="text-lg font-semibold leading-none tracking-tight">
-                                {{ $cartao->nome_cartao}}
-                            </h3>
-                        </div>
-                    </div>
-                    <div class="p-6 pt-0 text-sm text-gray-600">
-                        <p>ID Stripe: {{ $cartao->stripe_payment_method_id }}</p>
-                    </div>
+                <div class="bg-white border border-gray-300 rounded-lg p-4 shadow-sm mb-4">
+                    <p class="font-semibold text-gray-800">
+                        Cartão: {{ ucfirst($cartao->brand) }} **** **** **** {{ $cartao->last4 }}
+                    </p>
+                    <p class="text-sm text-gray-600">
+                        Validade: {{ $cartao->exp_month }}/{{ $cartao->exp_year }}
+                    </p>
+                    <p class="text-sm text-gray-600">
+                        Nome no cartão: {{ $cartao->nome_cartao ?? 'N/A' }}
+                    </p>
+                    @if ($cartao->is_default)
+                        <span class="text-xs font-semibold px-2 py-1 bg-blue-500 text-white rounded-full">Principal</span>
+                    @endif
                 </div>
             @endforeach
         </div>

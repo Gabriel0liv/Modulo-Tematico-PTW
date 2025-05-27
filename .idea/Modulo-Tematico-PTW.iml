@@ -121,6 +121,16 @@
       <excludeFolder url="file://$MODULE_DIR$/GameSwap/vendor/webmozart/assert" />
       <excludeFolder url="file://$MODULE_DIR$/GameSwap/vendor/livewire/livewire" />
       <excludeFolder url="file://$MODULE_DIR$/GameSwap/vendor/stripe/stripe-php" />
+      <excludeFolder url="file://$MODULE_DIR$/GameSwap/vendor/algolia/algoliasearch-client-php" />
+      <excludeFolder url="file://$MODULE_DIR$/GameSwap/vendor/firebase/php-jwt" />
+      <excludeFolder url="file://$MODULE_DIR$/GameSwap/vendor/google/apiclient" />
+      <excludeFolder url="file://$MODULE_DIR$/GameSwap/vendor/google/apiclient-services" />
+      <excludeFolder url="file://$MODULE_DIR$/GameSwap/vendor/google/auth" />
+      <excludeFolder url="file://$MODULE_DIR$/GameSwap/vendor/laravel/scout" />
+      <excludeFolder url="file://$MODULE_DIR$/GameSwap/vendor/paragonie/constant_time_encoding" />
+      <excludeFolder url="file://$MODULE_DIR$/GameSwap/vendor/paragonie/random_compat" />
+      <excludeFolder url="file://$MODULE_DIR$/GameSwap/vendor/phpseclib/phpseclib" />
+      <excludeFolder url="file://$MODULE_DIR$/GameSwap/vendor/psr/cache" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

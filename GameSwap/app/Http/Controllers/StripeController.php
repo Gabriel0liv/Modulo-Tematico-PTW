@@ -117,9 +117,30 @@ class StripeController extends Controller
 
     public function listarCartoes()
     {
-        $user = auth()->user();
-        $cartoes = $user->paymentMethods;
+        \Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
 
-        return view('paginas.perfil.perfilcartoes', compact('cartoes'));
+        $user = auth()->user();
+        $cartoesSalvos = $user->paymentMethods;
+
+        $cartoesDetalhados = [];
+
+        foreach ($cartoesSalvos as $cartao) {
+            $stripeCard = \Stripe\PaymentMethod::retrieve($cartao->stripe_payment_method_id);
+
+            $cartoesDetalhados[] = (object) [
+                'id' => $cartao->id,
+                'brand' => $stripeCard->card->brand,
+                'last4' => $stripeCard->card->last4,
+                'exp_month' => $stripeCard->card->exp_month,
+                'exp_year' => $stripeCard->card->exp_year,
+                'nome_cartao' => $cartao->nome_cartao,
+                'is_default' => $cartao->is_default,
+            ];
+        }
+
+        return view('paginas.perfil.perfilcartoes', [
+            'cartoes' => $cartoesDetalhados
+        ]);
     }
+
 }

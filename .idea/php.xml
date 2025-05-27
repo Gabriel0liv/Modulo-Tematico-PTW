@@ -130,6 +130,16 @@
       <path value="$PROJECT_DIR$/GameSwap/vendor/ramsey/uuid" />
       <path value="$PROJECT_DIR$/GameSwap/vendor/livewire/livewire" />
       <path value="$PROJECT_DIR$/GameSwap/vendor/stripe/stripe-php" />
+      <path value="$PROJECT_DIR$/GameSwap/vendor/firebase/php-jwt" />
+      <path value="$PROJECT_DIR$/GameSwap/vendor/paragonie/constant_time_encoding" />
+      <path value="$PROJECT_DIR$/GameSwap/vendor/paragonie/random_compat" />
+      <path value="$PROJECT_DIR$/GameSwap/vendor/algolia/algoliasearch-client-php" />
+      <path value="$PROJECT_DIR$/GameSwap/vendor/google/apiclient" />
+      <path value="$PROJECT_DIR$/GameSwap/vendor/google/auth" />
+      <path value="$PROJECT_DIR$/GameSwap/vendor/google/apiclient-services" />
+      <path value="$PROJECT_DIR$/GameSwap/vendor/phpseclib/phpseclib" />
+      <path value="$PROJECT_DIR$/GameSwap/vendor/psr/cache" />
+      <path value="$PROJECT_DIR$/GameSwap/vendor/laravel/scout" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="8.2" />
