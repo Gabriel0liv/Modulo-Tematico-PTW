@@ -135,12 +135,14 @@
         </div>
 
         <div class="flex flex-col sm:flex-row gap-4">
-          <a href="#" class="bg-amber-400 hover:bg-amber-500 text-gray-800 font-medium rounded-lg py-6 text-base transition-all flex-1 text-center">
-            Adicionar ao carrinho
-          </a>
-          <a href="#" class="bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg py-6 text-base transition-all text-center">
-            Fazer oferta
-          </a>
+            <form action="{{ route('carrinho.adicionar') }}" method="POST" class="flex-1">
+                @csrf
+                <input type="hidden" name="produto_id" value="{{ $produto->id }}">
+                <input type="hidden" name="quantidade" value="1">
+                <button type="submit" class="w-full bg-amber-400 hover:bg-amber-500 text-gray-800 font-medium rounded-lg py-6 text-base transition-all">
+                    Adicionar ao carrinho
+                </button>
+            </form>
         </div>
 
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">

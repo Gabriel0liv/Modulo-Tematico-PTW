@@ -53,7 +53,7 @@
                   <p>Sem novas notificações.</p>
             </div>
         </div>
-        <a href="{{route('carrinhoPage')}}" class="relative group" aria-label="Carrinho">
+        <a href="{{ route('carrinho.index') }}" class="relative group" aria-label="Carrinho">
             <i class="bi bi-cart text-white text-xl"></i>
 
         </a>
