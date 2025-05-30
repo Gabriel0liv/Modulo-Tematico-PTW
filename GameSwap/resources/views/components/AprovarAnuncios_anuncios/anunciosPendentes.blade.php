@@ -19,12 +19,14 @@
         </td>
         <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
             <a href="/produto/{{$produto->id}}" class="text-blue-600 hover:text-blue-900 mr-3">Ver</a>
-            <form action="{{ route('jogo.aprovar', $produto->id) }}" method="POST" class="inline">
+            <form action="{{ route('produto.aprovar', $produto->id) }}" method="POST" class="inline">
                 @csrf
+                <input type="hidden" name="tipo_produto" value="{{ $produto->tipo_produto }}">
                 <button type="submit" class="text-green-600 hover:text-green-900 mr-3">Aprovar</button>
             </form>
-            <form action="{{ route('jogo.reprovar', $produto->id) }}" method="POST" class="inline">
+            <form action="{{ route('produto.reprovar', $produto->id) }}" method="POST" class="inline">
                 @csrf
+                <input type="hidden" name="tipo_produto" value="{{ $produto->tipo_produto }}">
                 <button type="submit" class="text-red-600 hover:text-red-900">Rejeitar</button>
             </form>
         </td>

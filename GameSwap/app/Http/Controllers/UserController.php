@@ -90,4 +90,24 @@ class UserController
 
         return response()->json(['existe' => $existe]);
     }
+
+    public function mostrarVendas()
+    {
+        $userId = auth()->id();
+
+        // Buscar jogos e consoles vendidos pelo utilizador (id_comprador não nulo)
+        $jogosVendidos = \App\Models\Jogo::where('id_anunciante', $userId)
+            //->whereNotNull('id_comprador')
+            //->with('comprador') // relacione com o comprador, se existir
+            ->get();
+
+        $consolesVendidos = \App\Models\Console::where('id_anunciante', $userId)
+            //->whereNotNull('id_comprador')
+            //->with('comprador')
+            ->get();
+
+        $vendas = $jogosVendidos->merge($consolesVendidos);
+
+        return view('paginas.perfil.perfilminhasvendas', compact('vendas'));
+    }
 }

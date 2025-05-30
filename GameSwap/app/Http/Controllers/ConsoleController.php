@@ -33,4 +33,12 @@ class ConsoleController extends Controller
 
         return redirect()->route('pagina_inicial')->with('success', 'Console anunciado com sucesso!');
     }
+
+    public function search(Request $request)
+    {
+        $query = $request->input('query');
+        $consoles = Console::search($query)->paginate(10);
+
+        return view('paginas.pesquisa', compact('consoles', 'query'));
+    }
 }

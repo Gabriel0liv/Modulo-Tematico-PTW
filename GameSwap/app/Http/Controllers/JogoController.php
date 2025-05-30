@@ -64,20 +64,6 @@ class JogoController extends Controller
         return redirect()->route('pagina_inicial')->with('success', 'Produto anunciado com sucesso!');
     }
 
-
-    public function show($id)
-    {
-        $produto = jogo::findOrFail($id);
-
-        // Exemplo de produtos relacionados (ajuste conforme sua lógica)
-        $produtosRelacionados = jogo::where('tipo_produto', $produto->tipo_produto)
-            ->where('id', '!=', $produto->id)
-            ->take(4)
-            ->get();
-
-        return view('produto', compact('produto', 'produtosRelacionados'));
-    }
-
     public function update(Request $request, $id)
     {
         // Lógica para atualizar o jogo no banco de dados
@@ -99,14 +85,6 @@ class JogoController extends Controller
         return view('paginas.pesquisa', compact('jogos', 'query'));
     }
 
-    public function searchSuggestions(Request $request)
-    {
-        $query = $request->input('query');
-        $jogos = Jogo::search($query)->take(5)->get();
-
-        return response()->json($jogos);
-    }
-
     public function filter(Request $request)
     {
         // Lógica para filtrar produtos
@@ -122,30 +100,6 @@ class JogoController extends Controller
         // Implementar a lógica de ordenação no banco de dados
         return view('produtos.sort', compact('sortBy'));
     }
-
-    public function aprovarAnuncios(Request $request)
-    {
-        $produtos = jogo::all();
-        // Implementar a lógica de moderação no banco de dados
-        return view('paginas.perfilAdmin.aprovar', ['produtos' => $produtos]);
-    }
-
-    public function aprovar($id)
-    {
-        $produto = jogo::find($id);
-        $produto->moderado = 1;
-        $produto->save();
-        return redirect()->back()->with('success', 'Produto aprovado com sucesso!');
-    }
-
-    public function reprovar($id)
-    {
-        $produto = jogo::find($id);
-        $produto->moderado = 2;
-        $produto->save();
-        return redirect()->back()->with('success', 'Produto reprovado com sucesso!');
-    }
-
 
     public function addToFavorites(Request $request)
     {

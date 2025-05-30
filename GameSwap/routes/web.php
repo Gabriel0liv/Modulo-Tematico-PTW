@@ -277,12 +277,14 @@ Route::get('/components/layout', function () {
 
 // rota para o controller de jogos
 Route::post('/jogo/store', [JogoController::class, 'store'])->name('jogo.store');
-Route::get('/jogo/{id}', [JogoController::class, 'show'])->name('jogo.show');
-Route::get('/pesquisa', [JogoController::class, 'search'])->name('pesquisaPage');
-Route::get('/api/search-suggestions', [JogoController::class, 'searchSuggestions']);
 
 // rota para controller de console
 Route::post('/console/store', [ConsoleController::class, 'store'])->name('console.store');
+Route::get('/produto/{id}', [ProdutoController::class, 'show'])->name('produto.show');
+
+// rota para o controller de produtos
+Route::get('/pesquisa', [ProdutoController::class, 'search'])->name('pesquisaPage');
+Route::get('/api/search-suggestions', [JogoController::class, 'searchSuggestions']);
 
 // rotas para o controller de autenticação
 Route::post('paginas/auth/registoPage',[AuthController::class,'criarRegisto'])->name('criarRegisto');
@@ -308,7 +310,7 @@ Route::get('/perfil/moradas', [UserController::class, 'mostrarMoradas'])->name('
 Route::get('/paginas/adicionarMorada', [MoradaController::class, 'index'])->name('moradas.adicionar.form');
 
 
-
+Route::get('/perfil/minhas_vendas', [UserController::class, 'mostrarVendas'])->name('perfil-Vendas');
 Route::get('/perfil/moradas/{id}/editar', [MoradaController::class, 'editarForm'])->name('moradas.editar.form');
 Route::post('/perfil/moradas/{id}/editar', [MoradaController::class, 'editarMorada'])->name('moradas.editar');
 Route::delete('/perfil/moradas/{id}/apagar', [MoradaController::class, 'apagarMorada'])->name('moradas.apagar');
@@ -378,9 +380,6 @@ Route::get("/perfil/minhas_compras",function(){
     return view('paginas.perfil.perfilminhascompras');
 })->name('perfil-Compras');
 
-Route::get("/perfil/minhas_vendas",function(){
-    return view('paginas.perfil.perfilminhasvendas');
-})->name('perfil-Vendas');
 
 
 
@@ -399,8 +398,8 @@ Route::get("/perfilAdmin/denuncias",function(){
 });
 
 Route::get("/perfilAdmin/aprovar", [ProdutoController::class, 'aprovarAnuncios']);
-Route::post("/perfilAdmin/aprovar/{id}", [ProdutoController::class, 'aprovar'])->name('jogo.aprovar');
-Route::post("/perfilAdmin/reprovar/{id}", [ProdutoController::class, 'reprovar'])->name('jogo.reprovar');
+Route::post("/perfilAdmin/aprovar/{id}", [ProdutoController::class, 'aprovar'])->name('produto.aprovar');
+Route::post("/perfilAdmin/reprovar/{id}", [ProdutoController::class, 'reprovar'])->name('produto.reprovar');
 
 
 

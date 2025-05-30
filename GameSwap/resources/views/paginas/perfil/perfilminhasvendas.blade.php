@@ -27,6 +27,7 @@
         </div>
 
         <div class="space-y-4">
+            @foreach($vendas as $venda)
           <!-- Sale Item 1 -->
           <div class="rounded-lg border bg-card text-card-foreground shadow-card overflow-hidden">
             <div class="flex items-center p-4 md:p-6">
@@ -37,18 +38,22 @@
               <div class="ml-6 flex-1">
                 <div class="flex flex-col md:flex-row md:items-center md:justify-between">
                   <div>
-                    <h3 class="font-medium text-gray-900">God of War Ragnarök</h3>
-                    <p class="mt-1 text-sm text-gray-500">PlayStation 5</p>
+                    <h3 class="font-medium text-gray-900">{{$venda->nome}}</h3>
+                      @if($venda->tipo_produto == 'Jogo')
+                        <p class="mt-1 text-sm text-gray-500">{{$venda->console}}</p>
+                      @else
+                        <p class="mt-1 text-sm text-gray-500">{{$venda->tipo_console}}</p>
+                      @endif
                   </div>
                   <div class="mt-2 md:mt-0 flex flex-col items-start md:items-end">
-                    <p class="text-lg font-medium text-gray-900">45.00€</p>
+                    <p class="text-lg font-medium text-gray-900">{{$venda->preco}}</p>
                     <p class="text-sm text-gray-500">Venda: VND-2023-5678</p>
                   </div>
                 </div>
 
                 <div class="mt-4 flex flex-wrap items-center justify-between gap-2">
                   <div class="flex flex-col">
-                    <p class="text-sm text-gray-500">Data: 20/03/2024</p>
+                    <p class="text-sm text-gray-500">Data: {{$venda->created_at}}</p>
                     <p class="text-sm text-gray-500">Comprador: Carlos Mendes</p>
                   </div>
                   <div class="flex items-center gap-2">
@@ -63,43 +68,7 @@
               </div>
             </div>
           </div>
-
-          <!-- Sale Item 2 -->
-          <div class="rounded-lg border bg-card text-card-foreground shadow-card overflow-hidden">
-            <div class="flex items-center p-4 md:p-6">
-              <div class="relative h-20 w-20 flex-shrink-0 rounded-md overflow-hidden bg-gray-100">
-                <img src="images/placeholder.jpg" alt="Mario Kart 8 Deluxe" class="w-full h-full object-cover">
-              </div>
-
-              <div class="ml-6 flex-1">
-                <div class="flex flex-col md:flex-row md:items-center md:justify-between">
-                  <div>
-                    <h3 class="font-medium text-gray-900">Mario Kart 8 Deluxe</h3>
-                    <p class="mt-1 text-sm text-gray-500">Nintendo Switch</p>
-                  </div>
-                  <div class="mt-2 md:mt-0 flex flex-col items-start md:items-end">
-                    <p class="text-lg font-medium text-gray-900">35.00€</p>
-                    <p class="text-sm text-gray-500">Venda: VND-2023-5677</p>
-                  </div>
-                </div>
-
-                <div class="mt-4 flex flex-wrap items-center justify-between gap-2">
-                  <div class="flex flex-col">
-                    <p class="text-sm text-gray-500">Data: 15/03/2024</p>
-                    <p class="text-sm text-gray-500">Comprador: Ana Silva</p>
-                  </div>
-                  <div class="flex items-center gap-2">
-                    <span class="inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors border-transparent bg-yellow-500 text-white">
-                      Enviado
-                    </span>
-                    <button class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium border border-input bg-background hover:bg-accent hover:text-accent-foreground h-9 rounded-md px-3">
-                      Detalhes
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+            @endforeach
         </div>
       </div>
     </main>

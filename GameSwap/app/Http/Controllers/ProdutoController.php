@@ -8,10 +8,28 @@ use Illuminate\Http\Request;
 
 class ProdutoController extends Controller
 {
+    public function show($id, Request $request)
+    {
+        $tipoProduto = $request->input('tipo_produto');
+
+        if ($tipoProduto === 'jogo') {
+            $produto = Jogo::findOrFail($id);
+        } else {
+            $produto = Console::findOrFail($id);
+        }
+
+        // Exemplo de produtos relacionados (ajuste conforme sua lógica)
+        $produtosRelacionados = jogo::where('tipo_produto', $produto->tipo_produto)
+            ->where('id', '!=', $produto->id)
+            ->take(4)
+            ->get();
+
+        return view('produto', compact('produto', 'produtosRelacionados'));
+    }
     public function aprovarAnuncios(Request $request)
     {
-        $jogos = Jogo::where('moderado', 0)->get();
-        $consoles = Console::where('moderado', 0)->get();
+        $jogos = Jogo::all();
+        $consoles = Console::all();
 
         $produtos = $jogos->merge($consoles);
 
@@ -48,5 +66,26 @@ class ProdutoController extends Controller
         $produto->save();
 
         return redirect()->back()->with('success', 'Produto reprovado com sucesso!');
+    }
+
+    public function search(Request $request)
+    {
+        $query = $request->input('query');
+
+        $jogos = Jogo::search($query)->where('moderado', 1)->paginate(10);
+        $consoles = Console::search($query)->where('moderado', 1)->paginate(10);
+
+        return view('paginas.pesquisa', compact('jogos', 'consoles', 'query'));
+    }
+    public function searchSuggestions(Request $request)
+    {
+        $query = $request->input('query');
+        $jogos = Jogo::search($query)->take(5)->get();
+        $consoles = Console::search($query)->take(5)->get();
+
+        // Unir resultados
+        $produtos = $jogos->merge($consoles);
+
+        return response()->json($produtos);
     }
 }
