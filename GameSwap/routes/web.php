@@ -10,6 +10,7 @@ use App\Http\Controllers\StripeController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\jogoController;
 use App\Http\Controllers\ProdutoController;
+use App\Http\Controllers\DenunciasController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -420,5 +421,8 @@ Route::get("/carrinho",function(){
 // Rota visitar perfil
 Route::get('/perfil/{username}', [UserController::class, 'mostrarPerfilVisita'])->name('perfil.visitar');
 
-
+// Rotas de ticket de denuncia
+Route::get('/denunciar/{id}', [DenunciasController::class, 'denunciarUsuario'])->name('denuncias.criar');
+Route::post('/denunciar', [DenunciasController::class, 'store'])->name('denuncias.store');
+Route::get("/perfilAdmin/denuncias", [DenunciasController::class, 'resolverDenuncias']);
 

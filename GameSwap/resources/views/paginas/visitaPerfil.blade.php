@@ -1,85 +1,96 @@
 <x-layout>
-    <div class="flex flex-1 overflow-hidden">
-
-        <!-- Main Content -->
-        <main class="flex-1 overflow-auto">
-            <div class="flex flex-col items-center mr-4">
-                <div class="relative h-12 w-12 flex-shrink-0 rounded-full overflow-hidden bg-gray-100 mb-2">
-                    <img src="images/placeholder.jpg" alt="User Profile"
-                         class="w-full h-full object-cover">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <!-- Profile Header Section -->
+            <div class="relative z-10 flex flex-col md:flex-row items-center md:items-start space-y-8 md:space-y-0 md:space-x-10 bg-white/80 border border-blue-100 p-8 rounded-2xl shadow- mb-6">
+                <!-- Profile Image -->
+                <div class="relative group animate-float">
+                    <div class="w-36 h-36 rounded-full bg-gradient-to-r from-blue-400 to-indigo-500 p-1 shadow-2xl">
+                        <div class="w-full h-full rounded-full overflow-hidden bg-white">
+                            <img src="{{ asset('images/placeholder.jpg') }}" alt="{{ $user->username }}"
+                                 class="w-full h-full object-cover transition-transform group-hover:scale-110">
+                        </div>
+                    </div>
                 </div>
-                <h1 class="text-2xl font-bold text-gray-700">{{$user->username}}</h1>
+                <!-- Profile Info -->
+                <div class="flex-1 flex flex-col items-center md:items-start text-center md:text-left space-y-4">
+                    <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-2">{{ $user->username }}</h2>
+                    <div class="flex flex-col md:flex-row items-center md:items-start space-y-2 md:space-y-0 md:space-x-8 text-gray-700">
+                        <div class="flex items-center space-x-2">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"/>
+                            </svg>
+                            <span>Membro desde {{ $user->created_at->format('Y') }}</span>
+                        </div>
+                        <!-- Adicione mais informações se desejar -->
+                        @if($user->cidade)
+                            <div class="flex items-center space-x-2">
+                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"/>
+                                </svg>
+                                <span>{{ $user->cidade }}</span>
+                            </div>
+                        @endif
+                    </div>
+                    <p class="text-gray-600 max-w-xl">
+                        <!-- Exemplo de descrição, personalize conforme necessário -->
+                        {{ $user->descricao ?? 'Usuário da plataforma GAMESWAP.' }}
+                    </p>
+                </div>
+                <!-- Action Buttons Centralizado -->
+                <div class="flex flex-col items-center justify-center w-full md:w-auto">
+                    <a href="/denunciar/{{ $user->id }}" class="glass-effect bg-red-50 border border-red-200 hover:border-red-300 text-red-600 hover:text-red-700 px-8 py-3 rounded-xl font-semibold transition-all transform hover:scale-105 text-center">
+                        <svg class="w-5 h-5 inline mr-2" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/>
+                        </svg>
+                        Denunciar
+                    </a>
+                </div>
             </div>
 
-            <div class="container rounded-lg border mx-auto py-8 px-6">
-                <div class="flex justify-between items-center mb-8">
-                    <h2 class="text-lg font-medium text-gray-800">Anuncios de {{$user->username}}</h2>
-                    <div class="flex items-center gap-4">
-                        <div class="relative w-64">
-                            <input
-                                type="text"
-                                class="w-full rounded-md border border-gray-300 py-2 pl-10 pr-4 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
-                                placeholder="Pesquisar vendas..."
-                            />
-                            <svg xmlns="http://www.w3.org/2000/svg"
-                                 class="absolute left-3 top-2.5 h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24"
-                                 stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                      d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+
+        <!-- Listings Section -->
+        <div class="animate-slide-up">
+            <div class="bg-white rounded-2xl shadow-xl p-6 mb-8 border border-gray-100">
+                <div class="flex flex-col md:flex-row md:items-center md:justify-between space-y-4 md:space-y-0">
+                    <div>
+                        <h3 class="text-3xl font-bold text-gray-800 mb-2">Anúncios de {{ $user->username }}</h3>
+                        <p class="text-gray-600">Descubra os produtos disponíveis deste vendedor</p>
+                    </div>
+                    <div class="flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-4">
+                        <div class="relative">
+                            <input type="text"
+                                   placeholder="Pesquisar vendas..."
+                                   class="w-full sm:w-64 pl-10 pr-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all">
+                            <svg class="absolute left-3 top-3.5 w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
                             </svg>
                         </div>
                     </div>
                 </div>
+            </div>
 
-                <div class="space-y-4">
-                    @foreach($anuncios as $anuncio)
-                        @if($anuncio->moderado == 1)
-                            <!-- Sale Item 1 -->
-                            <div class="rounded-lg border bg-card text-card-foreground shadow-card overflow-hidden">
-                                <div class="flex items-center p-4 md:p-6">
-                                    <div class="relative h-20 w-20 flex-shrink-0 rounded-md overflow-hidden bg-gray-100">
-                                        <img src="images/placeholder.jpg" alt="God of War Ragnarök"
-                                             class="w-full h-full object-cover">
-                                    </div>
-
-                                    <div class="ml-6 flex-1">
-                                        <div class="flex flex-col md:flex-row md:items-center md:justify-between">
-                                            <div>
-                                                <h3 class="font-medium text-gray-900">{{$anuncio->nome}}</h3>
-                                                @if($anuncio->tipo_produto == 'Jogo')
-                                                    <p class="mt-1 text-sm text-gray-500">{{$anuncio->console}}</p>
-                                                @else
-                                                    <p class="mt-1 text-sm text-gray-500">{{$anuncio->tipo_console}}</p>
-                                                @endif
-                                            </div>
-                                            <div class="mt-2 md:mt-0 flex flex-col items-start md:items-end">
-                                                <p class="text-lg font-medium text-gray-900">{{$anuncio->preco}}</p>
-                                                <p class="text-sm text-gray-500">Venda: VND-2023-5678</p>
-                                            </div>
-                                        </div>
-
-                                        <div class="mt-4 flex flex-wrap items-center justify-between gap-2">
-                                            <div class="flex flex-col">
-                                                <p class="text-sm text-gray-500">Data: {{$anuncio->created_at}}</p>
-                                                <p class="text-sm text-gray-500">Comprador: Carlos Mendes</p>
-                                            </div>
-                                            <div class="flex items-center gap-2">
-                        <span
-                            class="inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors border-transparent bg-green-500 text-white">
-                          Vendido
-                        </span>
-                                                <a href="/produto/{{$anuncio->tipo_produto}}/{{$anuncio->id}}" class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium border border-input bg-background hover:bg-accent hover:text-accent-foreground h-9 rounded-md px-3">
-                                                    Detalhes
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                @foreach($anuncios as $anuncio)
+                    @if($anuncio->moderado == 1)
+                        <a href="/produto/{{$anuncio->tipo_produto}}/{{$anuncio->id}}" class="rounded-lg border bg-card text-card-foreground shadow-sm overflow-hidden border-0 shadow-md hover:shadow-lg transition-shadow group">
+                            <div class="relative">
+                                <img
+                                    src="/placeholder.svg?height=180&width=180"
+                                    alt="{{ $anuncio->nome }}"
+                                    class="w-full h-auto object-cover aspect-square group-hover:scale-105 transition-transform"
+                                />
+                                <div class="absolute top-2 right-2 bg-blue-600 text-white text-xs px-2 py-1 rounded-full">
+                                    {{ $anuncio->console }}
                                 </div>
                             </div>
-                        @endif
-                    @endforeach
-                </div>
+                            <div class="p-3">
+                                <h3 class="font-medium text-gray-800 truncate">{{ $anuncio->nome }}</h3>
+                                <p class="text-blue-600 font-bold">€ {{ $anuncio->preco }}</p>
+                            </div>
+                        </a>
+                    @endif
+                @endforeach
             </div>
-        </main>
+        </div>
     </div>
 </x-layout>

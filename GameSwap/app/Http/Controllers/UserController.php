@@ -117,4 +117,5 @@ class UserController
 
         return view('paginas.visitaPerfil', compact('user', 'anuncios'));
     }
+
 }

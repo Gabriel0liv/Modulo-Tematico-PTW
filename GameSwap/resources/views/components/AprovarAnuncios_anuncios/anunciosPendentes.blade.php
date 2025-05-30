@@ -18,7 +18,7 @@
             <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">Pendente</span>
         </td>
         <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-            <a href="/produto/{{$produto->id}}" class="text-blue-600 hover:text-blue-900 mr-3">Ver</a>
+            <a href="/produto/{{$produto->tipo_produto}}/{{$produto->id}}" class="text-blue-600 hover:text-blue-900 mr-3">Ver</a>
             <form action="{{ route('produto.aprovar', $produto->id) }}" method="POST" class="inline">
                 @csrf
                 <input type="hidden" name="tipo_produto" value="{{ $produto->tipo_produto }}">
