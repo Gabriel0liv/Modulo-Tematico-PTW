@@ -330,10 +330,6 @@ Route::get('paginas/cancelarConta',function (){
     return view('paginas.cancelarConta');
 })->name('cancelarConta');
 
-
-// Rota visitar perfil
-Route::get('/perfil/{username}', [UserController::class, 'mostrarPerfilVisita'])->name('perfil.visitar');
-
 // Rotas de pagamento
 Route::get("/membership-payment-gateway",function(){
     return view('paginas.pagamento.payment-gateway');
@@ -412,6 +408,9 @@ Route::post("/perfilAdmin/Edicao/{id}/eliminar", [CategoriaController::class, 'e
 Route::get("/carrinho",function(){
     return view('paginas.carrinho');
 })->name('carrinhoPage');
+
+// Rota visitar perfil
+Route::get('/perfil/{username}', [UserController::class, 'mostrarPerfilVisita'])->name('perfil.visitar');
 
 
 
