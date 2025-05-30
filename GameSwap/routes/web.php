@@ -1,7 +1,9 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CarrinhoController;
 use App\Http\Controllers\CategoriaController;
+use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\ConsoleController;
 use App\Http\Controllers\MoradaController;
 use App\Http\Controllers\StripeController;
@@ -343,6 +345,12 @@ Route::get("/membership-payment-gateway/step3",function(){
     return view('paginas.pagamento.payment-gateway-step3');
 })->name('assinatura-3');
 
+
+
+Route::post('paginas/carrinho/adicionar', [CarrinhoController::class, 'adicionar'])->name('carrinho.adicionar');
+Route::get('paginas/carrinho', [CarrinhoController::class, 'index'])->name('carrinho.index');
+Route::delete('paginas/carrinho/remover/{id}', [CarrinhoController::class, 'remover'])->name('carrinho.remover');
+Route::get('paginas/checkout', [CheckoutController::class, 'index'])->name('checkout.index');
 
 
 // Rotas de mensagens e anúncios

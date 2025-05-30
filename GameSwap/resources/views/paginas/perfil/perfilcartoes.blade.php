@@ -20,20 +20,25 @@
         <div class="space-y-4">
           <!-- Card 1 - Primary -->
             @foreach ($cartoes as $cartao)
-                <div class="bg-white border border-gray-300 rounded-lg p-4 shadow-sm mb-4">
-                    <p class="font-semibold text-gray-800">
-                        Cartão: {{ ucfirst($cartao->brand) }} **** **** **** {{ $cartao->last4 }}
-                    </p>
-                    <p class="text-sm text-gray-600">
-                        Validade: {{ $cartao->exp_month }}/{{ $cartao->exp_year }}
-                    </p>
-                    <p class="text-sm text-gray-600">
-                        Nome no cartão: {{ $cartao->nome_cartao ?? 'N/A' }}
-                    </p>
-                    @if ($cartao->is_default)
-                        <span class="text-xs font-semibold px-2 py-1 bg-blue-500 text-white rounded-full">Principal</span>
-                    @endif
-                </div>
+                <label class="block bg-white border border-gray-300 rounded-lg p-4 shadow-sm mb-4 cursor-pointer hover:border-blue-500">
+                    <div class="flex items-start justify-between">
+                        <div>
+                            <p class="font-semibold text-gray-800">
+                                Cartão: {{ ucfirst($cartao->brand) }} **** **** **** {{ $cartao->last4 }}
+                            </p>
+                            <p class="text-sm text-gray-600">
+                                Validade: {{ $cartao->exp_month }}/{{ $cartao->exp_year }}
+                            </p>
+                            <p class="text-sm text-gray-600">
+                                Nome no cartão: {{ $cartao->nome_cartao ?? 'N/A' }}
+                            </p>
+                            @if ($cartao->is_default)
+                                <span class="text-xs font-semibold px-2 py-1 bg-blue-500 text-white rounded-full mt-2 inline-block">Principal</span>
+                            @endif
+                        </div>
+                        <input type="radio" name="cartao_id" value="{{ $cartao->id }}" class="mt-1">
+                    </div>
+                </label>
             @endforeach
         </div>
       </div>
