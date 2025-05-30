@@ -3,9 +3,17 @@
 
         <!-- Main Content -->
         <main class="flex-1 overflow-auto">
-            <div class="container mx-auto py-8 px-6">
+            <div class="flex flex-col items-center mr-4">
+                <div class="relative h-12 w-12 flex-shrink-0 rounded-full overflow-hidden bg-gray-100 mb-2">
+                    <img src="images/placeholder.jpg" alt="User Profile"
+                         class="w-full h-full object-cover">
+                </div>
+                <h1 class="text-2xl font-bold text-gray-700">{{$user->username}}</h1>
+            </div>
+
+            <div class="container rounded-lg border mx-auto py-8 px-6">
                 <div class="flex justify-between items-center mb-8">
-                    <h1 class="text-2xl font-bold text-gray-800">Anuncios de {{$user->username}}</h1>
+                    <h2 class="text-lg font-medium text-gray-800">Anuncios de {{$user->username}}</h2>
                     <div class="flex items-center gap-4">
                         <div class="relative w-64">
                             <input
