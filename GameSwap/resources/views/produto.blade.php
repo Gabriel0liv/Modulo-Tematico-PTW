@@ -128,7 +128,7 @@
             <svg class="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
             </svg>
-            <span>Vendido por <a href="#" class="font-medium text-[#0a66c2] hover:underline">{{$produto->id_anunciante}}</a></span>
+            <span>Vendido por <a href="/perfil/{{$produto->id_anunciante}}" class="font-medium text-[#0a66c2] hover:underline">{{$produto->anunciante->username}}</a></span>
             <span class="mx-2">•</span>
             <span class="text-[#2b8a3e]">Vendedor verificado</span>
           </div>

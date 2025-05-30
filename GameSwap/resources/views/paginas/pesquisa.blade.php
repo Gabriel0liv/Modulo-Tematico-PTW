@@ -58,22 +58,24 @@
                 @else
                     <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
                         @foreach ($jogos as $jogo)
-                            <a href="/produto/{{ $jogo->id }}" class="rounded-lg border bg-card text-card-foreground shadow-sm overflow-hidden border-0 shadow-md hover:shadow-lg transition-shadow group">
-                                <div class="relative">
-                                    <img
-                                        src="/placeholder.svg?height=180&width=180"
-                                        alt="{{ $jogo->nome }}"
-                                        class="w-full h-auto object-cover aspect-square group-hover:scale-105 transition-transform"
-                                    />
-                                    <div class="absolute top-2 right-2 bg-blue-600 text-white text-xs px-2 py-1 rounded-full">
-                                        {{ $jogo->console }}
+                            @if($jogo->moderado == 1)
+                                <a href="/produto/{{$jogo->tipo_produto}}/{{ $jogo->id }}" class="rounded-lg border bg-card text-card-foreground shadow-sm overflow-hidden border-0 shadow-md hover:shadow-lg transition-shadow group">
+                                    <div class="relative">
+                                        <img
+                                            src="/placeholder.svg?height=180&width=180"
+                                            alt="{{ $jogo->nome }}"
+                                            class="w-full h-auto object-cover aspect-square group-hover:scale-105 transition-transform"
+                                        />
+                                        <div class="absolute top-2 right-2 bg-blue-600 text-white text-xs px-2 py-1 rounded-full">
+                                            {{ $jogo->console }}
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="p-3">
-                                    <h3 class="font-medium text-gray-800 truncate">{{ $jogo->nome }}</h3>
-                                    <p class="text-blue-600 font-bold">€ {{ $jogo->preco }}</p>
-                                </div>
-                            </a>
+                                    <div class="p-3">
+                                        <h3 class="font-medium text-gray-800 truncate">{{ $jogo->nome }}</h3>
+                                        <p class="text-blue-600 font-bold">€ {{ $jogo->preco }}</p>
+                                    </div>
+                                </a>
+                            @endif
                         @endforeach
                     </div>
                 @endif
@@ -85,22 +87,24 @@
                 @else
                     <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
                         @foreach ($consoles as $console)
-                            <a href="/produto/{{ $console->id }}" class="rounded-lg border bg-card text-card-foreground shadow-sm overflow-hidden border-0 shadow-md hover:shadow-lg transition-shadow group">
-                                <div class="relative">
-                                    <img
-                                        src="/placeholder.svg?height=180&width=180"
-                                        alt="{{ $console->nome }}"
-                                        class="w-full h-auto object-cover aspect-square group-hover:scale-105 transition-transform"
-                                    />
-                                    <div class="absolute top-2 right-2 bg-blue-600 text-white text-xs px-2 py-1 rounded-full">
-                                        {{ $console->console }}
+                            @if($console->moderado == 1)
+                                <a href="/produto/{{$console->tipo_produto}}/{{ $console->id }}" class="rounded-lg border bg-card text-card-foreground shadow-sm overflow-hidden border-0 shadow-md hover:shadow-lg transition-shadow group">
+                                    <div class="relative">
+                                        <img
+                                            src="/placeholder.svg?height=180&width=180"
+                                            alt="{{ $console->nome }}"
+                                            class="w-full h-auto object-cover aspect-square group-hover:scale-105 transition-transform"
+                                        />
+                                        <div class="absolute top-2 right-2 bg-blue-600 text-white text-xs px-2 py-1 rounded-full">
+                                            {{ $console->console }}
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="p-3">
-                                    <h3 class="font-medium text-gray-800 truncate">{{ $console->nome }}</h3>
-                                    <p class="text-blue-600 font-bold">€ {{ $console->preco }}</p>
-                                </div>
-                            </a>
+                                    <div class="p-3">
+                                        <h3 class="font-medium text-gray-800 truncate">{{ $console->nome }}</h3>
+                                        <p class="text-blue-600 font-bold">€ {{ $console->preco }}</p>
+                                    </div>
+                                </a>
+                            @endif
                         @endforeach
                     </div>
                 @endif

@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Console;
+use App\Models\Jogo;
 use App\Models\Morada;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -91,23 +93,28 @@ class UserController
         return response()->json(['existe' => $existe]);
     }
 
-    public function mostrarVendas()
+    public function mostrarAnuncios()
     {
         $userId = auth()->id();
 
-        // Buscar jogos e consoles vendidos pelo utilizador (id_comprador não nulo)
-        $jogosVendidos = \App\Models\Jogo::where('id_anunciante', $userId)
-            //->whereNotNull('id_comprador')
-            //->with('comprador') // relacione com o comprador, se existir
-            ->get();
+        // Busca todos os jogos e consoles anunciados pelo utilizador
+        $jogos = Jogo::where('id_anunciante', $userId)->get();
+        $consoles = Console::where('id_anunciante', $userId)->get();
 
-        $consolesVendidos = \App\Models\Console::where('id_anunciante', $userId)
-            //->whereNotNull('id_comprador')
-            //->with('comprador')
-            ->get();
+        $anuncios = $jogos->merge($consoles);
 
-        $vendas = $jogosVendidos->merge($consolesVendidos);
+        return view('paginas.perfil.perfilmeusanuncios', compact('anuncios'));
+    }
 
-        return view('paginas.perfil.perfilminhasvendas', compact('vendas'));
+    public function mostrarPerfilVisita($id)
+    {
+        $user = User::findOrFail($id);
+
+        $jogos = Jogo::where('id_anunciante', $id)->get();
+        $consoles = Console::where('id_anunciante', $id)->get();
+
+        $anuncios = $jogos->merge($consoles);
+
+        return view('paginas.visitaPerfil', compact('user', 'anuncios'));
     }
 }

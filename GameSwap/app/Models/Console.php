@@ -20,6 +20,11 @@ class Console extends Model
         ];
     }
 
+    public function anunciante()
+    {
+        return $this->belongsTo(User::class, 'id_anunciante');
+    }
+
     protected $fillable = [
         'nome',
         'tipo_produto',

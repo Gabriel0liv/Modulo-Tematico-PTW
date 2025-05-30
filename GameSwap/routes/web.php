@@ -280,11 +280,11 @@ Route::post('/jogo/store', [JogoController::class, 'store'])->name('jogo.store')
 
 // rota para controller de console
 Route::post('/console/store', [ConsoleController::class, 'store'])->name('console.store');
-Route::get('/produto/{id}', [ProdutoController::class, 'show'])->name('produto.show');
 
 // rota para o controller de produtos
+Route::get('/produto/{tipo_produto}/{id}', [ProdutoController::class, 'show'])->name('produto.show');
 Route::get('/pesquisa', [ProdutoController::class, 'search'])->name('pesquisaPage');
-Route::get('/api/search-suggestions', [JogoController::class, 'searchSuggestions']);
+Route::get('/api/search-suggestions', [ProdutoController::class, 'searchSuggestions']);
 
 // rotas para o controller de autenticação
 Route::post('paginas/auth/registoPage',[AuthController::class,'criarRegisto'])->name('criarRegisto');
@@ -298,10 +298,6 @@ Route::get('/paginas/auth/loginPage', function () {
     return view('paginas.auth.loginPage');
 })->name('loginPage');
 
-
-
-
-
 //Rotas de perfil de Utilizador
 Route::post('paginas/editarPerfil', [UserController::class, 'atualizarInformacoes'])->name('user.atualizar');
 Route::post('paginas/cancelarConta', [UserController::class, 'deletarConta'])->name('user.deletar');
@@ -309,13 +305,12 @@ Route::post('paginas/adicionarMorada', [UserController::class, 'adicionarMorada'
 Route::get('/perfil/moradas', [UserController::class, 'mostrarMoradas'])->name('perfil.moradas');
 Route::get('/paginas/adicionarMorada', [MoradaController::class, 'index'])->name('moradas.adicionar.form');
 
+Route::get('/perfil/meus_anuncios', [UserController::class, 'mostrarAnuncios'])->name('perfil-Anuncios');
 
-Route::get('/perfil/minhas_vendas', [UserController::class, 'mostrarVendas'])->name('perfil-Vendas');
 Route::get('/perfil/moradas/{id}/editar', [MoradaController::class, 'editarForm'])->name('moradas.editar.form');
 Route::post('/perfil/moradas/{id}/editar', [MoradaController::class, 'editarMorada'])->name('moradas.editar');
 Route::delete('/perfil/moradas/{id}/apagar', [MoradaController::class, 'apagarMorada'])->name('moradas.apagar');
 Route::get('/concelhos/{distritoId}', [MoradaController::class, 'obterConcelhosPorDistrito']);
-
 
 Route::get('/paginas/adicionarCartão', function () {
     return view('paginas.adicionarCartão');
@@ -336,6 +331,8 @@ Route::get('paginas/cancelarConta',function (){
 })->name('cancelarConta');
 
 
+// Rota visitar perfil
+Route::get('/perfil/{username}', [UserController::class, 'mostrarPerfilVisita'])->name('perfil.visitar');
 
 // Rotas de pagamento
 Route::get("/membership-payment-gateway",function(){

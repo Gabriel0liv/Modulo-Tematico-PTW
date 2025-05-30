@@ -8,14 +8,12 @@ use Illuminate\Http\Request;
 
 class ProdutoController extends Controller
 {
-    public function show($id, Request $request)
+    public function show($tipo_produto, $id)
     {
-        $tipoProduto = $request->input('tipo_produto');
-
-        if ($tipoProduto === 'jogo') {
-            $produto = Jogo::findOrFail($id);
+        if ($tipo_produto === 'jogo') {
+            $produto = Jogo::with('anunciante')->findOrFail($id);
         } else {
-            $produto = Console::findOrFail($id);
+            $produto = Console::with('anunciante')->findOrFail($id);
         }
 
         // Exemplo de produtos relacionados (ajuste conforme sua lógica)
@@ -72,8 +70,8 @@ class ProdutoController extends Controller
     {
         $query = $request->input('query');
 
-        $jogos = Jogo::search($query)->where('moderado', 1)->paginate(10);
-        $consoles = Console::search($query)->where('moderado', 1)->paginate(10);
+        $jogos = Jogo::search($query)->paginate(10);
+        $consoles = Console::search($query)->paginate(10);
 
         return view('paginas.pesquisa', compact('jogos', 'consoles', 'query'));
     }
