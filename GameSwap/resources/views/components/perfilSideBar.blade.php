@@ -56,8 +56,8 @@
                     </a>
                 </li>
                 <li>
-                    <a href="{{route('perfil-cartões')}}" class="flex items-center gap-3 px-4 py-3 rounded-md transition-colors
-                    {{ request()->is('perfil/cartões') ? 'bg-gray-200 text-primary font-semibold' : 'text-sidebar-foreground hover:bg-gray-100' }}">
+                    <a href="{{route('perfilCartoes')}}" class="flex items-center gap-3 px-4 py-3 rounded-md transition-colors
+                    {{ request()->is('perfil.Cartoes') ? 'bg-gray-200 text-primary font-semibold' : 'text-sidebar-foreground hover:bg-gray-100' }}">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
                         </svg>

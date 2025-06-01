@@ -1,5 +1,6 @@
 <?php
 
+use App\Helpers\GoogleDriveHelper;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CarrinhoController;
 use App\Http\Controllers\CategoriaController;
@@ -10,99 +11,213 @@ use App\Http\Controllers\StripeController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\jogoController;
 use App\Http\Controllers\ProdutoController;
-use App\Http\Controllers\ImagemProxyController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-use App\Helpers\GoogleDriveHelper;
 
 
-
-Route::get('/', function () {
+Route::get('/',function(){
     // Consoles moderados SEM destaque
+
+
     $consolesModerados = \App\Models\Console::where('moderado', true)
+
+
         ->where(function ($q) {
+
+
             $q->where('destaque', false)->orWhereNull('destaque');
+
+
         })
+
+
         ->with('imagens')
+
+
         ->inRandomOrder()
+
+
         ->limit(6)
+
+
         ->get()
+
+
         ->map(function ($console) {
+
+
             $console->imagem_capa = $console->imagens->first()
+
+
                 ? GoogleDriveHelper::transformGoogleDriveUrl($console->imagens->first()->path)
+
+
                 : '/placeholder.svg';
+
+
             return $console;
+
+
         });
+
+
+
+
+
+
 
 
     // Jogos moderados SEM destaque
+
+
     $jogosModerados = \App\Models\Jogo::where('moderado', true)
+
+
         ->where(function ($q) {
+
+
             $q->where('destaque', false)->orWhereNull('destaque');
+
+
         })
+
+
         ->with('imagens')
+
+
         ->inRandomOrder()
+
+
         ->limit(6)
+
+
         ->get()
+
+
         ->map(function ($jogo) {
+
+
             $jogo->imagem_capa = $jogo->imagens->first()
+
+
                 ? GoogleDriveHelper::transformGoogleDriveUrl($jogo->imagens->first()->caminho)
+
+
                 : '/placeholder.svg';
+
+
             return $jogo;
+
+
         });
+
+
+
+
 
     // Consoles em destaque
+
+
     $consolesDestaque = \App\Models\Console::where('moderado', true)
+
+
         ->where('destaque', true)
+
+
         ->with('imagens')
+
+
         ->orderBy('created_at', 'desc')
+
+
         ->limit(6)
+
+
         ->get()
+
+
         ->map(function ($console) {
+
+
             $console->imagem_capa = $console->imagens->first()
+
+
                 ? GoogleDriveHelper::transformGoogleDriveUrl($console->imagens->first()->path)
+
+
                 : '/placeholder.svg';
+
+
             return $console;
+
+
         });
+
+
+
+
 
     // Jogos em destaque
+
+
     $jogos = \App\Models\Jogo::where('moderado', true)
+
+
         ->where('destaque', true)
+
+
         ->with('imagens')
+
+
         ->inRandomOrder()
+
+
         ->limit(6)
+
+
         ->get()
+
+
         ->map(function ($jogo) {
+
+
             $jogo->imagem_capa = $jogo->imagens->first()
+
+
                 ? GoogleDriveHelper::transformGoogleDriveUrl($jogo->imagens->first()->caminho)
+
+
                 : '/placeholder.svg';
+
+
             return $jogo;
+
+
         });
 
+
+
+
+
     return view('compras',
+
+
         compact('consolesDestaque', 'consolesModerados', 'jogos', 'jogosModerados')
+
+
     );
 })->name('pagina_inicial');
-
-
 
 // Rotas de Layout
 Route::get('/components/layout', function () {
     return view('components.layout');
 })->name('layoutPage');
 
-Route::get('/imagem-proxy/{id}', [ImagemProxyController::class, 'exibir']);
-
-
 // rota para o controller de jogos
 Route::post('/jogo/store', [JogoController::class, 'store'])->name('jogo.store');
-Route::get('/console/{id}', [ConsoleController::class, 'show'])->name('console.show');
-
 
 // rota para controller de console
 Route::post('/console/store', [ConsoleController::class, 'store'])->name('console.store');
-Route::get('/console/{id}', [ConsoleController::class, 'show'])->name('console.show');
-
 
 // rota para o controller de produtos
 Route::get('/produto/{tipo_produto}/{id}', [ProdutoController::class, 'show'])->name('produto.show');
@@ -176,6 +291,10 @@ Route::post('paginas/carrinho/adicionar', [CarrinhoController::class, 'adicionar
 Route::get('paginas/carrinho', [CarrinhoController::class, 'index'])->name('carrinho.index');
 Route::delete('paginas/carrinho/remover/{id}', [CarrinhoController::class, 'remover'])->name('carrinho.remover');
 Route::get('paginas/checkout', [CheckoutController::class, 'index'])->name('checkout.index');
+Route::middleware(['auth'])->group(function () {
+    Route::post('/finalizar-compra', [CheckoutController::class, 'finalizarCompra'])->name('checkout.finalizar');
+});
+
 
 
 // Rotas de mensagens e anúncios
@@ -196,7 +315,7 @@ Route::get("/perfil",function(){
     return view('paginas.perfil.perfil');
 })->name('perfilPage');
 
-Route::get("/perfil/cartões", [StripeController::class, 'listarCartoes'])->name('perfil-cartões');
+Route::get("/perfil/cartões", [StripeController::class, 'listarCartoes'])->name('perfilCartoes');
 
 Route::get("/perfil/favoritos",function(){
     return view('paginas.perfil.perfilfavoritos');
@@ -243,11 +362,4 @@ Route::get("/carrinho",function(){
 })->name('carrinhoPage');
 
 
-// Rota visitar perfil
-Route::get('/perfil/{username}', [UserController::class, 'mostrarPerfilVisita'])->name('perfil.visitar');
-
-// Rotas de ticket de denuncia
-Route::get('/denunciar/{id}', [DenunciasController::class, 'denunciarUsuario'])->name('denuncias.criar');
-Route::post('/denunciar', [DenunciasController::class, 'store'])->name('denuncias.store');
-Route::get("/perfilAdmin/denuncias", [DenunciasController::class, 'resolverDenuncias']);
 

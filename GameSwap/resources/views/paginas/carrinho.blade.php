@@ -27,7 +27,7 @@
                                 <div class="flex flex-col sm:flex-row justify-between">
                                     <div>
                                         <h3 class="font-semibold text-gray-800 text-lg">{{ $item['nome'] }}</h3>
-                                        <p class="text-sm text-gray-500 mb-1">{{ ucfirst($item['tipo']) }}</p>
+                                        <p class="text-sm text-gray-500 mb-1">{{ ucfirst($item['tipo_produto']) }}</p>
                                     </div>
                                     <div class="text-right mt-2 sm:mt-0">
                                         <div class="font-bold text-lg text-gray-800">€{{ number_format($item['preco'], 2, ',', '.') }}</div>

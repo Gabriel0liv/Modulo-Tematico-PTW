@@ -22,92 +22,42 @@
         </div>
 
         <div class="space-y-4">
-          <!-- Purchase Item 1 -->
-          <div class="rounded-lg border bg-card text-card-foreground shadow-card overflow-hidden">
-            <div class="flex items-center p-4 md:p-6">
-              <div class="relative h-20 w-20 flex-shrink-0 rounded-md overflow-hidden bg-gray-100">
-                <img src="images/placeholder.jpg" alt="The Legend of Zelda: Tears of the Kingdom" class="w-full h-full object-cover">
-              </div>
+            @forelse($compras as $compra)
+                @foreach ($compra->produtos as $item)
+                    <div class="rounded-lg border bg-card text-card-foreground shadow-card overflow-hidden">
+                        <div class="flex items-center p-4 md:p-6">
+                            <div class="relative h-20 w-20 flex-shrink-0 rounded-md overflow-hidden bg-gray-100">
+                                <img src="{{ $item->produto()?->imagem ?? '/images/placeholder.jpg' }}" class="w-full h-full object-cover">
+                            </div>
+                            <div class="ml-6 flex-1">
+                                <div class="flex flex-col md:flex-row md:items-center md:justify-between">
+                                    <div>
+                                        <h3 class="font-medium text-gray-900">{{ $item->produto()?->nome ?? 'Produto não encontrado' }}</h3>
+                                        <p class="mt-1 text-sm text-gray-500">{{ ucfirst($item->tipo_produto) }}</p>
+                                    </div>
+                                    <div class="mt-2 md:mt-0 flex flex-col items-start md:items-end">
+                                        <p class="text-lg font-medium text-gray-900">{{ number_format($item->preco_unitario, 2) }}€</p>
+                                        <p class="text-sm text-gray-500">Pedido #{{ $compra->id }}</p>
+                                    </div>
+                                </div>
+                                <div class="mt-4 flex items-center justify-between">
+                                    <p class="text-sm text-gray-500">Data: {{ $compra->created_at->format('d/m/Y') }}</p>
+                                    <span class="inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors bg-yellow-500 text-white">
+                            Pago
+                        </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
+            @empty
+                <p class="text-gray-500">Nenhuma compra encontrada.</p>
+            @endforelse
 
-              <div class="ml-6 flex-1">
-                <div class="flex flex-col md:flex-row md:items-center md:justify-between">
-                  <div>
-                    <h3 class="font-medium text-gray-900">The Legend of Zelda: Tears of the Kingdom</h3>
-                    <p class="mt-1 text-sm text-gray-500">Nintendo Switch</p>
-                  </div>
-                  <div class="mt-2 md:mt-0 flex flex-col items-start md:items-end">
-                    <p class="text-lg font-medium text-gray-900">59.99€</p>
-                    <p class="text-sm text-gray-500">Pedido: ORD-2023-1234</p>
-                  </div>
-                </div>
 
-                <div class="mt-4 flex items-center justify-between">
-                  <p class="text-sm text-gray-500">Data: 15/03/2024</p>
-                  <span class="inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors border-transparent bg-green-500 text-white">
-                    Entregue
-                  </span>
-                </div>
-              </div>
-            </div>
-          </div>
 
-          <!-- Purchase Item 2 -->
-          <div class="rounded-lg border bg-card text-card-foreground shadow-card overflow-hidden">
-            <div class="flex items-center p-4 md:p-6">
-              <div class="relative h-20 w-20 flex-shrink-0 rounded-md overflow-hidden bg-gray-100">
-                <img src="images/placeholder.jpg" alt="Final Fantasy XVI" class="w-full h-full object-cover">
-              </div>
 
-              <div class="ml-6 flex-1">
-                <div class="flex flex-col md:flex-row md:items-center md:justify-between">
-                  <div>
-                    <h3 class="font-medium text-gray-900">Final Fantasy XVI</h3>
-                    <p class="mt-1 text-sm text-gray-500">PlayStation 5</p>
-                  </div>
-                  <div class="mt-2 md:mt-0 flex flex-col items-start md:items-end">
-                    <p class="text-lg font-medium text-gray-900">69.99€</p>
-                    <p class="text-sm text-gray-500">Pedido: ORD-2023-1233</p>
-                  </div>
-                </div>
 
-                <div class="mt-4 flex items-center justify-between">
-                  <p class="text-sm text-gray-500">Data: 02/03/2024</p>
-                  <span class="inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors border-transparent bg-yellow-500 text-white">
-                    Em trânsito
-                  </span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Purchase Item 3 -->
-          <div class="rounded-lg border bg-card text-card-foreground shadow-card overflow-hidden">
-            <div class="flex items-center p-4 md:p-6">
-              <div class="relative h-20 w-20 flex-shrink-0 rounded-md overflow-hidden bg-gray-100">
-                <img src="images/placeholder.jpg" alt="Elden Ring" class="w-full h-full object-cover">
-              </div>
-
-              <div class="ml-6 flex-1">
-                <div class="flex flex-col md:flex-row md:items-center md:justify-between">
-                  <div>
-                    <h3 class="font-medium text-gray-900">Elden Ring</h3>
-                    <p class="mt-1 text-sm text-gray-500">Xbox Series X</p>
-                  </div>
-                  <div class="mt-2 md:mt-0 flex flex-col items-start md:items-end">
-                    <p class="text-lg font-medium text-gray-900">49.99€</p>
-                    <p class="text-sm text-gray-500">Pedido: ORD-2023-1232</p>
-                  </div>
-                </div>
-
-                <div class="mt-4 flex items-center justify-between">
-                  <p class="text-sm text-gray-500">Data: 25/02/2024</p>
-                  <span class="inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors border-transparent bg-green-500 text-white">
-                    Entregue
-                  </span>
-                </div>
-              </div>
-            </div>
-          </div>
         </div>
       </div>
     </main>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Compra;
 use App\Models\Console;
 use App\Models\Jogo;
 use App\Models\Morada;
@@ -75,6 +76,10 @@ class UserController
             'nome_morada' => $validatedData['nome_morada'],
         ]);
 
+        if ($request->has('from') && $request->get('from') === 'checkout') {
+            return redirect()->route('checkout.index')->with('success', 'Morada adicionada com sucesso!');
+        }
+
         return redirect()->route('perfil.moradas');
     }
 
@@ -118,4 +123,15 @@ class UserController
         return view('paginas.visitaPerfil', compact('user', 'anuncios'));
     }
 
+    public function listarCompras()
+    {
+        $user = auth()->user();
+
+        $compras = Compra::with('produtos') // traz os produtos comprados
+        ->where('comprador_id', $user->id)
+            ->latest()
+            ->get();
+
+        return view('paginas.perfil.perfilminhascompras', compact('compras'));
+    }
 }

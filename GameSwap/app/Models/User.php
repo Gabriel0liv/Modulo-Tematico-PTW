@@ -65,5 +65,12 @@ class User extends Authenticatable
     {
         return $this->hasMany(PaymentMethod::class);
     }
-
+    public function comprador()
+    {
+        return $this->belongsTo(User::class, 'comprador_id');
+    }
+    public function vendedor()
+    {
+        return $this->belongsTo(User::class, 'vendedor_id');
+    }
 }

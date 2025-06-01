@@ -134,16 +134,15 @@
           </div>
         </div>
 
-        <div class="flex flex-col sm:flex-row gap-4">
-            <form action="{{ route('carrinho.adicionar') }}" method="POST" class="flex-1">
-                @csrf
-                <input type="hidden" name="produto_id" value="{{ $produto->id }}">
-                <input type="hidden" name="quantidade" value="1">
-                <button type="submit" class="w-full bg-amber-400 hover:bg-amber-500 text-gray-800 font-medium rounded-lg py-6 text-base transition-all">
-                    Adicionar ao carrinho
-                </button>
-            </form>
-        </div>
+          <form action="{{ route('carrinho.adicionar') }}" method="POST" class="flex-1">
+              @csrf
+              <input type="hidden" name="produto_id" value="{{ $produto->id }}">
+              <input type="hidden" name="quantidade" value="1">
+              <input type="hidden" name="tipo_produto" value="{{ $produto->tipo_produto }}"> <!-- Aqui está a correção -->
+              <button type="submit" class="w-full bg-amber-400 hover:bg-amber-500 text-gray-800 font-medium rounded-lg py-6 text-base transition-all">
+                  Adicionar ao carrinho
+              </button>
+          </form>
 
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
           <div class="flex items-center gap-3 p-3 rounded-lg bg-white shadow-sm">

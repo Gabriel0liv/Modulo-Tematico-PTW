@@ -93,6 +93,10 @@ class StripeController extends Controller
             ]);
         }
 
+        if ($request->has('from') && $request->get('from') === 'checkout') {
+            return redirect()->route('checkout.index')->with('success', 'Morada adicionada com sucesso!');
+        }
+
         return redirect()->route('perfil-cartões')->with('success', 'Cartão salvo com sucesso!');
     }
 
@@ -142,7 +146,33 @@ class StripeController extends Controller
             'cartoes' => $cartoesDetalhados
         ]);
     }
+    public function listarCartoesCheckout()
+    {
+        \Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
 
+        $user = auth()->user();
+        $cartoesSalvos = $user->paymentMethods;
+
+        $cartoesDetalhados = [];
+
+        foreach ($cartoesSalvos as $cartao) {
+            $stripeCard = \Stripe\PaymentMethod::retrieve($cartao->stripe_payment_method_id);
+
+            $cartoesDetalhados[] = (object) [
+                'id' => $cartao->id,
+                'brand' => $stripeCard->card->brand,
+                'last4' => $stripeCard->card->last4,
+                'exp_month' => $stripeCard->card->exp_month,
+                'exp_year' => $stripeCard->card->exp_year,
+                'nome_cartao' => $cartao->nome_cartao,
+                'is_default' => $cartao->is_default,
+            ];
+        }
+
+        return view('paginas.checkout', [
+            'cartoes' => $cartoesDetalhados
+        ]);
+    }
 
 
 }

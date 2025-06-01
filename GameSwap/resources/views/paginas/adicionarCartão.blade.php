@@ -78,6 +78,9 @@
                 <button type="submit" id="card-button" class="px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg shadow-md">
                     Salvar Cartão
                 </button>
+                @if (request('from') === 'checkout')
+                    <input type="hidden" name="from" value="checkout">
+                @endif
             </div>
         </form>
     </div>
