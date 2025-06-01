@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Imagem;
 use Illuminate\Http\Request;
 use App\Models\jogo;
 use Illuminate\Support\Facades\Log;
@@ -9,73 +10,105 @@ use App\Services\GoogleDriveService;
 
 class JogoController extends Controller
 {
-    //
     public function index()
     {
-        // Lógica para listar produtos
         return view('produtos.index');
     }
 
-
     public function store(Request $request)
     {
-        $validatedData = $request->validate([
-            'nome' => 'required|string|max:255',
-            'preco' => 'required|numeric|min:0',
-            'estado' => 'required|in:novo,usado,recondicionado',
-            'id_categoria' => 'required|exists:categorias,id',
-            'descricao' => 'required|string|max:1000',
-            'destaque' => 'nullable|boolean',
-            'imagens'   => 'required',
-            'imagens.*' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
-        ]);
+        try {
+            Log::info('[JogoController@store] Iniciando o processo de cadastro de jogo.', [
+                'user_id' => auth()->id(),
+                'files_names' => $request->hasFile('imagens') ? array_map(fn($f) => $f->getClientOriginalName(), $request->file('imagens')) : null,
+                'all_inputs' => $request->all(),
+            ]);
 
-        $jogo = jogo::create([
-            'nome' => $validatedData['nome'],
-            'descricao' => $validatedData['descricao'],
-            'preco' => $validatedData['preco'],
-            'id_categoria' => $validatedData['id_categoria'],
-            'estado' => $validatedData['estado'],
-            'tipo_produto' => $request->input('tipo_produto', 'jogo'),
-            'id_anunciante' => auth()->id(),
-            'console' => $request->input('console'),
-            'destaque' => $request->boolean('destaque'),
-        ]);
+            $validatedData = $request->validate([
+                'nome' => 'required|string|max:255',
+                'preco' => 'required|numeric|min:0',
+                'estado' => 'required|in:novo,usado,recondicionado',
+                'id_categoria' => 'required|exists:categorias,id',
+                'descricao' => 'required|string|max:1000',
+                'destaque' => 'nullable|boolean',
+                'imagens' => 'required|array',
+                'imagens.*' => 'image|mimes:jpeg,png,jpg,gif|max:8192',
+            ]);
 
-        $googleDriveService = new GoogleDriveService();
+            $jogo = Jogo::create([
+                'nome' => $validatedData['nome'],
+                'descricao' => $validatedData['descricao'],
+                'preco' => $validatedData['preco'],
+                'id_categoria' => $validatedData['id_categoria'],
+                'estado' => $validatedData['estado'],
+                'tipo_produto' => $request->input('tipo_produto', 'jogo'),
+                'id_anunciante' => auth()->id(),
+                'console' => $request->input('console'),
+                'destaque' => $request->boolean('destaque'),
+            ]);
 
-        if ($request->hasFile('imagens')) {
-            foreach ($request->file('imagens') as $imagem) {
-                $filePath = $imagem->getRealPath();
-                $fileName = $imagem->getClientOriginalName();
-                $uploadedFileUrl = $googleDriveService->upload($filePath, $fileName);
+            Log::info('Jogo criado com sucesso.', ['jogo_id' => $jogo->id]);
 
-                // Aqui adiciona o registro na tabela imagens
-                \App\Models\Imagem::create([
-                    'jogo_id' => $jogo->id,
-                    'caminho' => $uploadedFileUrl,
-                    // Se quiser adicionar a flag 'principal', pode incluir aqui também
-                ]);
+            $googleDriveService = new GoogleDriveService();
+
+            if ($request->hasFile('imagens')) {
+                $imagens = $request->file('imagens');
+                foreach ($imagens as $imagem) {
+                    $filePath = $imagem->getRealPath();
+                    $fileName = $imagem->getClientOriginalName();
+
+                    Log::info('Iniciando upload da imagem.', ['file_name' => $fileName]);
+
+                    $uploadedFileUrl = $googleDriveService->upload($filePath, $fileName, $jogo->id, 'jogos');
+
+                    Log::info('Imagem enviada com sucesso.', ['uploaded_url' => $uploadedFileUrl]);
+
+                    Imagem::create([
+                        'jogo_id' => $jogo->id,
+                        'caminho' => $uploadedFileUrl,
+                    ]);
+
+                    Log::info('Registro da imagem criado no banco de dados.', ['jogo_id' => $jogo->id, 'path' => $uploadedFileUrl]);
+                }
             }
-        } else {
-            \Log::warning('Nenhuma imagem recebida no request');
+
+            return redirect()->route('pagina_inicial')->with('success', 'Jogo anunciado com sucesso!');
+        } catch (\Throwable $e) {
+            Log::error('Erro ao cadastrar o jogo.', ['exception' => $e->getMessage()]);
+            return back()->withErrors(['erro' => 'Ocorreu um erro ao cadastrar o jogo.']);
         }
-
-        return redirect()->route('pagina_inicial')->with('success', 'Produto anunciado com sucesso!');
     }
 
-    public function update(Request $request, $id)
+
+    public function show($id)
     {
-        // Lógica para atualizar o jogo no banco de dados
-        // Validação e atualização do jogo
-        return redirect()->route('produtos.index');
+        $produto = jogo::findOrFail($id);
+        $produtosRelacionados = jogo::where('tipo_produto', $produto->tipo_produto)
+            ->where('id', '!=', $produto->id)
+            ->take(4)
+            ->get();
+
+        $imagemCapa = $produto->imagens->first() ? $produto->imagens->first()->caminho : '/placeholder.svg';
+
+        return view('produto', compact('produto', 'produtosRelacionados', 'imagemCapa'));
     }
 
-    public function destroy($id)
+    public function jogosEmDestaque()
     {
-        // Lógica para excluir um jogo
-        return redirect()->route('produtos.index');
+        $jogos = \App\Models\Jogo::where('moderado', true)
+            ->where('destaque', true)
+            ->inRandomOrder()
+            ->get()
+            ->map(function ($jogo) {
+                $jogo->imagem_capa = $jogo->imagens->first()
+                    ? $this->transformGoogleDriveUrl($jogo->imagens->first()->caminho)
+                    : '/placeholder.svg';
+                return $jogo;
+            });
+
+        return view('compras', compact('jogos'));
     }
+
 
     public function search(Request $request)
     {
@@ -85,70 +118,11 @@ class JogoController extends Controller
         return view('paginas.pesquisa', compact('jogos', 'query'));
     }
 
-    public function filter(Request $request)
+    public function searchSuggestions(Request $request)
     {
-        // Lógica para filtrar produtos
-        $filters = $request->all();
-        // Implementar a lógica de filtragem no banco de dados
-        return view('produtos.filter', compact('filters'));
+        $query = $request->input('query');
+        $jogos = Jogo::search($query)->take(5)->get();
+
+        return response()->json($jogos);
     }
-
-    public function sort(Request $request)
-    {
-        // Lógica para ordenar produtos
-        $sortBy = $request->input('sort_by');
-        // Implementar a lógica de ordenação no banco de dados
-        return view('produtos.sort', compact('sortBy'));
-    }
-
-    public function addToFavorites(Request $request)
-    {
-        // Lógica para adicionar jogo aos favoritos
-        $productId = $request->input('product_id');
-        // Implementar a lógica de adição aos favoritos no banco de dados
-        return redirect()->route('produtos.index');
-    }
-
-    public function removeFromFavorites(Request $request)
-    {
-        // Lógica para remover jogo dos favoritos
-        $productId = $request->input('product_id');
-        // Implementar a lógica de remoção dos favoritos no banco de dados
-        return redirect()->route('produtos.index');
-    }
-
-
-    public function purchase(Request $request)
-    {
-        // Lógica para realizar a compra de um jogo
-        $productId = $request->input('product_id');
-        // Implementar a lógica de compra no banco de dados
-        return redirect()->route('produtos.index');
-    }
-
-    public function review(Request $request)
-    {
-        // Lógica para adicionar uma avaliação a um jogo
-        $productId = $request->input('product_id');
-        // Implementar a lógica de avaliação no banco de dados
-        return redirect()->route('produtos.index');
-    }
-
-    public function addToCart(Request $request)
-    {
-        // Lógica para adicionar jogo ao carrinho
-        $productId = $request->input('product_id');
-        // Implementar a lógica de adição ao carrinho no banco de dados
-        return redirect()->route('produtos.index');
-    }
-
-    public function removeFromCart(Request $request)
-    {
-        // Lógica para remover jogo do carrinho
-        $productId = $request->input('product_id');
-        // Implementar a lógica de remoção do carrinho no banco de dados
-        return redirect()->route('produtos.index');
-    }
-
-
 }

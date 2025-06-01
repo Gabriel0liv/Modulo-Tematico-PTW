@@ -4,7 +4,7 @@ require 'vendor/autoload.php';
 $client = new Google_Client();
 $client->setClientId('1011581317601-mnjhbm8f4kms5negsu0brstd5j3proav.apps.googleusercontent.com');
 $client->setClientSecret('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');
-$client->setRedirectUri('urn:ietf:wg:oauth:2.0:oob');
+$client->setRedirectUri('http://localhost');
 $client->setScopes(['https://www.googleapis.com/auth/drive']);
 $client->setAccessType('offline');
 $client->setPrompt('consent');

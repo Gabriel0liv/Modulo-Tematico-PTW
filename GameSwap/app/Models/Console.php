@@ -25,6 +25,13 @@ class Console extends Model
         return $this->belongsTo(User::class, 'id_anunciante');
     }
 
+    public function show($id)
+    {
+        $console = \App\Models\Console::with('imagens')->findOrFail($id);
+        return view('consoles.show', compact('console'));
+    }
+
+
     protected $fillable = [
         'nome',
         'tipo_produto',
@@ -37,5 +44,11 @@ class Console extends Model
         'descricao',
         'estado',
     ];
+
+    public function imagens()
+    {
+        return $this->hasMany(\App\Models\ImagemConsole::class, 'console_id');
+    }
+
 
 }

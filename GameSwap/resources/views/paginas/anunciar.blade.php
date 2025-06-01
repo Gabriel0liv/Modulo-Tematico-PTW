@@ -9,7 +9,8 @@
             <div class="flex">
                 <i data-lucide="info" class="h-5 w-5 text-primary mr-2"></i>
                 <div>
-                    <p class="text-sm text-primary-600">Anuncie seu jogo ou console em poucos passos. Produtos com fotos de qualidade vendem até 3x mais rápido!</p>
+                    <p class="text-sm text-primary-600">Anuncie seu jogo ou console em poucos passos. Produtos com fotos
+                        de qualidade vendem até 3x mais rápido!</p>
                 </div>
             </div>
         </div>
@@ -17,27 +18,44 @@
         <!-- Seletor de tipo de produto -->
         <div class="mb-6">
             <label class="block text-text font-medium mb-2">Tipo de Produto</label>
-            <select id="tipo-produto" name="tipo_produto" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary">
+            <select id="tipo-produto" name="tipo_produto"
+                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary">
                 <option value="jogo" selected>Jogo</option>
                 <option value="console">Console</option>
             </select>
         </div>
 
         <!-- Formulário de JOGO -->
-        <form id="form-jogo" class="space-y-6" action="{{ route('jogo.store') }}" method="POST" enctype="multipart/form-data">
+        <form id="form-jogo" class="space-y-6" action="{{ route('jogo.store') }}" method="POST"
+              enctype="multipart/form-data">
             @csrf
             <!-- Token CSRF obrigatório para segurança -->
             <!-- Product Photos -->
             <div>
-                <label class="block text-text font-medium mb-2">Fotos do Produto</label>
-                <input type="file" name="imagens[]" accept="image/*" multiple class="block w-full text-sm text-gray-500"/>
-                <p class="text-sm text-gray-500 mt-2">Adicione até 6 fotos. A primeira será a capa do anúncio.</p>
+                <label class="block text-text font-medium mb-2">Fotos do Jogo</label>
+                <div class="flex flex-wrap gap-4">
+                    <!-- Botão para selecionar fotos -->
+                    <div
+                        class="border-2 border-dashed border-gray-300 rounded-lg p-4 flex flex-col items-center justify-center h-40 w-40 cursor-pointer hover:bg-gray-50 transition relative">
+                        <input type="file" name="imagens[]" accept="image/*"
+                               class="absolute inset-0 opacity-0 cursor-pointer" multiple>
+                        <span class="text-gray-400 text-2xl font-bold">+</span>
+                    </div>
+                    <!-- Previews das imagens serão adicionados aqui -->
+                    <div id="preview-container" class="flex flex-wrap gap-4"></div>
+                </div>
+                <p class="text-sm text-gray-500 mt-2 flex items-center">
+                    <i data-lucide="info" class="h-4 w-4 mr-1"></i>
+                    Adicione até 6 fotos do console. A primeira será a capa do anúncio.
+                </p>
             </div>
 
             <!-- Product Name -->
             <div>
                 <label for="product-name" class="block text-text font-medium mb-2">Nome do Produto</label>
-                <input type="text" id="product-name" name="nome" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary" placeholder="Ex: PlayStation 5" />
+                <input type="text" id="product-name" name="nome"
+                       class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+                       placeholder="Ex: PlayStation 5"/>
                 <p class="text-xs text-gray-500 mt-1">Seja específico. Inclua detalhes como marca, modelo e edição.</p>
             </div>
 
@@ -48,14 +66,17 @@
                     <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                         <span class="text-gray-500">R$</span>
                     </div>
-                    <input type="number" id="product-price" name="preco" class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary" placeholder="0,00" step="0.01" min="0" />
+                    <input type="number" id="product-price" name="preco"
+                           class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+                           placeholder="0,00" step="0.01" min="0"/>
                 </div>
                 <div class="mt-2 flex items-center">
                     <div class="flex-1">
-                        <p class="text-xs text-gray-500">Preço médio de mercado: <span class="text-primary font-medium">R$ 250,00 - R$ 350,00</span></p>
+                        <p class="text-xs text-gray-500">Preço médio de mercado: <span class="text-primary font-medium">R$ 250,00 - R$ 350,00</span>
+                        </p>
                     </div>
                     <div class="flex items-center">
-                        <input type="checkbox" id="accept-offers" class="mr-2" />
+                        <input type="checkbox" id="accept-offers" class="mr-2"/>
                         <label for="accept-offers" class="text-sm text-gray-600">Aceito ofertas</label>
                     </div>
                 </div>
@@ -66,22 +87,26 @@
                 <label class="block text-text font-medium mb-2">Estado do Produto</label>
                 <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
                     <div>
-                        <input type="radio" id="condition-new" name="estado" value="novo" class="hidden peer" checked />
-                        <label for="condition-new" class="flex items-center justify-center p-3 border border-gray-300 rounded-lg cursor-pointer text-gray-500 bg-white hover:bg-gray-50 peer-checked:border-blue-600 peer-checked:text-blue-600 peer-checked:bg-white">
+                        <input type="radio" id="condition-new" name="estado" value="novo" class="hidden peer" checked/>
+                        <label for="condition-new"
+                               class="flex items-center justify-center p-3 border border-gray-300 rounded-lg cursor-pointer text-gray-500 bg-white hover:bg-gray-50 peer-checked:border-blue-600 peer-checked:text-blue-600 peer-checked:bg-white">
                             <i data-lucide="package" class="h-4 w-4 mr-2"></i>
                             Novo
                         </label>
                     </div>
                     <div>
-                        <input type="radio" id="condition-used" name="estado" value="usado" class="hidden peer" />
-                        <label for="condition-used" class="flex items-center justify-center p-3 border border-gray-300 rounded-lg cursor-pointer text-gray-500 bg-white hover:bg-gray-50 peer-checked:border-blue-600 peer-checked:text-blue-600 peer-checked:bg-white">
+                        <input type="radio" id="condition-used" name="estado" value="usado" class="hidden peer"/>
+                        <label for="condition-used"
+                               class="flex items-center justify-center p-3 border border-gray-300 rounded-lg cursor-pointer text-gray-500 bg-white hover:bg-gray-50 peer-checked:border-blue-600 peer-checked:text-blue-600 peer-checked:bg-white">
                             <i data-lucide="package-open" class="h-4 w-4 mr-2"></i>
                             Usado
                         </label>
                     </div>
                     <div>
-                        <input type="radio" id="condition-refurbished" name="estado" value="recondicionado" class="hidden peer" />
-                        <label for="condition-refurbished" class="flex items-center justify-center p-3 border border-gray-300 rounded-lg cursor-pointer text-gray-500 bg-white hover:bg-gray-50 peer-checked:border-blue-600 peer-checked:text-blue-600 peer-checked:bg-white">
+                        <input type="radio" id="condition-refurbished" name="estado" value="recondicionado"
+                               class="hidden peer"/>
+                        <label for="condition-refurbished"
+                               class="flex items-center justify-center p-3 border border-gray-300 rounded-lg cursor-pointer text-gray-500 bg-white hover:bg-gray-50 peer-checked:border-blue-600 peer-checked:text-blue-600 peer-checked:bg-white">
                             <i data-lucide="package-check" class="h-4 w-4 mr-2"></i>
                             Recondicionado
                         </label>
@@ -92,10 +117,11 @@
             <!-- Game Category -->
             <div>
                 <label for="game-category" class="block text-text font-medium mb-2">Categoria de Jogo</label>
-                <select id="game-category" name="id_categoria" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary">
+                <select id="game-category" name="id_categoria"
+                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary">
                     <option value="" disabled selected>Selecione uma categoria</option>
                     @foreach($categorias as $categoria)
-                    <option value="{{$categoria->id}}">{{$categoria->nome}}</option>
+                        <option value="{{$categoria->id}}">{{$categoria->nome}}</option>
                     @endforeach
                 </select>
                 <p class="text-xs text-gray-500 mt-1">Escolha a categoria que melhor descreve seu jogo.</p>
@@ -104,7 +130,9 @@
             <!-- Product Description -->
             <div>
                 <label for="product-description" class="block text-text font-medium mb-2">Descrição do Produto</label>
-                <textarea id="product-description" name="descricao" rows="4" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary" placeholder="Descreva o produto, mencione detalhes importantes como tempo de uso, acessórios incluídos, etc."></textarea>
+                <textarea id="product-description" name="descricao" rows="4"
+                          class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+                          placeholder="Descreva o produto, mencione detalhes importantes como tempo de uso, acessórios incluídos, etc."></textarea>
                 <div class="flex justify-between mt-1">
                     <p class="text-xs text-gray-500">Seja detalhado e honesto sobre o estado do produto.</p>
                     <p class="text-xs text-gray-500"><span id="char-count">0</span>/1000 caracteres</p>
@@ -114,7 +142,8 @@
             <!-- Console Type -->
             <div>
                 <label for="console-type" class="block text-text font-medium mb-2">Tipo de Console</label>
-                <select id="console-type" name="console" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary">
+                <select id="console-type" name="console"
+                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary">
                     <option value="" disabled selected>Selecione um console</option>
                     <option value="ps5">PlayStation 5</option>
                     <option value="ps4">PlayStation 4</option>
@@ -132,8 +161,9 @@
             <div>
                 <label for="product-highlight" class="block text-text font-medium mb-2">Destacar Produto</label>
                 <div class="flex items-center">
-                    <input type="checkbox" id="product-highlight" name="destaque" value="1" class="mr-2" />
-                    <label for="product-highlight" class="text-sm text-gray-600">Marque para destacar este produto.</label>
+                    <input type="checkbox" id="product-highlight" name="destaque" value="1" class="mr-2"/>
+                    <label for="product-highlight" class="text-sm text-gray-600">Marque para destacar este
+                        produto.</label>
                 </div>
             </div>
 
@@ -142,11 +172,11 @@
                 <label class="block text-text font-medium mb-2">Opções de Entrega</label>
                 <div class="space-y-2">
                     <div class="flex items-center">
-                        <input type="checkbox" id="delivery-mail" class="mr-2" checked />
+                        <input type="checkbox" id="delivery-mail" class="mr-2" checked/>
                         <label for="delivery-mail" class="text-sm text-gray-600">Envio pelos Correios</label>
                     </div>
                     <div class="flex items-center">
-                        <input type="checkbox" id="delivery-pickup" class="mr-2" checked />
+                        <input type="checkbox" id="delivery-pickup" class="mr-2" checked/>
                         <label for="delivery-pickup" class="text-sm text-gray-600">Retirada em mãos</label>
                     </div>
                 </div>
@@ -154,24 +184,31 @@
 
             <!-- Submit Button -->
             <div class="flex justify-end">
-                <button type="submit" class="bg-blue-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-blue-700 transition text-center justify-center flex">
+                <button type="submit"
+                        class="bg-blue-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-blue-700 transition text-center justify-center flex">
                     Publicar Anúncio
                 </button>
             </div>
         </form>
 
         <!-- Formulário de Console -->
-        <form id="form-console" action="{{ route('console.store') }}" method="POST" class="space-y-6" style="display:none;">
+        <form id="form-console" action="{{ route('console.store') }}" method="POST" class="space-y-6"
+              style="display:none;" enctype="multipart/form-data">
             @csrf
 
             <!-- Fotos do Console -->
             <div>
                 <label class="block text-text font-medium mb-2">Fotos do Console</label>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                    <div class="border-2 border-dashed border-gray-300 rounded-lg p-4 flex flex-col items-center justify-center h-40 cursor-pointer hover:bg-gray-50 transition relative photo-upload">
-                        <input type="file" name="imagens[]" accept="image/*" class="absolute inset-0 opacity-0 cursor-pointer" multiple>
-                        <span class="text-gray-400">Clique para adicionar fotos</span>
+                <div class="flex flex-wrap gap-4">
+                    <!-- Botão para selecionar fotos -->
+                    <div
+                        class="border-2 border-dashed border-gray-300 rounded-lg p-4 flex flex-col items-center justify-center h-40 w-40 cursor-pointer hover:bg-gray-50 transition relative">
+                        <input type="file" name="imagens[]" accept="image/*"
+                               class="absolute inset-0 opacity-0 cursor-pointer" multiple>
+                        <span class="text-gray-400 text-2xl font-bold">+</span>
                     </div>
+                    <!-- Previews das imagens serão adicionados aqui -->
+                    <div id="preview-container" class="flex flex-wrap gap-4"></div>
                 </div>
                 <p class="text-sm text-gray-500 mt-2 flex items-center">
                     <i data-lucide="info" class="h-4 w-4 mr-1"></i>
@@ -182,14 +219,16 @@
             <!-- Nome do Console -->
             <div>
                 <label for="console-nome" class="block text-text font-medium mb-2">Nome do Console</label>
-                <input type="text" id="console-nome" name="nome" class="w-full px-4 py-2 border border-gray-300 rounded-lg" placeholder="Ex: PlayStation 5" />
+                <input type="text" id="console-nome" name="nome"
+                       class="w-full px-4 py-2 border border-gray-300 rounded-lg" placeholder="Ex: PlayStation 5"/>
                 <p class="text-xs text-gray-500 mt-1">Inclua marca, modelo e edição se aplicável.</p>
             </div>
 
             <!-- Tipo de Console -->
             <div>
                 <label for="console-tipo" class="block text-text font-medium mb-2">Tipo de Console</label>
-                <select id="console-tipo" name="tipo_console" class="w-full px-4 py-2 border border-gray-300 rounded-lg">
+                <select id="console-tipo" name="tipo_console"
+                        class="w-full px-4 py-2 border border-gray-300 rounded-lg">
                     <option value="" disabled selected>Selecione o tipo</option>
                     <option value="ps5">PlayStation 5</option>
                     <option value="ps4">PlayStation 4</option>
@@ -209,7 +248,9 @@
                     <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                         <span class="text-gray-500">€</span>
                     </div>
-                    <input type="number" id="console-preco" name="preco" class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg" placeholder="0,00" step="0.01" min="0" />
+                    <input type="number" id="console-preco" name="preco"
+                           class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg" placeholder="0,00"
+                           step="0.01" min="0"/>
                 </div>
             </div>
 
@@ -218,20 +259,24 @@
                 <label class="block text-text font-medium mb-2">Estado do Console</label>
                 <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
                     <div>
-                        <input type="radio" id="console-novo" name="estado" value="novo" class="hidden peer"  />
-                        <label for="console-novo" class="flex items-center justify-center p-3 text-gray-500 bg-white border border-gray-300 rounded-lg cursor-pointer peer-checked:border-primary peer-checked:bg-primary/10 peer-checked:text-primary hover:bg-gray-50">
+                        <input type="radio" id="console-novo" name="estado" value="novo" class="hidden peer"/>
+                        <label for="console-novo"
+                               class="flex items-center justify-center p-3 text-gray-500 bg-white border border-gray-300 rounded-lg cursor-pointer peer-checked:border-primary peer-checked:bg-primary/10 peer-checked:text-primary hover:bg-gray-50">
                             Novo
                         </label>
                     </div>
                     <div>
-                        <input type="radio" id="console-usado" name="estado" value="usado" class="hidden peer" />
-                        <label for="console-usado" class="flex items-center justify-center p-3 text-gray-500 bg-white border border-gray-300 rounded-lg cursor-pointer peer-checked:border-primary peer-checked:bg-primary/10 peer-checked:text-primary hover:bg-gray-50">
+                        <input type="radio" id="console-usado" name="estado" value="usado" class="hidden peer"/>
+                        <label for="console-usado"
+                               class="flex items-center justify-center p-3 text-gray-500 bg-white border border-gray-300 rounded-lg cursor-pointer peer-checked:border-primary peer-checked:bg-primary/10 peer-checked:text-primary hover:bg-gray-50">
                             Usado
                         </label>
                     </div>
                     <div>
-                        <input type="radio" id="console-recondicionado" name="estado" value="recondicionado" class="hidden peer" />
-                        <label for="console-recondicionado" class="flex items-center justify-center p-3 text-gray-500 bg-white border border-gray-300 rounded-lg cursor-pointer peer-checked:border-primary peer-checked:bg-primary/10 peer-checked:text-primary hover:bg-gray-50">
+                        <input type="radio" id="console-recondicionado" name="estado" value="recondicionado"
+                               class="hidden peer"/>
+                        <label for="console-recondicionado"
+                               class="flex items-center justify-center p-3 text-gray-500 bg-white border border-gray-300 rounded-lg cursor-pointer peer-checked:border-primary peer-checked:bg-primary/10 peer-checked:text-primary hover:bg-gray-50">
                             Recondicionado
                         </label>
                     </div>
@@ -241,7 +286,9 @@
             <!-- Descrição -->
             <div>
                 <label for="console-descricao" class="block text-text font-medium mb-2">Descrição</label>
-                <textarea id="console-descricao" name="descricao" rows="4" class="w-full px-4 py-2 border border-gray-300 rounded-lg" placeholder="Descreva o console, acessórios inclusos, estado de conservação, etc."></textarea>
+                <textarea id="console-descricao" name="descricao" rows="4"
+                          class="w-full px-4 py-2 border border-gray-300 rounded-lg"
+                          placeholder="Descreva o console, acessórios inclusos, estado de conservação, etc."></textarea>
                 <div class="flex justify-between mt-1">
                     <p class="text-xs text-gray-500">Seja detalhado e honesto sobre o estado do console.</p>
                     <p class="text-xs text-gray-500"><span id="char-count-console">0</span>/1000 caracteres</p>
@@ -252,8 +299,9 @@
             <div>
                 <label for="console-destaque" class="block text-text font-medium mb-2">Destacar Console</label>
                 <div class="flex items-center">
-                    <input type="checkbox" id="console-destaque" name="destaque" value="1" class="mr-2" />
-                    <label for="console-destaque" class="text-sm text-gray-600">Marque para destacar este console.</label>
+                    <input type="checkbox" id="console-destaque" name="destaque" value="1" class="mr-2"/>
+                    <label for="console-destaque" class="text-sm text-gray-600">Marque para destacar este
+                        console.</label>
                 </div>
             </div>
 
@@ -262,11 +310,11 @@
                 <label class="block text-text font-medium mb-2">Opções de Entrega</label>
                 <div class="space-y-2">
                     <div class="flex items-center">
-                        <input type="checkbox" id="console-delivery-mail" class="mr-2" checked />
+                        <input type="checkbox" id="console-delivery-mail" class="mr-2" checked/>
                         <label for="console-delivery-mail" class="text-sm text-gray-600">Envio pelos Correios</label>
                     </div>
                     <div class="flex items-center">
-                        <input type="checkbox" id="console-delivery-pickup" class="mr-2" checked />
+                        <input type="checkbox" id="console-delivery-pickup" class="mr-2" checked/>
                         <label for="console-delivery-pickup" class="text-sm text-gray-600">Retirada em mãos</label>
                     </div>
                 </div>
@@ -274,7 +322,10 @@
 
             <!-- Botão de Envio -->
             <div class="flex justify-end">
-                <button type="submit" class="bg-blue-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-blue-700 transition">Publicar Console</button>
+                <button type="submit"
+                        class="bg-blue-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-blue-700 transition">
+                    Publicar Console
+                </button>
             </div>
         </form>
 
@@ -285,6 +336,10 @@
         document.addEventListener('DOMContentLoaded', () => {
             const jogoForm = document.getElementById('form-jogo');
             const consoleForm = document.getElementById('form-console');
+            const previewContainer = document.getElementById('preview-container');
+            const fileInput = document.querySelector('input[type="file"]');
+            const tipoProdutoSelect = document.getElementById('tipo-produto');
+
 
             function showError(input, message) {
                 input.classList.add('border-red-500');
@@ -389,6 +444,57 @@
                 const valido = await validarFormulario(consoleForm, 'console');
                 if (!valido) e.preventDefault();
             });
+
+
+            tipoProdutoSelect.addEventListener('change', () => {
+                if (tipoProdutoSelect.value === 'jogo') {
+                    jogoForm.style.display = 'block';
+                    consoleForm.style.display = 'none';
+                } else if (tipoProdutoSelect.value === 'console') {
+                    jogoForm.style.display = 'none';
+                    consoleForm.style.display = 'block';
+                }
+            });
+
+            // Inicializa o estado correto com base no valor padrão
+            tipoProdutoSelect.dispatchEvent(new Event('change'));
+
+            fileInput.addEventListener('change', (event) => {
+                const files = Array.from(event.target.files);
+
+                // Limpa os previews existentes
+                previewContainer.innerHTML = '';
+
+                // Adiciona novos previews para os arquivos selecionados
+                fileInputs.forEach(fileInput => {
+                    fileInput.addEventListener('change', (event) => {
+                        const files = Array.from(event.target.files);
+
+                        // Limpa os previews existentes
+                        previewContainer.innerHTML = '';
+
+                        // Adiciona novos previews para os arquivos selecionados
+                        files.forEach((file, index) => {
+                            const reader = new FileReader();
+                            reader.onload = (e) => {
+                                const wrapper = document.createElement('div');
+                                wrapper.className = 'relative border rounded-lg overflow-hidden w-40 h-40';
+
+                                const img = document.createElement('img');
+                                img.src = e.target.result;
+                                img.alt = `Preview da imagem ${index + 1}`;
+                                img.className = 'w-full h-full object-cover';
+
+                                wrapper.appendChild(img);
+                                previewContainer.appendChild(wrapper);
+                            };
+                            reader.readAsDataURL(file);
+                        });
+                    });
+                });
+
+            });
+
 
             // descrição tempo real
             validarDescricao(document.getElementById('product-description'), document.getElementById('char-count'));
