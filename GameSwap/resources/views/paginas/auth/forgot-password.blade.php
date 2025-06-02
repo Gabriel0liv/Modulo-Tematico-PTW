@@ -1,39 +1,22 @@
 <x-layout>
     <div class="max-w-md mx-auto bg-white rounded-lg shadow-lg overflow-hidden">
         <div class="bg-blue-600 py-4">
-            <h2 class="text-center text-white text-2xl font-bold">Entrar na sua conta</h2>
+            <h2 class="text-center text-white text-2xl font-bold">Enviar email</h2>
         </div>
         <div class="p-6">
-            <form id="loginForm" action="{{ route('login') }}" method="POST" novalidate>
+            <form id="loginForm" action="{{ route('password.email') }}" method="POST" novalidate>
                 @csrf
                 <div class="mb-6">
-                    <label for="username" class="block text-gray-700 text-sm font-semibold mb-2">Username</label>
-                    <input type="text" id="username" name="username" value="{{ old('username') }}"
+                    <label for="email" class="block text-gray-700 text-sm font-semibold mb-2">email</label>
+                    <input type="text" id="email" name="email" value=""
                            class="w-full px-3 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-600"
-                           placeholder="username">
-                    <p id="error-username" class="text-red-600 text-sm mt-1 hidden"></p>
-                </div>
-
-                <div class="mb-6">
-                    <label for="password" class="block text-gray-700 text-sm font-semibold mb-2">Senha</label>
-                    <input type="password" id="password" name="password"
-                           class="w-full px-3 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-600"
-                           placeholder="********">
-                    <p id="error-password" class="text-red-600 text-sm mt-1 hidden"></p>
-                </div>
-
-                <div class="flex items-center justify-between mb-6">
-                    <div class="flex items-center">
-                        <input type="checkbox" id="remember" name="remember"
-                               class="h-4 w-4 text-blue-600 focus:ring-blue-600 border-gray-300 rounded">
-                        <label for="remember" class="ml-2 block text-sm text-gray-700">Lembrar-me</label>
-                    </div>
-                    <a href="{{route('password.request')}}" class="text-sm text-blue-600 hover:underline">Esqueceu a senha?</a>
+                           placeholder="email">
+                    <p id="error-email" class="text-red-600 text-sm mt-1 hidden"></p>
                 </div>
 
                 <button type="submit"
                         class="w-full bg-yellow-400 hover:bg-yellow-500 text-gray-800 font-bold py-3 px-4 rounded-md transition duration-300 shadow-md">
-                    Entrar
+                    Enviar link de redefinição
                 </button>
             </form>
             @if (session('error'))

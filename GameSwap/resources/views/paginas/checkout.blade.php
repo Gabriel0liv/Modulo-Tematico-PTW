@@ -1,14 +1,14 @@
 <x-layout>
-    <div class="max-w-7xl mx-auto px-4 py-8">
-        <div class="mb-6">
-            <h1 class="text-3xl font-bold text-gray-900 mb-2">Finalizar Compra</h1>
-            <p class="text-gray-600">Complete os dados para finalizar a sua compra</p>
-        </div>
+    <form action="{{route('checkout.finalizar')}}" method="POST" >
+        @csrf
+        <div class="max-w-7xl mx-auto px-4 py-8">
+            <div class="mb-6">
+                <h1 class="text-3xl font-bold text-gray-900 mb-2">Finalizar Compra</h1>
+                <p class="text-gray-600">Complete os dados para finalizar a sua compra</p>
+            </div>
 
-        <div class="grid lg:grid-cols-3 gap-8">
-            <!-- Main Content -->
-            <form action="{{route('checkout.finalizar')}}" method="POST" >
-                @csrf
+            <div class="grid lg:grid-cols-3 gap-8">
+                <!-- Main Content -->
                 <div class="lg:col-span-2 space-y-6">
 
                     <!-- Delivery Address -->
@@ -22,7 +22,7 @@
                             <div class="text-sm text-gray-600 mb-2">Selecione uma morada guardada ou introduza uma nova:</div>
 
                             <!-- Address Selection -->
-                            <div class="space-y-3">
+                            <div class="bg-white rounded-lg shadow-sm border p-6">
                                 <!-- Saved Address 1 -->
                                 @foreach ($moradas as $morada)
                                     <label class="block cursor-pointer">
@@ -174,8 +174,12 @@
                         </div>
                     </div>
                 </div>
-            </form>
+            </div>
         </div>
-    </div>
+    </form>
+
+
+
+
 
 </x-layout>

@@ -21,24 +21,24 @@
         <div class="lg:col-span-1 space-y-6">
             <div class="rounded-lg border bg-card text-card-foreground shadow-sm overflow-hidden border-0">
                 <div class="bg-gradient-to-r from-amber-400 to-amber-300 p-4">
-                    <h3 class="text-xl font-bold text-gray-800">Assine o Premium</h3>
+                    <h3 class="text-xl font-bold text-gray-800">Destaque de Anúncios</h3>
                 </div>
                 <div class="p-6 pt-0 p-4">
                     <div class="mb-3">
-                        <span class="text-blue-600 font-bold text-lg">€ 19,90</span>
+                        <span class="text-blue-600 font-bold text-lg">€ 4,90</span>
                         <span class="text-gray-500 text-sm"> / mês</span>
                     </div>
                     <p class="text-sm text-gray-600 mb-3">
-                        Desbloqueie recursos exclusivos e aproveite ao máximo a plataforma GAMESWAP.
+                        Aumente as chances de venda do seu produto, por apenas €4,90.
                     </p>
                     <ul class="space-y-2 text-sm mb-4">
                         <li class="flex items-center gap-2">
                             <div class="h-2 w-2 rounded-full bg-blue-600"></div>
-                            <span>Sem taxas de transação</span>
+                            <span>Maior exposição na página inicial</span>
                         </li>
                         <li class="flex items-center gap-2">
                             <div class="h-2 w-2 rounded-full bg-blue-600"></div>
-                            <span>Anúncios em destaque</span>
+                            <span>Prioridade na área de pesquisa</span>
                         </li>
                         <li class="flex items-center gap-2">
                             <div class="h-2 w-2 rounded-full bg-blue-600"></div>
@@ -47,7 +47,7 @@
                     </ul>
                     <a href="{{route('assinatura')}}"
                        class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium bg-blue-600 hover:bg-blue-700 text-white w-full px-4 py-2">
-                        Assinar Agora
+                        Destaque Agora
                     </a>
                 </div>
             </div>

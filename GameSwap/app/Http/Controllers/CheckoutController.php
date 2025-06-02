@@ -7,10 +7,12 @@ use App\Models\CompraProduto;
 use App\Models\Entrega;
 use App\Models\Morada;
 use App\Models\PaymentMethod;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\DB;
+use Stripe\Checkout\Session;
 use Stripe\PaymentIntent;
 use Stripe\Stripe;
 
@@ -170,5 +172,53 @@ class CheckoutController extends Controller
             DB::rollBack();
             return redirect()->back()->withErrors(['erro' => 'Erro ao salvar compra: ' . $e->getMessage()]);
         }
+    }
+
+    public function checkoutDestaque($tipo, $id)
+    {
+        Stripe::setApiKey(config('services.stripe.secret'));
+
+        $nomeItem = ucfirst($tipo) . " em destaque";
+
+        $session = Session::create([
+            'payment_method_types' => ['card'],
+            'line_items' => [[
+                'price_data' => [
+                    'currency' => 'brl',
+                    'product_data' => [
+                        'name' => $nomeItem,
+                    ],
+                    'unit_amount' => 500, // R$5,00
+                ],
+                'quantity' => 1,
+            ]],
+            'mode' => 'payment',
+            'success_url' => route('checkout.destaque.sucesso', ['tipo' => $tipo, 'id' => $id]),
+            'cancel_url' => url()->previous(),
+        ]);
+
+        return redirect($session->url);
+    }
+
+    public function destaqueSucesso(Request $request)
+    {
+        $tipo = $request->tipo;
+        $id = $request->id;
+
+        if ($tipo === 'jogo') {
+            $item = Jogo::findOrFail($id);
+            $rota = route('jogos.show', $id); // ajuste conforme a rota real
+        } elseif ($tipo === 'console') {
+            $item = Console::findOrFail($id);
+            $rota = route('consoles.show', $id); // ajuste conforme a rota real
+        } else {
+            abort(404);
+        }
+
+        $item->destaque = true;
+        $item->destaque_expira_em = Carbon::now()->addDays(30);
+        $item->save();
+
+        return redirect($rota)->with('success', 'Este anúncio agora está em destaque por 30 dias!');
     }
 }

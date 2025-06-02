@@ -6,7 +6,13 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
 
 class AuthController extends Controller
@@ -72,6 +78,77 @@ class AuthController extends Controller
 
     }
 
+    public function showForgotPasswordForm()
+    {
+        return view('paginas.auth.forgot-password');
+    }
+
+    public function sendResetLinkEmail(Request $request)
+    {
+        $request->validate(['email' => 'required|email']);
+
+        $user = \App\Models\User::where('email', $request->email)->first();
+
+        if (!$user) {
+            return back()->withErrors(['email' => 'E-mail não encontrado.']);
+        }
+
+        // Remove token antigo
+        DB::table('password_resets')->where('email', $user->email)->delete();
+
+        // Cria novo token
+        $token = Password::getRepository()->create($user);
+
+        // Envia e-mail com link manual
+        $resetLink = url(route('password.reset', [
+            'token' => $token,
+            'email' => $user->email
+        ], false));
+
+        Mail::raw("Clique no link para redefinir sua senha: $resetLink", function ($message) use ($user) {
+            $message->to($user->email);
+            $message->subject('Redefinição de Senha - GameSwap');
+        });
+
+        return back()->with(['status' => 'Link de redefinição enviado com sucesso!']);
+    }
+
+    public function showResetForm(Request $request, $token)
+    {
+        return view('paginas.auth.reset-password', [
+            'token' => $token,
+            'email' => $request->query('email') // <- ESSENCIAL
+        ]);
+    }
+
+    public function resetPassword(Request $request)
+    {
+        Log::info('Iniciando resetPassword()', $request->all());
+
+        $request->validate([
+            'email' => 'required|email',
+            'password' => 'required|min:8|confirmed',
+            'token' => 'required',
+        ]);
+
+        $status = Password::reset(
+            $request->only('email', 'password', 'password_confirmation', 'token'),
+            function ($user, $password) {
+                Log::info('Token válido, redefinindo senha para: ' . $user->email);
+
+                $user->forceFill([
+                    'password' => Hash::make($password),
+                    'remember_token' => Str::random(60),
+                ])->save();
+            }
+        );
+
+        Log::info('Resultado do reset: ' . $status);
+
+        return $status === Password::PASSWORD_RESET
+            ? redirect()->route('login')->with('status', __($status))
+            : back()->withErrors(['email' => [__($status)]]);
+    }
     public function logout(Request $request){
         Auth::logout();
 

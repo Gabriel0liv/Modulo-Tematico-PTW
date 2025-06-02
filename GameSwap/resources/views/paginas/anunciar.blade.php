@@ -158,14 +158,6 @@
                 </select>
             </div>
 
-            <div>
-                <label for="product-highlight" class="block text-text font-medium mb-2">Destacar Produto</label>
-                <div class="flex items-center">
-                    <input type="checkbox" id="product-highlight" name="destaque" value="1" class="mr-2"/>
-                    <label for="product-highlight" class="text-sm text-gray-600">Marque para destacar este
-                        produto.</label>
-                </div>
-            </div>
 
             <!-- Delivery Options -->
             <div>
@@ -295,15 +287,6 @@
                 </div>
             </div>
 
-            <!-- Destacar Produto -->
-            <div>
-                <label for="console-destaque" class="block text-text font-medium mb-2">Destacar Console</label>
-                <div class="flex items-center">
-                    <input type="checkbox" id="console-destaque" name="destaque" value="1" class="mr-2"/>
-                    <label for="console-destaque" class="text-sm text-gray-600">Marque para destacar este
-                        console.</label>
-                </div>
-            </div>
 
             <!-- Opções de Entrega -->
             <div>

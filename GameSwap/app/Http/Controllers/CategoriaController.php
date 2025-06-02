@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\jogo;
 use Illuminate\Http\Request;
 use App\Models\Categoria;
 
@@ -17,7 +18,10 @@ class CategoriaController
     {
         $categorias = Categoria::all();
 
-        return view('paginas.anunciar', ['categorias' => $categorias]);
+        $jogo = new \App\Models\jogo();
+        $console = new \App\Models\Console();
+
+        return view('paginas.anunciar', ['categorias' => $categorias, 'jogo' => $jogo, 'console' => $console]);
     }
     public function adicionarCategoria(){
         $baseNome = "novaCategoria";
