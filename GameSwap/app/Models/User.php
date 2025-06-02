@@ -27,9 +27,8 @@ class User extends Authenticatable
         'dataNascimento',
         'username',
         'password',
+        'estado'
     ];
-
-
 
     /**
      * The attributes that should be hidden for serialization.

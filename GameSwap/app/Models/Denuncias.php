@@ -21,9 +21,9 @@ class Denuncias extends Model
     }
 
     protected $fillable = [
-
         'id_denunciante',
         'id_denunciado',
+        'tipo',
         'motivo',
         'status',
     ];

@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Console;
+use App\Models\jogo;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\Denuncias;
@@ -55,7 +57,9 @@ class DenunciasController extends Controller
             'status' => 0, // Status 0 para pendente
         ]);
 
-        return back()->with('success', 'Sua denúncia foi enviada com sucesso.');
+        return redirect()->route('pagina_inicial')
+            ->with('success', 'Sua denúncia foi enviada com sucesso.');
+
     }
 
     public function resolverDenuncias(Request $request)
@@ -63,6 +67,17 @@ class DenunciasController extends Controller
         $denuncias = Denuncias::all();
 
         return view('paginas.perfilAdmin.denuncias', ['denuncias' => $denuncias]);
+    }
+
+    public function exibirDenuncia($id)
+    {
+        $denuncia = Denuncias::findOrFail($id);
+        $user = User::where('id', $denuncia->id_denunciado)->firstOrFail();
+        $jogos = Jogo::where('id_anunciante', $user->id)->get();
+        $consoles = Console::where('id_anunciante', $user->id)->get();
+        $produtos = $jogos->merge($consoles);
+
+        return view('paginas.perfilAdmin.detalhesDenuncia', compact('denuncia', 'user', 'produtos'));
     }
 
 }

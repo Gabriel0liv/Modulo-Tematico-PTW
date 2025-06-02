@@ -29,6 +29,7 @@ class AuthController extends Controller
         $user->dataNascimento = $request->input('register_dob');
         $user->username = $request->input('register_username');
         $user->password = $request->input('register_password');
+        $user->estado = 'ativo';
         $user->save();
 
         Auth::login($user);

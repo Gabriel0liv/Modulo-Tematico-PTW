@@ -28,6 +28,7 @@ class jogo extends Model
         'descricao',
         'preco',
         'id_categoria',
+        'ativo',
         'estado',
         'moderado',
         'id_anunciante',
