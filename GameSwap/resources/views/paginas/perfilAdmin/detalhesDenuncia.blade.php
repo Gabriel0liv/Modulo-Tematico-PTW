@@ -174,6 +174,127 @@
                         </div>
                     </div>
                 </div>
+
+                <!-- Resolver Menu Template (positioned absolutely to extend beyond boundaries) -->
+                <div id="resolverMenuTemplate" class="resolver-menu bg-white rounded-lg shadow-xl border border-gray-200 absolute right-0 top-0"
+                     style="width: 380px; z-index: 9999;">
+                    <div class="menu-content">
+                        <div class="p-4">
+                            <div class="flex items-center justify-between mb-4">
+                                <h4 id="menuTitle" class="text-lg font-semibold text-gray-900">Resolver Denúncia</h4>
+                                <button onclick="closeResolverMenu()" class="text-gray-400 hover:text-gray-600 p-1 rounded-full hover:bg-gray-100">
+                                    <i data-lucide="x" class="w-5 h-5"></i>
+                                </button>
+                            </div>
+
+                            <!-- Menu Options -->
+                            <div class="space-y-3">
+                                <!-- Marcar como falso -->
+                                <button onclick="resolveReport('false')" class="w-full flex items-center p-3 rounded-lg border-2 border-green-200 bg-green-50 hover:bg-green-100 transition-all duration-200 group hover:shadow-md">
+                                    <div class="flex items-center justify-center w-8 h-8 bg-green-500 rounded-full mr-3 group-hover:bg-green-600 transition-colors">
+                                        <i data-lucide="check" class="w-4 h-4 text-white"></i>
+                                    </div>
+                                    <div class="text-left">
+                                        <div class="font-medium text-green-800">Marcar como falso</div>
+                                        <div class="text-sm text-green-600">A denúncia é infundada</div>
+                                    </div>
+                                </button>
+
+                                <!-- Avisar usuário -->
+                                <button onclick="resolveReport('warn')" class="w-full flex items-center p-3 rounded-lg border-2 border-yellow-200 bg-yellow-50 hover:bg-yellow-100 transition-all duration-200 group hover:shadow-md">
+                                    <div class="flex items-center justify-center w-8 h-8 bg-yellow-500 rounded-full mr-3 group-hover:bg-yellow-600 transition-colors">
+                                        <i data-lucide="alert-triangle" class="w-4 h-4 text-white"></i>
+                                    </div>
+                                    <div class="text-left">
+                                        <div class="font-medium text-yellow-800">Avisar usuário</div>
+                                        <div class="text-sm text-yellow-600">Enviar aviso sobre comportamento</div>
+                                    </div>
+                                </button>
+
+                                <!-- Suspender -->
+                                <div class="border-2 border-yellow-200 bg-yellow-50 rounded-lg p-3 hover:shadow-md transition-shadow duration-200">
+                                    <button onclick="toggleSuspendOptions()" class="w-full flex items-center justify-between mb-3 hover:bg-yellow-100 rounded-lg p-2 transition-colors">
+                                        <div class="flex items-center">
+                                            <div class="flex items-center justify-center w-8 h-8 bg-yellow-500 rounded-full mr-3">
+                                                <i data-lucide="clock" class="w-4 h-4 text-white"></i>
+                                            </div>
+                                            <div class="text-left">
+                                                <div class="font-medium text-yellow-800">Suspender</div>
+                                                <div class="text-sm text-yellow-600">Suspender temporariamente</div>
+                                            </div>
+                                        </div>
+                                        <i data-lucide="chevron-down" class="w-4 h-4 text-yellow-600 suspend-chevron transition-transform duration-200"></i>
+                                    </button>
+
+                                    <!-- Suspension Duration Options -->
+                                    <div id="suspendOptions" class="suspend-options hidden space-y-2 pl-11">
+                                        <div class="grid grid-cols-2 gap-2">
+                                            <button onclick="resolveReport('suspend', '1')" class="px-3 py-2 text-sm bg-white border border-yellow-300 rounded-md hover:bg-yellow-50 text-yellow-800 transition-colors">1 dia</button>
+                                            <button onclick="resolveReport('suspend', '3')" class="px-3 py-2 text-sm bg-white border border-yellow-300 rounded-md hover:bg-yellow-50 text-yellow-800 transition-colors">3 dias</button>
+                                            <button onclick="resolveReport('suspend', '7')" class="px-3 py-2 text-sm bg-white border border-yellow-300 rounded-md hover:bg-yellow-50 text-yellow-800 transition-colors">7 dias</button>
+                                            <button onclick="resolveReport('suspend', '14')" class="px-3 py-2 text-sm bg-white border border-yellow-300 rounded-md hover:bg-yellow-50 text-yellow-800 transition-colors">14 dias</button>
+                                            <button onclick="resolveReport('suspend', '30')" class="px-3 py-2 text-sm bg-white border border-yellow-300 rounded-md hover:bg-yellow-50 text-yellow-800 transition-colors">30 dias</button>
+                                            <button onclick="showCustomDuration()" class="px-3 py-2 text-sm bg-white border border-yellow-300 rounded-md hover:bg-yellow-50 text-yellow-800 transition-colors">Personalizar</button>
+                                        </div>
+
+                                        <!-- Custom Duration Input -->
+                                        <div id="customDuration" class="custom-duration hidden mt-3 p-3 bg-white rounded-md border border-yellow-300">
+                                            <label class="block text-sm font-medium text-yellow-800 mb-2">Duração personalizada</label>
+                                            <div class="flex space-x-2">
+                                                <input type="number" id="customDays" min="1" max="365" placeholder="Dias" class="flex-1 px-3 py-2 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500">
+                                                <button onclick="resolveReportCustom()" class="px-4 py-2 bg-yellow-500 text-white rounded-md text-sm hover:bg-yellow-600 transition-colors">Aplicar</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Banir -->
+                                <button onclick="confirmBan()" class="w-full flex items-center p-3 rounded-lg border-2 border-red-200 bg-red-50 hover:bg-red-100 transition-all duration-200 group hover:shadow-md">
+                                    <div class="flex items-center justify-center w-8 h-8 bg-red-500 rounded-full mr-3 group-hover:bg-red-600 transition-colors">
+                                        <i data-lucide="user-x" class="w-4 h-4 text-white"></i>
+                                    </div>
+                                    <div class="text-left">
+                                        <div class="font-medium text-red-800">Banir</div>
+                                        <div class="text-sm text-red-600">Banimento permanente</div>
+                                    </div>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Backdrop for menu -->
+                <div id="menuBackdrop" class="fixed inset-0 bg-black bg-opacity-25 hidden" style="z-index: 9998;" onclick="closeResolverMenu()"></div>
+
+                <!-- Confirmation Modal -->
+                <div id="confirmationModal" class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full hidden" style="z-index: 10000;">
+                    <div class="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white">
+                        <div class="mt-3 text-center">
+                            <div id="confirmIcon" class="mx-auto flex items-center justify-center h-12 w-12 rounded-full mb-4">
+                                <i id="confirmIconLucide" class="w-6 h-6"></i>
+                            </div>
+                            <h3 id="confirmTitle" class="text-lg font-medium text-gray-900 mb-2"></h3>
+                            <p id="confirmMessage" class="text-sm text-gray-500 mb-4"></p>
+                            <div class="flex justify-center space-x-3">
+                                <button onclick="closeConfirmation()" class="px-4 py-2 bg-gray-200 text-gray-800 rounded-md hover:bg-gray-300 transition-colors">
+                                    Cancelar
+                                </button>
+                                <button id="confirmButton" onclick="executeAction()" class="px-4 py-2 rounded-md text-white transition-colors">
+                                    Confirmar
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Success Toast -->
+                <div id="successToast" class="fixed top-4 right-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg hidden transform transition-all duration-300" style="z-index: 10001;">
+                    <div class="flex items-center">
+                        <i data-lucide="check-circle" class="w-5 h-5 mr-2"></i>
+                        <span id="successMessage">Ação executada com sucesso!</span>
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>
