@@ -14,6 +14,7 @@ class jogo extends Model
     {
         return [
             'nome' => $this->nome,
+            'id_categoria' => $this->id_categoria, // Gênero do jogo
             'console' => $this->console,
         ];
     }
@@ -44,6 +45,12 @@ class jogo extends Model
     {
         return $this->hasMany(Imagem::class);
     }
+
+    public function comprador()
+    {
+        return $this->belongsTo(User::class, 'id_comprador');
+    }
+
 
     /** @use HasFactory<\Database\Factories\ProdutoFactory> */
     use HasFactory;

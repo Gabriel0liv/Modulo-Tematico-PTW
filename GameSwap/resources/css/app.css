@@ -336,3 +336,20 @@
 ::-webkit-scrollbar-thumb:hover {
     background: #93C5FD;
 }
+
+
+.main-image {
+    position: relative;
+    display: none; /* Oculta todas as imagens por padrão */
+}
+
+.main-image:first-child {
+    display: block; /* Exibe a primeira imagem */
+}
+
+.thumbnail.active {
+    border-color: #2563EB; /* Cor de destaque */
+    box-shadow: 0 0 5px rgba(37, 99, 235, 0.5); /* Efeito visual */
+    transform: scale(1.1); /* Aumenta o tamanho da thumbnail ativa */
+    transition: all 0.3s ease; /* Adiciona uma transição suave */
+}

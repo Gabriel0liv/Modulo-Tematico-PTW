@@ -25,6 +25,11 @@ class Console extends Model
         return $this->belongsTo(User::class, 'id_anunciante');
     }
 
+    public function comprador()
+    {
+        return $this->belongsTo(User::class, 'id_comprador');
+    }
+
     public function show($id)
     {
         $console = \App\Models\Console::with('imagens')->findOrFail($id);
