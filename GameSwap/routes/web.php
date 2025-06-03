@@ -123,6 +123,11 @@ Route::get('/paginas/auth/registoPage', function () {
 Route::get('/paginas/auth/loginPage', function () {
     return view('paginas.auth.loginPage');
 })->name('loginPage');
+Route::get('/forgot-password', [AuthController::class, 'showForgotPasswordForm'])->name('password.request');
+Route::post('/forgot-password', [AuthController::class, 'sendResetLinkEmail'])->name('password.email');
+
+Route::get('/reset-password/{token}', [AuthController::class, 'showResetForm'])->name('password.reset');
+Route::post('/reset-password', [AuthController::class, 'resetPassword'])->name('password.update');
 
 //Rotas de perfil de Utilizador
 Route::post('paginas/editarPerfil', [UserController::class, 'atualizarInformacoes'])->name('user.atualizar');
@@ -183,8 +188,6 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/finalizar-compra', [CheckoutController::class, 'finalizarCompra'])->name('checkout.finalizar');
 });
 
-
-
 // Rotas de mensagens e anúncios
 Route::get("/paginas/chat",function(){
     return view('paginas.chat');
@@ -212,10 +215,6 @@ Route::get("/perfil/favoritos",function(){
 Route::get("/perfil/minhas_compras",function(){
     return view('paginas.perfil.perfilminhascompras');
 })->name('perfil-Compras');
-
-
-
-
 
 // Rotas de perfil administrativo
 Route::get("/perfilAdmin",function(){
@@ -254,8 +253,11 @@ Route::get('/denunciar/{id}', [DenunciasController::class, 'denunciarUsuario'])-
 Route::post('/denunciar', [DenunciasController::class, 'store'])->name('denuncias.store');
 Route::get("/perfilAdmin/denuncias", [DenunciasController::class, 'resolverDenuncias']);
 Route::get('/perfilAdmin/denuncias/detalhes/{id}', [DenunciasController::class, 'exibirDenuncia'])->name('denuncias.exibir');
+Route::post('/perfilAdmin/denuncias/banir/{id}', [DenunciasController::class, 'banir'])->name('utilizador.banir');
+Route::post('/perfilAdmin/denuncias/resolver/{id}', [DenunciasController::class, 'resolver'])->name('utilizador.resolver');
+Route::post('/perfilAdmin/denuncias/suspender/{id}', [DenunciasController::class, 'suspender'])->name('utilizador.suspender');
 
 // Rota visitar perfil
-Route::get('/perfil/{username}', [UserController::class, 'mostrarPerfilVisita'])->name('perfil.visitar');
+//Route::get('/perfil/{username}', [UserController::class, 'mostrarPerfilVisita'])->name('perfil.visitar');
 
 

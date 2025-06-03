@@ -17,7 +17,7 @@ class DenunciasController extends Controller
         $denunciante = Auth::user();
 
         // Verifica se o usuário já denunciou este usuário
-        $denunciaExistente = \App\Models\Denuncias::where('id_denunciante', $denunciante->id)
+        $denunciaExistente = Denuncias::where('id_denunciante', $denunciante->id)
             ->where('id_denunciado', $denunciado->id)
             ->first();
 
@@ -78,6 +78,58 @@ class DenunciasController extends Controller
         $produtos = $jogos->merge($consoles);
 
         return view('paginas.perfilAdmin.detalhesDenuncia', compact('denuncia', 'user', 'produtos'));
+    }
+
+    public function resolver(Request $request, $id)
+    {
+        $denuncia = Denuncias::findOrFail($id);
+        $denuncia->status = '1';
+        $denuncia->resolvido_em = now();
+        $denuncia->save();
+
+        $user = $denuncia->denunciado;
+        if ($user) {
+            $user->estado = 'ativo';
+            $user->save();
+        }
+
+        return redirect('/perfilAdmin/denuncias')->with('success', 'Denúncia resolvida com sucesso.');
+    }
+
+    public function suspender(Request $request, $id)
+    {
+        $duracao = $request->input('duracao');
+
+        $denuncia = Denuncias::findOrFail($id);
+        $user = $denuncia->denunciado;
+        $denuncia->status = 1;
+        $denuncia->resolvido_em = now();
+        $denuncia->data_reativacao = now()->addDays($request->dias);
+        $denuncia->save();
+
+        if ($user) {
+            $user->estado = 'suspenso';
+            $user->save();
+        }
+
+        return redirect('/perfilAdmin/denuncias')->with('success', 'Usuário suspenso com sucesso.');
+    }
+
+    public function banir(Request $request, $id)
+    {
+        $denuncia = Denuncias::findOrFail($id);
+        $denuncia->status = '1';
+        $denuncia->resolvido_em = now();
+        $denuncia->data_reativacao = '9999-12-31 23:59:59';
+        $denuncia->save();
+
+        $user = $denuncia->denunciado;
+        if ($user) {
+            $user->estado = 'banido';
+            $user->save();
+        }
+
+        return redirect('/perfilAdmin/denuncias')->with('success', 'Denúncia resolvida com sucesso.');
     }
 
 }
