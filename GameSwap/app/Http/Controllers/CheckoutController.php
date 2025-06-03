@@ -170,7 +170,7 @@ class CheckoutController extends Controller
             return redirect()->route('checkout.sucesso')->with('success', 'Compra realizada com sucesso!');
         } catch (\Exception $e) {
             DB::rollBack();
-            return redirect()->back()->withErrors(['erro' => 'Erro ao salvar compra: ' . $e->getMessage()]);
+            return redirect()->back()->withErrors(['erro' => 'Erro ao realizar compra: ' . $e->getMessage()]);
         }
     }
 

@@ -88,6 +88,7 @@ class ProdutoController extends Controller
     }
     public function destacar($id, Request $request)
     {
+
         // Verificar o tipo do produto (jogo ou console)
         if ($request->input('tipo_produto') === 'jogo') {
             $produto = \App\Models\Jogo::findOrFail($id);
@@ -100,6 +101,7 @@ class ProdutoController extends Controller
         $produto->save();
 
         return redirect()->back()->with('success', 'Produto destacado com sucesso!');
+
     }
 
     public function aprovarAnuncios(Request $request)

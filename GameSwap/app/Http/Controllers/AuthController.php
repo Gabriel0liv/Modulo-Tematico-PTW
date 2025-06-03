@@ -40,7 +40,7 @@ class AuthController extends Controller
 
         Auth::login($user);
 
-        return redirect()->route('pagina_inicial');
+        return redirect()->route('pagina_inicial')->with('success', 'Cadastro realizado com sucesso!');
     }
 
     public function login(Request $request)
@@ -70,11 +70,11 @@ class AuthController extends Controller
                 return redirect()->route('perfilAdmin');
             }
 
-            return redirect()->route('pagina_inicial');
+            return redirect()->route('pagina_inicial')->with('success', 'Login realizado com sucesso!');
         }
 
         // Se falhar a autenticação
-        return back()->with('error', 'Username ou password incorretos.')->withInput();
+        return back();
 
     }
 
@@ -90,7 +90,7 @@ class AuthController extends Controller
         $user = \App\Models\User::where('email', $request->email)->first();
 
         if (!$user) {
-            return back()->withErrors(['email' => 'E-mail não encontrado.']);
+            return back()->with('error', 'E-mail não encontrado. Verifique e tente novamente.');
         }
 
         // Remove token antigo
@@ -110,7 +110,7 @@ class AuthController extends Controller
             $message->subject('Redefinição de Senha - GameSwap');
         });
 
-        return back()->with(['status' => 'Link de redefinição enviado com sucesso!']);
+        return back()->with('success', 'Um link para redefinição de senha foi enviado para seu e-mail.');
     }
 
     public function showResetForm(Request $request, $token)
@@ -146,8 +146,8 @@ class AuthController extends Controller
         Log::info('Resultado do reset: ' . $status);
 
         return $status === Password::PASSWORD_RESET
-            ? redirect()->route('login')->with('status', __($status))
-            : back()->withErrors(['email' => [__($status)]]);
+            ? redirect()->route('login')->with('success', 'Senha redefinida com sucesso. Você já pode fazer login.')
+            : back()->with('error', 'Erro ao redefinir a senha. Verifique os dados e tente novamente.');
     }
     public function logout(Request $request){
         Auth::logout();
@@ -155,6 +155,6 @@ class AuthController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return redirect()->route('pagina_inicial');
+        return redirect()->route('pagina_inicial')->with('success', 'Logout realizado com sucesso!');
     }
 }

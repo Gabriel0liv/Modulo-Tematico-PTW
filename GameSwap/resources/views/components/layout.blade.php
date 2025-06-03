@@ -9,8 +9,10 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     @vite(['resources/js/app.js', 'resources/css/app.css'])
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+
 </head>
 <body class="flex flex-col min-h-screen">
+
   <header class="bg-gradient-to-r from-blue-600 to-blue-500 py-3 px-4 shadow-md">
     @auth
       @if(Auth::user()->isAdmin())
@@ -112,5 +114,21 @@
 
 
   @stack('scripts')
+  @if (session('success') || session('error'))
+      <div
+          id="toast"
+          class="fixed top-5 right-5 z-50 px-6 py-4 rounded-lg shadow-lg text-white text-lg max-w-md w-full animate-fade-in-out"
+          style="background-color: {{ session('success') ? '#16a34a' : '#dc2626' }};"
+      >
+          {{ session('success') ?? session('error') }}
+      </div>
+
+      <script>
+          setTimeout(() => {
+              const toast = document.getElementById('toast');
+              if (toast) toast.style.display = 'none';
+          }, 6000); // duração aumentada para 6 segundos
+      </script>
+  @endif
 </body>
 </html>

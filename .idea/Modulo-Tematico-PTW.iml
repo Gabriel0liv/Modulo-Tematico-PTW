@@ -131,6 +131,9 @@
       <excludeFolder url="file://$MODULE_DIR$/GameSwap/vendor/paragonie/random_compat" />
       <excludeFolder url="file://$MODULE_DIR$/GameSwap/vendor/phpseclib/phpseclib" />
       <excludeFolder url="file://$MODULE_DIR$/GameSwap/vendor/psr/cache" />
+      <excludeFolder url="file://$MODULE_DIR$/GameSwap/vendor/masbug/flysystem-google-drive-ext" />
+      <excludeFolder url="file://$MODULE_DIR$/GameSwap/vendor/spatie/laravel-package-tools" />
+      <excludeFolder url="file://$MODULE_DIR$/GameSwap/vendor/yaza/laravel-google-drive-storage" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

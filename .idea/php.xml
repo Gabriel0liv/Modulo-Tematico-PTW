@@ -140,6 +140,9 @@
       <path value="$PROJECT_DIR$/GameSwap/vendor/phpseclib/phpseclib" />
       <path value="$PROJECT_DIR$/GameSwap/vendor/psr/cache" />
       <path value="$PROJECT_DIR$/GameSwap/vendor/laravel/scout" />
+      <path value="$PROJECT_DIR$/GameSwap/vendor/yaza/laravel-google-drive-storage" />
+      <path value="$PROJECT_DIR$/GameSwap/vendor/masbug/flysystem-google-drive-ext" />
+      <path value="$PROJECT_DIR$/GameSwap/vendor/spatie/laravel-package-tools" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="8.2" />

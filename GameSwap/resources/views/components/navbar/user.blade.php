@@ -63,9 +63,12 @@
         </a>
 
     </div>
+    <!-- Notificação reativa com Alpine.js -->
+
 </div>
 
 @push('scripts')
+    <script src="//unpkg.com/alpinejs" defer></script>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             const searchInput = document.getElementById('search-input');

@@ -31,7 +31,7 @@ class MoradaController extends Controller
 
         $morada->update($validated);
 
-        return redirect()->route('perfil.moradas');
+        return redirect()->route('perfil.moradas')->with('success', 'Morada atualizada com sucesso');
     }
 
     public function editarForm($id)

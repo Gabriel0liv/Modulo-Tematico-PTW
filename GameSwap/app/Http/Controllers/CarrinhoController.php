@@ -51,7 +51,7 @@ class CarrinhoController extends Controller
 
         session()->put('carrinho', $carrinho);
 
-        return redirect()->route('carrinho.index')->with('success', 'Produto adicionado ao carrinho!');
+        return redirect()->route('carrinho.index');
     }
 
     public function index()
@@ -71,11 +71,15 @@ class CarrinhoController extends Controller
     {
         $carrinho = session()->get('carrinho', []);
 
-        if (isset($carrinho[$id])) {
-            unset($carrinho[$id]);
-            session()->put('carrinho', $carrinho);
+        // Tenta encontrar o item no carrinho, independente do tipo
+        foreach ($carrinho as $key => $item) {
+            if ($key === $id || $item['id'] == $id) {
+                unset($carrinho[$key]);
+                session()->put('carrinho', $carrinho);
+                break;
+            }
         }
 
-        return redirect()->route('carrinho.index')->with('success', 'Produto removido do carrinho!');
+        return redirect()->route('carrinho.index')->with('success', 'Item removido do carrinho.');
     }
 }

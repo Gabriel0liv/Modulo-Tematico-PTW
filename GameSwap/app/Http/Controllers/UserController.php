@@ -50,7 +50,7 @@ class UserController
 
         $user->delete();
 
-        return redirect()->route('pagina_inicial');
+        return redirect()->route('pagina_inicial')->with('success', 'Conta removida com sucesso');
     }
 
     public function adicionarMorada(Request $request)

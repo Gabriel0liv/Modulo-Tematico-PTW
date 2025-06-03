@@ -1,0 +1,22 @@
+<component name="InspectionProjectProfileManager">
+  <profile version="1.0">
+    <option name="myName" value="Project Default" />
+    <inspection_tool class="HtmlUnknownAttribute" enabled="true" level="WARNING" enabled_by_default="true">
+      <option name="myValues">
+        <value>
+          <list size="8">
+            <item index="0" class="java.lang.String" itemvalue="x-data" />
+            <item index="1" class="java.lang.String" itemvalue="x-show" />
+            <item index="2" class="java.lang.String" itemvalue="x-init" />
+            <item index="3" class="java.lang.String" itemvalue="x-text" />
+            <item index="4" class="java.lang.String" itemvalue="x-transition" />
+            <item index="5" class="java.lang.String" itemvalue=":class" />
+            <item index="6" class="java.lang.String" itemvalue="@ocultar-notificacao.window" />
+            <item index="7" class="java.lang.String" itemvalue="@mostrar-notificacao.window" />
+          </list>
+        </value>
+      </option>
+      <option name="myCustomValuesEnabled" value="true" />
+    </inspection_tool>
+  </profile>
+</component>

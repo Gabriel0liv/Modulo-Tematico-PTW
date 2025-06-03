@@ -58,7 +58,7 @@ class DenunciasController extends Controller
         ]);
 
         return redirect()->route('pagina_inicial')
-            ->with('success', 'Sua denúncia foi enviada com sucesso.');
+            ->with('success', "Denúncia contra @{$denunciado->username} enviada com sucesso. Nossa equipe irá analisá-la em breve.");
 
     }
 

@@ -1,11 +1,12 @@
 <?php
 
+use App\Helpers\GoogleDriveHelper;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CarrinhoController;
 use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\CheckoutController;
-use App\Http\Controllers\DenunciasController;
 use App\Http\Controllers\ConsoleController;
+use App\Http\Controllers\DenunciasController;
 use App\Http\Controllers\ImagemProxyController;
 use App\Http\Controllers\MoradaController;
 use App\Http\Controllers\StripeController;
@@ -14,85 +15,9 @@ use App\Http\Controllers\jogoController;
 use App\Http\Controllers\ProdutoController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-use App\Helpers\GoogleDriveHelper;
 
 
-Route::get('/',function(){
-    // Consoles moderados SEM destaque
-
-    $consolesModerados = \App\Models\Console::where('moderado', true)
-
-        ->where(function ($q) {
-            $q->where('destaque', false)->orWhereNull('destaque');
-        })
-
-        ->with('imagens')
-        ->inRandomOrder()
-        ->limit(6)
-        ->get()
-        ->map(function ($console) {
-            $console->imagem_capa = $console->imagens->first()
-                ? GoogleDriveHelper::transformGoogleDriveUrl($console->imagens->first()->path)
-                : '/placeholder.svg';
-
-            return $console;
-        });
-
-    // Jogos moderados SEM destaque
-    $jogosModerados = \App\Models\Jogo::where('moderado', true)
-        ->where(function ($q) {
-            $q->where('destaque', false)->orWhereNull('destaque');
-        })
-
-        ->with('imagens')
-        ->inRandomOrder()
-        ->limit(6)
-        ->get()
-        ->map(function ($jogo) {
-            $jogo->imagem_capa = $jogo->imagens->first()
-                ? GoogleDriveHelper::transformGoogleDriveUrl($jogo->imagens->first()->caminho)
-                : '/placeholder.svg';
-            return $jogo;
-        });
-
-    // Consoles em destaque
-    $consolesDestaque = \App\Models\Console::where('moderado', true)
-
-        ->where('destaque', true)
-        ->with('imagens')
-        ->orderBy('created_at', 'desc')
-        ->limit(6)
-        ->get()
-        ->map(function ($console) {
-            $console->imagem_capa = $console->imagens->first()
-                ? GoogleDriveHelper::transformGoogleDriveUrl($console->imagens->first()->path)
-                : '/placeholder.svg';
-            return $console;
-        });
-
-
-    // Jogos em destaque
-    $jogos = \App\Models\Jogo::where('moderado', true)
-        ->where('destaque', true)
-        ->with('imagens')
-        ->inRandomOrder()
-        ->limit(6)
-        ->get()
-        ->map(function ($jogo) {
-            $jogo->imagem_capa = $jogo->imagens->first()
-                ? GoogleDriveHelper::transformGoogleDriveUrl($jogo->imagens->first()->caminho)
-                : '/placeholder.svg';
-            return $jogo;
-        });
-
-
-    return view('compras',
-        compact('consolesDestaque', 'consolesModerados', 'jogos', 'jogosModerados')
-    );
-})->name('pagina_inicial');
-
-
-Route::get('/imagem-proxy/{id}', [ImagemProxyController::class, 'exibir']);
+Route::get('/', [ProdutoController::class, 'paginaInicial'])->name('pagina_inicial');
 
 // Rotas de Layout
 Route::get('/components/layout', function () {
@@ -133,10 +58,14 @@ Route::post('/reset-password', [AuthController::class, 'resetPassword'])->name('
 Route::post('paginas/editarPerfil', [UserController::class, 'atualizarInformacoes'])->name('user.atualizar');
 Route::post('paginas/cancelarConta', [UserController::class, 'deletarConta'])->name('user.deletar');
 Route::post('paginas/adicionarMorada', [UserController::class, 'adicionarMorada'])->name('moradas.adicionar');
-Route::get('/perfil/moradas', [UserController::class, 'mostrarMoradas'])->name('perfil.moradas');
+Route::get('paginas/perfil/moradas', [UserController::class, 'mostrarMoradas'])->name('perfil.moradas');
 Route::get('/paginas/adicionarMorada', [MoradaController::class, 'index'])->name('moradas.adicionar.form');
+Route::get('/forgot-password', [AuthController::class, 'showForgotPasswordForm'])->name('password.request');
+Route::post('/forgot-password', [AuthController::class, 'sendResetLinkEmail'])->name('password.email');
 
-Route::get('/perfil/meus_anuncios', [UserController::class, 'mostrarAnuncios'])->name('perfil-Anuncios');
+Route::get('/reset-password/{token}', [AuthController::class, 'showResetForm'])->name('password.reset');
+Route::post('/reset-password', [AuthController::class, 'resetPassword'])->name('password.update');
+Route::get('perfil/meus_anuncios', [UserController::class, 'mostrarAnuncios'])->name('perfil-Anuncios');
 
 Route::get('/perfil/moradas/{id}/editar', [MoradaController::class, 'editarForm'])->name('moradas.editar.form');
 Route::post('/perfil/moradas/{id}/editar', [MoradaController::class, 'editarMorada'])->name('moradas.editar');
@@ -161,6 +90,19 @@ Route::get('paginas/cancelarConta',function (){
     return view('paginas.cancelarConta');
 })->name('cancelarConta');
 
+Route::get('/imagem-proxy/{id}', [ImagemProxyController::class, 'exibir']);
+
+Route::post('/produto/{id}/destaque', [ProdutoController::class, 'destacar'])->name('produto.destaque');
+
+// Rota visitar perfilAdd commentMore actions
+Route::get('/perfil/{username}', [UserController::class, 'mostrarPerfilVisita'])->name('perfil.visitar');
+
+// Rotas de ticket de denuncia
+Route::get('/denunciar/{id}', [DenunciasController::class, 'denunciarUsuario'])->name('denuncias.criar');
+
+Route::post('/denunciar', [DenunciasController::class, 'store'])->name('denuncias.store');
+
+Route::get("/perfilAdmin/denuncias", [DenunciasController::class, 'resolverDenuncias']);
 
 // Rota visitar perfil
 Route::get('/perfil/{username}', [UserController::class, 'mostrarPerfilVisita'])->name('perfil.visitar');
@@ -188,6 +130,8 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/finalizar-compra', [CheckoutController::class, 'finalizarCompra'])->name('checkout.finalizar');
 });
 
+
+
 // Rotas de mensagens e anúncios
 Route::get("/paginas/chat",function(){
     return view('paginas.chat');
@@ -206,15 +150,17 @@ Route::get("/perfil",function(){
     return view('paginas.perfil.perfil');
 })->name('perfilPage');
 
-Route::get("/perfil/cartões", [StripeController::class, 'listarCartoes'])->name('perfilCartoes');
+Route::get("paginas/perfil/cartões", [StripeController::class, 'listarCartoes'])->name('perfilCartoes');
 
-Route::get("/perfil/favoritos",function(){
+Route::get("paginas/perfil/favoritos",function(){
     return view('paginas.perfil.perfilfavoritos');
 })->name('perfil-Favoritos');
 
-Route::get("/perfil/minhas_compras",function(){
-    return view('paginas.perfil.perfilminhascompras');
-})->name('perfil-Compras');
+Route::get("paginas/perfil/minhas_compras",[UserController::class, 'listarCompras'])->name('perfil-Compras');
+
+
+
+
 
 // Rotas de perfil administrativo
 Route::get("/perfilAdmin",function(){

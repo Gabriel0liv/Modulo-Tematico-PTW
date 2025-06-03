@@ -75,7 +75,7 @@ class JogoController extends Controller
             return redirect()->route('pagina_inicial')->with('success', 'Jogo anunciado com sucesso!');
         } catch (\Throwable $e) {
             Log::error('Erro ao cadastrar o jogo.', ['exception' => $e->getMessage()]);
-            return back()->withErrors(['erro' => 'Ocorreu um erro ao cadastrar o jogo.']);
+            return back()->withErrors(['error' => 'Ocorreu um erro ao cadastrar o jogo.']);
         }
     }
 

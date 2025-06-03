@@ -41,7 +41,7 @@ class CategoriaController
         // Guarda a nova categoria na base de dados
         $categoria->save();
 
-        return redirect()->back();
+        return redirect()->back()->with('success', 'Categoria criada com sucesso');
     }
 
     public function editarCategoria(Request $request, $id)
@@ -64,7 +64,7 @@ class CategoriaController
             return redirect()->back()->with('error', 'O nome da categoria não pode estar vazio.');
         }
 
-        return redirect()->back();
+        return redirect()->back()->with('success', 'Categoria atualizada com sucesso.');
     }
 
     public function eliminarCategoria($id)
@@ -75,6 +75,6 @@ class CategoriaController
         // Remove a categoria da base de dados
         $categoria->delete();
 
-        return redirect()->back();
+        return redirect()->back()-with('success', 'Categoria eliminada com sucesso');
     }
 }
