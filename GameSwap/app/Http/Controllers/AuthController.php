@@ -66,6 +66,13 @@ class AuthController extends Controller
             $request->session()->regenerate();
 
             $user = Auth::user();
+            if ($user->estado !== 'ativo') {
+                Auth::logout();
+                $mensagem = $user->estado === 'banido'
+                    ? 'Sua conta está banida.'
+                    : 'Sua conta está suspensa.';
+                return back()->with('error', $mensagem)->withInput();
+            }
             if ($user->tipo === 'admin') {
                 return redirect()->route('perfilAdmin');
             }
