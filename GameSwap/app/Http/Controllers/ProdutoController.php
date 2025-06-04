@@ -86,23 +86,23 @@ class ProdutoController extends Controller
         return view('produto', compact('produto', 'imagens', 'outrasPublicacoes', 'produtosRelacionados'));
     }
 
-    public function destacar($id, Request $request)
+    public function destacar($tipo, $id)
     {
-
-        // Verificar o tipo do produto (jogo ou console)
-        if ($request->input('tipo_produto') === 'jogo') {
-            $produto = \App\Models\Jogo::findOrFail($id);
-        } else {
-            $produto = \App\Models\Console::findOrFail($id);
+        if (!in_array($tipo, ['jogo', 'console'])) {
+            abort(404);
         }
 
-        // Atualizar o campo destaque para true
-        $produto->destaque = true;
-        $produto->save();
+        session([
+            'tipo_checkout' => 'destacar',
+            'valor_checkout' => 4.90,
+            'produto_id' => $id,
+            'tipo_produto' => $tipo,
+        ]);
 
-        return redirect()->back()->with('success', 'Produto destacado com sucesso!');
-
+        return redirect()->route('checkout.index');
     }
+
+
 
     public function aprovarAnuncios(Request $request)
     {

@@ -18,6 +18,7 @@ use Illuminate\Support\Facades\DB;
 use Stripe\Checkout\Session;
 use Stripe\PaymentIntent;
 use Stripe\Stripe;
+use Stripe\Checkout\Session as StripeSession;
 
 class CheckoutController extends Controller
 {
@@ -201,51 +202,100 @@ class CheckoutController extends Controller
         }
     }
 
-    public function checkoutDestaque($tipo, $id)
+    public function checkoutDestaque()
     {
-        Stripe::setApiKey(config('services.stripe.secret'));
+        Stripe::setApiKey(env('STRIPE_SECRET'));
 
-        $nomeItem = ucfirst($tipo) . " em destaque";
+        $user = auth()->user();
+        $item = session('carrinho_destaque');
 
-        $session = Session::create([
-            'payment_method_types' => ['card'],
-            'line_items' => [[
-                'price_data' => [
-                    'currency' => 'brl',
-                    'product_data' => [
-                        'name' => $nomeItem,
-                    ],
-                    'unit_amount' => 500, // R$5,00
-                ],
-                'quantity' => 1,
-            ]],
-            'mode' => 'payment',
-            'success_url' => route('checkout.destaque.sucesso', ['tipo' => $tipo, 'id' => $id]),
-            'cancel_url' => url()->previous(),
-        ]);
-
-        return redirect($session->url);
-    }
-
-    public function destaqueSucesso(Request $request)
-    {
-        $tipo = $request->tipo;
-        $id = $request->id;
-
-        if ($tipo === 'jogo') {
-            $item = Jogo::findOrFail($id);
-            $rota = route('jogos.show', $id); // ajuste conforme a rota real
-        } elseif ($tipo === 'console') {
-            $item = Console::findOrFail($id);
-            $rota = route('consoles.show', $id); // ajuste conforme a rota real
-        } else {
-            abort(404);
+        if (!$item) {
+            return redirect()->route('home')->with('error', 'Nada para destacar.');
         }
 
-        $item->destaque = true;
-        $item->destaque_expira_em = Carbon::now()->addDays(30);
-        $item->save();
+        $cartoesSalvos = $user->paymentMethods;
+        $cartoesDetalhados = [];
 
-        return redirect($rota)->with('success', 'Este anúncio agora está em destaque por 30 dias!');
+        foreach ($cartoesSalvos as $cartao) {
+            $stripeCard = \Stripe\PaymentMethod::retrieve($cartao->stripe_payment_method_id);
+
+            $cartoesDetalhados[] = (object) [
+                'id' => $cartao->id,
+                'brand' => $stripeCard->card->brand,
+                'last4' => $stripeCard->card->last4,
+                'exp_month' => $stripeCard->card->exp_month,
+                'exp_year' => $stripeCard->card->exp_year,
+                'nome_cartao' => $cartao->nome_cartao,
+                'is_default' => $cartao->is_default,
+            ];
+        }
+
+        return view('paginas.checkoutDestaque', [
+            'cartoes' => $cartoesDetalhados,
+            'item' => $item,
+        ]);
+    }
+
+    public function finalizarPagamentoDestaque(Request $request)
+    {
+        Log::debug('>>> Entrou em finalizarPagamentoDestaque');
+        Log::debug('cartao_id:', [$request->cartao_id]);
+        Log::debug('item:', [session('carrinho_destaque')]);
+
+        $request->validate([
+            'cartao_id' => 'required|exists:payment_methods,id',
+        ]);
+
+        $user = auth()->user();
+        $item = session()->get('carrinho_destaque');
+
+        if (!$item) {
+            return redirect()->back()->withErrors(['item' => 'Nenhum item encontrado para destacar.']);
+        }
+
+        $valor = 4.90;
+        $cartao = PaymentMethod::where('id', $request->cartao_id)
+            ->where('user_id', $user->id)
+            ->firstOrFail();
+
+        Stripe::setApiKey(env('STRIPE_SECRET'));
+
+        try {
+            $intent = PaymentIntent::create([
+                'amount' => intval($valor * 100),
+                'currency' => 'eur',
+                'customer' => $user->stripe_customer_id,
+                'payment_method' => $cartao->stripe_payment_method_id,
+                'off_session' => true,
+                'confirm' => true,
+            ]);
+        } catch (\Exception $e) {
+            Log::error('Erro Stripe: ' . $e->getMessage());
+            return redirect()->back()->withErrors(['stripe' => 'Erro no pagamento: ' . $e->getMessage()]);
+        }
+
+        try {
+            $tipo = $item['referencia'];
+            $id = $item['id'];
+            $dataFinal = now()->addDays(30);
+
+            if ($tipo === 'jogo') {
+                Jogo::where('id', $id)->update([
+                    'destaque' => true,
+                    'destacado_ate' => $dataFinal,
+                ]);
+            } elseif ($tipo === 'console') {
+                Console::where('id', $id)->update([
+                    'destaque' => true,
+                    'destacado_ate' => $dataFinal,
+                ]);
+            }
+
+            session()->forget('carrinho_destaque');
+
+            return redirect()->route('checkout.sucesso')->with('success', 'Anúncio destacado por 30 dias com sucesso!');
+        } catch (\Exception $e) {
+            return redirect()->back()->withErrors(['erro' => 'Erro ao processar destaque: ' . $e->getMessage()]);
+        }
     }
 }

@@ -103,9 +103,9 @@
         </p>
         <div class="mt-4 md:mt-0">
           <ul class="flex space-x-6 justify-center">
-            <li><a href="#" class="text-sm text-blue-100 hover:text-white">Termos de Uso</a></li>
-            <li><a href="#" class="text-sm text-blue-100 hover:text-white">Política de Privacidade</a></li>
-            <li><a href="#" class="text-sm text-blue-100 hover:text-white">Ajuda</a></li>
+            <li><a href="{{route('termos')}}" class="text-sm text-blue-100 hover:text-white">Termos de Uso</a></li>
+            <li><a href="{{route('privacidade')}}" class="text-sm text-blue-100 hover:text-white">Política de Privacidade</a></li>
+            <li><a href="{{route('ajuda')}}" class="text-sm text-blue-100 hover:text-white">Ajuda</a></li>
           </ul>
         </div>
       </div>

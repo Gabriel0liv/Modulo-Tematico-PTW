@@ -35,7 +35,20 @@ Route::post('/console/store', [ConsoleController::class, 'store'])->name('consol
 Route::get('/produto/{tipo_produto}/{id}', [ProdutoController::class, 'show'])->name('produto.show');
 Route::get('/pesquisa', [ProdutoController::class, 'search'])->name('pesquisaPage');
 Route::get('/api/search-suggestions', [ProdutoController::class, 'searchSuggestions']);
-Route::post('/produto/{id}/destaque', [ProdutoController::class, 'destacar'])->name('produto.destaque');
+Route::post('/destaque/adicionar', [CarrinhoController::class, 'adicionarDestaque'])->name('destaque.adicionar');
+Route::get('paginas/carrinhoDestaque', [CarrinhoController::class, 'verCarrinhoDestaque'])->name('carrinho.destaque');
+Route::get('/checkout/destaque', [CheckoutController::class, 'checkoutDestaque'])->name('checkout.destaque');
+Route::post('/checkout/destaque/finalizar', [CheckoutController::class, 'finalizarPagamentoDestaque'])->name('checkout.finalizarDestaque');
+
+Route::get('paginas/termos', function () {
+    return view('paginas.termos');
+})->name('termos');
+Route::get('paginas/privacidade', function () {
+    return view('paginas.privacidade');
+})->name('privacidade');
+Route::get('paginas/ajuda', function () {
+    return view('paginas.ajuda');
+})->name('ajuda');
 
 // rotas para o controller de autenticação
 Route::post('paginas/auth/registoPage',[AuthController::class,'criarRegisto'])->name('criarRegisto');
@@ -151,10 +164,6 @@ Route::get("/perfil",function(){
 })->name('perfilPage');
 
 Route::get("paginas/perfil/cartões", [StripeController::class, 'listarCartoes'])->name('perfilCartoes');
-
-Route::get("paginas/perfil/favoritos",function(){
-    return view('paginas.perfil.perfilfavoritos');
-})->name('perfil-Favoritos');
 
 Route::get("paginas/perfil/minhas_compras",[UserController::class, 'listarCompras'])->name('perfil-Compras');
 
