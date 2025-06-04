@@ -113,6 +113,7 @@ class UserController
         return view('paginas.perfil.perfilmeusanuncios', compact('anuncios'));
     }
 
+
     public function mostrarPerfilVisita($id)
     {
         $user = User::findOrFail($id);

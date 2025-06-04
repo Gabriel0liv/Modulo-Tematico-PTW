@@ -102,6 +102,32 @@ class CarrinhoController extends Controller
     }
 
 
+    public function adicionarDestaque(Request $request)
+    {
+        $tipo = $request->input('tipo');
+        $id = $request->input('id');
+
+        $produto = [
+            'id' => $id,
+            'nome' => "Destaque de " . ucfirst($tipo),
+            'preco' => 4.90,
+            'quantidade' => 1,
+            'tipo' => 'destaque',
+            'referencia' => $tipo,
+        ];
+
+        session()->put('carrinho_destaque', $produto);
+
+        return redirect()->route('carrinho.destaque');
+    }
+
+    public function verCarrinhoDestaque()
+    {
+        $item = session('carrinho_destaque');
+        return view('paginas.carrinhoDestaque', compact('item'));
+    }
+
+
     public function remover($id)
     {
         $carrinho = session()->get('carrinho', []);

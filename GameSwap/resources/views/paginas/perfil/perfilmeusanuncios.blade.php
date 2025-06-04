@@ -86,12 +86,11 @@
                                                         Destacado
                                                     </span>
                                                 @else
-                                                    <form action="{{ route('produto.destaque', $anuncio->id) }}" method="POST">
+                                                    <form action="{{ route('destaque.adicionar') }}" method="POST">
                                                         @csrf
-                                                        <button type="submit"
-                                                                class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-xs font-medium border border-blue-500 text-blue-500 hover:bg-blue-500 hover:text-white h-8 rounded-md px-3">
-                                                            Destacar
-                                                        </button>
+                                                        <input type="hidden" name="id" value="{{ $anuncio->id }}">
+                                                        <input type="hidden" name="tipo" value="{{ $anuncio instanceof \App\Models\Jogo ? 'jogo' : 'console' }}">
+                                                        <button type="submit" class="btn btn-warning">Destacar Anúncio</button>
                                                     </form>
                                                 @endif
 
