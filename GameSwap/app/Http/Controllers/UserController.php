@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Helpers\GoogleDriveHelper;
 use App\Models\Compra;
 use App\Models\Console;
+use App\Models\Denuncias;
 use App\Models\Jogo;
 use App\Models\Morada;
 use App\Models\User;
@@ -141,6 +142,24 @@ class UserController
         $anuncios = $jogos->merge($consoles);
 
         return view('paginas.visitaPerfil', compact('user', 'anuncios'));
+    }
+
+    public function listarUtilizadores()
+    {
+        $users = User::all();
+
+        return view('paginas.perfilAdmin.listaUtilizadores', compact('users'));
+    }
+
+    public function exibirUtilizador($id)
+    {
+        $user = User::findOrFail($id);
+        $denuncias = Denuncias::where('id_denunciado', $id)->get();
+        $jogos = Jogo::where('id_anunciante', $user->id)->get();
+        $consoles = Console::where('id_anunciante', $user->id)->get();
+        $produtos = $jogos->merge($consoles);
+
+        return view('paginas.perfilAdmin.detalhesUtilizador', compact('denuncias', 'user', 'produtos'));
     }
 
     public function listarCompras()

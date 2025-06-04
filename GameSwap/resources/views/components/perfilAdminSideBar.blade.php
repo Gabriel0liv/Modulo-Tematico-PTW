@@ -17,10 +17,10 @@
                     </a>
                 </li>
                 <li>
-                    <a href="/perfilAdmin/estatisticas" class="flex items-center gap-4 px-3 py-2 rounded-md transition-all
-        {{ request()->is('perfilAdmin/estatisticas') ? 'bg-gray-200 text-primary font-semibold' : 'text-sidebar-foreground hover:bg-gray-100 hover:text-blue-600' }}">
+                    <a href="/perfilAdmin/utilizadores" class="flex items-center gap-4 px-3 py-2 rounded-md transition-all
+        {{ request()->is('perfilAdmin/utilizadores') ? 'bg-gray-200 text-primary font-semibold' : 'text-sidebar-foreground hover:bg-gray-100 hover:text-blue-600' }}">
                         <i class="bi bi-bar-chart-line text-xl"></i>
-                        <span>Estatísticas do Site</span>
+                        <span>Listagem Utilizadores</span>
                     </a>
                 </li>
                 <li>

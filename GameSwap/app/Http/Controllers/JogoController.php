@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Imagem;
+use App\Models\ModeloConsole;
 use Illuminate\Http\Request;
 use App\Models\jogo;
 use Illuminate\Support\Facades\Log;
@@ -43,7 +44,7 @@ class JogoController extends Controller
                 'estado' => $validatedData['estado'],
                 'tipo_produto' => $request->input('tipo_produto', 'jogo'),
                 'id_anunciante' => auth()->id(),
-                'console' => $request->input('console'),
+                'console_id' => $request->input('console_id'),
                 'destaque' => $request->boolean('destaque'),
             ]);
 

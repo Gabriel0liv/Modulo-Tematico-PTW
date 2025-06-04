@@ -15,7 +15,7 @@
                  stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
             </svg>
-            <a href="#" class="hover:text-[#0a66c2] hover:underline">{{$produto->console}}</a>
+            <a href="#" class="hover:text-[#0a66c2] hover:underline">{{$produto->modelo_console->nome}}</a>
             <svg class="h-3 w-3 mx-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                  stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
@@ -122,7 +122,7 @@
                             <span class="text-sm text-gray-500">(32 avaliações)</span>
                         </div>
                         <h1 class="text-3xl font-bold text-gray-900">{{$produto->nome}}</h1>
-                        <p class="text-gray-500 mt-1">{{$produto->console}}</p>
+                        <p class="text-gray-500 mt-1">{{$produto->console_id}}</p>
                     </div>
 
                     <div class="flex items-end gap-3">
@@ -214,7 +214,7 @@
                         <div class="bg-white rounded-lg p-4 space-y-3">
                             <div class="grid grid-cols-2 gap-2 text-sm">
                                 <div class="text-gray-500">Plataforma</div>
-                                <div class="font-medium">{{$produto->console}}</div>
+                                <div class="font-medium">{{$produto->console_id}}</div>
 
                                 <div class="text-gray-500">Gênero</div>
                                 <div class="font-medium">Ação, Aventura</div>

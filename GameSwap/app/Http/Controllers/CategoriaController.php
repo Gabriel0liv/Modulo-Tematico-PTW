@@ -8,21 +8,8 @@ use App\Models\Categoria;
 
 class CategoriaController
 {
-    public function edicao()
-    {
-        $categorias = Categoria::all();
-        return view('paginas.perfilAdmin.Edicao', ['categorias' => $categorias]);
-    }
 
-    public function anunciar()
-    {
-        $categorias = Categoria::all();
 
-        $jogo = new \App\Models\jogo();
-        $console = new \App\Models\Console();
-
-        return view('paginas.anunciar', ['categorias' => $categorias, 'jogo' => $jogo, 'console' => $console]);
-    }
     public function adicionarCategoria(){
         $baseNome = "novaCategoria";
         $nome = $baseNome;

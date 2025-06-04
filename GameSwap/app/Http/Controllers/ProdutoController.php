@@ -3,13 +3,24 @@
 namespace App\Http\Controllers;
 
 use App\Helpers\GoogleDriveHelper;
+use App\Models\Categoria;
 use App\Models\Console;
 use App\Models\jogo;
+use App\Models\ModeloConsole;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class ProdutoController extends Controller
 {
+    public function anunciar()
+    {
+        $categorias = Categoria::all();
+        $modelo_consoles = ModeloConsole::all();
+        $jogo = new jogo();
+        $console = new Console();
+
+        return view('paginas.anunciar', ['categorias' => $categorias, 'jogo' => $jogo, 'console' => $console, 'modelo_consoles' => $modelo_consoles]);
+    }
     public function show($tipo_produto, $id) {
         if ($tipo_produto === 'console') {
             $produto = Console::with(['imagens', 'anunciante'])->findOrFail($id);
@@ -22,7 +33,7 @@ class ProdutoController extends Controller
             });
 
             // Produtos relacionados (consoles)
-            $produtosRelacionados = Console::where('tipo_console', $produto->tipo_console)
+            $produtosRelacionados = Console::where('modelo_console_id', $produto->modelo_console_id)
                 ->where('id', '!=', $produto->id)
                 ->with('imagens')
                 ->inRandomOrder()
@@ -149,6 +160,10 @@ class ProdutoController extends Controller
     public function search(Request $request)
     {
         $query = $request->input('query');
+        $generos = $request->input('generos', []);
+        $consolesFiltro = $request->input('consoles', []);
+        $modelo_consoles = ModeloConsole::all();
+        $categorias = Categoria::all();
 
         // Busca paginada de Jogos
         $jogosPaginated = Jogo::search($query)->paginate(10);
@@ -182,7 +197,9 @@ class ProdutoController extends Controller
         return view('paginas.pesquisa', [
             'jogos' => $jogosPaginated,
             'consoles' => $consolesPaginated,
-            'query' => $query
+            'query' => $query,
+            'modelo_consoles' => $modelo_consoles,
+            'categorias' => $categorias
         ]);
     }
 

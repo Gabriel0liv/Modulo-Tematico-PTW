@@ -152,17 +152,9 @@
                 <label for="console-type" class="block text-text font-medium mb-2">Tipo de Console</label>
                 <select id="console-type" name="console"
                         class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary">
-                    <option value="" disabled selected>Selecione um console</option>
-                    <option value="ps5">PlayStation 5</option>
-                    <option value="ps4">PlayStation 4</option>
-                    <option value="ps3">PlayStation 3</option>
-                    <option value="xbox-series">Xbox Series X/S</option>
-                    <option value="xbox-one">Xbox One</option>
-                    <option value="xbox-360">Xbox 360</option>
-                    <option value="switch">Nintendo Switch</option>
-                    <option value="wii">Nintendo Wii/Wii U</option>
-                    <option value="pc">PC</option>
-                    <option value="outro">Outro</option>
+                    @foreach($modelo_consoles as $modelo_console)
+                        <option value="{{ $modelo_console->id }}">{{ $modelo_console->nome }}</option>
+                    @endforeach
                 </select>
             </div>
 

@@ -16,7 +16,7 @@ class Console extends Model
     {
         return [
             'nome' => $this->nome,
-            'tipo_console' => $this->tipo_console,
+            'modelo_console_nome' => $this->modelo_console->nome,
         ];
     }
 
@@ -30,6 +30,11 @@ class Console extends Model
         return $this->belongsTo(User::class, 'id_comprador');
     }
 
+    public function modelo_console()
+    {
+        return $this->belongsTo(ModeloConsole::class, 'modelo_console_id');
+    }
+
     public function show($id)
     {
         $console = \App\Models\Console::with('imagens')->findOrFail($id);
@@ -40,7 +45,7 @@ class Console extends Model
     protected $fillable = [
         'nome',
         'tipo_produto',
-        'tipo_console',
+        'modelo_console_id',
         'preco',
         'id_anunciante',
         'id_comprador',

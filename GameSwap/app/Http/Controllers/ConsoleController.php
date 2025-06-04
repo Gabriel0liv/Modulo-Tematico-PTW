@@ -17,7 +17,7 @@ class ConsoleController extends Controller
 
             $validatedData = $request->validate([
                 'nome' => 'required|string|max:255',
-                'tipo_console' => 'required|string',
+                'modelo_console_id' => 'required|numeric',
                 'preco' => 'required|numeric|min:0',
                 'estado' => 'required|in:novo,usado,recondicionado',
                 'descricao' => 'required|string|max:1000',
@@ -30,7 +30,7 @@ class ConsoleController extends Controller
             $console = Console::create([
                 'nome' => $validatedData['nome'],
                 'tipo_produto' => 'console',
-                'tipo_console' => $validatedData['tipo_console'],
+                'modelo_console_id' => $validatedData['modelo_console_id'],
                 'preco' => $validatedData['preco'],
                 'id_anunciante' => auth()->id(),
                 'moderado' => false,

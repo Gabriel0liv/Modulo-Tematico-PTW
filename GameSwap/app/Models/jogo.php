@@ -14,8 +14,8 @@ class jogo extends Model
     {
         return [
             'nome' => $this->nome,
-            'id_categoria' => $this->id_categoria, // Gênero do jogo
-            'console' => $this->console,
+            'console_nome' => $this->console_id, // Modelo de console
+            'categoria_nome' => $this->categoria->nome,
         ];
     }
 
@@ -23,6 +23,17 @@ class jogo extends Model
     {
         return $this->belongsTo(User::class, 'id_anunciante');
     }
+
+    public function categoria()
+    {
+        return $this->belongsTo(Categoria::class, 'id_categoria');
+    }
+
+    public function modelo_console()
+    {
+        return $this->belongsTo(ModeloConsole::class, 'console_id');
+    }
+
     protected $fillable = [
         'nome',
         'descricao',
@@ -37,7 +48,7 @@ class jogo extends Model
         'classificacao',
         'regiao',
         'tipo_produto',
-        'console',
+        'console_id',
         'morada',
         'destaque',
     ];

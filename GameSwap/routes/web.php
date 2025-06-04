@@ -1,6 +1,7 @@
 <?php
 
 use App\Helpers\GoogleDriveHelper;
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CarrinhoController;
 use App\Http\Controllers\CategoriaController;
@@ -8,6 +9,7 @@ use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\ConsoleController;
 use App\Http\Controllers\DenunciasController;
 use App\Http\Controllers\ImagemProxyController;
+use App\Http\Controllers\ModeloConsoleController;
 use App\Http\Controllers\MoradaController;
 use App\Http\Controllers\StripeController;
 use App\Http\Controllers\UserController;
@@ -154,7 +156,7 @@ Route::get("/paginas/anunciar", function(){
     return view('paginas.anunciar');
 })->name('anunciarPage');
 
-Route::get("/paginas/anunciar", [CategoriaController::class, 'anunciar'])->name('anunciarPage');
+Route::get("/paginas/anunciar", [ProdutoController::class, 'anunciar'])->name('anunciarPage');
 
 
 
@@ -176,9 +178,8 @@ Route::get("/perfilAdmin",function(){
     return view('paginas.perfilAdmin.perfilA');
 })->name('perfilAdmin');
 
-Route::get("/perfilAdmin/estatisticas",function(){
-    return view('paginas.perfilAdmin.estatisticas');
-});
+Route::get("/perfilAdmin/utilizadores", [UserController::class, 'listarUtilizadores'])->name('perfilAdmin.utilizadores');
+Route::get("/perfilAdmin/utilizadores/{id}", [UserController::class, 'exibirUtilizador'])->name('perfilAdmin.utilizador.exibir');
 
 Route::get("/perfilAdmin/denuncias",function(){
     return view('paginas.perfilAdmin.denuncias');
@@ -187,16 +188,20 @@ Route::get("/perfilAdmin/denuncias",function(){
 Route::get("/perfilAdmin/aprovar", [ProdutoController::class, 'aprovarAnuncios']);
 Route::post("/perfilAdmin/aprovar/{id}", [ProdutoController::class, 'aprovar'])->name('produto.aprovar');
 Route::post("/perfilAdmin/reprovar/{id}", [ProdutoController::class, 'reprovar'])->name('produto.reprovar');
-
+Route::get("/perfilAdmin/Edicao", [AdminController::class, 'edicao'])->name('editar');;
 
 
 // Rotas de categorias
-Route::get("/perfilAdmin/Edicao", [CategoriaController::class, 'edicao'])->name('categoria.editar');;
+
 Route::post("/perfilAdmin/Edicao", [CategoriaController::class, 'adicionarCategoria'])->name('categoria.adicionar');
 Route::post("/perfilAdmin/Edicao/{id}", [CategoriaController::class, 'editarCategoria'])->name('categoria.editarCategoria');
 Route::post("/perfilAdmin/Edicao/{id}/eliminar", [CategoriaController::class, 'eliminarCategoria'])->name('categoria.eliminarCategoria');
 
-
+// Rodas Modelo de Consoles
+Route::get('/perfilAdmin/modelos-consoles', [ModeloConsoleController::class, 'edicao'])->name('modelo_consoles.editar');
+Route::post('/perfilAdmin/modelos-consoles', [ModeloConsoleController::class, 'adicionarModeloConsoles'])->name('modelo_consoles.adicionar');
+Route::post('/perfilAdmin/modelos-consoles/{id}', [ModeloConsoleController::class, 'editarModeloConsoles'])->name('modelo_consoles.editarModelo');
+Route::post('/perfilAdmin/modelos-consoles/{id}/eliminar', [ModeloConsoleController::class, 'eliminarModeloConsoles'])->name('modelo_consoles.eliminarModelo');
 
 // Rotas de carrinho e pesquisa
 Route::get("/carrinho",function(){
