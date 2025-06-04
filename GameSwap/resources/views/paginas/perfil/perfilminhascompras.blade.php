@@ -27,12 +27,12 @@
                     <div class="rounded-lg border bg-card text-card-foreground shadow-card overflow-hidden">
                         <div class="flex items-center p-4 md:p-6">
                             <div class="relative h-20 w-20 flex-shrink-0 rounded-md overflow-hidden bg-gray-100">
-                                <img src="{{ $item->produto()?->imagem ?? '/images/placeholder.jpg' }}" class="w-full h-full object-cover">
+                                <img src="{{ $item->imagem }}" class="w-full h-full object-cover" alt="{{ $item->nome }}">
                             </div>
                             <div class="ml-6 flex-1">
                                 <div class="flex flex-col md:flex-row md:items-center md:justify-between">
                                     <div>
-                                        <h3 class="font-medium text-gray-900">{{ $item->produto()?->nome ?? 'Produto não encontrado' }}</h3>
+                                        <h3 class="font-medium text-gray-900">{{ $item->nome }}</h3>
                                         <p class="mt-1 text-sm text-gray-500">{{ ucfirst($item->tipo_produto) }}</p>
                                     </div>
                                     <div class="mt-2 md:mt-0 flex flex-col items-start md:items-end">
@@ -53,6 +53,7 @@
             @empty
                 <p class="text-gray-500">Nenhuma compra encontrada.</p>
             @endforelse
+
 
 
 

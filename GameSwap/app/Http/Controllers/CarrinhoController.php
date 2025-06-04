@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\GoogleDriveHelper;
 use App\Models\Console;
 use App\Models\Jogo;
 use App\Models\Morada;
@@ -57,15 +58,49 @@ class CarrinhoController extends Controller
     public function index()
     {
         $itens = session()->get('carrinho', []);
-        $subtotal = collect($itens)->sum(function ($item) {
+
+        // Atualizar os itens do carrinho com informações mais completas
+        $itensAtualizados = collect($itens)->map(function ($item) {
+            if ($item['tipo_produto'] === 'jogo') {
+                $produto = Jogo::with('imagens')->find($item['id']);
+            } elseif ($item['tipo_produto'] === 'console') {
+                $produto = Console::with('imagens')->find($item['id']);
+            } else {
+                $produto = null;
+            }
+
+            if ($produto) {
+                $item['imagem'] = $produto->imagens->first()
+                    ? GoogleDriveHelper::transformGoogleDriveUrl($produto->imagens->first()->path ?? $produto->imagens->first()->caminho)
+                    : '/placeholder.svg';
+                $item['nome'] = $produto->nome;
+                $item['preco'] = $produto->preco;
+            }
+
+            return $item;
+        });
+
+        // Atualizar a sessão com os itens corrigidos (caso necessário)
+        session()->put('carrinho', $itensAtualizados);
+
+        // Calcular o subtotal
+        $subtotal = $itensAtualizados->sum(function ($item) {
             return $item['preco'] * $item['quantidade'];
         });
 
+        // Recuperar moradas e métodos de pagamento
         $moradas = Morada::where('user_id', auth()->id())->get();
         $cartoes = auth()->user()->paymentMethods ?? [];
 
-        return view('paginas.carrinho', compact('itens', 'subtotal', 'moradas', 'cartoes'));
+        // Retornar a view com os dados atualizados do carrinho
+        return view('paginas.carrinho', [
+            'itens' => $itensAtualizados,
+            'subtotal' => $subtotal,
+            'moradas' => $moradas,
+            'cartoes' => $cartoes
+        ]);
     }
+
 
     public function remover($id)
     {

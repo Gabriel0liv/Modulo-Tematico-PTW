@@ -133,8 +133,8 @@
                         <div class="space-y-4 mb-6">
                             @forelse ($carrinho as $produto)
                                 <div class="flex space-x-3">
-                                    <div class="w-16 h-16 bg-gray-200 rounded flex items-center justify-center">
-                                        <span class="text-2xl">🎮</span>
+                                    <div class="w-16 h-16 bg-gray-200 rounded overflow-hidden flex items-center justify-center">
+                                        <img src="{{ $produto['imagem'] }}" alt="{{ $produto['nome'] }}" class="object-cover h-full w-full">
                                     </div>
                                     <div class="flex-1">
                                         <h4 class="font-medium text-sm">{{ $produto['nome'] }}</h4>

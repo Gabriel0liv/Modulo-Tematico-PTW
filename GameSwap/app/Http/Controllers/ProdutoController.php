@@ -14,78 +14,78 @@ class ProdutoController extends Controller
         if ($tipo_produto === 'console') {
             $produto = Console::with(['imagens', 'anunciante'])->findOrFail($id);
             $produto->imagem_capa = $produto->imagens->first()
-                ? \App\Helpers\GoogleDriveHelper::transformGoogleDriveUrl($produto->imagens->first()->path)
+                ? GoogleDriveHelper::transformGoogleDriveUrl($produto->imagens->first()->path)
                 : '/placeholder.svg';
 
-            // Obter imagens do console
             $imagens = $produto->imagens->map(function ($imagem) {
-                return \App\Helpers\GoogleDriveHelper::transformGoogleDriveUrl($imagem->path);
+                return GoogleDriveHelper::transformGoogleDriveUrl($imagem->path);
             });
 
-            // Consoles relacionados
+            // Produtos relacionados (consoles)
             $produtosRelacionados = Console::where('tipo_console', $produto->tipo_console)
                 ->where('id', '!=', $produto->id)
-                ->take(4)
+                ->with('imagens')
+                ->inRandomOrder()
+                ->limit(14)
                 ->get()
                 ->map(function ($item) {
                     $item->imagem_capa = $item->imagens->first()
-                        ? \App\Helpers\GoogleDriveHelper::transformGoogleDriveUrl($item->imagens->first()->path)
+                        ? GoogleDriveHelper::transformGoogleDriveUrl($item->imagens->first()->path)
                         : '/placeholder.svg';
-                    return $item;
+                    return $item; // Retorna o OBJETO do modelo
                 });
         } elseif ($tipo_produto === 'jogo') {
             $produto = Jogo::with(['imagens', 'anunciante'])->findOrFail($id);
             $produto->imagem_capa = $produto->imagens->first()
-                ? \App\Helpers\GoogleDriveHelper::transformGoogleDriveUrl($produto->imagens->first()->caminho)
+                ? GoogleDriveHelper::transformGoogleDriveUrl($produto->imagens->first()->caminho)
                 : '/placeholder.svg';
 
-            // Obter imagens do jogo
             $imagens = $produto->imagens->map(function ($imagem) {
-                return \App\Helpers\GoogleDriveHelper::transformGoogleDriveUrl($imagem->caminho);
+                return GoogleDriveHelper::transformGoogleDriveUrl($imagem->caminho);
             });
 
-            // Jogos relacionados
+            // Produtos relacionados (jogos)
             $produtosRelacionados = Jogo::where('id_categoria', $produto->id_categoria)
                 ->where('id', '!=', $produto->id)
-                ->take(4)
+                ->with('imagens')
+                ->inRandomOrder()
+                ->limit(14)
                 ->get()
                 ->map(function ($item) {
                     $item->imagem_capa = $item->imagens->first()
-                        ? \App\Helpers\GoogleDriveHelper::transformGoogleDriveUrl($item->imagens->first()->caminho)
+                        ? GoogleDriveHelper::transformGoogleDriveUrl($item->imagens->first()->caminho)
                         : '/placeholder.svg';
-                    return $item;
+                    return $item; // Retorna o OBJETO do modelo
                 });
         } else {
             abort(404, 'Tipo de produto não encontrado.');
         }
 
         // Publicações do mesmo vendedor
-        $outrasPublicacoesJogos = Jogo::where('id_anunciante', $produto->id_anunciante)
+        $outrasPublicacoes = Jogo::where('id_anunciante', $produto->id_anunciante)
             ->where('id', '!=', $produto->id)
-            ->take(4)
+            ->with('imagens')
+            ->inRandomOrder()
+            ->limit(7)
             ->get()
+            ->concat(Console::where('id_anunciante', $produto->id_anunciante)
+                ->where('id', '!=', $produto->id)
+                ->with('imagens')
+                ->inRandomOrder()
+                ->limit(7)
+                ->get())
+            ->shuffle()
+            ->take(14) // Garante o limite de 14 itens
             ->map(function ($item) {
                 $item->imagem_capa = $item->imagens->first()
-                    ? \App\Helpers\GoogleDriveHelper::transformGoogleDriveUrl($item->imagens->first()->caminho)
+                    ? GoogleDriveHelper::transformGoogleDriveUrl($item->imagens->first()->path ?? $item->imagens->first()->caminho)
                     : '/placeholder.svg';
-                return $item;
+                return $item; // Retorna o OBJETO do modelo
             });
-
-        $outrasPublicacoesConsoles = Console::where('id_anunciante', $produto->id_anunciante)
-            ->where('id', '!=', $produto->id)
-            ->take(4)
-            ->get()
-            ->map(function ($item) {
-                $item->imagem_capa = $item->imagens->first()
-                    ? \App\Helpers\GoogleDriveHelper::transformGoogleDriveUrl($item->imagens->first()->path)
-                    : '/placeholder.svg';
-                return $item;
-            });
-
-        $outrasPublicacoes = $outrasPublicacoesJogos->merge($outrasPublicacoesConsoles);
 
         return view('produto', compact('produto', 'imagens', 'outrasPublicacoes', 'produtosRelacionados'));
     }
+
     public function destacar($id, Request $request)
     {
 
@@ -150,11 +150,43 @@ class ProdutoController extends Controller
     {
         $query = $request->input('query');
 
-        $jogos = Jogo::search($query)->paginate(10);
-        $consoles = Console::search($query)->paginate(10);
+        // Busca paginada de Jogos
+        $jogosPaginated = Jogo::search($query)->paginate(10);
 
-        return view('paginas.pesquisa', compact('jogos', 'consoles', 'query'));
+        // Carrega as imagens dos Jogos para cada item da página
+        $jogos = $jogosPaginated->getCollection()->map(function ($jogo) {
+            $jogo->load('imagens'); // Carregar imagens relacionadas
+            $jogo->imagem_capa = $jogo->imagens->first()
+                ? GoogleDriveHelper::transformGoogleDriveUrl($jogo->imagens->first()->caminho)
+                : '/placeholder.svg';
+            return $jogo;
+        });
+        // Atualiza a coleção paginada para adicionar a imagem_capa
+        $jogosPaginated->setCollection($jogos);
+
+        // Busca paginada de Consoles
+        $consolesPaginated = Console::search($query)->paginate(10);
+
+        // Carrega as imagens dos Consoles para cada item da página
+        $consoles = $consolesPaginated->getCollection()->map(function ($console) {
+            $console->load('imagens'); // Carregar imagens relacionadas
+            $console->imagem_capa = $console->imagens->first()
+                ? GoogleDriveHelper::transformGoogleDriveUrl($console->imagens->first()->path)
+                : '/placeholder.svg';
+            return $console;
+        });
+        // Atualiza a coleção paginada para adicionar a imagem_capa
+        $consolesPaginated->setCollection($consoles);
+
+        // Retornar view com os dados paginados
+        return view('paginas.pesquisa', [
+            'jogos' => $jogosPaginated,
+            'consoles' => $consolesPaginated,
+            'query' => $query
+        ]);
     }
+
+
 
     public function searchSuggestions(Request $request)
     {
@@ -180,7 +212,7 @@ class ProdutoController extends Controller
             ->when($userId, fn($q) => $q->where('id_anunciante', '!=', $userId))
             ->with('imagens')
             ->inRandomOrder()
-            ->limit(6)
+            ->limit(12) // Ajuste o limite conforme necessário
             ->get()
             ->map(function ($console) {
                 $console->imagem_capa = $console->imagens->first()
@@ -197,7 +229,7 @@ class ProdutoController extends Controller
             ->when($userId, fn($q) => $q->where('id_anunciante', '!=', $userId))
             ->with('imagens')
             ->inRandomOrder()
-            ->limit(6)
+            ->limit(12) // Ajuste o limite conforme necessário
             ->get()
             ->map(function ($jogo) {
                 $jogo->imagem_capa = $jogo->imagens->first()
@@ -206,13 +238,14 @@ class ProdutoController extends Controller
                 return $jogo;
             });
 
+
         // Consoles em destaque
         $consolesDestaque = Console::where('moderado', true)
             ->where('destaque', true)
             ->when($userId, fn($q) => $q->where('id_anunciante', '!=', $userId))
             ->with('imagens')
             ->orderBy('created_at', 'desc')
-            ->limit(6)
+            ->limit(14) // Ajuste o limite se necessário
             ->get()
             ->map(function ($console) {
                 $console->imagem_capa = $console->imagens->first()
@@ -221,13 +254,14 @@ class ProdutoController extends Controller
                 return $console;
             });
 
+
         // Jogos em destaque
         $jogos = Jogo::where('moderado', true)
             ->where('destaque', true)
             ->when($userId, fn($q) => $q->where('id_anunciante', '!=', $userId))
             ->with('imagens')
-            ->inRandomOrder()
-            ->limit(6)
+            ->orderBy('created_at', 'desc')
+            ->limit(14) // Ajuste o limite se necessário
             ->get()
             ->map(function ($jogo) {
                 $jogo->imagem_capa = $jogo->imagens->first()
@@ -235,6 +269,7 @@ class ProdutoController extends Controller
                     : '/placeholder.svg';
                 return $jogo;
             });
+
 
         return view('compras', compact('consolesDestaque', 'consolesModerados', 'jogos', 'jogosModerados'));
     }

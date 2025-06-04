@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\GoogleDriveHelper;
 use App\Models\Compra;
 use App\Models\Console;
 use App\Models\Jogo;
@@ -12,7 +13,8 @@ use Illuminate\Support\Facades\Auth;
 
 class UserController
 {
-    public function atualizarInformacoes(Request $request){
+    public function atualizarInformacoes(Request $request)
+    {
         $user = Auth::user();
         $user->username = $request->input('username');
         $user->name = $request->input('name');
@@ -127,10 +129,36 @@ class UserController
     {
         $user = auth()->user();
 
-        $compras = Compra::with('produtos') // traz os produtos comprados
-        ->where('comprador_id', $user->id)
+        // Buscar as compras do usuário com os produtos
+        $compras = Compra::with(['produtos'])
+            ->where('comprador_id', $user->id)
             ->latest()
-            ->get();
+            ->get()
+            ->map(function ($compra) {
+                // Atualizar os itens da compra com informações detalhadas
+                $compra->produtos = $compra->produtos->map(function ($item) {
+                    if ($item->tipo_produto === 'jogo') {
+                        $produto = Jogo::with('imagens')->find($item->produto_id);
+                    } elseif ($item->tipo_produto === 'console') {
+                        $produto = Console::with('imagens')->find($item->produto_id);
+                    } else {
+                        $produto = null;
+                    }
+
+                    if ($produto) {
+                        $item->nome = $produto->nome;
+                        $item->imagem = $produto->imagens->first()
+                            ? GoogleDriveHelper::transformGoogleDriveUrl($produto->imagens->first()->path ?? $produto->imagens->first()->caminho)
+                            : '/placeholder.svg';
+                    } else {
+                        $item->nome = 'Produto não encontrado';
+                        $item->imagem = '/placeholder.svg';
+                    }
+                    return $item;
+                });
+
+                return $compra;
+            });
 
         return view('paginas.perfil.perfilminhascompras', compact('compras'));
     }

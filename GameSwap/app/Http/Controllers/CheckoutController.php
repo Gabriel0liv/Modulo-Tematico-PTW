@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\GoogleDriveHelper;
 use App\Models\Compra;
 use App\Models\CompraProduto;
+use App\Models\Console;
 use App\Models\Entrega;
+use App\Models\jogo;
 use App\Models\Morada;
 use App\Models\PaymentMethod;
 use Carbon\Carbon;
@@ -25,21 +28,46 @@ class CheckoutController extends Controller
         $user = auth()->user();
         $moradas = $user->moradas;
         $carrinho = session()->get('carrinho', []);
-        $subtotal = collect($carrinho)->sum(function ($item) {
-            return $item['preco'] * $item['quantidade'];
+
+        // Atualizar os itens no carrinho com imagens e informações do banco de dados
+        $carrinhoAtualizado = collect($carrinho)->map(function ($item) {
+            if ($item['tipo_produto'] === 'jogo') {
+                $produto = Jogo::with('imagens')->find($item['id']);
+            } elseif ($item['tipo_produto'] === 'console') {
+                $produto = Console::with('imagens')->find($item['id']);
+            } else {
+                $produto = null;
+            }
+
+            if ($produto) {
+                $item['imagem'] = $produto->imagens->first()
+                    ? GoogleDriveHelper::transformGoogleDriveUrl($produto->imagens->first()->path ?? $produto->imagens->first()->caminho)
+                    : '/placeholder.svg';
+                $item['nome'] = $produto->nome;
+                $item['preco'] = $produto->preco;
+            }
+
+            return $item;
         });
 
+        // Atualizar a sessão, caso seja necessário
+        session()->put('carrinho', $carrinhoAtualizado);
+
+        // Cálculo de subtotal e total
+        $subtotal = $carrinhoAtualizado->sum(function ($item) {
+            return $item['preco'] * $item['quantidade'];
+        });
         $envio = 4.99;
         $total = $subtotal + $envio;
 
-
+        // Obter métodos de pagamento detalhados
         $cartoesDetalhados = [];
         foreach ($user->paymentMethods as $cartao) {
             $stripeCard = \Stripe\PaymentMethod::retrieve($cartao->stripe_payment_method_id);
 
-            $cartoesDetalhados[] = (object)[
+            $cartoesDetalhados[] = (object) [
                 'id' => $cartao->id,
-                'brand' => $stripeCard->card->brand,
+                'brand' => ucfirst($stripeCard->card->brand),
                 'last4' => $stripeCard->card->last4,
                 'exp_month' => $stripeCard->card->exp_month,
                 'exp_year' => $stripeCard->card->exp_year,
@@ -53,12 +81,11 @@ class CheckoutController extends Controller
             'moradas' => $moradas,
             'cartoes' => $cartoesDetalhados,
             'subtotal' => $subtotal,
-            'carrinho' => $carrinho,
             'envio' => $envio,
             'total' => $total,
+            'carrinho' => $carrinhoAtualizado,
         ]);
     }
-
     public function checkout()
     {
         Stripe::setApiKey(env('STRIPE_SECRET'));

@@ -337,108 +337,177 @@
             </div>
         </div>
 
-        <!-- Outras Publicações do Vendedor (Carrossel de Slides) -->
+        <!-- Outras Publicações do Vendedor -->
         <div class="mt-8 relative">
             <h2 class="text-lg font-semibold text-gray-900 mb-4">Outras publicações do vendedor</h2>
-            <div class="overflow-hidden relative">
-                <!-- Slider -->
-                <div id="vendedor-slider" class="flex gap-4 transition-transform duration-500">
-                    @forelse ($outrasPublicacoes as $publicacao)
-                        <div class="w-64 flex-shrink-0">
-                            @if ($publicacao instanceof \App\Models\Console)
-                                <x-console-card :console="$publicacao" />
-                            @elseif ($publicacao instanceof \App\Models\Jogo)
-                                <x-jogo-card :jogo="$publicacao" />
-                            @endif
-                        </div>
-                    @empty
-                        <p class="text-sm text-gray-500">Nenhuma outra publicação disponível.</p>
-                    @endforelse
-                </div>
-            </div>
 
-            <!-- Nav Buttons -->
-            <button id="prev-vendedor" class="absolute left-0 top-1/2 transform -translate-y-1/2 bg-gray-800 text-white p-2 rounded-full z-10">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-6 h-6">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
-                </svg>
-            </button>
-            <button id="next-vendedor" class="absolute right-0 top-1/2 transform -translate-y-1/2 bg-gray-800 text-white p-2 rounded-full z-10">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-6 h-6">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
-                </svg>
-            </button>
+            @if ($outrasPublicacoes->isEmpty())
+                <!-- Mensagem caso NÃO existam outras publicações -->
+                <div class="bg-gray-100 p-6 rounded-md text-center text-gray-600">
+                    <p class="font-semibold text-lg">Nenhuma outra publicação encontrada</p>
+                    <p class="text-sm">Este vendedor ainda não possui outras publicações disponíveis. Volte mais tarde!</p>
+                </div>
+            @else
+                <!-- Slider -->
+                <div class="overflow-hidden relative">
+                    <div id="vendedor-slider" class="flex gap-4 transition-transform duration-500">
+                        @foreach ($outrasPublicacoes as $publicacao)
+                            <div class="w-64 flex-shrink-0">
+                                @if ($publicacao instanceof \App\Models\Console)
+                                    <x-console-card :console="$publicacao" />
+                                @elseif ($publicacao instanceof \App\Models\Jogo)
+                                    <x-jogo-card :jogo="$publicacao" />
+                                @endif
+                            </div>
+                        @endforeach
+                    </div>
+
+                    <!-- Nav Buttons (apenas se houver mais de um item) -->
+                    @if ($outrasPublicacoes->count() > 1)
+                        <button id="prev-vendedor" class="absolute left-0 top-1/2 transform -translate-y-1/2 bg-gray-800 text-white p-2 rounded-full z-10">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-6 h-6">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+                            </svg>
+                        </button>
+                        <button id="next-vendedor" class="absolute right-0 top-1/2 transform -translate-y-1/2 bg-gray-800 text-white p-2 rounded-full z-10">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-6 h-6">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                            </svg>
+                        </button>
+                    @endif
+                </div>
+            @endif
         </div>
 
-        <!-- Produtos Relacionados (Carrossel de Slides) -->
+        <!-- Produtos Relacionados -->
         <div class="mt-12 relative">
             <h2 class="text-lg font-semibold text-gray-900 mb-4">Produtos Relacionados</h2>
-            <div class="overflow-hidden relative">
-                <!-- Slider -->
-                <div id="relacionados-slider" class="flex gap-4 transition-transform duration-500">
-                    @forelse ($produtosRelacionados as $relacionado)
-                        <div class="w-64 flex-shrink-0">
-                            @if ($relacionado instanceof \App\Models\Console)
-                                <x-console-card :console="$relacionado" />
-                            @elseif ($relacionado instanceof \App\Models\Jogo)
-                                <x-jogo-card :jogo="$relacionado" />
-                            @endif
-                        </div>
-                    @empty
-                        <p class="text-sm text-gray-500">Nenhum produto relacionado encontrado.</p>
-                    @endforelse
+
+            @if ($produtosRelacionados->isEmpty())
+                <!-- Mensagem caso NÃO existam produtos relacionados -->
+                <div class="bg-gray-100 p-6 rounded-md text-center text-gray-600">
+                    <p class="font-semibold text-lg">Nenhum produto relacionado encontrado</p>
+                    <p class="text-sm">Não há produtos relacionados disponíveis no momento. Explore outras categorias!</p>
                 </div>
-            </div>
+            @else
+                <!-- Slider -->
+                <div class="overflow-hidden relative">
+                    <div id="relacionados-slider" class="flex gap-4 transition-transform duration-500">
+                        @foreach ($produtosRelacionados as $relacionado)
+                            <div class="w-64 flex-shrink-0">
+                                @if ($relacionado instanceof \App\Models\Console)
+                                    <x-console-card :console="$relacionado" />
+                                @elseif ($relacionado instanceof \App\Models\Jogo)
+                                    <x-jogo-card :jogo="$relacionado" />
+                                @endif
+                            </div>
+                        @endforeach
+                    </div>
 
-            <!-- Nav Buttons -->
-            <button id="prev-relacionados" class="absolute left-0 top-1/2 transform -translate-y-1/2 bg-gray-800 text-white p-2 rounded-full z-10">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-6 h-6">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
-                </svg>
-            </button>
-            <button id="next-relacionados" class="absolute right-0 top-1/2 transform -translate-y-1/2 bg-gray-800 text-white p-2 rounded-full z-10">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-6 h-6">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
-                </svg>
-            </button>
+                    <!-- Nav Buttons (apenas se houver mais de um item) -->
+                    @if ($produtosRelacionados->count() > 1)
+                        <button id="prev-relacionados" class="absolute left-0 top-1/2 transform -translate-y-1/2 bg-gray-800 text-white p-2 rounded-full z-10">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-6 h-6">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+                            </svg>
+                        </button>
+                        <button id="next-relacionados" class="absolute right-0 top-1/2 transform -translate-y-1/2 bg-gray-800 text-white p-2 rounded-full z-10">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-6 h-6">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                            </svg>
+                        </button>
+                    @endif
+                </div>
+            @endif
         </div>
-
-
 
     </main>
 
     <script>
 
-        function initSlider(sliderId, prevButtonId, nextButtonId) {
+
+
+        function initInfiniteCarousel(sliderId, prevButtonId, nextButtonId) {
             const slider = document.getElementById(sliderId);
             const prevButton = document.getElementById(prevButtonId);
             const nextButton = document.getElementById(nextButtonId);
 
-            // Variáveis iniciais
-            let currentIndex = 0;
-            const cardCount = slider.children.length;
-            const cardWidth = slider.querySelector('.w-64').offsetWidth + 16; // Inclui gap (16px)
+            const items = Array.from(slider.children);
+            const itemWidth = items[0].offsetWidth + 16; // A largura + gap entre itens
+            const totalItems = items.length;
+            let currentIndex = totalItems;
+            let isTransitioning = false; // Evita transições múltiplas
+            let lastInteractionTime = 0; // Tempo da última interação do usuário
+            let autoSlide = true; // Controle do movimento automático
 
-            // Atualiza a posição do slide (com transição)
-            function updateSliderPosition() {
-                slider.style.transform = `translateX(${-currentIndex * cardWidth}px)`;
+            // Clonar itens no início e no fim
+            items.forEach(item => {
+                slider.append(item.cloneNode(true));
+                slider.prepend(item.cloneNode(true));
+            });
+
+            slider.style.transform = `translateX(${-currentIndex * itemWidth}px)`;
+
+            function updatePosition() {
+                // Previne múltiplas transições ao mesmo tempo
+                if (isTransitioning) return;
+
+                slider.style.transition = 'transform 0.5s ease';
+                slider.style.transform = `translateX(${-currentIndex * itemWidth}px)`;
+                isTransitioning = true; // Sinaliza que está fazendo a transição
             }
 
-            // Botão "Anterior"
-            prevButton.addEventListener('click', () => {
-                if (currentIndex > 0) {
-                    currentIndex--;
-                    updateSliderPosition();
+            function resetPosition() {
+                slider.style.transition = 'none';
+                if (currentIndex <= 0) {
+                    currentIndex = totalItems;
+                    slider.style.transform = `translateX(${-currentIndex * itemWidth}px)`;
                 }
+                if (currentIndex >= totalItems * 2) {
+                    currentIndex = totalItems;
+                    slider.style.transform = `translateX(${-currentIndex * itemWidth}px)`;
+                }
+                isTransitioning = false; // Permite novas transições
+            }
+
+            function handleUserInteraction() {
+                lastInteractionTime = Date.now(); // Registra o clique do usuário
+                autoSlide = false; // Pausa o auto-slide temporariamente
+
+                setTimeout(() => {
+                    if (Date.now() - lastInteractionTime >= 5000) {
+                        autoSlide = true; // Retoma o auto-slide após 5 segundos
+                    }
+                }, 5000);
+            }
+
+            // Gerencia o movimento automático
+            function startAutoSlide() {
+                setInterval(() => {
+                    if (autoSlide && !isTransitioning && Date.now() - lastInteractionTime > 5000) {
+                        currentIndex++;
+                        updatePosition();
+                    }
+                }, 3000); // Move automaticamente a cada 3 segundos
+            }
+
+            nextButton.addEventListener('click', () => {
+                if (isTransitioning) return; // Ignora se estiver no meio de uma transição
+                currentIndex++;
+                updatePosition();
+                handleUserInteraction();
             });
 
-            // Botão "Próximo"
-            nextButton.addEventListener('click', () => {
-                if (currentIndex < cardCount - 1) {
-                    currentIndex++;
-                    updateSliderPosition();
-                }
+            prevButton.addEventListener('click', () => {
+                if (isTransitioning) return; // Ignora se estiver no meio de uma transição
+                currentIndex--;
+                updatePosition();
+                handleUserInteraction();
             });
+
+            slider.addEventListener('transitionend', resetPosition);
+
+            startAutoSlide();
         }
 
 
@@ -484,8 +553,8 @@
             updateSlider();
 
             // Inicializar os sliders
-            initSlider('vendedor-slider', 'prev-vendedor', 'next-vendedor');
-            initSlider('relacionados-slider', 'prev-relacionados', 'next-relacionados');
+            initInfiniteCarousel('vendedor-slider', 'prev-vendedor', 'next-vendedor');
+            initInfiniteCarousel('relacionados-slider', 'prev-relacionados', 'next-relacionados');
 
 
 

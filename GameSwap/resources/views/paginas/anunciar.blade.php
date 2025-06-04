@@ -31,22 +31,40 @@
             @csrf
             <!-- Token CSRF obrigatório para segurança -->
             <!-- Product Photos -->
-            <div>
-                <label class="block text-text font-medium mb-2">Fotos do Jogo</label>
-                <div class="flex flex-wrap gap-4">
-                    <!-- Botão para selecionar fotos -->
+            <div class="mb-12">
+                <label
+                    class="block text-sm font-medium text-gray-700"
+                    for="gameImages"
+                >
+                    Adicionar imagens dos jogos
+                </label>
+                <div class="flex items-center space-x-3 mt-2">
+                    <!-- Botão de adicionar imagens -->
+                    <label
+                        for="gameImages"
+                        class="w-24 h-24 flex items-center justify-center rounded-lg bg-gray-100 border-2 border-dashed border-gray-300 cursor-pointer hover:bg-gray-200"
+                    >
+                        <span class="text-gray-400 font-bold text-4xl">+</span>
+                    </label>
+                    <input
+                        id="gameImages"
+                        type="file"
+                        class="hidden"
+                        accept="image/*"
+                        name="imagens[]"
+                        multiple
+                    />
+                    <!-- Contêiner para os previews -->
                     <div
-                        class="border-2 border-dashed border-gray-300 rounded-lg p-4 flex flex-col items-center justify-center h-40 w-40 cursor-pointer hover:bg-gray-50 transition relative">
-                        <input type="file" name="imagens[]" accept="image/*"
-                               class="absolute inset-0 opacity-0 cursor-pointer" multiple>
-                        <span class="text-gray-400 text-2xl font-bold">+</span>
+                        id="imagePreviewContainer"
+                        class="grid grid-cols-6 gap-4"
+                    >
+                        <!-- Previews das imagens aparecerão aqui -->
                     </div>
-                    <!-- Previews das imagens serão adicionados aqui -->
-                    <div id="preview-container" class="flex flex-wrap gap-4"></div>
                 </div>
                 <p class="text-sm text-gray-500 mt-2 flex items-center">
                     <i data-lucide="info" class="h-4 w-4 mr-1"></i>
-                    Adicione até 6 fotos do console. A primeira será a capa do anúncio.
+                    Adicione até 6 fotos do jogo. A primeira será a capa do anúncio.
                 </p>
             </div>
 
@@ -69,16 +87,6 @@
                     <input type="number" id="product-price" name="preco"
                            class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
                            placeholder="0,00" step="0.01" min="0"/>
-                </div>
-                <div class="mt-2 flex items-center">
-                    <div class="flex-1">
-                        <p class="text-xs text-gray-500">Preço médio de mercado: <span class="text-primary font-medium">R$ 250,00 - R$ 350,00</span>
-                        </p>
-                    </div>
-                    <div class="flex items-center">
-                        <input type="checkbox" id="accept-offers" class="mr-2"/>
-                        <label for="accept-offers" class="text-sm text-gray-600">Aceito ofertas</label>
-                    </div>
                 </div>
             </div>
 
@@ -159,21 +167,6 @@
             </div>
 
 
-            <!-- Delivery Options -->
-            <div>
-                <label class="block text-text font-medium mb-2">Opções de Entrega</label>
-                <div class="space-y-2">
-                    <div class="flex items-center">
-                        <input type="checkbox" id="delivery-mail" class="mr-2" checked/>
-                        <label for="delivery-mail" class="text-sm text-gray-600">Envio pelos Correios</label>
-                    </div>
-                    <div class="flex items-center">
-                        <input type="checkbox" id="delivery-pickup" class="mr-2" checked/>
-                        <label for="delivery-pickup" class="text-sm text-gray-600">Retirada em mãos</label>
-                    </div>
-                </div>
-            </div>
-
             <!-- Submit Button -->
             <div class="flex justify-end">
                 <button type="submit"
@@ -189,18 +182,36 @@
             @csrf
 
             <!-- Fotos do Console -->
-            <div>
-                <label class="block text-text font-medium mb-2">Fotos do Console</label>
-                <div class="flex flex-wrap gap-4">
-                    <!-- Botão para selecionar fotos -->
+            <div class="mb-12">
+                <label
+                    class="block text-sm font-medium text-gray-700"
+                    for="consoleImages"
+                >
+                    Adicionar imagens dos consoles
+                </label>
+                <div class="flex items-center space-x-3 mt-2">
+                    <!-- Botão de adicionar imagens -->
+                    <label
+                        for="consoleImages"
+                        class="w-24 h-24 flex items-center justify-center rounded-lg bg-gray-100 border-2 border-dashed border-gray-300 cursor-pointer hover:bg-gray-200"
+                    >
+                        <span class="text-gray-400 font-bold text-4xl">+</span>
+                    </label>
+                    <input
+                        id="consoleImages"
+                        type="file"
+                        class="hidden"
+                        accept="image/*"
+                        name="imagens[]"
+                        multiple
+                    />
+                    <!-- Contêiner para os previews -->
                     <div
-                        class="border-2 border-dashed border-gray-300 rounded-lg p-4 flex flex-col items-center justify-center h-40 w-40 cursor-pointer hover:bg-gray-50 transition relative">
-                        <input type="file" name="imagens[]" accept="image/*"
-                               class="absolute inset-0 opacity-0 cursor-pointer" multiple>
-                        <span class="text-gray-400 text-2xl font-bold">+</span>
+                        id="consolePreviewContainer"
+                        class="grid grid-cols-6 gap-4"
+                    >
+                        <!-- Previews das imagens aparecerão aqui -->
                     </div>
-                    <!-- Previews das imagens serão adicionados aqui -->
-                    <div id="preview-container" class="flex flex-wrap gap-4"></div>
                 </div>
                 <p class="text-sm text-gray-500 mt-2 flex items-center">
                     <i data-lucide="info" class="h-4 w-4 mr-1"></i>
@@ -253,14 +264,14 @@
                     <div>
                         <input type="radio" id="console-novo" name="estado" value="novo" class="hidden peer"/>
                         <label for="console-novo"
-                               class="flex items-center justify-center p-3 text-gray-500 bg-white border border-gray-300 rounded-lg cursor-pointer peer-checked:border-primary peer-checked:bg-primary/10 peer-checked:text-primary hover:bg-gray-50">
+                               class="flex items-center justify-center p-3 border border-gray-300 rounded-lg cursor-pointer text-gray-500 bg-white hover:bg-gray-50 peer-checked:border-blue-600 peer-checked:text-blue-600 peer-checked:bg-white">
                             Novo
                         </label>
                     </div>
                     <div>
                         <input type="radio" id="console-usado" name="estado" value="usado" class="hidden peer"/>
                         <label for="console-usado"
-                               class="flex items-center justify-center p-3 text-gray-500 bg-white border border-gray-300 rounded-lg cursor-pointer peer-checked:border-primary peer-checked:bg-primary/10 peer-checked:text-primary hover:bg-gray-50">
+                               class="flex items-center justify-center p-3 border border-gray-300 rounded-lg cursor-pointer text-gray-500 bg-white hover:bg-gray-50 peer-checked:border-blue-600 peer-checked:text-blue-600 peer-checked:bg-white">
                             Usado
                         </label>
                     </div>
@@ -268,7 +279,7 @@
                         <input type="radio" id="console-recondicionado" name="estado" value="recondicionado"
                                class="hidden peer"/>
                         <label for="console-recondicionado"
-                               class="flex items-center justify-center p-3 text-gray-500 bg-white border border-gray-300 rounded-lg cursor-pointer peer-checked:border-primary peer-checked:bg-primary/10 peer-checked:text-primary hover:bg-gray-50">
+                               class="flex items-center justify-center p-3 border border-gray-300 rounded-lg cursor-pointer text-gray-500 bg-white hover:bg-gray-50 peer-checked:border-blue-600 peer-checked:text-blue-600 peer-checked:bg-white">
                             Recondicionado
                         </label>
                     </div>
@@ -288,21 +299,6 @@
             </div>
 
 
-            <!-- Opções de Entrega -->
-            <div>
-                <label class="block text-text font-medium mb-2">Opções de Entrega</label>
-                <div class="space-y-2">
-                    <div class="flex items-center">
-                        <input type="checkbox" id="console-delivery-mail" class="mr-2" checked/>
-                        <label for="console-delivery-mail" class="text-sm text-gray-600">Envio pelos Correios</label>
-                    </div>
-                    <div class="flex items-center">
-                        <input type="checkbox" id="console-delivery-pickup" class="mr-2" checked/>
-                        <label for="console-delivery-pickup" class="text-sm text-gray-600">Retirada em mãos</label>
-                    </div>
-                </div>
-            </div>
-
             <!-- Botão de Envio -->
             <div class="flex justify-end">
                 <button type="submit"
@@ -319,9 +315,16 @@
         document.addEventListener('DOMContentLoaded', () => {
             const jogoForm = document.getElementById('form-jogo');
             const consoleForm = document.getElementById('form-console');
-            const previewContainer = document.getElementById('preview-container');
-            const fileInput = document.querySelector('input[type="file"]');
             const tipoProdutoSelect = document.getElementById('tipo-produto');
+
+            // Seletores do Formulário de Jogo
+            const imageInput = document.getElementById("gameImages");
+            const previewContainer = document.getElementById("imagePreviewContainer");
+
+            // Seletores do Formulário de Console (ID atualizado)
+            const consoleImageInput = document.getElementById("consoleImages");
+            const consolePreviewContainer = document.getElementById("consolePreviewContainer");
+
 
 
             function showError(input, message) {
@@ -442,41 +445,68 @@
             // Inicializa o estado correto com base no valor padrão
             tipoProdutoSelect.dispatchEvent(new Event('change'));
 
-            fileInput.addEventListener('change', (event) => {
-                const files = Array.from(event.target.files);
 
-                // Limpa os previews existentes
-                previewContainer.innerHTML = '';
 
-                // Adiciona novos previews para os arquivos selecionados
-                fileInputs.forEach(fileInput => {
-                    fileInput.addEventListener('change', (event) => {
-                        const files = Array.from(event.target.files);
 
-                        // Limpa os previews existentes
-                        previewContainer.innerHTML = '';
 
-                        // Adiciona novos previews para os arquivos selecionados
-                        files.forEach((file, index) => {
+
+
+            // Função para lidar com pré-visualização de imagens
+            const handleImageInput = (input, previewContainer, maxFiles = 6) => {
+                input.addEventListener("change", () => {
+                    clearError(input); // Remove erros anteriores
+                    previewContainer.innerHTML = ""; // Limpa os previews antigos
+
+                    const files = Array.from(input.files); // Obtém os arquivos selecionados
+
+                    // Valida o limite de arquivos
+                    if (files.length > maxFiles) {
+                        showError(input, `Você pode selecionar no máximo ${maxFiles} imagens.`);
+                        input.value = ""; // Reseta o campo de seleção
+                        return;
+                    }
+
+                    // Gera os previews das imagens
+                    files.forEach((file) => {
+                        if (file.type.startsWith("image/")) {
                             const reader = new FileReader();
+
                             reader.onload = (e) => {
-                                const wrapper = document.createElement('div');
-                                wrapper.className = 'relative border rounded-lg overflow-hidden w-40 h-40';
+                                // Criação do contêiner da imagem
+                                const imageDiv = document.createElement("div");
+                                imageDiv.classList.add(
+                                    "relative",
+                                    "w-24",
+                                    "h-24",
+                                    "overflow-hidden",
+                                    "rounded-lg",
+                                    "shadow-md",
+                                    "bg-gray-200"
+                                );
 
-                                const img = document.createElement('img');
+                                const img = document.createElement("img");
                                 img.src = e.target.result;
-                                img.alt = `Preview da imagem ${index + 1}`;
-                                img.className = 'w-full h-full object-cover';
+                                img.alt = file.name;
+                                img.classList.add("object-cover", "w-full", "h-full");
 
-                                wrapper.appendChild(img);
-                                previewContainer.appendChild(wrapper);
+                                imageDiv.appendChild(img);
+                                previewContainer.appendChild(imageDiv);
                             };
+
                             reader.readAsDataURL(file);
-                        });
+                        }
                     });
                 });
+            };
 
-            });
+            // Aplica a função para os inputs e contêineres de jogo e console
+            handleImageInput(imageInput, previewContainer); // Jogo
+            handleImageInput(consoleImageInput, consolePreviewContainer); // Console
+
+
+
+
+
 
 
             // descrição tempo real

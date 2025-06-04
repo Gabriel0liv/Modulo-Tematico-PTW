@@ -71,45 +71,232 @@
         </div> <!-- Fechando a seção de informações -->
     </div> <!-- Fechando a seção de destaque -->
 
-    <!-- Featured Consoles -->
+    <!-- Consoles em Destaque -->
     <div class="mt-12">
         <h2 class="text-2xl font-bold mb-6 text-gray-800">Consoles em Destaque</h2>
-        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
-            @foreach ($consolesDestaque as $console)
-                <x-console-card :console="$console"/>
-            @endforeach
-        </div>
-    </div> <!-- Fechando a seção de consoles em destaque -->
+
+        @if ($consolesDestaque->isEmpty())
+            <!-- Mensagem estilizada caso não haja consoles -->
+            <div class="bg-gray-100 p-6 rounded-md text-center text-gray-600">
+                <p class="font-semibold text-lg">Nenhum console em destaque encontrado</p>
+                <p class="text-sm">Atualmente não temos consoles em destaque. Volte mais tarde!</p>
+            </div>
+        @else
+            <!-- Slider -->
+            <div class="relative overflow-hidden">
+                <div id="consoles-slider" class="flex transition-transform duration-500 gap-4">
+                    @foreach ($consolesDestaque as $console)
+                        <div class="w-64 flex-shrink-0">
+                            <x-console-card :console="$console" />
+                        </div>
+                    @endforeach
+                </div>
+
+                <!-- Botões de navegação (mostrar apenas se houver mais de 6 consoles) -->
+                @if ($consolesDestaque->count() > 6)
+                    <button id="prev-consoles" class="absolute left-0 top-1/2 transform -translate-y-1/2 bg-gray-800 text-white p-2 rounded-full">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-6 h-6">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+                        </svg>
+                    </button>
+                    <button id="next-consoles" class="absolute right-0 top-1/2 transform -translate-y-1/2 bg-gray-800 text-white p-2 rounded-full">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-6 h-6">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                        </svg>
+                    </button>
+                @endif
+            </div>
+        @endif
+    </div>
 
     <!-- Jogos em Destaque -->
     <div class="mt-12">
         <h2 class="text-2xl font-bold mb-6 text-gray-800">Jogos em Destaque</h2>
-        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
-            @foreach ($jogos as $jogo)
-                <x-jogo-card :jogo="$jogo"/>
-            @endforeach
-        </div>
-    </div> <!-- Fechando a seção de jogos em destaque -->
 
-    <!-- Consoles Moderados sem destaque -->
-    <div class="mt-12">
-        <h2 class="text-2xl font-bold mb-6 text-gray-800">Outros Consoles Anunciados</h2>
-        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
-            @foreach ($consolesModerados as $console)
-                <x-console-card :console="$console"/>
-            @endforeach
-        </div>
+        @if ($jogos->isEmpty())
+            <!-- Mensagem estilizada caso não haja jogos -->
+            <div class="bg-gray-100 p-6 rounded-md text-center text-gray-600">
+                <p class="font-semibold text-lg">Nenhum jogo em destaque encontrado</p>
+                <p class="text-sm">Atualmente não temos jogos em destaque. Volte mais tarde!</p>
+            </div>
+        @else
+            <!-- Slider -->
+            <div class="relative overflow-hidden">
+                <div id="jogos-slider" class="flex transition-transform duration-500 gap-4">
+                    @foreach ($jogos as $jogo)
+                        <div class="w-64 flex-shrink-0">
+                            <x-jogo-card :jogo="$jogo" />
+                        </div>
+                    @endforeach
+                </div>
+
+                <!-- Botões de navegação (mostrar apenas se houver mais de 6 jogos) -->
+                @if ($jogos->count() > 6)
+                    <button id="prev-jogos" class="absolute left-0 top-1/2 transform -translate-y-1/2 bg-gray-800 text-white p-2 rounded-full">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-6 h-6">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+                        </svg>
+                    </button>
+                    <button id="next-jogos" class="absolute right-0 top-1/2 transform -translate-y-1/2 bg-gray-800 text-white p-2 rounded-full">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-6 h-6">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                        </svg>
+                    </button>
+                @endif
+            </div>
+        @endif
     </div>
 
-    <!-- Jogos Moderados sem destaque -->
+
+    <!-- Consoles Moderados Não Destacados -->
     <div class="mt-12">
-        <h2 class="text-2xl font-bold mb-6 text-gray-800">Outros Jogos Anunciados</h2>
-        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
-            @foreach ($jogosModerados as $jogo)
-                <x-jogo-card :jogo="$jogo"/>
-            @endforeach
-        </div>
+        <h2 class="text-2xl font-bold mb-6 text-gray-800">Consoles Mais Recentes</h2>
+
+        @if ($consolesModerados->isEmpty())
+            <!-- Mensagem estilizada caso não haja consoles -->
+            <div class="bg-gray-100 p-6 rounded-md text-center text-gray-600">
+                <p class="font-semibold text-lg">Nenhum console disponível atualmente</p>
+                <p class="text-sm">Verifique novamente em breve!</p>
+            </div>
+        @else
+            <!-- Slider para Consoles Moderados -->
+            <div class="relative overflow-hidden">
+                <div id="consoles-moderados-slider" class="flex transition-transform duration-500 gap-4">
+                    @foreach ($consolesModerados as $console)
+                        <div class="w-64 flex-shrink-0">
+                            <x-console-card :console="$console" />
+                        </div>
+                    @endforeach
+                </div>
+
+                <!-- Botões de navegação (somente se houver mais de 6 consoles) -->
+                @if ($consolesModerados->count() > 6)
+                    <button id="prev-consoles-moderados" class="absolute left-0 top-1/2 transform -translate-y-1/2 bg-gray-800 text-white p-2 rounded-full">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-6 h-6">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+                        </svg>
+                    </button>
+                    <button id="next-consoles-moderados" class="absolute right-0 top-1/2 transform -translate-y-1/2 bg-gray-800 text-white p-2 rounded-full">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-6 h-6">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                        </svg>
+                    </button>
+                @endif
+            </div>
+        @endif
+    </div>
+
+    <!-- Jogos Moderados Não Destacados -->
+    <div class="mt-12">
+        <h2 class="text-2xl font-bold mb-6 text-gray-800">Jogos Mais Recentes</h2>
+
+        @if ($jogosModerados->isEmpty())
+            <!-- Mensagem estilizada caso não haja jogos -->
+            <div class="bg-gray-100 p-6 rounded-md text-center text-gray-600">
+                <p class="font-semibold text-lg">Nenhum jogo disponível atualmente</p>
+                <p class="text-sm">Verifique novamente em breve!</p>
+            </div>
+        @else
+            <!-- Slider para Jogos Moderados -->
+            <div class="relative overflow-hidden">
+                <div id="jogos-moderados-slider" class="flex transition-transform duration-500 gap-4">
+                    @foreach ($jogosModerados as $jogo)
+                        <div class="w-64 flex-shrink-0">
+                            <x-jogo-card :jogo="$jogo" />
+                        </div>
+                    @endforeach
+                </div>
+
+                <!-- Botões de navegação (somente se houver mais de 6 jogos) -->
+                @if ($jogosModerados->count() > 6)
+                    <button id="prev-jogos-moderados" class="absolute left-0 top-1/2 transform -translate-y-1/2 bg-gray-800 text-white p-2 rounded-full">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-6 h-6">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+                        </svg>
+                    </button>
+                    <button id="next-jogos-moderados" class="absolute right-0 top-1/2 transform -translate-y-1/2 bg-gray-800 text-white p-2 rounded-full">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-6 h-6">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                        </svg>
+                    </button>
+                @endif
+            </div>
+        @endif
     </div>
 
 
+    <script>
+        // Função genérica para configurar sliders
+        function configurarSlider(sliderId, prevBtnId, nextBtnId) {
+            const slider = document.getElementById(sliderId);
+            const prevButton = document.getElementById(prevBtnId);
+            const nextButton = document.getElementById(nextBtnId);
+            const items = slider ? slider.children : [];
+            const itemCount = items.length;
+
+            // Verificar se existem itens no slider
+            if (itemCount === 0) {
+                slider.parentElement.innerHTML = `
+            <div class="bg-gray-100 p-6 rounded-md text-center text-gray-600">
+                <p class="font-semibold text-lg">Nenhum produto disponível</p>
+                <p class="text-sm">Atualmente não temos produtos nesta categoria. Verifique novamente em breve!</p>
+            </div>
+        `;
+                return;
+            }
+
+            // Esconder botões de navegação se houver 6 ou menos itens
+            if (itemCount <= 6) {
+                prevButton?.classList.add('hidden');
+                nextButton?.classList.add('hidden');
+                slider.classList.remove('transition-transform'); // Remove animações desnecessárias
+                return;
+            }
+
+            // Variáveis para navegação
+            let currentIndex = 0;
+            const itemWidth = items[0].offsetWidth + 16; // Largura do item + espaçamento (gap)
+
+            // Função para atualizar a posição do slider
+            function atualizarPosicaoSlider() {
+                slider.style.transform = `translateX(-${currentIndex * itemWidth}px)`;
+            }
+
+            // Eventos de clique nos botões
+            if (prevButton) {
+                prevButton.addEventListener('click', () => {
+                    if (currentIndex > 0) {
+                        currentIndex--;
+                        atualizarPosicaoSlider();
+                    }
+                });
+            }
+
+            if (nextButton) {
+                nextButton.addEventListener('click', () => {
+                    if (currentIndex < itemCount - 6) {
+                        currentIndex++;
+                        atualizarPosicaoSlider();
+                    }
+                });
+            }
+
+            // Atualização automática apenas para sliders com mais de 6 itens
+            if (itemCount > 6) {
+                setInterval(() => {
+                    currentIndex = (currentIndex + 1) % itemCount; // Loop infinito
+                    atualizarPosicaoSlider();
+                }, 5000); // Atualiza a cada 5 segundos
+            }
+        }
+
+        // Inicializar sliders na página
+        document.addEventListener('DOMContentLoaded', () => {
+            configurarSlider('consoles-slider', 'prev-consoles', 'next-consoles'); // Slider de consoles em destaque
+            configurarSlider('jogos-slider', 'prev-jogos', 'next-jogos'); // Slider de jogos em destaque
+            configurarSlider('consoles-moderados-slider', 'prev-consoles-moderados', 'next-consoles-moderados'); // Consoles moderados
+        });
+
+
+    </script>
 </x-layout>
