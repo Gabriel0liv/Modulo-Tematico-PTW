@@ -38,9 +38,17 @@
                             @if(is_null($anuncio->comprador))
                                 <div class="p-4 bg-gray-50 flex justify-between items-center">
                                     <!-- Botão de destacar -->
-                                    @if(!$anuncio->destaque && $anuncio->moderado)
-                                        <form action="{{ route('produto.destaque', $anuncio->id) }}" method="POST">
+                                    <!-- Verificar se o produto já está destacado -->
+                                    @if($anuncio->destaque)
+                                        <span
+                                            class="inline-flex items-center rounded-md text-sm font-medium text-blue-500">
+                                                        Destacado
+                                                    </span>
+                                    @else
+                                        <form action="{{ route('destaque.adicionar') }}" method="POST">
                                             @csrf
+                                            <input type="hidden" name="id" value="{{ $anuncio->id }}">
+                                            <input type="hidden" name="tipo" value="{{ $anuncio instanceof \App\Models\Jogo ? 'jogo' : 'console' }}">
                                             <input type="hidden" name="tipo_produto" value="{{ $anuncio->tipo_produto }}">
                                             <button type="submit"
                                                     class="px-4 py-2 text-sm font-semibold

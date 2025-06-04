@@ -107,18 +107,34 @@ class CarrinhoController extends Controller
         $tipo = $request->input('tipo');
         $id = $request->input('id');
 
-        $produto = [
+        // Lógica para identificar produto e sua imagem relevante
+        if ($tipo === 'jogo') {
+            $produto = Jogo::with('imagens')->find($id);
+        } elseif ($tipo === 'console') {
+            $produto = Console::with('imagens')->find($id);
+        } else {
+            $produto = null;
+        }
+
+        $imagem = $produto && $produto->imagens->isNotEmpty()
+            ? GoogleDriveHelper::transformGoogleDriveUrl($produto->imagens->first()->path ?? $produto->imagens->first()->caminho)
+            : '/img/destaque.png'; // Caminho default caso não haja imagem
+
+        // Adicionando o item como destaque com detalhes consistentes
+        $itemDestaque = [
             'id' => $id,
             'nome' => "Destaque de " . ucfirst($tipo),
             'preco' => 4.90,
             'quantidade' => 1,
             'tipo' => 'destaque',
             'referencia' => $tipo,
+            'imagem' => $imagem,
         ];
 
-        session()->put('carrinho_destaque', $produto);
+        session()->put('carrinho_destaque', $itemDestaque);
 
         return redirect()->route('carrinho.destaque');
+
     }
 
     public function verCarrinhoDestaque()
