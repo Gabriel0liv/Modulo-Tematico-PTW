@@ -14,7 +14,7 @@ use Illuminate\Auth\Passwords\CanResetPassword;
 class User extends Authenticatable implements CanResetPasswordContract
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
-    use Notifiable,  CanResetPassword;
+    use Notifiable, CanResetPassword;
 
 
     /**
@@ -55,26 +55,37 @@ class User extends Authenticatable implements CanResetPasswordContract
             'tipo' => TipoUer::class,
         ];
     }
+
     public function isAdmin(): bool
     {
         return $this->tipo === \App\TipoUer::Admin;
     }
+
     public function moradas()
     {
         return $this->hasMany(Morada::class);
     }
+
     public function paymentMethods()
     {
         return $this->hasMany(PaymentMethod::class);
     }
+
     public function comprador()
     {
         return $this->belongsTo(User::class, 'comprador_id');
     }
+
     public function vendedor()
     {
         return $this->belongsTo(User::class, 'vendedor_id');
     }
+
+    public function imagemUser()
+    {
+        return $this->hasOne(ImagemUser::class, 'user_id');
+    }
+
 
 
 }

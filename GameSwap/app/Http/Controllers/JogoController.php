@@ -18,6 +18,8 @@ class JogoController extends Controller
 
     public function store(Request $request)
     {
+        Log::info('teste');
+
         try {
             Log::info('[JogoController@store] Iniciando o processo de cadastro de jogo.', [
                 'user_id' => auth()->id(),

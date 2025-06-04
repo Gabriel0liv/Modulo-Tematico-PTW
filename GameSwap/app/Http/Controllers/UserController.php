@@ -6,30 +6,99 @@ use App\Helpers\GoogleDriveHelper;
 use App\Models\Compra;
 use App\Models\Console;
 use App\Models\Denuncias;
+use App\Models\ImagemUser;
 use App\Models\Jogo;
 use App\Models\Morada;
 use App\Models\User;
+use App\Services\GoogleDriveService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class UserController
 {
     public function atualizarInformacoes(Request $request)
     {
         $user = Auth::user();
+
         $user->username = $request->input('username');
         $user->name = $request->input('name');
         $user->dataNascimento = $request->input('dataNascimento');
         $user->contato = $request->input('contato');
         $user->email = $request->input('email');
+        $user = Auth::user()->load('imagemUser');
 
         if ($request->filled('password')) {
             $user->password = bcrypt($request->input('password'));
         }
 
-        $user->save();
+        try {
+            // Verificar se uma nova imagem de perfil foi enviada
+            if ($request->hasFile('imagem_perfil')) {
+                $request->validate([
+                    'imagem_perfil' => 'image|mimes:jpeg,png,jpg,gif|max:8192',
+                ]);
 
-        return redirect()->route('perfilAdmin');
+                // Obter o registro existente da imagem do usuário
+                $imagemExistente = ImagemUser::where('user_id', $user->id)->first();
+
+                if ($imagemExistente) {
+                    try {
+                        // Apagar a imagem antiga no Google Drive
+                        $googleDriveService = new GoogleDriveService();
+                        $googleDriveService->delete($imagemExistente->imagem_url);
+
+                        Log::info('Imagem de perfil antiga removida.', [
+                            'user_id' => $user->id,
+                            'url' => $imagemExistente->imagem_url,
+                        ]);
+
+                        // Apagar o registro da imagem do banco de dados
+                        $imagemExistente->delete();
+                    } catch (\Throwable $e) {
+                        Log::error('Erro ao deletar a imagem de perfil antiga do Google Drive.', [
+                            'user_id' => $user->id,
+                            'error' => $e->getMessage(),
+                        ]);
+                    }
+                }
+
+                // Fazer o upload da nova imagem
+                $file = $request->file('imagem_perfil');
+                $fileName = 'perfil_' . $user->id . '_' . time() . '.' . $file->getClientOriginalExtension();
+                $filePath = $file->getRealPath();
+
+                // Serviço de upload
+                $uploadedFileUrl = $googleDriveService->upload(
+                    $filePath,
+                    $fileName,
+                    $user->id,  // Subpasta específica do usuário
+                    'utilizadores'  // Pasta principal
+                );
+
+                // Criar ou atualizar registro na tabela `imagem_user`
+                ImagemUser::updateOrCreate(
+                    ['user_id' => $user->id],
+                    ['imagem_url' => $uploadedFileUrl]
+                );
+
+                Log::info('Nova imagem de perfil enviada com sucesso.', [
+                    'user_id' => $user->id,
+                    'url' => $uploadedFileUrl,
+                ]);
+            }
+
+            $user->save();
+
+            return redirect()->route('perfilPage')->with('success', 'Perfil atualizado com sucesso!');
+        } catch (\Throwable $e) {
+            Log::error('Erro ao atualizar o perfil do usuário.', [
+                'user_id' => $user->id,
+                'error' => $e->getMessage(),
+            ]);
+
+            return back()->withErrors(['error' => 'Ocorreu um erro ao atualizar o perfil.']);
+        }
 
 
     }
@@ -134,15 +203,24 @@ class UserController
 
     public function mostrarPerfilVisita($id)
     {
-        $user = User::findOrFail($id);
+        $user = User::with('imagemUser')->findOrFail($id); // Carrega também a imagem do usuário
 
-        $jogos = Jogo::where('id_anunciante', $id)->get();
-        $consoles = Console::where('id_anunciante', $id)->get();
+        // Buscar jogos e consoles anunciados pelo usuário
+        $jogos = Jogo::where('id_anunciante', $id)->with('imagens')->get();
+        $consoles = Console::where('id_anunciante', $id)->with('imagens')->get();
 
-        $anuncios = $jogos->merge($consoles);
+        // Mesclar os anúncios e adicionar a propriedade imagem_capa
+        $anuncios = $jogos->merge($consoles)->map(function ($anuncio) {
+            $anuncio->imagem_capa = $anuncio->imagens->first()
+                ? GoogleDriveHelper::transformGoogleDriveUrl($anuncio->imagens->first()->path ?? $anuncio->imagens->first()->caminho)
+                : '/placeholder.svg'; // Se não houver imagem, use o placeholder
+            return $anuncio;
+        });
 
         return view('paginas.visitaPerfil', compact('user', 'anuncios'));
+
     }
+
 
     public function listarUtilizadores()
     {
@@ -150,6 +228,7 @@ class UserController
 
         return view('paginas.perfilAdmin.listaUtilizadores', compact('users'));
     }
+
 
     public function exibirUtilizador($id)
     {
