@@ -104,11 +104,28 @@ class UserController
     {
         $userId = auth()->id();
 
-        // Busca todos os jogos e consoles anunciados pelo utilizador
-        $jogos = Jogo::where('id_anunciante', $userId)->get();
-        $consoles = Console::where('id_anunciante', $userId)->get();
+        // Obter todos os jogos e consoles anunciados pelo utilizador
+        $jogos = Jogo::where('id_anunciante', $userId)->with(['imagens', 'comprador'])->get();
+        $consoles = Console::where('id_anunciante', $userId)->with(['imagens', 'comprador'])->get();
 
-        $anuncios = $jogos->merge($consoles);
+        // Mesclar ambas as coleções
+        $anuncios = $jogos->merge($consoles)->map(function ($anuncio) {
+            // Adicionar a propriedade "imagem_capa"
+            $anuncio->imagem_capa = $anuncio->imagens->first()
+                ? GoogleDriveHelper::transformGoogleDriveUrl($anuncio->imagens->first()->path ?? $anuncio->imagens->first()->caminho)
+                : '/placeholder.svg';
+
+            // Verificar status do anúncio
+            if ($anuncio->comprador) {
+                $anuncio->status = 'Vendido: ' . $anuncio->comprador->name;
+            } elseif (!$anuncio->moderado) {
+                $anuncio->status = 'Anúncio Pendente';
+            } else {
+                $anuncio->status = 'Publicado';
+            }
+
+            return $anuncio;
+        });
 
         return view('paginas.perfil.perfilmeusanuncios', compact('anuncios'));
     }
@@ -162,4 +179,6 @@ class UserController
 
         return view('paginas.perfil.perfilminhascompras', compact('compras'));
     }
+
+
 }

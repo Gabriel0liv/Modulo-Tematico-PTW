@@ -53,13 +53,27 @@
             <!-- Palavra-Passe -->
             <div class="bg-white rounded-lg shadow-sm p-6 mb-6">
                 <h2 class="text-lg font-semibold mb-4">Palavra-Passe</h2>
-                <div>
+                <div class="relative">
                     <label for="password" class="block text-sm text-gray-600 mb-1">Palavra-Passe:</label>
                     <input type="password" id="password" name="password"
                            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <!-- Botão para mostrar/ocultar senha -->
+                    <button type="button" id="togglePassword"
+                            class="absolute top-3/4 transform -translate-y-1/2 right-3 text-gray-600">
+                        <!-- Ícone inicial -->
+                        <svg id="eyeIcon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12c0 1.657-1.343 3-3 3s-3-1.343-3-3 1.343-3 3-3 3 1.343 3 3zM2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.944 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                        </svg>
+                        <!-- Ícone para senha visível (substituído via script) -->
+                        <svg id="eyeSlashIcon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825a10.405 10.405 0 003.624-2.616c1.394-1.39 2.444-3.08 3.08-4.71m-1.328-5.595a10.457 10.457 0 00-4.26-2.606m-4.605.04c-1.482.315-2.897.97-4.26 2.566C3.732 7.784 2.458 9.548 2.458 12c0 2.452 1.274 4.217 3.042 5.684 1.768 1.467 3.98 2.334 6.5 2.334 1.697 0 3.578-.423 5.217-1.414m-7.86-3.86c0-2.173 1.174-4.248 3.157-5.326" />
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3l18 18" />
+                        </svg>
+                    </button>
                     <p id="error-password" class="text-red-500 text-sm mt-1 hidden"></p>
                 </div>
             </div>
+
 
             <div class="text-right">
                 <button type="submit"
@@ -178,6 +192,25 @@
             Object.keys(fields).forEach(name => {
                 fields[name].addEventListener('blur', () => validateField(name));
             });
+
+
+            const passwordField = document.getElementById('password');
+            const togglePasswordButton = document.getElementById('togglePassword');
+            const eyeIcon = document.getElementById('eyeIcon');
+            const eyeSlashIcon = document.getElementById('eyeSlashIcon');
+
+            togglePasswordButton.addEventListener('click', () => {
+                // Alterna o estado do campo de senha
+                const type = passwordField.type === 'password' ? 'text' : 'password';
+                passwordField.type = type;
+
+                // Alterna os ícones
+                eyeIcon.classList.toggle('hidden');
+                eyeSlashIcon.classList.toggle('hidden');
+            });
+
+
+
         });
     </script>
 </x-layout>
