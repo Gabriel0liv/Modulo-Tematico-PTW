@@ -160,46 +160,33 @@ class ProdutoController extends Controller
     public function search(Request $request)
     {
         $query = $request->input('query');
-        $generos = $request->input('generos', []);
-        $consolesFiltro = $request->input('consoles', []);
         $modelo_consoles = ModeloConsole::all();
         $categorias = Categoria::all();
 
-        // Busca paginada de Jogos
         $jogosPaginated = Jogo::search($query)->paginate(10);
-
-        // Carrega as imagens dos Jogos para cada item da página
-        $jogos = $jogosPaginated->getCollection()->map(function ($jogo) {
-            $jogo->load('imagens'); // Carregar imagens relacionadas
+        $jogosPaginated->getCollection()->transform(function ($jogo) {
+            $jogo->load('imagens');
             $jogo->imagem_capa = $jogo->imagens->first()
-                ? GoogleDriveHelper::transformGoogleDriveUrl($jogo->imagens->first()->caminho)
+                ? \App\Helpers\GoogleDriveHelper::transformGoogleDriveUrl($jogo->imagens->first()->caminho)
                 : '/placeholder.svg';
             return $jogo;
         });
-        // Atualiza a coleção paginada para adicionar a imagem_capa
-        $jogosPaginated->setCollection($jogos);
 
-        // Busca paginada de Consoles
         $consolesPaginated = Console::search($query)->paginate(10);
-
-        // Carrega as imagens dos Consoles para cada item da página
-        $consoles = $consolesPaginated->getCollection()->map(function ($console) {
-            $console->load('imagens'); // Carregar imagens relacionadas
+        $consolesPaginated->getCollection()->transform(function ($console) {
+            $console->load('imagens');
             $console->imagem_capa = $console->imagens->first()
-                ? GoogleDriveHelper::transformGoogleDriveUrl($console->imagens->first()->path)
+                ? \App\Helpers\GoogleDriveHelper::transformGoogleDriveUrl($console->imagens->first()->path)
                 : '/placeholder.svg';
             return $console;
         });
-        // Atualiza a coleção paginada para adicionar a imagem_capa
-        $consolesPaginated->setCollection($consoles);
 
-        // Retornar view com os dados paginados
         return view('paginas.pesquisa', [
             'jogos' => $jogosPaginated,
             'consoles' => $consolesPaginated,
             'query' => $query,
-            'modelo_consoles' => $modelo_consoles,
-            'categorias' => $categorias
+            'categorias' => $categorias,
+            'modelo_consoles' => $modelo_consoles
         ]);
     }
 
@@ -290,5 +277,20 @@ class ProdutoController extends Controller
             });
 
         return view('compras', compact('consolesDestaque', 'consolesModerados', 'jogos', 'jogosModerados'));
+    }
+
+    public function desativarAnuncio(Request $request, $tipo, $id){
+        if ($tipo === 'jogo') {
+            $produto = Jogo::findOrFail($id);
+        } elseif ($tipo === 'console') {
+            $produto = Console::findOrFail($id);
+        } else {
+            abort(404, 'Tipo de produto inválido.');
+        }
+
+        $produto->ativo = false; // Desativa o anúncio
+        $produto->save();
+
+        return redirect()->back()->with('success', 'Anúncio desativado com sucesso!');
     }
 }

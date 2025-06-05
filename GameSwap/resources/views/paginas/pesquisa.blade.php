@@ -70,6 +70,7 @@
                 @else
                     <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
                         @foreach ($jogos as $jogo)
+                            <p>Buceta de produto que não mostra</p>
                             @if($jogo->moderado == 1)
                                 <x-jogo-card :jogo="$jogo"/>
                             @endif

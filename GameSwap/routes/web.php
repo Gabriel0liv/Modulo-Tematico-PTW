@@ -6,6 +6,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CarrinhoController;
 use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\CheckoutController;
+use App\Http\Controllers\ComentarioController;
 use App\Http\Controllers\ConsoleController;
 use App\Http\Controllers\DenunciasController;
 use App\Http\Controllers\ImagemProxyController;
@@ -81,6 +82,7 @@ Route::post('/forgot-password', [AuthController::class, 'sendResetLinkEmail'])->
 Route::get('/reset-password/{token}', [AuthController::class, 'showResetForm'])->name('password.reset');
 Route::post('/reset-password', [AuthController::class, 'resetPassword'])->name('password.update');
 Route::get('perfil/meus_anuncios', [UserController::class, 'mostrarAnuncios'])->name('perfil-Anuncios');
+Route::post('perfil/meus_anuncios/desativar/{tipo}/{id}', [ProdutoController::class, 'desativarAnuncio'])->name('anuncio.desativar');
 
 Route::get('/perfil/moradas/{id}/editar', [MoradaController::class, 'editarForm'])->name('moradas.editar.form');
 Route::post('/perfil/moradas/{id}/editar', [MoradaController::class, 'editarMorada'])->name('moradas.editar');
@@ -112,6 +114,8 @@ Route::post('/produto/{id}/destaque', [ProdutoController::class, 'destacar'])->n
 
 // Rota visitar perfilAdd commentMore actions
 Route::get('/perfil/{username}', [UserController::class, 'mostrarPerfilVisita'])->name('perfil.visitar');
+Route::post('/comentarios', [App\Http\Controllers\ComentarioController::class, 'store'])->name('comentarios.store');
+
 
 // Rotas de ticket de denuncia
 Route::get('/denunciar/{id}', [DenunciasController::class, 'denunciarUsuario'])->name('denuncias.criar');

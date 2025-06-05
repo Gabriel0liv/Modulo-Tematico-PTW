@@ -40,15 +40,6 @@
                 </div>
                 <span id="username-display" class="text-white text-sm hidden md:inline-block">Usuário</span>
             </a>
-            <div class="relative group">
-                <button id="notificationBtn" class="relative group z-50" aria-label="Notificações">
-                    <i class="bi bi-bell text-white text-xl"></i>
-                </button>
-                <!-- notification modal -->
-                <div id="notificationModal" class="modal absolute top-full left-1/2 -translate-x-1/2 mt-2 w-64 bg-white shadow-lg rounded-lg p-4 z-40 active">
-                      <p>Sem novas notificações.</p>
-                </div>
-            </div>
             <a href="{{route('carrinhoPage')}}" class="relative group" aria-label="Carrinho">
                 <i class="bi bi-cart text-white text-xl"></i>
 

@@ -7,6 +7,7 @@ use App\Models\Compra;
 use App\Models\Console;
 use App\Models\Denuncias;
 use App\Models\ImagemUser;
+use App\Models\Comentario;
 use App\Models\Jogo;
 use App\Models\Morada;
 use App\Models\User;
@@ -217,7 +218,10 @@ class UserController
             return $anuncio;
         });
 
-        return view('paginas.visitaPerfil', compact('user', 'anuncios'));
+
+        $comentarios = Comentario::where('id_destinatario', $user->id)->get();
+
+        return view('paginas.visitaPerfil', compact('user', 'anuncios', 'comentarios'));
 
     }
 
