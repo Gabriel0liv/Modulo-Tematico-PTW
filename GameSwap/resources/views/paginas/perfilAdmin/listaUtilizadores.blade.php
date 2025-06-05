@@ -45,6 +45,7 @@
                             <x-ListaUtilizadores.utilizadoresInativos :users="$users" />
                             </tbody>
                         </table>
+                        {{$users->links()}}
                     </div>
                 </div>
             </div>

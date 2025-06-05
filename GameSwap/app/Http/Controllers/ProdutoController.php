@@ -9,6 +9,7 @@ use App\Models\jogo;
 use App\Models\ModeloConsole;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class ProdutoController extends Controller
 {
@@ -113,20 +114,30 @@ class ProdutoController extends Controller
         return redirect()->route('checkout.index');
     }
 
-
-
     public function aprovarAnuncios(Request $request)
     {
-        $jogos = Jogo::get()->filter(function ($jogo) {;
+        $jogos = Jogo::get()->filter(function ($jogo) {
             return $jogo->id_comprador === null; // Filtra jogos que ainda não foram comprados
         });
-        $consoles = Console::get()->filter(function ($console) {;
+        $consoles = Console::get()->filter(function ($console) {
             return $console->id_comprador === null; // Filtra consoles que ainda não foram comprados
         });
 
         $produtos = $jogos->merge($consoles);
 
-        return view('paginas.perfilAdmin.aprovar', ['produtos' => $produtos]);
+        $perPage = 10;
+        $currentPage = LengthAwarePaginator::resolveCurrentPage();
+        $currentItems = $produtos->slice(($currentPage - 1) * $perPage, $perPage)->values();
+
+        $paginator = new LengthAwarePaginator(
+            $currentItems,
+            $produtos->count(),
+            $perPage,
+            $currentPage,
+            ['path' => $request->url(), 'query' => $request->query()]
+        );
+
+        return view('paginas.perfilAdmin.aprovar', ['produtos' => $paginator]);
     }
 
     public function aprovar($id, Request $request)
@@ -134,13 +145,15 @@ class ProdutoController extends Controller
         $tipoProduto = $request->input('tipo_produto');
 
         if ($tipoProduto === 'jogo') {
-            $produto = Jogo::findOrFail($id)->filter(function ($produto) {;
-                return $produto->id_comprador === null; // Filtra jogos que ainda não foram comprados
-            });
+            $produto = Jogo::findOrFail($id);
+            if ($produto->id_comprador !== null) {
+                return redirect()->back()->with('error', 'Produto já foi comprado.');
+            }
         } else {
-            $produto = Console::findOrFail($id)->filter(function ($produto) {;
-                return $produto->id_comprador === null; // Filtra jogos que ainda não foram comprados
-            });
+            $produto = Console::findOrFail($id);
+            if ($produto->id_comprador !== null) {
+                return redirect()->back()->with('error', 'Produto já foi comprado.');
+            }
         }
 
         $produto->moderado = 1;
@@ -154,11 +167,15 @@ class ProdutoController extends Controller
         $tipoProduto = $request->input('tipo_produto');
 
         if ($tipoProduto === 'jogo') {
-            $produto = Jogo::findOrFail($id)->filter(function ($produto) {;
-                return $produto->id_comprador === null;});
+            $produto = Jogo::findOrFail($id);
+            if ($produto->id_comprador !== null) {
+                return redirect()->back()->with('error', 'Produto já foi comprado.');
+            }
         } else {
-            $produto = Console::findOrFail($id)->filter(function ($produto) {;
-                return $produto->id_comprador === null;});
+            $produto = Console::findOrFail($id);
+            if ($produto->id_comprador !== null) {
+                return redirect()->back()->with('error', 'Produto já foi comprado.');
+            }
         }
 
         $produto->moderado = 2;

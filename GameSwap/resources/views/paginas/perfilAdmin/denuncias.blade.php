@@ -30,6 +30,7 @@
                             <x-AprovarDenuncias_denuncias.denunciasPendentes :denuncias="$denuncias" />
                         </tbody>
                     </table>
+                    {{$denuncias->links()}}
                 </div>
             </div>
 

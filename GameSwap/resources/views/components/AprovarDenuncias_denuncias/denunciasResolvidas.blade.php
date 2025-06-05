@@ -14,7 +14,7 @@
             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{$denuncia->tipo}}</td>
             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{$denuncia->created_at}}</td>
             <td class="px-6 py-4 whitespace-nowrap">
-                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">Aprovado</span>
+                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">Resolvida</span>
             </td>
             <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
                 <a href="/perfilAdmin/denuncias/detalhes/{{$denuncia->id}}" class="text-blue-600 hover:text-blue-900 mr-3">Ver</a>

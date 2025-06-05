@@ -65,7 +65,7 @@ class DenunciasController extends Controller
 
     public function resolverDenuncias(Request $request)
     {
-        $denuncias = Denuncias::all();
+        $denuncias = Denuncias::paginate(10);
 
         return view('paginas.perfilAdmin.denuncias', ['denuncias' => $denuncias]);
     }
@@ -110,7 +110,7 @@ class DenunciasController extends Controller
         $user = $denuncia->denunciado;
         $denuncia->status = 1;
         $denuncia->resolvido_em = now();
-        $denuncia->data_reativacao = now()->addDays($request->dias);
+        $denuncia->data_reativacao = now()->addDays($duracao);
         $denuncia->save();
 
         if ($user) {

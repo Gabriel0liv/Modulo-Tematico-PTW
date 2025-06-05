@@ -262,7 +262,7 @@ class UserController
 
     public function listarUtilizadores()
     {
-        $users = User::all();
+        $users = User::paginate(10);
 
         return view('paginas.perfilAdmin.listaUtilizadores', compact('users'));
     }
