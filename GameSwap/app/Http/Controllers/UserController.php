@@ -219,7 +219,10 @@ class UserController
         });
 
 
-        $comentarios = Comentario::where('id_destinatario', $user->id)->get();
+        $comentarios = Comentario::where('id_destinatario', $user->id)
+            ->with('remetente')
+            ->orderBy('created_at', 'desc')
+            ->paginate(3); // 4 por página
 
         return view('paginas.visitaPerfil', compact('user', 'anuncios', 'comentarios'));
 

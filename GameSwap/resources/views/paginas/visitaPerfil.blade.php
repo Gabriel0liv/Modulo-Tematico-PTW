@@ -119,8 +119,7 @@
                                     JP
                                 </div>
                                 <div>
-                                    <a href="/perrfil/{{$comentarios->id_remetente}}" class="font-medium">{{$comentario->remetente->username}}</a>
-                                    <div class="text-sm text-gray-500">{{$comentario->created_at}}</div>
+                                    <a href="/perfil/{{$comentario->id_remetente}}" class="font-medium">{{$comentario->remetente->username}}</a>                                    <div class="text-sm text-gray-500">{{$comentario->created_at}}</div>
                                 </div>
                             </div>
                         </div>
@@ -129,8 +128,9 @@
                         </p>
                     </div>
                 @endforeach
+                    {{ $comentarios->links() }}
 
-                <div class="max-w-2xl mx-auto bg-white rounded-xl shadow-md p-6">
+                <div class="w-full bg-white rounded-xl shadow-md p-6">
                     <h2 class="text-xl font-bold text-gray-800 mb-4">Deixe um comentario</h2>
 
                     <form action="{{ route('comentarios.store') }}" method="POST" id="commentForm" class="space-y-4">
