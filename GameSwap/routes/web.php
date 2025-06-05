@@ -53,6 +53,14 @@ Route::get('paginas/ajuda', function () {
     return view('paginas.ajuda');
 })->name('ajuda');
 
+Route::get('paginas/comoFazer', function () {
+    return view('paginas.comoFazer');
+})->name('comoFazer');
+
+Route::get('/como-comprar', function () {
+    return view('paginas.comoComprar');
+})->name('comoComprar');
+
 // rotas para o controller de autenticação
 Route::post('paginas/auth/registoPage',[AuthController::class,'criarRegisto'])->name('criarRegisto');
 Route::post('paginas/auth/loginPage',[AuthController::class,'login'])->name('login');

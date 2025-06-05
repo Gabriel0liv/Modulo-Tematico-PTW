@@ -45,7 +45,7 @@
                             <span>Suporte prioritário</span>
                         </li>
                     </ul>
-                    <a href="{{route('assinatura')}}"
+                    <a href="{{route('perfil-Anuncios')}}"
                        class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium bg-blue-600 hover:bg-blue-700 text-white w-full px-4 py-2">
                         Destaque Agora
                     </a>
@@ -64,10 +64,10 @@
                         </li>
                     </ul>
                     <div class="flex gap-2">
-                        <button
+                        <a href="{{ route('comoFazer') }}"
                             class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded text-sm font-medium transition">
-                            Inscrever
-                        </button>
+                            Aprender como anunciar
+                        </a>
                     </div> <!-- Fechando o formulário de inscrição -->
                 </div> <!-- Fechando a caixa de informação -->
             </div> <!-- Fechando a caixa de informação -->

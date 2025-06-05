@@ -122,6 +122,7 @@
                 </div>
             </div>
 
+
             <!-- Game Category -->
             <div>
                 <label for="game-category" class="block text-text font-medium mb-2">Categoria de Jogo</label>
@@ -134,6 +135,16 @@
                 </select>
                 <p class="text-xs text-gray-500 mt-1">Escolha a categoria que melhor descreve seu jogo.</p>
             </div>
+
+            <!-- Região -->
+            <div>
+                <label for="region" class="block text-text font-medium mb-2">Região</label>
+                <input type="text" id="region" name="regiao"
+                       class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+                       placeholder="Ex: America, Europa ou Japão"/>
+                <p class="text-xs text-gray-500 mt-1">Informe a localização ou região onde o jogo está disponível.</p>
+            </div>
+
 
             <!-- Product Description -->
             <div>
@@ -355,7 +366,7 @@
                 const imagens = formulario.querySelector('input[type="file"]');
                 const charCounter = formulario.querySelector('span[id^="char-count"]');
                 const categoria = formulario.querySelector('[name="id_categoria"]');
-                const consoleTipo = formulario.querySelector('[name="console_id"]') || formulario.querySelector('[name="modelo_console_id"]');
+                const consoleTipo = formulario.querySelector('[name="console"]') || formulario.querySelector('[name="tipo_console"]');
 
                 const campos = [nome, preco, descricao, imagens, consoleTipo];
                 if (tipo === 'jogo') campos.push(categoria);
@@ -430,6 +441,13 @@
 
             // Inicializa o estado correto com base no valor padrão
             tipoProdutoSelect.dispatchEvent(new Event('change'));
+
+
+
+
+
+
+
             // Função para lidar com pré-visualização de imagens
             const handleImageInput = (input, previewContainer, maxFiles = 6) => {
                 input.addEventListener("change", () => {

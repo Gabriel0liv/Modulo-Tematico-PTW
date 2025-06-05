@@ -9,6 +9,7 @@ use Laravel\Scout\Searchable;
 class jogo extends Model
 {
     use Searchable;
+    use HasFactory;
 
     public function toSearchableArray()
     {

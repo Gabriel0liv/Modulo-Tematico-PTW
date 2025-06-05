@@ -27,9 +27,10 @@ class ComentarioController extends Controller
     {
         $id = Auth::id();
         $comentarios = Comentario::where('id_destinatario', $id)
-            ->with('remetente')
+            ->with(['remetente.imagemUser']) // Inclui o remetente e sua imagem
             ->orderBy('created_at', 'desc')
-            ->paginate(10);
+            ->paginate(10); // Paginação (10 comentários por página)
+
 
         return view('paginas.perfil.perfilcomentarios', compact('comentarios'));    }
 }

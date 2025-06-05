@@ -159,8 +159,17 @@
                                 <div class="text-gray-500">Plataforma:</div>
                                 <div class="font-medium">{{$produto->modelo_console->nome}}</div>
 
+                                @if($produto->tipo_produto === 'jogo')
                                 <div class="text-gray-500">Gênero:</div>
                                 <div class="font-medium">{{$produto->categoria->nome}}</div>
+                                @endif
+
+                                <!-- Região exibida apenas para JOGOS -->
+                                @if($produto->tipo_produto === 'jogo')
+                                    <div class="text-gray-500">Região:</div>
+                                    <div class="font-medium">{{$produto->regiao}}</div>
+                                @endif
+
 
                                 <div class="text-gray-500">Estado:</div>
                                 <div class="font-medium">{{$produto->estado}}</div>

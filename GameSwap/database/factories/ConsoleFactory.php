@@ -2,22 +2,17 @@
 
 namespace Database\Factories;
 
+use App\Models\Categoria;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-/**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Console>
- */
-class ConsoleFactory extends Factory
+class CategoriaFactory extends Factory
 {
-    /**
-     * Define the model's default state.
-     *
-     * @return array<string, mixed>
-     */
+    protected $model = Categoria::class;
+
     public function definition(): array
     {
         return [
-            //
+            'nome' => $this->faker->word, // Adicionando nome
         ];
     }
 }

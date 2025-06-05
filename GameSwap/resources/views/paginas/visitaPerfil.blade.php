@@ -112,17 +112,34 @@
                     <div class="border-b border-gray-100 pb-6">
                         <div class="flex justify-between mb-2">
                             <div class="flex items-center gap-3">
-                                <div
-                                    class="h-10 w-10 rounded-full bg-gray-200 flex items-center justify-center text-gray-500 font-medium">
-                                    JP
+                                <!-- Verifica se o remetente tem uma imagem de perfil -->
+                                @php
+                                    $imagemPerfil = $comentario->remetente->imagemUser->imagem_url ?? null;
+                                @endphp
+
+                                <div class="h-10 w-10 rounded-full bg-gray-200 flex items-center justify-center text-gray-500 font-medium overflow-hidden">
+                                    @if($imagemPerfil)
+                                        <!-- Exibe a imagem de perfil -->
+                                        <img
+                                            src="{{ \App\Helpers\GoogleDriveHelper::transformGoogleDriveUrl($imagemPerfil) }}"
+                                            alt="{{ $comentario->remetente->username }}"
+                                            class="w-full h-full object-cover"
+                                        />
+                                    @else
+                                        <!-- Fallback: Exibe as iniciais do nome -->
+                                        <span>{{ Str::upper(Str::substr($comentario->remetente->username, 0, 2)) }}</span>
+                                    @endif
                                 </div>
+
+                                <!-- Informações do remetente -->
                                 <div>
-                                    <a href="/perfil/{{$comentario->id_remetente}}" class="font-medium">{{$comentario->remetente->username}}</a>                                    <div class="text-sm text-gray-500">{{$comentario->created_at}}</div>
+                                    <div class="font-medium">{{ $comentario->remetente->username }}</div>
+                                    <div class="text-sm text-gray-500">{{ $comentario->created_at }}</div>
                                 </div>
                             </div>
                         </div>
                         <p class="text-gray-700">
-                            {{$comentario->conteudo}}
+                            {{ $comentario->conteudo }}
                         </p>
                     </div>
                 @endforeach

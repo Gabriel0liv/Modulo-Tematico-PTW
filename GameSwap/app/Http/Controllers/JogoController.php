@@ -33,6 +33,8 @@ class JogoController extends Controller
                 'estado' => 'required|in:novo,usado,recondicionado',
                 'id_categoria' => 'required|exists:categorias,id',
                 'descricao' => 'required|string|max:1000',
+                'console_id' => 'required|exists:modelo_consoles,id',
+                'regiao' => 'required|string|max:255', // Validação para o campo "regiao"
                 'destaque' => 'nullable|boolean',
                 'imagens' => 'required|array',
                 'imagens.*' => 'image|mimes:jpeg,png,jpg,gif|max:8192',
@@ -46,9 +48,11 @@ class JogoController extends Controller
                 'estado' => $validatedData['estado'],
                 'tipo_produto' => $request->input('tipo_produto', 'jogo'),
                 'id_anunciante' => auth()->id(),
-                'console_id' => $request->input('console_id'),
+                'console_id' => $validatedData['console_id'],
+                'regiao' => $validatedData['regiao'], // Salva o campo "regiao"
                 'destaque' => $request->boolean('destaque'),
             ]);
+
 
             Log::info('Jogo criado com sucesso.', ['jogo_id' => $jogo->id]);
 

@@ -33,6 +33,9 @@ class ProdutoController extends Controller
                 return GoogleDriveHelper::transformGoogleDriveUrl($imagem->path);
             });
 
+            $produto->regiao = $produto->regiao ?? 'Região não especificada';
+
+
             // Produtos relacionados (consoles)
             $produtosRelacionados = Console::where('modelo_console_id', $produto->modelo_console_id)
                 ->where('id', '!=', $produto->id)
@@ -47,7 +50,7 @@ class ProdutoController extends Controller
                     return $item; // Retorna o OBJETO do modelo
                 });
         } elseif ($tipo_produto === 'jogo') {
-            $produto = Jogo::with(['imagens', 'anunciante'])->findOrFail($id);
+            $produto = Jogo::with(['imagens', 'anunciante', 'modelo_console'])->findOrFail($id); // Incluímos 'modelo_console'
             $produto->imagem_capa = $produto->imagens->first()
                 ? GoogleDriveHelper::transformGoogleDriveUrl($produto->imagens->first()->caminho)
                 : '/placeholder.svg';
@@ -69,6 +72,9 @@ class ProdutoController extends Controller
                         : '/placeholder.svg';
                     return $item; // Retorna o OBJETO do modelo
                 });
+
+            // Adicionado para garantir que o nome do console esteja disponível
+            $produto->nome_console = $produto->modelo_console ? $produto->modelo_console->nome : 'Console não especificado';
         } else {
             abort(404, 'Tipo de produto não encontrado.');
         }

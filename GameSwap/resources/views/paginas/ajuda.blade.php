@@ -58,13 +58,13 @@
                     <h4 class="text-xl font-semibold text-gray-900 mb-4">Guias Rápidos</h4>
                     <ul class="space-y-2 text-gray-700 leading-relaxed">
                         <li>
-                            <a href="#" class="text-blue-600 hover:text-blue-800 underline">
-                                Como publicar um novo produto
+                            <a href="{{route('comoFazer')}}" class="text-blue-600 hover:text-blue-800 underline">
+                                Como anunciar um novo produto
                             </a>
                         </li>
                         <li>
-                            <a href="#" class="text-blue-600 hover:text-blue-800 underline">
-                                Como comprar um produto com Stripe
+                            <a href="{{ route('comoComprar') }}" class="text-blue-600 hover:text-blue-800 underline">
+                                Como comprar um produto
                             </a>
                         </li>
                         <li>
