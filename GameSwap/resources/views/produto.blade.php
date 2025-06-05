@@ -5,7 +5,7 @@
     <!-- Breadcrumbs -->
     <div class="max-w-7xl mx-auto px-6 pt-6 pb-2">
         <div class="flex items-center text-sm text-gray-500">
-            <a href="#" class="hover:text-[#0a66c2] hover:underline">Home</a>
+            <a href="/" class="hover:text-[#0a66c2] hover:underline">Home</a>
             <svg class="h-3 w-3 mx-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                  stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
@@ -15,7 +15,7 @@
                  stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
             </svg>
-            <a href="#" class="hover:text-[#0a66c2] hover:underline">{{$produto->modelo_console->nome}}</a>
+            <a href="/pesquisa?query={{$produto->modelo_console->nome}}" class="hover:text-[#0a66c2] hover:underline">{{$produto->modelo_console->nome}}</a>
             <svg class="h-3 w-3 mx-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                  stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
@@ -92,53 +92,13 @@
 
                     <div>
                         <div class="flex items-center gap-2 mb-1">
-                            <div class="flex">
-                                <svg class="h-4 w-4 fill-[#fcc419] text-[#fcc419]" xmlns="http://www.w3.org/2000/svg"
-                                     viewBox="0 0 24 24">
-                                    <path
-                                        d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
-                                </svg>
-                                <svg class="h-4 w-4 fill-[#fcc419] text-[#fcc419]" xmlns="http://www.w3.org/2000/svg"
-                                     viewBox="0 0 24 24">
-                                    <path
-                                        d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
-                                </svg>
-                                <svg class="h-4 w-4 fill-[#fcc419] text-[#fcc419]" xmlns="http://www.w3.org/2000/svg"
-                                     viewBox="0 0 24 24">
-                                    <path
-                                        d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
-                                </svg>
-                                <svg class="h-4 w-4 fill-[#fcc419] text-[#fcc419]" xmlns="http://www.w3.org/2000/svg"
-                                     viewBox="0 0 24 24">
-                                    <path
-                                        d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
-                                </svg>
-                                <svg class="h-4 w-4 fill-[#fcc419] text-[#fcc419]" xmlns="http://www.w3.org/2000/svg"
-                                     viewBox="0 0 24 24">
-                                    <path
-                                        d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
-                                </svg>
-                            </div>
-                            <span class="text-sm text-gray-500">(32 avaliações)</span>
                         </div>
                         <h1 class="text-3xl font-bold text-gray-900">{{$produto->nome}}</h1>
                         <p class="text-gray-500 mt-1">{{$produto->modelo_console->nome}}</p>
                     </div>
 
                     <div class="flex items-end gap-3">
-                        <span class="text-3xl font-bold text-gray-900">R${{$produto->preco}}</span>
-                    </div>
-
-                    <div class="flex items-center gap-1 text-gray-600">
-                        <svg class="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                  d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                  d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
-                        </svg>
-                        <span>{{$produto->morada}}</span>
-                        <span class="mx-2">•</span>
-                        <a href="#" class="text-[#0a66c2]">Ver no mapa</a>
+                        <span class="text-3xl font-bold text-gray-900">€{{$produto->preco}}</span>
                     </div>
 
                     <div class="flex items-center gap-1 text-gray-600">
@@ -146,10 +106,7 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                   d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
                         </svg>
-                        <span>Vendido por <a href="/perfil/{{$produto->id_anunciante}}"
-                                             class="font-medium text-[#0a66c2] hover:underline">{{$produto->anunciante->username}}</a></span>
-                        <span class="mx-2">•</span>
-                        <span class="text-[#2b8a3e]">Vendedor verificado</span>
+                        <span>Vendido por <a href="/perfil/{{$produto->id_anunciante}}" class="font-medium text-[#0a66c2] hover:underline">{{$produto->anunciante->username}}</a></span>
                     </div>
                 </div>
 
@@ -165,70 +122,51 @@
                     </button>
                 </form>
 
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
-                    <div class="flex items-center gap-3 p-3 rounded-lg bg-white shadow-sm">
-                        <div class="p-2 rounded-full bg-[#e7f5ff]">
-                            <svg class="h-5 w-5 text-[#0a66c2]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                      d="M5 13l4 4L19 7"/>
-                            </svg>
-                        </div>
-                        <span>Produto em {{$produto->estado}}</span>
-                    </div>
-                    <div class="flex items-center gap-3 p-3 rounded-lg bg-white shadow-sm">
-                        <div class="p-2 rounded-full bg-[#e7f5ff]">
-                            <svg class="h-5 w-5 text-[#0a66c2]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                      d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                            </svg>
-                        </div>
-                        <span>Envio em 24 horas</span>
-                    </div>
-                    <div class="flex items-center gap-3 p-3 rounded-lg bg-white shadow-sm">
-                        <div class="p-2 rounded-full bg-[#e7f5ff]">
-                            <svg class="h-5 w-5 text-[#0a66c2]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                      d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
-                            </svg>
-                        </div>
-                        <span>Garantia de 7 dias</span>
-                    </div>
-                    <div class="flex items-center gap-3 p-3 rounded-lg bg-white shadow-sm">
-                        <div class="p-2 rounded-full bg-[#e7f5ff]">
-                            <svg class="h-5 w-5 text-[#0a66c2]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                      d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/>
-                            </svg>
-                        </div>
-                        <span>Pagamento seguro</span>
-                    </div>
-                </div>
-
                 <!-- CSS-only Tabs -->
                 <div class="relative">
-                    <div id="description" class="tab-content mt-4 text-gray-700 space-y-4">
-                        {{$produto->descricao}}
+                    <label for="description" class="text-1xl font-bold block text-gray-900 mb-1">Descrição:</label>
+                    <textarea
+                        id="description"
+                        class="w-full px-2 py-2 border border-gray-900 rounded-lg focus:ring-2 transition-all resize-none"
+                        rows="4"
+                        readonly
+                    >{{$produto->descricao}}</textarea>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
+                        <div class="flex items-center gap-3 p-3 rounded-lg bg-white shadow-sm">
+                            <div class="p-2 rounded-full bg-[#e7f5ff]">
+                                <svg class="h-5 w-5 text-[#0a66c2]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                          d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+                                </svg>
+                            </div>
+                            <span>Garantia de 7 dias</span>
+                        </div>
+                        <div class="flex items-center gap-3 p-3 rounded-lg bg-white shadow-sm">
+                            <div class="p-2 rounded-full bg-[#e7f5ff]">
+                                <svg class="h-5 w-5 text-[#0a66c2]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                          d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/>
+                                </svg>
+                            </div>
+                            <span>Pagamento seguro</span>
+                        </div>
                     </div>
 
                     <div id="details" class="tab-content mt-4">
                         <div class="bg-white rounded-lg p-4 space-y-3">
-                            <div class="grid grid-cols-2 gap-2 text-sm">
-                                <div class="text-gray-500">Plataforma</div>
+                            <div class="grid grid-cols-2 gap-x-1 gap-y-2 text-sm">
+                                <div class="text-gray-500">Plataforma:</div>
                                 <div class="font-medium">{{$produto->modelo_console->nome}}</div>
 
-                                <div class="text-gray-500">Gênero</div>
-                                <div class="font-medium">Ação, Aventura</div>
+                                <div class="text-gray-500">Gênero:</div>
+                                <div class="font-medium">{{$produto->categoria->nome}}</div>
 
-                                <div class="text-gray-500">Idioma</div>
-                                <div class="font-medium">{{$produto->idiomas}}</div>
-
-                                <div class="text-gray-500">Estado</div>
+                                <div class="text-gray-500">Estado:</div>
                                 <div class="font-medium">{{$produto->estado}}</div>
                             </div>
                         </div>
                     </div>
-
-
                 </div>
             </div>
         </div>

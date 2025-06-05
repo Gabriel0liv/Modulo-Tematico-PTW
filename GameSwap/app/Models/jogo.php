@@ -14,10 +14,11 @@ class jogo extends Model
     {
         return [
             'nome' => $this->nome,
-            'console_nome' => $this->console_id, // Modelo de console
-            'categoria_nome' => $this->categoria->nome,
+            'console_nome' => $this->modelo_console ? $this->modelo_console->nome : null, // Corrigido
+            'categoria_nome' => $this->categoria ? $this->categoria->nome : null,
         ];
     }
+
 
     public function anunciante()
     {

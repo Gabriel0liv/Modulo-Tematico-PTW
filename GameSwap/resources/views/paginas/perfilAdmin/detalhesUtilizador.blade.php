@@ -70,7 +70,11 @@
                         </button>
                         <button onclick="showTab('bans')" id="bansTab"
                                 class="tab-button border-b-2 border-transparent py-2 px-1 text-sm font-medium text-gray-500 hover:text-gray-700 hover:border-gray-300">
-                            Banimentos (0)
+                            Banimentos ({{$banimentos->count() ?? 0}})
+                        </button>
+                        <button onclick="showTab('commentary')" id="commentaryTab"
+                                class="tab-button border-b-2 border-transparent py-2 px-1 text-sm font-medium text-gray-500 hover:text-gray-700 hover:border-gray-300">
+                            Comentários ({{$comentarios->count() ?? 0}})
                         </button>
                     </nav>
                 </div>
@@ -130,9 +134,67 @@
                             <h5 class="text-lg font-medium text-gray-900">Histórico de Banimentos</h5>
                         </div>
                         <div class="divide-y divide-gray-200">
+                            <div class="p-6">
+                                <div class="flex items-start justify-between">
+                                    @foreach($banimentos as $banimento)
+                                        <div class="flex-1">
+                                            <div class="flex items-center space-x-2">
+                                                @if($banimento->data_reativacao != '9999-12-31 23:59:59')
+                                                    <h6 class="text-sm font-medium text-yellow-900">Banimento Temporário</h6>
+                                                @else
+                                                    <h6 class="text-sm font-medium text-red-900">Banimento Permanente</h6>
+                                                @endif
+                                                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">Expirado</span>
+                                            </div>
+                                            <p class="text-sm text-gray-500 mt-1">Motivo: {{$banimento->motivo}}</p>
+                                            <div class="flex items-center mt-2 space-x-4 text-xs text-gray-500">
+                                                <span>Início: {{$banimento->resolvido_em}}</span>
+                                                @if($banimento->data_reativacao != '9999-12-31 23:59:59')
+                                                    <span>Fim: {{$banimento->data_reativacao}}</span>
+                                                    <span>Duração: {{ \Carbon\Carbon::parse($banimento->resolvido_em)->diffInDays(\Carbon\Carbon::parse($banimento->data_reativacao)) }}</span>
+                                                @else
+                                                    <span>Fim: Permanente</span>
+                                                @endif
+
+                                            </div>
+                                        </div>
+                                    @endforeach
+                                    <div class="ml-4">
+                                        <i data-lucide="alert-triangle" class="w-5 h-5 text-red-500"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Commentary Tab -->
+                <div id="commentaryContent" class="tab-content hidden">
+                    <div class="bg-white border border-gray-200 rounded-lg shadow-md">
+                        <div class="px-6 py-4 border-b border-gray-200">
+                            <h5 class="text-lg font-medium text-gray-900">Histórico de Comentarios</h5>
+                        </div>
+                        <div class="divide-y divide-gray-200">
                             <div class="p-6 text-center text-gray-500">
-                                <i data-lucide="check-circle" class="w-8 h-8 mx-auto mb-2 text-green-500"></i>
-                                <p class="text-sm">Nenhum banimento ativo no momento</p>
+                                @foreach($comentarios as $comentario)
+                                    <div class="border-b border-gray-100 pb-6">
+                                        <div class="flex justify-between mb-2">
+                                            <div class="flex items-center gap-3">
+                                                <div
+                                                    class="h-10 w-10 rounded-full bg-gray-200 flex items-center justify-center text-gray-500 font-medium">
+                                                    JP
+                                                </div>
+                                                <div>
+                                                    <p class="font-medium">{{$comentario->remetente->username}}</p>                                    <div class="text-sm text-gray-500">{{$comentario->created_at}}</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <p class="text-gray-700">
+                                            {{$comentario->conteudo}}
+                                        </p>
+                                    </div>
+                                @endforeach
+                                {{$comentarios->links()}}
                             </div>
                         </div>
                     </div>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Comentario;
 use App\Models\Console;
 use App\Models\jogo;
 use App\Models\User;
@@ -72,12 +73,17 @@ class DenunciasController extends Controller
     public function exibirDenuncia($id)
     {
         $denuncia = Denuncias::findOrFail($id);
+        $banimentos = Denuncias::where('id_denunciado', $denuncia->id_denunciado)
+            ->get()
+            ->filter(function ($denuncia) {
+                return $denuncia->status == 1 && $denuncia->data_reativacao != null;
+            });
         $user = User::where('id', $denuncia->id_denunciado)->firstOrFail();
         $jogos = Jogo::where('id_anunciante', $user->id)->get();
         $consoles = Console::where('id_anunciante', $user->id)->get();
         $produtos = $jogos->merge($consoles);
-
-        return view('paginas.perfilAdmin.detalhesDenuncia', compact('denuncia', 'user', 'produtos'));
+        $comentarios = Comentario::where('id_remetente', $user->id)->paginate(10);
+        return view('paginas.perfilAdmin.detalhesDenuncia', compact('denuncia', 'banimentos','user', 'produtos', 'comentarios'));
     }
 
     public function resolver(Request $request, $id)
@@ -114,6 +120,7 @@ class DenunciasController extends Controller
 
         return redirect('/perfilAdmin/denuncias')->with('success', 'Usuário suspenso com sucesso.');
     }
+
 
     public function banir(Request $request, $id)
     {

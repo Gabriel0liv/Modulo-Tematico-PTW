@@ -22,4 +22,14 @@ class ComentarioController extends Controller
 
         return back()->with('success', 'Comentário enviado com sucesso!');
     }
+
+    public function comentariosPerfil()
+    {
+        $id = Auth::id();
+        $comentarios = Comentario::where('id_destinatario', $id)
+            ->with('remetente')
+            ->orderBy('created_at', 'desc')
+            ->paginate(10);
+
+        return view('paginas.perfil.perfilcomentarios', compact('comentarios'));    }
 }

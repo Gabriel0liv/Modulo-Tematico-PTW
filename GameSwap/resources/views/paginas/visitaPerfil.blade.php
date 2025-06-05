@@ -38,19 +38,16 @@
                 </p>
             </div>
             <!-- Action Buttons Section -->
-            @if(Auth::user()->tipo === 'user')
-                <div class="flex flex-col items-center justify-center w-full md:w-auto">
-                    <a href="/denunciar/{{ $user->id }}" class="glass-effect bg-red-50 border border-red-200 hover:border-red-300 text-red-600 hover:text-red-700 px-8 py-3 rounded-xl font-semibold transition-all transform hover:scale-105 text-center">
-                        <svg class="w-5 h-5 inline mr-2" fill="currentColor" viewBox="0 0 20 20">
-                            <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/>
-                        </svg>
-                        Denunciar
-                    </a>
-                </div>
-            @endif
-            <else>
-                <p class="hidden"></p>
-            </else>
+            @auth
+                    <div class="flex flex-col items-center justify-center w-full md:w-auto">
+                        <a href="/denunciar/{{ $user->id }}" class="glass-effect bg-red-50 border border-red-200 hover:border-red-300 text-red-600 hover:text-red-700 px-8 py-3 rounded-xl font-semibold transition-all transform hover:scale-105 text-center">
+                            <svg class="w-5 h-5 inline mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/>
+                            </svg>
+                            Denunciar
+                        </a>
+                    </div>
+            @endauth
         </div>
 
 
@@ -64,12 +61,16 @@
                     </div>
                     <div class="flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-4">
                         <div class="relative">
-                            <input type="text"
-                                   placeholder="Pesquisar vendas..."
-                                   class="w-full sm:w-64 pl-10 pr-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all">
-                            <svg class="absolute left-3 top-3.5 w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
-                            </svg>
+                            <form method="GET" action="{{ route('perfil.visitar', ['username' => $user->id]) }}" class="relative">
+                                <input type="text"
+                                       name="search"
+                                       value="{{ request('search') }}"
+                                       placeholder="Pesquisar vendas..."
+                                       class="w-full sm:w-64 pl-10 pr-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all">
+                                <svg class="absolute left-3 top-3.5 w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                                </svg>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -96,6 +97,7 @@
                         </a>
                     @endif
                 @endforeach
+                {{ $anuncios->links() }}
             </div>
         </div>
 
@@ -103,10 +105,6 @@
         <div class="mt-12 bg-white p-6 rounded-xl shadow-sm">
             <div class="flex items-center justify-between mb-6">
                 <h2 class="text-xl font-bold text-gray-900">Comentarios</h2>
-                <a href="#"
-                   class="border border-[#0a66c2] text-[#0a66c2] hover:bg-[#0a66c2] hover:text-white font-medium rounded-lg px-4 py-2 transition-all">
-                    Ver todas
-                </a>
             </div>
 
             <div class="grid gap-6">

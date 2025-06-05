@@ -117,8 +117,12 @@ class ProdutoController extends Controller
 
     public function aprovarAnuncios(Request $request)
     {
-        $jogos = Jogo::all();
-        $consoles = Console::all();
+        $jogos = Jogo::get()->filter(function ($jogo) {;
+            return $jogo->id_comprador === null; // Filtra jogos que ainda não foram comprados
+        });
+        $consoles = Console::get()->filter(function ($console) {;
+            return $console->id_comprador === null; // Filtra consoles que ainda não foram comprados
+        });
 
         $produtos = $jogos->merge($consoles);
 
@@ -130,9 +134,13 @@ class ProdutoController extends Controller
         $tipoProduto = $request->input('tipo_produto');
 
         if ($tipoProduto === 'jogo') {
-            $produto = Jogo::findOrFail($id);
+            $produto = Jogo::findOrFail($id)->filter(function ($produto) {;
+                return $produto->id_comprador === null; // Filtra jogos que ainda não foram comprados
+            });
         } else {
-            $produto = Console::findOrFail($id);
+            $produto = Console::findOrFail($id)->filter(function ($produto) {;
+                return $produto->id_comprador === null; // Filtra jogos que ainda não foram comprados
+            });
         }
 
         $produto->moderado = 1;
@@ -146,9 +154,11 @@ class ProdutoController extends Controller
         $tipoProduto = $request->input('tipo_produto');
 
         if ($tipoProduto === 'jogo') {
-            $produto = Jogo::findOrFail($id);
+            $produto = Jogo::findOrFail($id)->filter(function ($produto) {;
+                return $produto->id_comprador === null;});
         } else {
-            $produto = Console::findOrFail($id);
+            $produto = Console::findOrFail($id)->filter(function ($produto) {;
+                return $produto->id_comprador === null;});
         }
 
         $produto->moderado = 2;
@@ -157,13 +167,29 @@ class ProdutoController extends Controller
         return redirect()->back()->with('success', 'Produto reprovado com sucesso!');
     }
 
+    // app/Http/Controllers/ProdutoController.php
+
     public function search(Request $request)
     {
         $query = $request->input('query');
         $modelo_consoles = ModeloConsole::all();
         $categorias = Categoria::all();
 
-        $jogosPaginated = Jogo::search($query)->paginate(10);
+        $jogosPaginated = Jogo::search($query)
+            ->when($request->filled('generos'), function ($q) use ($request) {
+                $ids = $request->input('generos', []);
+                if (!empty($ids)) {
+                    $q->whereIn('categoria_nome', $ids);
+                }
+            })
+            ->when($request->filled('consoles'), function ($q) use ($request) {
+                $ids = $request->input('consoles', []);
+                if (!empty($ids)) {
+                    $q->whereIn('console_nome', $ids);
+                }
+            })
+            ->paginate(10);
+
         $jogosPaginated->getCollection()->transform(function ($jogo) {
             $jogo->load('imagens');
             $jogo->imagem_capa = $jogo->imagens->first()
@@ -172,7 +198,15 @@ class ProdutoController extends Controller
             return $jogo;
         });
 
-        $consolesPaginated = Console::search($query)->paginate(10);
+        $consolesPaginated = Console::search($query)
+            ->when($request->filled('consoles'), function ($q) use ($request) {
+                $ids = $request->input('consoles', []);
+                if (!empty($ids)) {
+                    $q->whereIn('modelo_console_nome', $ids);
+                }
+            })
+            ->paginate(10);
+
         $consolesPaginated->getCollection()->transform(function ($console) {
             $console->load('imagens');
             $console->imagem_capa = $console->imagens->first()
@@ -189,8 +223,6 @@ class ProdutoController extends Controller
             'modelo_consoles' => $modelo_consoles
         ]);
     }
-
-
 
     public function searchSuggestions(Request $request)
     {

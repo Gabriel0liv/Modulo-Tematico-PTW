@@ -116,6 +116,12 @@ return [
         'id' => env('ALGOLIA_APP_ID', ''),
         'secret' => env('ALGOLIA_SECRET', ''),
         'index-settings' => [
+            'jogos' => [
+                'attributesForFaceting' => ['filterOnly(console_nome)', 'filterOnly(categoria_nome)'],
+            ],
+            'consoles' => [
+                'attributesForFaceting' => ['filterOnly(modelo_console_nome)'],
+            ],
             // 'users' => [
             //     'searchableAttributes' => ['id', 'name', 'email'],
             //     'attributesForFaceting'=> ['filterOnly(email)'],

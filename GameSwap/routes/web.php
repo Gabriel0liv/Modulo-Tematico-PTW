@@ -174,14 +174,13 @@ Route::get("paginas/perfil/cartões", [StripeController::class, 'listarCartoes']
 
 Route::get("paginas/perfil/minhas_compras",[UserController::class, 'listarCompras'])->name('perfil-Compras');
 
+Route::get("paginas/perfil/comentarios", [ComentarioController::class, 'comentariosPerfil'])->name('perfil-Comentarios');
 
 
 
 
 // Rotas de perfil administrativo
-Route::get("/perfilAdmin",function(){
-    return view('paginas.perfilAdmin.perfilA');
-})->name('perfilAdmin');
+Route::get("/perfilAdmin", [AdminController::class, 'perfil'])->name('perfilAdmin');
 
 Route::get("/perfilAdmin/utilizadores", [UserController::class, 'listarUtilizadores'])->name('perfilAdmin.utilizadores');
 Route::get("/perfilAdmin/utilizadores/{id}", [UserController::class, 'exibirUtilizador'])->name('perfilAdmin.utilizador.exibir');

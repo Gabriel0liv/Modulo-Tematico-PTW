@@ -24,22 +24,22 @@
                         <div class="grid md:grid-cols-2 gap-6">
                             <div>
                                 <label class="text-sm font-medium text-gray-500 mb-1 block">Username</label>
-                                <p class="text-gray-800">{{ Auth::user()->username }}</p>
+                                <p class="text-gray-800">{{ $user->username }}</p>
 
                             </div>
                             <div>
                                 <label class="text-sm font-medium text-gray-500 mb-1 block">Nome Completo</label>
-                                <p class="text-gray-800">{{ Auth::user()->name }}</p>
+                                <p class="text-gray-800">{{ $user->name }}</p>
 
                             </div>
                             <div>
                                 <label class="text-sm font-medium text-gray-500 mb-1 block">Data de Nascimento</label>
-                                <p class="text-gray-800">{{ Auth::user()->dataNascimento }}</p>
+                                <p class="text-gray-800">{{ $user->dataNascimento }}</p>
 
                             </div>
                             <div>
                                 <label class="text-sm font-medium text-gray-500 mb-1 block">Telemóvel</label>
-                                <p class="text-gray-800">{{ Auth::user()->contato }}</p>
+                                <p class="text-gray-800">{{ $user->contato }}</p>
 
                             </div>
                         </div>
@@ -54,7 +54,7 @@
                     </div>
                     <div class="p-6 pt-0">
                         <label class="text-sm font-medium text-gray-500 mb-1 block">Email Principal</label>
-                        <p class="text-gray-800">{{ Auth::user()->email }}</p>
+                        <p class="text-gray-800">{{ $user->email }}</p>
 
                     </div>
                 </div>

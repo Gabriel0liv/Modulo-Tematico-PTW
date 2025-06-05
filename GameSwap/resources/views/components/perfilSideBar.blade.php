@@ -28,6 +28,15 @@
                     </a>
                 </li>
                 <li>
+                    <a href="{{ route('perfil-Comentarios') }}" class="flex items-center gap-3 px-4 py-3 rounded-md transition-colors
+    {{ request()->is('paginas/perfil/comentarios') ? 'bg-gray-200 text-primary font-semibold' : 'text-sidebar-foreground hover:bg-gray-100' }}">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8h2a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2v-8a2 2 0 012-2h2M15 3h-6a2 2 0 00-2 2v4a2 2 0 002 2h6a2 2 0 002-2V5a2 2 0 00-2-2z" />
+                        </svg>
+                        <span>Comentários Meu Perfil</span>
+                    </a>
+                </li>
+                <li>
                     <a href="{{route('perfilPage')}}" class="flex items-center gap-3 px-4 py-3 rounded-md transition-colors
                     {{ request()->is('perfil') ? 'bg-gray-200 text-primary font-semibold' : 'text-sidebar-foreground hover:bg-gray-100' }}">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">

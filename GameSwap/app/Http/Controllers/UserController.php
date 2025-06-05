@@ -15,6 +15,8 @@ use App\Services\GoogleDriveService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Pagination\LengthAwarePaginator;
+
 
 class UserController
 {
@@ -206,28 +208,55 @@ class UserController
 
     public function mostrarPerfilVisita($id)
     {
-        $user = User::with('imagemUser')->findOrFail($id); // Carrega também a imagem do usuário
+        $user = User::with('imagemUser')->findOrFail($id);
 
-        // Buscar jogos e consoles anunciados pelo usuário
-        $jogos = Jogo::where('id_anunciante', $id)->with('imagens')->get();
-        $consoles = Console::where('id_anunciante', $id)->with('imagens')->get();
+        $search = request('search');
 
-        // Mesclar os anúncios e adicionar a propriedade imagem_capa
+
+        $jogos = Jogo::where('id_anunciante', $id)
+            ->when($search, function ($query, $search) {
+                $query->where('nome', 'like', '%' . $search . '%');
+            })
+            ->with('imagens')
+            ->get();
+        $consoles = Console::where('id_anunciante', $id)
+            ->when($search, function ($query, $search) {
+                $query->where('nome', 'like', '%' . $search . '%');
+            })
+            ->with('imagens')
+            ->get();
+
         $anuncios = $jogos->merge($consoles)->map(function ($anuncio) {
             $anuncio->imagem_capa = $anuncio->imagens->first()
-                ? GoogleDriveHelper::transformGoogleDriveUrl($anuncio->imagens->first()->path ?? $anuncio->imagens->first()->caminho)
-                : '/placeholder.svg'; // Se não houver imagem, use o placeholder
+                ? \App\Helpers\GoogleDriveHelper::transformGoogleDriveUrl($anuncio->imagens->first()->path ?? $anuncio->imagens->first()->caminho)
+                : '/placeholder.svg';
             return $anuncio;
         });
 
+        // Ordenar manualmente
+        $anuncios = $anuncios->sortByDesc('destacado')->sortByDesc('created_at')->values();
+
+        // Paginar manualmente
+        $perPage = 6;
+        $page = request()->get('page', 1);
+        $anunciosPaginados = new LengthAwarePaginator(
+            $anuncios->forPage($page, $perPage),
+            $anuncios->count(),
+            $perPage,
+            $page,
+            ['path' => request()->url(), 'query' => request()->query()]
+        );
 
         $comentarios = Comentario::where('id_destinatario', $user->id)
             ->with('remetente')
             ->orderBy('created_at', 'desc')
-            ->paginate(3); // 4 por página
+            ->paginate(3);
 
-        return view('paginas.visitaPerfil', compact('user', 'anuncios', 'comentarios'));
-
+        return view('paginas.visitaPerfil', [
+            'user' => $user,
+            'anuncios' => $anunciosPaginados,
+            'comentarios' => $comentarios
+        ]);
     }
 
 
@@ -243,11 +272,20 @@ class UserController
     {
         $user = User::findOrFail($id);
         $denuncias = Denuncias::where('id_denunciado', $id)->get();
+        $banimentos = Denuncias::where('id_denunciado', $id)
+            ->get()
+            ->filter(function ($denuncias) {
+                return $denuncias->status == 1 && $denuncias->data_reativacao != null;
+            });
         $jogos = Jogo::where('id_anunciante', $user->id)->get();
         $consoles = Console::where('id_anunciante', $user->id)->get();
         $produtos = $jogos->merge($consoles);
+        $comentarios = Comentario::where('id_remetente', $user->id)
+            ->with('remetente')
+            ->orderBy('created_at', 'desc')
+            ->paginate(5);
 
-        return view('paginas.perfilAdmin.detalhesUtilizador', compact('denuncias', 'user', 'produtos'));
+        return view('paginas.perfilAdmin.detalhesUtilizador', compact('denuncias', 'banimentos', 'user', 'produtos', 'comentarios'));
     }
 
     public function listarCompras()

@@ -23,11 +23,6 @@
                 </div>
 
                 <div class="flex items-center justify-between mb-6">
-                    <div class="flex items-center">
-                        <input type="checkbox" id="remember" name="remember"
-                               class="h-4 w-4 text-blue-600 focus:ring-blue-600 border-gray-300 rounded">
-                        <label for="remember" class="ml-2 block text-sm text-gray-700">Lembrar-me</label>
-                    </div>
                     <a href="{{route('password.request')}}" class="text-sm text-blue-600 hover:underline">Esqueceu a senha?</a>
                 </div>
 

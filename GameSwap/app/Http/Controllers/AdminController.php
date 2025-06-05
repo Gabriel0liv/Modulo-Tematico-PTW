@@ -8,10 +8,17 @@ use Illuminate\Http\Request;
 
 class AdminController extends Controller
 {
+    public function perfil()
+    {
+        $user = auth()->user();
+        return view('paginas.perfilAdmin.perfilA', compact('user'));
+    }
+
     public function edicao()
     {
+        $user = auth()->user();
         $categorias = Categoria::all();
         $modelo_consoles = ModeloConsole::all();
-        return view('paginas.perfilAdmin.Edicao', ['categorias' => $categorias, 'modelo_consoles' => $modelo_consoles]);
+        return view('paginas.perfilAdmin.Edicao', compact('user', 'categorias', 'modelo_consoles'));
     }
 }
