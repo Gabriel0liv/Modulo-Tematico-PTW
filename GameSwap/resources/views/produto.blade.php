@@ -122,7 +122,7 @@
                             <span class="text-sm text-gray-500">(32 avaliações)</span>
                         </div>
                         <h1 class="text-3xl font-bold text-gray-900">{{$produto->nome}}</h1>
-                        <p class="text-gray-500 mt-1">{{$produto->console_id}}</p>
+                        <p class="text-gray-500 mt-1">{{$produto->modelo_console->nome}}</p>
                     </div>
 
                     <div class="flex items-end gap-3">
@@ -214,7 +214,7 @@
                         <div class="bg-white rounded-lg p-4 space-y-3">
                             <div class="grid grid-cols-2 gap-2 text-sm">
                                 <div class="text-gray-500">Plataforma</div>
-                                <div class="font-medium">{{$produto->console_id}}</div>
+                                <div class="font-medium">{{$produto->modelo_console->nome}}</div>
 
                                 <div class="text-gray-500">Gênero</div>
                                 <div class="font-medium">Ação, Aventura</div>

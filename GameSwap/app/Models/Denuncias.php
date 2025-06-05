@@ -27,6 +27,6 @@ class Denuncias extends Model
         'motivo',
         'status',
         'resolvido_em',
-        'data_denuncia',
+        'data_reativacao',
     ];
 }

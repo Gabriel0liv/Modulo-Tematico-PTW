@@ -119,7 +119,7 @@
                                     JP
                                 </div>
                                 <div>
-                                    <div class="font-medium">{{$comentario->remetente->username}}</div>
+                                    <a href="/perrfil/{{$comentarios->id_remetente}}" class="font-medium">{{$comentario->remetente->username}}</a>
                                     <div class="text-sm text-gray-500">{{$comentario->created_at}}</div>
                                 </div>
                             </div>

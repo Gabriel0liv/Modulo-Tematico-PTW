@@ -36,17 +36,14 @@ class AtualizarEstadoAnuncios extends Command
             ConsoleModel::where('id_anunciante', $user->id)->update(['ativo' => 0]);
         }
         // Reativar anúncios de contas reativadas
-        $usersReativados = User::where('estado', 'ativo')
-            ->whereNotNull('data_reativacao')
-            ->where('data_reativacao', '<=', Carbon::now())
-            ->get();
+        $usersReativados = User::where('estado', 'ativo')->get();
 
         foreach ($usersReativados as $user) {
             Jogo::where('id_anunciante', $user->id)
-                ->where('id_comprador', 0)
+                ->where('id_comprador', null)
                 ->update(['ativo' => 1]);
             ConsoleModel::where('id_anunciante', $user->id)
-                ->where('id_comprador', 0)
+                ->where('id_comprador', null)
                 ->update(['ativo' => 1]);
         }
 
