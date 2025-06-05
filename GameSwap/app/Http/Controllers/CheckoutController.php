@@ -206,7 +206,7 @@ class CheckoutController extends Controller
             DB::commit();
             session()->forget('carrinho');
 
-            return redirect()->route('checkout.sucesso')->with('success', 'Compra realizada com sucesso!');
+            return redirect()->route('perfil-Compras')->with('success', 'Compra realizada com sucesso!');
         } catch (\Exception $e) {
             DB::rollBack();
             return redirect()->back()->withErrors(['erro' => 'Erro ao realizar compra: ' . $e->getMessage()]);
@@ -304,7 +304,7 @@ class CheckoutController extends Controller
 
             session()->forget('carrinho_destaque');
 
-            return redirect()->route('pagina_incial')->with('success', 'Anúncio destacado por 30 dias com sucesso!');
+            return redirect()->route('perfil-Anuncios')->with('success', 'Anúncio destacado por 30 dias com sucesso!');
         } catch (\Exception $e) {
             return redirect()->back()->withErrors(['erro' => 'Erro ao processar destaque: ' . $e->getMessage()]);
         }

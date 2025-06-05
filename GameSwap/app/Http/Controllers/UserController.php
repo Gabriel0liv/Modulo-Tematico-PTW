@@ -106,24 +106,26 @@ class UserController
 
     public function deletarConta(Request $request)
     {
+        $user = auth()->user();
 
-        $user = Auth::user();
+        // Validação da senha enviada
+        $request->validate([
+            'password' => 'required|string',
+        ]);
 
-        if (!$user) {
-            return redirect('/')->withErrors(['error' => 'Usuário não autenticado.']);
+        // Verifica se a senha está correta
+        if (!Hash::check($request->password, $user->password)) {
+            return response()->json(['message' => 'Senha incorreta.'], 401);
         }
 
-        if (!Hash::check($request->input('password'), $user->password)) {
-            return back()->withErrors(['password' => 'Senha incorreta.']);
-        }
+        // Altera o status para "cancelado"
+        $user->status = 'cancelado';
+        $user->save();
 
-        Auth::logout();
-        $request->session()->invalidate();
-        $request->session()->regenerateToken();
+        // Logout do usuário
+        auth()->logout();
 
-        $user->delete();
-
-        return redirect()->route('pagina_inicial')->with('success', 'Conta removida com sucesso');
+        return response()->json(['message' => 'Conta cancelada com sucesso.']);
     }
 
     public function adicionarMorada(Request $request)
