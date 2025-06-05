@@ -54,13 +54,16 @@
 
             <div class="rounded-lg border bg-card text-card-foreground shadow-sm overflow-hidden border-0">
                 <div class="bg-gradient-to-r from-amber-400 to-amber-300 p-4">
-                    <h3 class="text-xl font-bold text-gray-800">Outra Informação</h3>
+                    <h3 class="text-xl font-bold text-gray-800">Como anunciar?</h3>
                 </div>
                 <div class="p-6 pt-0 p-4">
-                    <p class="text-sm text-gray-600 mb-4">Receba notificações sobre novos jogos e ofertas especiais.</p>
+                    <ul class="space-y-2 text-sm mb-4">
+                        <li class="flex items-center gap-2">
+                            <div class="h-2 w-2 rounded-full bg-blue-600"></div>
+                            <span>Crie um anúncio preenchendo os detalhes do produto e publique em poucos cliques.</span>
+                        </li>
+                    </ul>
                     <div class="flex gap-2">
-                        <input placeholder="Seu email"
-                               class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 text-sm"/>
                         <button
                             class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded text-sm font-medium transition">
                             Inscrever

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 
 use App\Models\User;
+use App\Notifications\EmailConfirmacaoRegisto;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -37,6 +38,7 @@ class AuthController extends Controller
         $user->password = $request->input('register_password');
         $user->estado = 'ativo';
         $user->save();
+        $user->notify(new EmailConfirmacaoRegisto());
 
         Auth::login($user);
 

@@ -1,52 +1,52 @@
 <x-layout>
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <!-- Profile Header Section -->
-            <div class="relative z-10 flex flex-col md:flex-row items-center md:items-start space-y-8 md:space-y-0 md:space-x-10 bg-white/80 border border-blue-100 p-8 rounded-2xl shadow- mb-6">
-                <!-- Profile Image -->
-                <div class="relative group animate-float">
-                    <div class="w-36 h-36 rounded-full bg-gradient-to-r from-blue-400 to-indigo-500 p-1 shadow-2xl">
-                        <div class="w-full h-full rounded-full overflow-hidden bg-white">
-                            <img src="{{ asset('images/placeholder.jpg') }}" alt="{{ $user->username }}"
-                                 class="w-full h-full object-cover transition-transform group-hover:scale-110">
-                        </div>
+        <div class="relative z-10 flex flex-col md:flex-row items-center md:items-start space-y-8 md:space-y-0 md:space-x-10 bg-white/80 border border-blue-100 p-8 rounded-2xl shadow- mb-6">
+            <!-- Profile Image Section -->
+            <div class="relative group animate-float">
+                <div class="w-36 h-36 rounded-full bg-gradient-to-r from-blue-400 to-indigo-500 p-1 shadow-2xl">
+                    <div class="w-full h-full rounded-full overflow-hidden bg-white">
+                        <img
+                            src="{{ $user->imagemUser ? \App\Helpers\GoogleDriveHelper::transformGoogleDriveUrl($user->imagemUser->imagem_url) : '/placeholder.svg' }}"
+                            alt="{{ $user->username }}"
+                            class="w-full h-full object-cover transition-transform group-hover:scale-110">
                     </div>
-                </div>
-                <!-- Profile Info -->
-                <div class="flex-1 flex flex-col items-center md:items-start text-center md:text-left space-y-4">
-                    <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-2">{{ $user->username }}</h2>
-                    <div class="flex flex-col md:flex-row items-center md:items-start space-y-2 md:space-y-0 md:space-x-8 text-gray-700">
-                        <div class="flex items-center space-x-2">
-                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                                <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"/>
-                            </svg>
-                            <span>Membro desde {{ $user->created_at->format('Y') }}</span>
-                        </div>
-                        <!-- Adicione mais informações se desejar -->
-                        @if($user->cidade)
-                            <div class="flex items-center space-x-2">
-                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                                    <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"/>
-                                </svg>
-                                <span>{{ $user->cidade }}</span>
-                            </div>
-                        @endif
-                    </div>
-                    <p class="text-gray-600 max-w-xl">
-                        <!-- Exemplo de descrição, personalize conforme necessário -->
-                        {{ $user->descricao ?? 'Usuário da plataforma GAMESWAP.' }}
-                    </p>
-                </div>
-                <!-- Action Buttons Centralizado -->
-                <div class="flex flex-col items-center justify-center w-full md:w-auto">
-                    <a href="/denunciar/{{ $user->id }}" class="glass-effect bg-red-50 border border-red-200 hover:border-red-300 text-red-600 hover:text-red-700 px-8 py-3 rounded-xl font-semibold transition-all transform hover:scale-105 text-center">
-                        <svg class="w-5 h-5 inline mr-2" fill="currentColor" viewBox="0 0 20 20">
-                            <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/>
-                        </svg>
-                        Denunciar
-                    </a>
                 </div>
             </div>
 
+            <!-- Profile Info Section -->
+            <div class="flex-1 flex flex-col items-center md:items-start text-center md:text-left space-y-4">
+                <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-2">{{ $user->username }}</h2>
+                <div class="flex flex-col md:flex-row items-center md:items-start space-y-2 md:space-y-0 md:space-x-8 text-gray-700">
+                    <div class="flex items-center space-x-2">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"/>
+                        </svg>
+                        <span>Membro desde {{ $user->created_at->format('Y') }}</span>
+                    </div>
+                    @if($user->cidade)
+                        <div class="flex items-center space-x-2">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"/>
+                            </svg>
+                            <span>{{ $user->cidade }}</span>
+                        </div>
+                    @endif
+                </div>
+                <p class="text-gray-600 max-w-xl">
+                    {{ $user->descricao ?? 'Usuário da plataforma GAMESWAP.' }}
+                </p>
+            </div>
+            <!-- Action Buttons Section -->
+            <div class="flex flex-col items-center justify-center w-full md:w-auto">
+                <a href="/denunciar/{{ $user->id }}" class="glass-effect bg-red-50 border border-red-200 hover:border-red-300 text-red-600 hover:text-red-700 px-8 py-3 rounded-xl font-semibold transition-all transform hover:scale-105 text-center">
+                    <svg class="w-5 h-5 inline mr-2" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/>
+                    </svg>
+                    Denunciar
+                </a>
+            </div>
+        </div>
 
         <!-- Listings Section -->
         <div class="animate-slide-up">
@@ -75,12 +75,12 @@
                         <a href="/produto/{{$anuncio->tipo_produto}}/{{$anuncio->id}}" class="rounded-lg border bg-card text-card-foreground shadow-sm overflow-hidden border-0 shadow-md hover:shadow-lg transition-shadow group">
                             <div class="relative">
                                 <img
-                                    src="/placeholder.svg?height=180&width=180"
+                                    src="{{ $anuncio->imagem_capa }}"
                                     alt="{{ $anuncio->nome }}"
                                     class="w-full h-auto object-cover aspect-square group-hover:scale-105 transition-transform"
                                 />
                                 <div class="absolute top-2 right-2 bg-blue-600 text-white text-xs px-2 py-1 rounded-full">
-                                    {{ $anuncio->console }}
+                                    {{ $anuncio->console ?? '' }}
                                 </div>
                             </div>
                             <div class="p-3">

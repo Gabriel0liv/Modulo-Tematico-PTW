@@ -23,7 +23,7 @@
                                     <p class="text-sm text-gray-600">{{ ucfirst($item->tipo_produto) }}</p>
                                     <p class="text-sm text-gray-600">Vendido por:
                                         <span class="font-medium text-gray-800">
-                                            {{ $item->vendedor->name ?? 'Vendedor não encontrado' }}
+                                            {{ $item->vendedor->username ?? 'Vendedor não encontrado' }}
                                         </span>
                                     </p>
                                     <p class="text-gray-800 font-semibold mt-2">

@@ -223,13 +223,14 @@ class ProdutoController extends Controller
 
         // Consoles moderados SEM destaque
         $consolesModerados = Console::where('moderado', true)
+            ->whereNull('id_comprador')
             ->where(function ($q) {
                 $q->where('destaque', false)->orWhereNull('destaque');
             })
             ->when($userId, fn($q) => $q->where('id_anunciante', '!=', $userId))
             ->with('imagens')
             ->inRandomOrder()
-            ->limit(12) // Ajuste o limite conforme necessário
+            ->limit(12)
             ->get()
             ->map(function ($console) {
                 $console->imagem_capa = $console->imagens->first()
@@ -240,13 +241,14 @@ class ProdutoController extends Controller
 
         // Jogos moderados SEM destaque
         $jogosModerados = Jogo::where('moderado', true)
+            ->whereNull('id_comprador')
             ->where(function ($q) {
                 $q->where('destaque', false)->orWhereNull('destaque');
             })
             ->when($userId, fn($q) => $q->where('id_anunciante', '!=', $userId))
             ->with('imagens')
             ->inRandomOrder()
-            ->limit(12) // Ajuste o limite conforme necessário
+            ->limit(12)
             ->get()
             ->map(function ($jogo) {
                 $jogo->imagem_capa = $jogo->imagens->first()
@@ -255,14 +257,14 @@ class ProdutoController extends Controller
                 return $jogo;
             });
 
-
         // Consoles em destaque
         $consolesDestaque = Console::where('moderado', true)
             ->where('destaque', true)
+            ->whereNull('id_comprador')
             ->when($userId, fn($q) => $q->where('id_anunciante', '!=', $userId))
             ->with('imagens')
             ->orderBy('created_at', 'desc')
-            ->limit(14) // Ajuste o limite se necessário
+            ->limit(14)
             ->get()
             ->map(function ($console) {
                 $console->imagem_capa = $console->imagens->first()
@@ -271,14 +273,14 @@ class ProdutoController extends Controller
                 return $console;
             });
 
-
         // Jogos em destaque
         $jogos = Jogo::where('moderado', true)
             ->where('destaque', true)
+            ->whereNull('id_comprador')
             ->when($userId, fn($q) => $q->where('id_anunciante', '!=', $userId))
             ->with('imagens')
             ->orderBy('created_at', 'desc')
-            ->limit(14) // Ajuste o limite se necessário
+            ->limit(14)
             ->get()
             ->map(function ($jogo) {
                 $jogo->imagem_capa = $jogo->imagens->first()
@@ -286,7 +288,6 @@ class ProdutoController extends Controller
                     : '/placeholder.svg';
                 return $jogo;
             });
-
 
         return view('compras', compact('consolesDestaque', 'consolesModerados', 'jogos', 'jogosModerados'));
     }

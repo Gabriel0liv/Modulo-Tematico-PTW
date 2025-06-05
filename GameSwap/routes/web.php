@@ -106,6 +106,7 @@ Route::get('paginas/cancelarConta',function (){
 })->name('cancelarConta');
 
 Route::get('/imagem-proxy/{id}', [ImagemProxyController::class, 'exibir']);
+Route::post('/perfil/atualizar-imagem', [UserController::class, 'atualizarInformacoes'])->name('user.atualizar');
 
 Route::post('/produto/{id}/destaque', [ProdutoController::class, 'destacar'])->name('produto.destaque');
 

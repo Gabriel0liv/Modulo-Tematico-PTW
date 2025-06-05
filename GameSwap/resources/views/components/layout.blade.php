@@ -117,8 +117,8 @@
   @if (session('success') || session('error'))
       <div
           id="toast"
-          class="fixed top-5 right-5 z-50 px-6 py-4 rounded-lg shadow-lg text-white text-lg max-w-md w-full animate-fade-in-out"
-          style="background-color: {{ session('success') ? '#16a34a' : '#dc2626' }};"
+          class="fixed bottom-5 right-5 z-50 px-5 py-3 rounded-md shadow-lg text-white text-base max-w-md w-full animate-fade-in-out transition-all duration-500"
+          style="background-color: {{ session('success') ? '#4ade80' : '#f87171' }};" {{-- verde claro e vermelho claro --}}
       >
           {{ session('success') ?? session('error') }}
       </div>
@@ -126,8 +126,8 @@
       <script>
           setTimeout(() => {
               const toast = document.getElementById('toast');
-              if (toast) toast.style.display = 'none';
-          }, 6000); // duração aumentada para 6 segundos
+              if (toast) toast.style.opacity = '0';
+          }, 3000);
       </script>
   @endif
 </body>

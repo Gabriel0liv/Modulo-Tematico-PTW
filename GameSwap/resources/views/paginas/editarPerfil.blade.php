@@ -2,7 +2,7 @@
     <div class="max-w-6xl mx-auto p-4">
         <h1 class="text-2xl font-bold mb-6">Editar Perfil</h1>
 
-        <form id="editarPerfilForm" action="{{route('user.atualizar')}}" method="post">
+        <form id="editarPerfilForm" action="{{route('user.atualizar')}}" method="post" enctype="multipart/form-data">
             @csrf
             <!-- Informacoes Pessoais -->
             <div class="bg-white rounded-lg shadow-sm p-6 mb-6">
@@ -37,6 +37,34 @@
                     </div>
                 </div>
             </div>
+
+            <!-- Imagem de Perfil -->
+            <div class="bg-white rounded-lg shadow-sm p-6 mb-6">
+                <h2 class="text-lg font-semibold mb-4">Imagem de Perfil</h2>
+
+                <div class="flex items-center">
+                    <img
+                        src="{{ Auth::user()->imagemUser ? \App\Helpers\GoogleDriveHelper::transformGoogleDriveUrl(Auth::user()->imagemUser->imagem_url) : '/placeholder.svg' }}"
+                        alt="Imagem de perfil"
+                        class="w-24 h-24 rounded-full object-cover border-2 border-gray-300 mr-4">
+
+                    <label for="profileImage" class="bg-blue-600 text-white px-4 py-2 rounded-lg cursor-pointer hover:bg-blue-700">
+                        Alterar Imagem
+                    </label>
+                    <input
+                        type="file"
+                        id="profileImage"
+                        name="imagem_perfil"
+                        accept="image/*"
+                        class="hidden">
+                </div>
+
+                <p class="text-xs text-gray-500 mt-2">
+                    Carregue uma nova imagem de perfil. Apenas formatos JPEG, PNG ou GIF são permitidos (máx. 8 MB).
+                </p>
+            </div>
+
+
 
             <!-- Email -->
             <div class="bg-white rounded-lg shadow-sm p-6 mb-6">

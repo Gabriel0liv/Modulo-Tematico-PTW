@@ -188,6 +188,17 @@ class CheckoutController extends Controller
                 } elseif ($item['tipo_produto'] === 'console') {
                     \App\Models\Console::where('id', $item['id'])->update(['ativo' => false]);
                 }
+                if ($item['tipo_produto'] === 'jogo') {
+                    \App\Models\Jogo::where('id', $item['id'])->update([
+                        'ativo' => false,
+                        'id_comprador' => $user->id,
+                    ]);
+                } elseif ($item['tipo_produto'] === 'console') {
+                    \App\Models\Console::where('id', $item['id'])->update([
+                        'ativo' => false,
+                        'id_comprador' => $user->id,
+                    ]);
+                }
             }
 
 
@@ -210,7 +221,7 @@ class CheckoutController extends Controller
         $item = session('carrinho_destaque');
 
         if (!$item) {
-            return redirect()->route('home')->with('error', 'Nada para destacar.');
+            return redirect()->route('pagina_inical')->with('error', 'Nada para destacar.');
         }
 
         $cartoesSalvos = $user->paymentMethods;
@@ -293,7 +304,7 @@ class CheckoutController extends Controller
 
             session()->forget('carrinho_destaque');
 
-            return redirect()->route('checkout.sucesso')->with('success', 'Anúncio destacado por 30 dias com sucesso!');
+            return redirect()->route('pagina_incial')->with('success', 'Anúncio destacado por 30 dias com sucesso!');
         } catch (\Exception $e) {
             return redirect()->back()->withErrors(['erro' => 'Erro ao processar destaque: ' . $e->getMessage()]);
         }
