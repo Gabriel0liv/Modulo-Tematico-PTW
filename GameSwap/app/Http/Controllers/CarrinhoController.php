@@ -10,6 +10,12 @@ use Illuminate\Http\Request;
 
 class CarrinhoController extends Controller
 {
+    /**
+     * Adiciona um produto ao carrinho.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function adicionar(Request $request)
     {
         $produtoId = $request->input('produto_id');
@@ -55,6 +61,11 @@ class CarrinhoController extends Controller
         return redirect()->route('carrinho.index');
     }
 
+    /**
+     * Exibe o conteúdo do carrinho.
+     *
+     * @return \Illuminate\View\View
+     */
     public function index()
     {
         $itens = session()->get('carrinho', []);
@@ -102,6 +113,12 @@ class CarrinhoController extends Controller
     }
 
 
+    /**
+     * Adiciona um destaque ao carrinho.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function adicionarDestaque(Request $request)
     {
         $tipo = $request->input('tipo');
@@ -137,6 +154,11 @@ class CarrinhoController extends Controller
 
     }
 
+    /**
+     * Exibe o destaque do carrinho.
+     *
+     * @return \Illuminate\View\View
+     */
     public function verCarrinhoDestaque()
     {
         $item = session('carrinho_destaque');
@@ -144,6 +166,12 @@ class CarrinhoController extends Controller
     }
 
 
+    /**
+     * Remove um item do carrinho.
+     *
+     * @param int $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function remover($id)
     {
         $carrinho = session()->get('carrinho', []);

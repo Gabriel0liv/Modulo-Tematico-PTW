@@ -7,6 +7,11 @@ use Illuminate\Support\Facades\Auth;
 
 class ComentarioController extends Controller
 {
+    /**
+     * Exibe o formulário para enviar um comentário.
+     *
+     * @return \Illuminate\View\View
+     */
     public function store(Request $request)
     {
         $validated = $request->validate([
@@ -23,6 +28,11 @@ class ComentarioController extends Controller
         return back()->with('success', 'Comentário enviado com sucesso!');
     }
 
+    /**
+     * Exibe os comentários do perfil do usuário autenticado.
+     *
+     * @return \Illuminate\View\View
+     */
     public function comentariosPerfil()
     {
         $id = Auth::id();

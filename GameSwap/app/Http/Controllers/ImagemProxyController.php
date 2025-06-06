@@ -8,6 +8,12 @@ use Illuminate\Http\Response;
 
 class ImagemProxyController extends Controller
 {
+    /**
+     * Exibe uma imagem do Google Drive através de um proxy.
+     *
+     * @param string $id ID do arquivo no Google Drive.
+     * @return \Illuminate\Http\Response
+     */
     public function exibir($id)
     {
         try {

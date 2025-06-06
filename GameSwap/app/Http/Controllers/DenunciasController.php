@@ -13,6 +13,12 @@ use Illuminate\Support\Facades\Auth;
 class DenunciasController extends Controller
 {
 
+    /**
+     * Exibe o formulário de denúncia para um utilizador específico.
+     *
+     * @param int $id ID do usuário a ser denunciado
+     * @return \Illuminate\View\View
+     */
     public function denunciarUsuario($id){
         $denunciado = User::findOrFail($id);
         $denunciante = Auth::user();
@@ -29,6 +35,12 @@ class DenunciasController extends Controller
         return view('paginas.ticketDenuncia', compact('denunciado'));
     }
 
+    /**
+     * Armazena uma nova denúncia.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function store(Request $request)
     {
         $request->validate([
@@ -63,6 +75,12 @@ class DenunciasController extends Controller
 
     }
 
+    /**
+     * Exibe a lista de denúncias pendentes para o administrador.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\View\View
+     */
     public function resolverDenuncias(Request $request)
     {
         $denuncias = Denuncias::paginate(10);
@@ -70,6 +88,12 @@ class DenunciasController extends Controller
         return view('paginas.perfilAdmin.denuncias', ['denuncias' => $denuncias]);
     }
 
+    /**
+     * Exibe os detalhes de uma denúncia específica.
+     *
+     * @param int $id ID da denúncia
+     * @return \Illuminate\View\View
+     */
     public function exibirDenuncia($id)
     {
         $denuncia = Denuncias::findOrFail($id);
@@ -86,6 +110,13 @@ class DenunciasController extends Controller
         return view('paginas.perfilAdmin.detalhesDenuncia', compact('denuncia', 'banimentos','user', 'produtos', 'comentarios'));
     }
 
+    /**
+     * Resolve uma denúncia, marcando-a como resolvida.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @param int $id ID da denúncia a ser resolvida
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function resolver(Request $request, $id)
     {
         $denuncia = Denuncias::findOrFail($id);
@@ -102,6 +133,13 @@ class DenunciasController extends Controller
         return redirect('/perfilAdmin/denuncias')->with('success', 'Denúncia resolvida com sucesso.');
     }
 
+    /**
+     * Suspende um utilizador por um período específico.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @param int $id ID da denúncia a ser suspensa
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function suspender(Request $request, $id)
     {
         $duracao = $request->input('duracao');
@@ -122,6 +160,13 @@ class DenunciasController extends Controller
     }
 
 
+/**
+     * Banir um utilizador permanentemente.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @param int $id ID da denúncia a ser banida
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function banir(Request $request, $id)
     {
         $denuncia = Denuncias::findOrFail($id);

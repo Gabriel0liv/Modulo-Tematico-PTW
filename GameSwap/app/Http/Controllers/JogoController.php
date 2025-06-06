@@ -11,11 +11,21 @@ use App\Services\GoogleDriveService;
 
 class JogoController extends Controller
 {
+    /**
+     * Exibe a página inicial de produtos.
+     *
+     * @return \Illuminate\View\View
+     */
     public function index()
     {
         return view('produtos.index');
     }
 
+    /**
+     * Exibe o formulário para anunciar um novo jogo.
+     *
+     * @return \Illuminate\View\View
+     */
     public function store(Request $request)
     {
         try {
@@ -105,6 +115,12 @@ class JogoController extends Controller
         }
     }
 
+    /**
+     * Exibe os detalhes de um jogo específico.
+     *
+     * @param int $id ID do jogo
+     * @return \Illuminate\View\View
+     */
     public function show($id)
     {
         $produto = jogo::findOrFail($id);
@@ -118,6 +134,11 @@ class JogoController extends Controller
         return view('produto', compact('produto', 'produtosRelacionados', 'imagemCapa'));
     }
 
+    /**
+     * Exibe os jogos em destaque.
+     *
+     * @return \Illuminate\View\View
+     */
     public function jogosEmDestaque()
     {
         $jogos = \App\Models\Jogo::where('moderado', true)
@@ -135,6 +156,12 @@ class JogoController extends Controller
     }
 
 
+    /**
+     * Exibe a página de pesquisa de jogos.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\View\View
+     */
     public function search(Request $request)
     {
         $query = $request->input('query');
@@ -143,6 +170,11 @@ class JogoController extends Controller
         return view('paginas.pesquisa', compact('jogos', 'query'));
     }
 
+    /**
+     * Exibe o formulário para enviar um comentário.
+     *
+     * @return \Illuminate\View\View
+     */
     public function searchSuggestions(Request $request)
     {
         $query = $request->input('query');

@@ -10,6 +10,11 @@ use Illuminate\Support\Facades\Log;
 
 class ConsoleController extends Controller
 {
+    /**
+     * Exibe a página de criação de consoles.
+     *
+     * @return \Illuminate\View\View
+     */
     public function store(Request $request)
     {
         try {
@@ -99,7 +104,12 @@ class ConsoleController extends Controller
         }
     }
 
-
+    /**
+     * Exibe a página de detalhes de um console.
+     *
+     * @param int $id ID do console.
+     * @return \Illuminate\View\View
+     */
     public
     function show($id)
     {
@@ -108,6 +118,12 @@ class ConsoleController extends Controller
     }
 
 
+    /**
+     * Exibe a página de pesquisa de consoles.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\View\View
+     */
     public
     function search(Request $request)
     {

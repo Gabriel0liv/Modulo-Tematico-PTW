@@ -9,6 +9,11 @@ use Illuminate\Support\Facades\Auth;
 
 class MoradaController extends Controller
 {
+    /**
+     * Exibe o formulário para adicionar uma nova morada.
+     *
+     * @return \Illuminate\View\View
+     */
     public function editarMorada(Request $request, $id)
     {
         $validated = $request->validate([
@@ -34,6 +39,11 @@ class MoradaController extends Controller
         return redirect()->route('perfil.moradas')->with('success', 'Morada atualizada com sucesso');
     }
 
+    /**
+     * Exibe o formulário para adicionar uma nova morada.
+     *
+     * @return \Illuminate\View\View
+     */
     public function editarForm($id)
     {
         $morada = Auth::user()->moradas()->where('id', $id)->firstOrFail();
@@ -41,6 +51,12 @@ class MoradaController extends Controller
         return view('paginas.editarMorada', compact('morada', 'distritos'));
     }
 
+    /**
+     * Armazena uma nova morada.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function apagarMorada($id)
     {
         $morada = Auth::user()->moradas()->where('id', $id)->first();
@@ -55,7 +71,11 @@ class MoradaController extends Controller
         return redirect()->route('perfil.moradas')->with('success', 'Morada desativada com sucesso.');
     }
 
-
+    /**
+     * Exibe o formulário para adicionar uma nova morada.
+     *
+     * @return \Illuminate\View\View
+     */
     public function index(Request $request)
     {
         $distritos = Distrito::all();
@@ -68,12 +88,24 @@ class MoradaController extends Controller
         return view('paginas.adicionarMorada', compact('distritos', 'concelhos'));
     }
 
+    /**
+     * Armazena uma nova morada.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function getDistritos()
     {
         $distritos = Distrito::all();
         return view('moradas.create', compact('distritos'));
     }
 
+    /**
+     * Armazena uma nova morada.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function obterConcelhosPorDistrito($distritoId)
     {
         $concelhos = Concelho::where('distrito_id', $distritoId)->get();

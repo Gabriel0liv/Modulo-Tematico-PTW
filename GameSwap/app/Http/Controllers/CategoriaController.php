@@ -10,6 +10,11 @@ class CategoriaController
 {
 
 
+    /**
+     * Exibe a página de categorias.
+     *
+     * @return \Illuminate\View\View
+     */
     public function adicionarCategoria(){
         $baseNome = "novaCategoria";
         $nome = $baseNome;
@@ -31,6 +36,11 @@ class CategoriaController
         return redirect()->back()->with('success', 'Categoria criada com sucesso');
     }
 
+    /**
+     * Exibe a página de categorias.
+     *
+     * @return \Illuminate\View\View
+     */
     public function editarCategoria(Request $request, $id)
     {
         // Encontra a categoria pelo ID
@@ -54,6 +64,11 @@ class CategoriaController
         return redirect()->back()->with('success', 'Categoria atualizada com sucesso.');
     }
 
+    /**
+     * Exibe a página de categorias.
+     *
+     * @return \Illuminate\View\View
+     */
     public function eliminarCategoria($id)
     {
         // Encontra a categoria pelo ID

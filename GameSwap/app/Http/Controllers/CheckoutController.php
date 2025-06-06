@@ -22,6 +22,11 @@ use Stripe\Checkout\Session as StripeSession;
 
 class CheckoutController extends Controller
 {
+    /**
+     * Exibe a página de checkout com os detalhes do carrinho e métodos de pagamento.
+     *
+     * @return \Illuminate\View\View
+     */
     public function index()
     {
         \Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
@@ -87,6 +92,12 @@ class CheckoutController extends Controller
             'carrinho' => $carrinhoAtualizado,
         ]);
     }
+
+    /**
+     * Exibe a página de checkout com os detalhes do carrinho e métodos de pagamento.
+     *
+     * @return \Illuminate\View\View
+     */
     public function checkout()
     {
         Stripe::setApiKey(env('STRIPE_SECRET'));
@@ -117,6 +128,12 @@ class CheckoutController extends Controller
         ]);
     }
 
+    /**
+     * Finaliza a compra com os dados do carrinho e métodos de pagamento.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function finalizarCompra(Request $request)
     {
         Log::debug('>>> Entrou em finalizarCompra');
@@ -219,6 +236,11 @@ class CheckoutController extends Controller
         }
     }
 
+    /**
+     * Exibe a página de checkout para destacar um anúncio.
+     *
+     * @return \Illuminate\View\View
+     */
     public function checkoutDestaque()
     {
         Stripe::setApiKey(env('STRIPE_SECRET'));
@@ -253,6 +275,12 @@ class CheckoutController extends Controller
         ]);
     }
 
+    /**
+     * Finaliza o pagamento do destaque de um anúncio.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function finalizarPagamentoDestaque(Request $request)
     {
         Log::debug('>>> Entrou em finalizarPagamentoDestaque');

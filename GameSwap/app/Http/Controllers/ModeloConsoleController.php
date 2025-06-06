@@ -7,6 +7,11 @@ use Illuminate\Http\Request;
 
 class ModeloConsoleController extends Controller
 {
+    /**
+     * Exibe a lista de modelos de consoles.
+     *
+     * @return \Illuminate\View\View
+     */
     public function store(Request $request)
     {
         // Valida os dados do request
@@ -18,6 +23,11 @@ class ModeloConsoleController extends Controller
         return redirect()->route('modelo_consoles.index')->with('success', 'Modelo de console criado com sucesso.');
     }
 
+    /**
+     * Exibe a lista de modelos de consoles.
+     *
+     * @return \Illuminate\View\View
+     */
     public function adicionarModeloConsoles()
     {
         $baseNome = "Novo Modelo";
@@ -37,6 +47,11 @@ class ModeloConsoleController extends Controller
         return redirect()->back()->with('success', 'Modelo de console criado com sucesso');
     }
 
+    /**
+     * Exibe a lista de modelos de consoles.
+     *
+     * @return \Illuminate\View\View
+     */
     public function editarModeloConsoles(Request $request, $id)
     {
         $modelo_console = ModeloConsole::find($id);
@@ -51,6 +66,12 @@ class ModeloConsoleController extends Controller
         }
     }
 
+    /**
+     * Exclui um modelo de console.
+     *
+     * @param int $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function eliminarModeloConsoles($id)
     {
         $modelo_console = ModeloConsole::find($id);

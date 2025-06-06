@@ -16,8 +16,23 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
 
+
+/**
+ * Class AuthController
+ *
+ * Controlador responsável por gerenciar as ações de autenticação e registro de usuários.
+ *
+ * @package App\Http\Controllers
+ */
 class AuthController extends Controller
 {
+
+    /**
+     * Cria um novo registro de usuário e realiza o login automaticamente.
+     *
+     * @param \Illuminate\Http\Request $request Dados da requisição.
+     * @return \Illuminate\Http\RedirectResponse Redireciona para a página inicial com mensagem de sucesso.
+     */
     public function criarRegisto (Request $request)
     {
         $request->validate([
@@ -45,6 +60,13 @@ class AuthController extends Controller
         return redirect()->route('pagina_inicial')->with('success', 'Cadastro realizado com sucesso!');
     }
 
+
+    /**
+     * Realiza o login do utilizador.
+     *
+     * @param \Illuminate\Http\Request $request Dados da requisição.
+     * @return \Illuminate\Http\RedirectResponse Redireciona para a página inicial ou perfil do administrador.
+     */
     public function login(Request $request)
     {
         // Validação dos campos
@@ -87,11 +109,24 @@ class AuthController extends Controller
 
     }
 
+
+    /**
+     * Exibe o formulário de recuperação de senha.
+     *
+     * @return \Illuminate\View\View Retorna a view do formulário de recuperação de senha.
+     */
     public function showForgotPasswordForm()
     {
         return view('paginas.auth.forgot-password');
     }
 
+
+    /**
+     * Envia o link de redefinição de senha para o e-mail do usuário.
+     *
+     * @param \Illuminate\Http\Request $request Dados da requisição.
+     * @return \Illuminate\Http\RedirectResponse Redireciona com mensagem de sucesso ou erro.
+     */
     public function sendResetLinkEmail(Request $request)
     {
         $request->validate(['email' => 'required|email']);
@@ -122,6 +157,14 @@ class AuthController extends Controller
         return back()->with('success', 'Um link para redefinição de senha foi enviado para seu e-mail.');
     }
 
+
+    /**
+     * Exibe o formulário de redefinição de senha.
+     *
+     * @param \Illuminate\Http\Request $request Dados da requisição.
+     * @param string $token Token de redefinição de senha.
+     * @return \Illuminate\View\View Retorna a view do formulário de redefinição de senha.
+     */
     public function showResetForm(Request $request, $token)
     {
         return view('paginas.auth.reset-password', [
@@ -130,6 +173,12 @@ class AuthController extends Controller
         ]);
     }
 
+    /**
+     * Redefine a senha do utilizador.
+     *
+     * @param \Illuminate\Http\Request $request Dados da requisição.
+     * @return \Illuminate\Http\RedirectResponse Redireciona com mensagem de sucesso ou erro.
+     */
     public function resetPassword(Request $request)
     {
         Log::info('Iniciando resetPassword()', $request->all());
@@ -158,6 +207,13 @@ class AuthController extends Controller
             ? redirect()->route('login')->with('success', 'Senha redefinida com sucesso. Você já pode fazer login.')
             : back()->with('error', 'Erro ao redefinir a senha. Verifique os dados e tente novamente.');
     }
+
+    /**
+     * Realiza o logout do utilizador.
+     *
+     * @param \Illuminate\Http\Request $request Dados da requisição.
+     * @return \Illuminate\Http\RedirectResponse Redireciona para a página inicial com mensagem de sucesso.
+     */
     public function logout(Request $request){
         Auth::logout();
 

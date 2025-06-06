@@ -13,6 +13,11 @@ use Illuminate\Pagination\LengthAwarePaginator;
 
 class ProdutoController extends Controller
 {
+    /**
+     * Exibe a página de anúncio de produtos.
+     *
+     * @return \Illuminate\View\View
+     */
     public function anunciar()
     {
         $categorias = Categoria::all();
@@ -22,6 +27,14 @@ class ProdutoController extends Controller
 
         return view('paginas.anunciar', ['categorias' => $categorias, 'jogo' => $jogo, 'console' => $console, 'modelo_consoles' => $modelo_consoles]);
     }
+
+    /**
+     * Exibe os detalhes de um produto específico.
+     *
+     * @param string $tipo_produto
+     * @param int $id
+     * @return \Illuminate\View\View
+     */
     public function show($tipo_produto, $id) {
         if ($tipo_produto === 'console') {
             $produto = Console::with(['imagens', 'anunciante'])->findOrFail($id);
@@ -113,6 +126,13 @@ class ProdutoController extends Controller
         return view('produto', compact('produto', 'imagens', 'outrasPublicacoes', 'produtosRelacionados'));
     }
 
+    /**
+     * Destaca um produto (jogo ou console) por um valor fixo.
+     *
+     * @param string $tipo
+     * @param int $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function destacar($tipo, $id)
     {
         if (!in_array($tipo, ['jogo', 'console'])) {
@@ -129,6 +149,12 @@ class ProdutoController extends Controller
         return redirect()->route('checkout.index');
     }
 
+    /**
+     * Exibe a página de aprovação de anúncios para administradores.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\View\View
+     */
     public function aprovarAnuncios(Request $request)
     {
         $jogos = Jogo::get()->filter(function ($jogo) {
@@ -155,6 +181,13 @@ class ProdutoController extends Controller
         return view('paginas.perfilAdmin.aprovar', ['produtos' => $paginator]);
     }
 
+    /**
+     * Aprova ou reprova um produto (jogo ou console).
+     *
+     * @param int $id
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function aprovar($id, Request $request)
     {
         $tipoProduto = $request->input('tipo_produto');
@@ -177,6 +210,13 @@ class ProdutoController extends Controller
         return redirect()->back()->with('success', 'Produto aprovado com sucesso!');
     }
 
+    /**
+     * Reprova um produto (jogo ou console).
+     *
+     * @param int $id
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function reprovar($id, Request $request)
     {
         $tipoProduto = $request->input('tipo_produto');
@@ -199,8 +239,12 @@ class ProdutoController extends Controller
         return redirect()->back()->with('success', 'Produto reprovado com sucesso!');
     }
 
-    // app/Http/Controllers/ProdutoController.php
-
+    /**
+     * Pesquisa por jogos e consoles com base em critérios fornecidos.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\View\View
+     */
     public function search(Request $request)
     {
         $query = $request->input('query');
@@ -292,6 +336,12 @@ class ProdutoController extends Controller
         ]);
     }
 
+    /**
+     * Retorna sugestões de pesquisa para jogos e consoles.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function searchSuggestions(Request $request)
     {
         $query = $request->input('query');
@@ -304,6 +354,11 @@ class ProdutoController extends Controller
         return response()->json($produtos);
     }
 
+    /**
+     * Exibe a página inicial com produtos destacados e moderados.
+     *
+     * @return \Illuminate\View\View
+     */
     public function paginaInicial()
     {
         $userId = Auth::id();
@@ -383,6 +438,14 @@ class ProdutoController extends Controller
         return view('compras', compact('consolesDestaque', 'consolesModerados', 'jogos', 'jogosModerados'));
     }
 
+    /**
+     * Desativa um anúncio de produto (jogo ou console).
+     *
+     * @param \Illuminate\Http\Request $request
+     * @param string $tipo Tipo do produto ('jogo' ou 'console')
+     * @param int $id ID do produto
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function desativarAnuncio(Request $request, $tipo, $id){
         if ($tipo === 'jogo') {
             $produto = Jogo::findOrFail($id);

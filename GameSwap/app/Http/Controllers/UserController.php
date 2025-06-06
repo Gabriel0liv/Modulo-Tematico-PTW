@@ -21,6 +21,11 @@ use Illuminate\Pagination\LengthAwarePaginator;
 
 class UserController
 {
+    /**
+     * Exibe a página de perfil do utilizador autenticado.
+     *
+     * @return \Illuminate\View\View
+     */
     public function atualizarInformacoes(Request $request)
     {
         $user = Auth::user();
@@ -108,6 +113,11 @@ class UserController
 
     }
 
+    /**
+     * Exibe a página de perfil do utilizador autenticado.
+     *
+     * @return \Illuminate\View\View
+     */
     public function deletarConta(Request $request)
     {
         $user = Auth::user();
@@ -141,6 +151,11 @@ class UserController
         return redirect()->route('pagina_inicial')->with('success', 'Conta cancelada com sucesso.');
     }
 
+    /**
+     * Exibe a página de perfil do utilizador autenticado.
+     *
+     * @return \Illuminate\View\View
+     */
     public function adicionarMorada(Request $request)
     {
         $validatedData = $request->validate([
@@ -171,6 +186,11 @@ class UserController
         return redirect()->route('perfil.moradas');
     }
 
+    /**
+     * Exibe a página de perfil do utilizador autenticado.
+     *
+     * @return \Illuminate\View\View
+     */
     public function mostrarMoradas()
     {
         $moradas = Morada::with(['distrito', 'concelho'])
@@ -180,6 +200,11 @@ class UserController
         return view('paginas.perfil.perfilmoradas', compact('moradas'));
     }
 
+    /**
+     * Exibe a página de perfil do utilizador autenticado.
+     *
+     * @return \Illuminate\View\View
+     */
     public function verificarUsername(Request $request)
     {
         $existe = \App\Models\User::where('username', $request->username)->exists();
@@ -187,6 +212,11 @@ class UserController
         return response()->json(['existe' => $existe]);
     }
 
+    /**
+     * Exibe a página de perfil do utilizador autenticado.
+     *
+     * @return \Illuminate\View\View
+     */
     public function mostrarAnuncios()
     {
         $userId = auth()->id();
@@ -217,7 +247,12 @@ class UserController
         return view('paginas.perfil.perfilmeusanuncios', compact('anuncios'));
     }
 
-
+    /**
+     * Exibe o perfil de um utilizador específico.
+     *
+     * @param int $id ID do utilizador
+     * @return \Illuminate\View\View
+     */
     public function mostrarPerfilVisita($id)
     {
         $user = User::with('imagemUser')->findOrFail($id);
@@ -273,7 +308,11 @@ class UserController
         ]);
     }
 
-
+    /**
+     * Exibe a lista de utilizadores para o perfil do administrador.
+     *
+     * @return \Illuminate\View\View
+     */
     public function listarUtilizadores()
     {
         $users = User::paginate(10);
@@ -281,7 +320,12 @@ class UserController
         return view('paginas.perfilAdmin.listaUtilizadores', compact('users'));
     }
 
-
+    /**
+     * Exibe os detalhes de um utilizador específico para o perfil do administrador.
+     *
+     * @param int $id ID do utilizador
+     * @return \Illuminate\View\View
+     */
     public function exibirUtilizador($id)
     {
         $user = User::findOrFail($id);
@@ -302,6 +346,11 @@ class UserController
         return view('paginas.perfilAdmin.detalhesUtilizador', compact('denuncias', 'banimentos', 'user', 'produtos', 'comentarios'));
     }
 
+    /**
+     * Exibe as compras do utilizador autenticado.
+     *
+     * @return \Illuminate\View\View
+     */
     public function listarCompras()
     {
         $user = auth()->user();

@@ -10,6 +10,11 @@ use App\Models\PaymentMethod;
 
 class StripeController extends Controller
 {
+    /**
+     * Cria um SetupIntent para o utilizador autenticado.
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function createSetupIntent()
     {
         Stripe::setApiKey(env('STRIPE_SECRET'));
@@ -36,6 +41,12 @@ class StripeController extends Controller
         ]);
     }
 
+    /**
+     * Armazena o metodo de pagamento do utilizador autenticado.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function storePaymentMethod(Request $request)
     {
         Stripe::setApiKey(env('STRIPE_SECRET'));
@@ -59,6 +70,11 @@ class StripeController extends Controller
         return response()->json(['message' => 'Cartão salvo com sucesso!']);
     }
 
+    /**
+     * Exibe o formulário para adicionar um novo metodo de pagamento.
+     *
+     * @return \Illuminate\View\View
+     */
     public function storePaymentMethodForm(Request $request)
     {
         Stripe::setApiKey(env('STRIPE_SECRET'));
@@ -100,6 +116,12 @@ class StripeController extends Controller
         return redirect()->route('perfilCartoes')->with('success', 'Cartão salvo com sucesso!');
     }
 
+    /**
+     * Define um cartão como padrão para o utilizador autenticado.
+     *
+     * @param int $id ID do metodo de pagamento
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function setDefaultCard($id)
     {
         $user = auth()->user();
@@ -119,6 +141,12 @@ class StripeController extends Controller
         return back()->with('success', 'Cartão padrão atualizado!');
     }
 
+    /**
+     * Desativa um cartão de pagamento do utilizador autenticado.
+     *
+     * @param int $id ID do metodo de pagamento
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function desativarCartao($id)
     {
         $user = auth()->user();
@@ -135,6 +163,11 @@ class StripeController extends Controller
         return redirect()->route('perfilCartoes')->with('success', 'Cartão desativado com sucesso.');
     }
 
+    /**
+     * Lista os cartões de pagamento do utilizador autenticado.
+     *
+     * @return \Illuminate\View\View
+     */
     public function listarCartoes()
     {
         \Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
@@ -162,6 +195,12 @@ class StripeController extends Controller
             'cartoes' => $cartoesDetalhados
         ]);
     }
+
+    /**
+     * Lista os cartões de pagamento para o checkout.
+     *
+     * @return \Illuminate\View\View
+     */
     public function listarCartoesCheckout()
     {
         \Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
