@@ -45,14 +45,16 @@ class MoradaController extends Controller
     {
         $morada = Auth::user()->moradas()->where('id', $id)->first();
 
-        if (!$morada) {
-            abort(404, 'Morada não encontrada ou não pertence a este utilizador.');
+        if (is_null($morada)) {
+            return redirect()->route('perfil.moradas')->withErrors('Morada não encontrada ou não pertence a este utilizador.');
         }
 
-        $morada->delete();
+        $morada->ativo = false;
+        $morada->save();
 
-        return redirect()->route('perfil.moradas')->with('success', 'Morada apagada com sucesso.');
+        return redirect()->route('perfil.moradas')->with('success', 'Morada desativada com sucesso.');
     }
+
 
     public function index(Request $request)
     {

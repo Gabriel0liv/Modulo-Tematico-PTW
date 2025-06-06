@@ -43,7 +43,11 @@
                             </div>
                         @endforeach
                     @empty
-                        <p class="text-gray-500">Você ainda não realizou nenhuma compra.</p>
+                        <!-- Mensagem caso NÃO existam produtos relacionados -->
+                        <div class="bg-gray-100 p-6 rounded-md text-center text-gray-600">
+                            <p class="font-semibold text-lg">Nenhum produto comprado</p>
+                            <p class="text-sm">Não seja mão de vaca, compre novos jogos e consoles!</p>
+                        </div>
                     @endforelse
                 </div>
             </div>

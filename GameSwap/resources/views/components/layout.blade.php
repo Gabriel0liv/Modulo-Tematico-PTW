@@ -51,22 +51,22 @@
                       </h2>
                   </div>
                   <p class="text-blue-100 mb-6 leading-relaxed">
-                      A maior plataforma de compra, venda e troca de jogos e consoles de Portugal.
+                      A maior plataforma de compra, venda de jogos e consoles de Portugal.
                   </p>
 
                   <!-- Contact Info -->
                   <div class="space-y-3">
                       <div class="flex items-center text-blue-100 hover:text-white transition-colors duration-200">
                           <i class="bi bi-envelope w-4 h-4 mr-3"></i>
-                          <span class="text-sm">contato@gameswap.pt</span>
+                          <span class="text-sm">santananunesj32@gmail.com</span>
                       </div>
                       <div class="flex items-center text-blue-100 hover:text-white transition-colors duration-200">
                           <i class="bi bi-telephone w-4 h-4 mr-3"></i>
-                          <span class="text-sm">+351 123 456 789</span>
+                          <span class="text-sm">+351 911 058 352</span>
                       </div>
                       <div class="flex items-center text-blue-100 hover:text-white transition-colors duration-200">
                           <i class="bi bi-geo-alt w-4 h-4 mr-3"></i>
-                          <span class="text-sm">Lisboa, Portugal</span>
+                          <span class="text-sm">Aveiro, Portugal</span>
                       </div>
                   </div>
               </div>

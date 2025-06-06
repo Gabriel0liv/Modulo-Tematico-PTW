@@ -119,12 +119,28 @@ class StripeController extends Controller
         return back()->with('success', 'Cartão padrão atualizado!');
     }
 
+    public function desativarCartao($id)
+    {
+        $user = auth()->user();
+
+        $cartao = $user->paymentMethods()->where('id', $id)->first();
+
+        if (!$cartao) {
+            return redirect()->back()->withErrors('Cartão não encontrado ou não pertence a este utilizador.');
+        }
+
+        $cartao->ativo = false;
+        $cartao->save();
+
+        return redirect()->route('perfilCartoes')->with('success', 'Cartão desativado com sucesso.');
+    }
+
     public function listarCartoes()
     {
         \Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
 
         $user = auth()->user();
-        $cartoesSalvos = $user->paymentMethods;
+        $cartoesSalvos = $user->paymentMethods->where('ativo',true);
 
         $cartoesDetalhados = [];
 
@@ -137,7 +153,7 @@ class StripeController extends Controller
                 'last4' => $stripeCard->card->last4,
                 'exp_month' => $stripeCard->card->exp_month,
                 'exp_year' => $stripeCard->card->exp_year,
-                'nome_cartao' => $cartao->nome_cartao,
+                'nome_titular' => $stripeCard->billing_details->name,
                 'is_default' => $cartao->is_default,
             ];
         }

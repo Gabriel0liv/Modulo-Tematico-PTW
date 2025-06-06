@@ -109,6 +109,7 @@ Route::get('/concelhos/{distritoId}', [MoradaController::class, 'obterConcelhosP
 Route::get('/paginas/adicionarCartão', function () {
     return view('paginas.adicionarCartão');
 })->name('cart.adicionar');
+Route::delete('/perfil/cartoes/{id}/desativar', [StripeController::class, 'desativarCartao'])->name('cartoes.desativar');
 Route::middleware('auth')->group(function () {
     Route::get('/stripe/setup-intent', [StripeController::class, 'createSetupIntent']);
     Route::post('/stripe/save-card', [StripeController::class, 'storePaymentMethod']);

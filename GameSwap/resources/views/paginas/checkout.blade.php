@@ -36,11 +36,6 @@
                                                     </svg>
                                                     <h3 class="text-lg font-semibold leading-none tracking-tight">{{ $morada->nome_morada }}</h3>
                                                 </div>
-
-                                                @if ($morada->is_default ?? false)
-
-                                                    <span class="text-xs font-semibold px-2 py-1 bg-blue-500 text-white rounded-full">Principal</span>
-                                                @endif
                                             </div>
 
                                             <div class="p-6 pt-0">
@@ -86,8 +81,9 @@
                             <div class="space-y-3">
                                 <!-- Saved Card 1 -->
                                 @foreach ($cartoes as $cartao)
-                                    <label class="block bg-white border border-gray-300 rounded-lg p-4 shadow-sm mb-4 cursor-pointer hover:border-blue-500">
-                                        <div class="flex items-start justify-between">
+                                    <label class="block cursor-pointer">
+                                        <input type="radio" name="cartao_id" value="{{ $cartao->id }}" class="sr-only peer" {{ $loop->first ? 'checked' : '' }}>
+                                        <div class="rounded-lg border bg-card text-card-foreground shadow-card peer-checked:border-blue-600 peer-checked:ring-2 peer-checked:ring-blue-300">
                                             <div>
                                                 <p class="font-semibold text-gray-800">
                                                     Cartão: {{ ucfirst($cartao->brand) }} **** **** **** {{ $cartao->last4 }}
@@ -96,13 +92,9 @@
                                                     Validade: {{ $cartao->exp_month }}/{{ $cartao->exp_year }}
                                                 </p>
                                                 <p class="text-sm text-gray-600">
-                                                    Nome no cartão: {{ $cartao->nome_cartao ?? 'N/A' }}
+                                                    Titular do Cartão: {{ $cartao->nome_titular ?? 'N/A' }}
                                                 </p>
-                                                @if ($cartao->is_default)
-                                                    <span class="text-xs font-semibold px-2 py-1 bg-blue-500 text-white rounded-full mt-2 inline-block">Principal</span>
-                                                @endif
                                             </div>
-                                            <input type="radio" name="cartao_id" value="{{ $cartao->id }}" required>
                                         </div>
                                     </label>
                                 @endforeach

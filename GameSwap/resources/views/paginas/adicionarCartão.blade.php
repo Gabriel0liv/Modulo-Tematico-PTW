@@ -35,38 +35,46 @@
                 <!-- Número do Cartão -->
                 <div class="mb-4">
                     <label class="block text-sm text-gray-600 mb-1">Número do Cartão</label>
-                    <div class="relative">
-                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-credit-card-icon lucide-credit-card"><rect width="20" height="14" x="2" y="5" rx="2"/><line x1="2" x2="22" y1="10" y2="10"/></svg>
-                        </div>
+                    <div class="flex items-center border border-gray-300 rounded-md px-3 py-2 bg-white">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-gray-400 mr-2" viewBox="0 0 24 24" fill="none"
+                             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect width="20" height="14" x="2" y="5" rx="2"/>
+                            <line x1="2" y1="10" x2="22" y2="10"/>
+                        </svg>
                         <div id="card-number-element"
-                             class="pl-10 pr-3 py-2 border border-gray-300 rounded-md bg-white focus:outline-none focus:ring focus:border-blue-300 transition-shadow"
+                             class="w-full focus:outline-none"
                              placeholder="1234 1234 1234 1234"></div>
                     </div>
                 </div>
 
                 <!-- Validade e CVC -->
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-                    <!-- Validade -->
-                    <div class="relative">
+                    <div>
                         <label class="block text-sm text-gray-600 mb-1">Validade</label>
-                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-calendar-icon lucide-calendar"><path d="M8 2v4"/><path d="M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/></svg>
+                        <div class="flex items-center border border-gray-300 rounded-md px-3 py-2">
+                            <svg class="w-5 h-5 text-gray-400 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                 xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                      d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z">
+                                </path>
+                            </svg>
+                            <input type="text" name="card_expiry" placeholder="MM/AA" class="w-full outline-none" required>
                         </div>
-                        <div id="card-expiry-element"
-                             class="pl-10 px-3 py-2 border border-gray-300 rounded-md bg-white focus:outline-none focus:ring focus:border-blue-300 transition-shadow"
-                             placeholder="MM/AA"></div>
                     </div>
 
                     <!-- CVC -->
-                    <div class="relative">
+                    <div>
                         <label class="block text-sm text-gray-600 mb-1">CVC</label>
-                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-lock-icon lucide-lock"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                        <div class="flex items-center border border-gray-300 rounded-md px-3 py-2">
+                            <svg class="w-5 h-5 text-gray-400 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                 xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                      d="M12 11c0-.5304-.2107-1.0391-.5858-1.4142C11.0391 9.2107 10.5304 9 10 9s-1.0391.2107-1.4142.5858C8.2107 9.9609 8 10.4696 8 11c0 .5304.2107 1.0391.5858 1.4142C9.0391 12.7893 9.5304 13 10 13s1.0391-.2107 1.4142-.5858C11.7893 12.0391 12 11.5304 12 11z"></path>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                      d="M4 7h16M4 7v10a2 2 0 002 2h12a2 2 0 002-2V7M4 7h16"></path>
+                            </svg>
+                            <input type="text" name="card_cvc" placeholder="CVC" class="w-full outline-none" required>
                         </div>
-                        <div id="card-cvc-element"
-                             class="pl-10 px-3 py-2 border border-gray-300 rounded-md bg-white focus:outline-none focus:ring focus:border-blue-300 transition-shadow"
-                             placeholder="CVC"></div>
                     </div>
                 </div>
 

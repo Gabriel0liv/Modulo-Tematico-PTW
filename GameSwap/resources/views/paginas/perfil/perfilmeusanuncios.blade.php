@@ -57,12 +57,14 @@
                                             <input type="hidden" name="id" value="{{ $anuncio->id }}">
                                             <input type="hidden" name="tipo" value="{{ $anuncio instanceof \App\Models\Jogo ? 'jogo' : 'console' }}">
                                             <input type="hidden" name="tipo_produto" value="{{ $anuncio->tipo_produto }}">
-                                            <button type="submit"
-                                                    class="px-4 py-2 text-sm font-semibold
+                                            @if($anuncio->status === "Publicado")
+                                                <button type="submit"
+                                                        class="px-4 py-2 text-sm font-semibold
                                                         border border-blue-500 text-blue-500 rounded-lg
                                                         hover:bg-blue-500 hover:text-white transition duration-200">
-                                                Destacar
-                                            </button>
+                                                    Destacar
+                                                </button>
+                                            @endif
                                         </form>
                                     @endif
 
@@ -76,7 +78,11 @@
                             @endif
                         </div>
                     @empty
-                        <p class="text-gray-500">Você ainda não tem anúncios cadastrados.</p>
+                        <!-- Mensagem caso NÃO existam produtos relacionados -->
+                        <div class="bg-gray-100 p-6 rounded-md text-center text-gray-600">
+                            <p class="font-semibold text-lg">Nenhum anúncio feito</p>
+                            <p class="text-sm">Anuncie seus jogos e consoles, para gerar aquela renda extra no fim do mês!</p>
+                        </div>
                     @endforelse
                 </div>
             </div>

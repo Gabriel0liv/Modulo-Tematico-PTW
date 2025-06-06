@@ -174,6 +174,7 @@ class UserController
     {
         $moradas = Morada::with(['distrito', 'concelho'])
             ->where('user_id', auth()->id())
+            ->where('ativo', 1)
             ->get();
         return view('paginas.perfil.perfilmoradas', compact('moradas'));
     }
