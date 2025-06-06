@@ -30,6 +30,19 @@
               enctype="multipart/form-data">
             @csrf
             <!-- Token CSRF obrigatório para segurança -->
+
+            @if ($errors->has('erro'))
+                <div class="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 mb-4 rounded-r-lg">
+                    <p>{{ $errors->first('erro') }}</p>
+                </div>
+            @endif
+
+            @if (session('success'))
+                <div class="bg-green-100 border-l-4 border-green-500 text-green-700 p-4 mb-4 rounded-r-lg">
+                    <p>{{ session('success') }}</p>
+                </div>
+            @endif
+
             <!-- Product Photos -->
             <div class="mb-12">
                 <label
@@ -177,12 +190,26 @@
                     Publicar Anúncio
                 </button>
             </div>
+
         </form>
 
         <!-- Formulário de Console -->
         <form id="form-console" action="{{ route('console.store') }}" method="POST" class="space-y-6"
               style="display:none;" enctype="multipart/form-data">
             @csrf
+
+            @if ($errors->has('erro'))
+                <div class="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 mb-4 rounded-r-lg">
+                    <p>{{ $errors->first('erro') }}</p>
+                </div>
+            @endif
+
+            @if (session('success'))
+                <div class="bg-green-100 border-l-4 border-green-500 text-green-700 p-4 mb-4 rounded-r-lg">
+                    <p>{{ session('success') }}</p>
+                </div>
+            @endif
+
 
             <!-- Fotos do Console -->
             <div class="mb-12">
@@ -303,6 +330,8 @@
                     Publicar Console
                 </button>
             </div>
+
+
         </form>
 
     </div>

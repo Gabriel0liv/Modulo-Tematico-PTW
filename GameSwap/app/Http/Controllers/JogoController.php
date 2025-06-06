@@ -18,13 +18,10 @@ class JogoController extends Controller
 
     public function store(Request $request)
     {
-        Log::info('teste');
-
         try {
-            Log::info('[JogoController@store] Iniciando o processo de cadastro de jogo.', [
+            Log::info('Iniciando o processo de validação para cadastro do jogo.', [
                 'user_id' => auth()->id(),
-                'files_names' => $request->hasFile('imagens') ? array_map(fn($f) => $f->getClientOriginalName(), $request->file('imagens')) : null,
-                'all_inputs' => $request->all(),
+                'request_data' => $request->all(),
             ]);
 
             $validatedData = $request->validate([
@@ -34,12 +31,33 @@ class JogoController extends Controller
                 'id_categoria' => 'required|exists:categorias,id',
                 'descricao' => 'required|string|max:1000',
                 'console_id' => 'required|exists:modelo_consoles,id',
-                'regiao' => 'required|string|max:255', // Validação para o campo "regiao"
+                'regiao' => 'required|string|max:255',
                 'destaque' => 'nullable|boolean',
                 'imagens' => 'required|array',
                 'imagens.*' => 'image|mimes:jpeg,png,jpg,gif|max:8192',
+            ], [
+                'nome.required' => 'O nome do jogo é obrigatório.',
+                'nome.max' => 'O nome do jogo deve ter no máximo 255 caracteres.',
+                'preco.required' => 'O preço é obrigatório.',
+                'preco.numeric' => 'O preço deve ser numérico.',
+                'preco.min' => 'O preço não pode ser negativo.',
+                'estado.required' => 'O estado é obrigatório.',
+                'estado.in' => 'O estado deve ser novo, usado ou recondicionado.',
+                'id_categoria.required' => 'A categoria é obrigatória.',
+                'id_categoria.exists' => 'A categoria selecionada não é válida.',
+                'descricao.required' => 'A descrição é obrigatória.',
+                'descricao.max' => 'A descrição deve ter no máximo 1000 caracteres.',
+                'console_id.required' => 'O console é obrigatório.',
+                'console_id.exists' => 'O console selecionado não é válido.',
+                'regiao.required' => 'A região é obrigatória.',
+                'regiao.max' => 'A região deve ter no máximo 255 caracteres.',
+                'imagens.required' => 'Pelo menos uma imagem deve ser enviada.',
+                'imagens.*.image' => 'Cada arquivo deve ser uma imagem válida.',
+                'imagens.*.mimes' => 'As imagens devem ser do tipo jpeg, png, jpg ou gif.',
+                'imagens.*.max' => 'Cada imagem não pode exceder 8MB.',
             ]);
 
+            // Criar o jogo
             $jogo = Jogo::create([
                 'nome' => $validatedData['nome'],
                 'descricao' => $validatedData['descricao'],
@@ -49,43 +67,43 @@ class JogoController extends Controller
                 'tipo_produto' => $request->input('tipo_produto', 'jogo'),
                 'id_anunciante' => auth()->id(),
                 'console_id' => $validatedData['console_id'],
-                'regiao' => $validatedData['regiao'], // Salva o campo "regiao"
+                'regiao' => $validatedData['regiao'],
                 'destaque' => $request->boolean('destaque'),
             ]);
 
-
-            Log::info('Jogo criado com sucesso.', ['jogo_id' => $jogo->id]);
-
+            // Upload imagens
             $googleDriveService = new GoogleDriveService();
 
             if ($request->hasFile('imagens')) {
-                $imagens = $request->file('imagens');
-                foreach ($imagens as $imagem) {
-                    $filePath = $imagem->getRealPath();
-                    $fileName = $imagem->getClientOriginalName();
-
-                    Log::info('Iniciando upload da imagem.', ['file_name' => $fileName]);
-
-                    $uploadedFileUrl = $googleDriveService->upload($filePath, $fileName, $jogo->id, 'jogos');
-
-                    Log::info('Imagem enviada com sucesso.', ['uploaded_url' => $uploadedFileUrl]);
+                foreach ($request->file('imagens') as $imagem) {
+                    $uploadedFileUrl = $googleDriveService->upload(
+                        $imagem->getRealPath(),
+                        $imagem->getClientOriginalName(),
+                        $jogo->id,
+                        'jogos'
+                    );
 
                     Imagem::create([
                         'jogo_id' => $jogo->id,
                         'caminho' => $uploadedFileUrl,
                     ]);
-
-                    Log::info('Registro da imagem criado no banco de dados.', ['jogo_id' => $jogo->id, 'path' => $uploadedFileUrl]);
                 }
             }
 
             return redirect()->route('pagina_inicial')->with('success', 'Jogo anunciado com sucesso!');
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            // Captura todas as mensagens de erro e combina em uma única string
+            $mensagensDeErro = [];
+            foreach ($e->errors() as $campo => $mensagens) {
+                $mensagensDeErro = array_merge($mensagensDeErro, $mensagens);
+            }
+
+            return back()->withErrors(['erro' => "Erro ao cadastrar o jogo: " . implode(', ', $mensagensDeErro)]);
         } catch (\Throwable $e) {
             Log::error('Erro ao cadastrar o jogo.', ['exception' => $e->getMessage()]);
-            return back()->withErrors(['error' => 'Ocorreu um erro ao cadastrar o jogo.']);
+            return back()->withErrors(['erro' => 'Erro inesperado, por favor, tente novamente.']);
         }
     }
-
 
     public function show($id)
     {
