@@ -85,13 +85,13 @@
                           </a>
                       </li>
                       <li>
-                          <a href="#" class="text-blue-100 hover:text-white hover:translate-x-1 transition-all duration-200 flex items-center group">
+                          <a href="/pesquisa?tipo=console" class="text-blue-100 hover:text-white hover:translate-x-1 transition-all duration-200 flex items-center group">
                               <span class="w-1 h-1 bg-blue-300 rounded-full mr-3 group-hover:bg-white transition-colors"></span>
                               Explorar Consoles
                           </a>
                       </li>
                       <li>
-                          <a href="#" class="text-blue-100 hover:text-white hover:translate-x-1 transition-all duration-200 flex items-center group">
+                          <a href="/pesquisa?tipo=jogo" class="text-blue-100 hover:text-white hover:translate-x-1 transition-all duration-200 flex items-center group">
                               <span class="w-1 h-1 bg-blue-300 rounded-full mr-3 group-hover:bg-white transition-colors"></span>
                               Explorar Jogos
                           </a>
@@ -118,44 +118,21 @@
                       <i class="bi bi-display text-lg mr-2 text-blue-200"></i>
                       <h3 class="text-lg font-semibold text-white">Categorias</h3>
                   </div>
-                  <ul class="space-y-3">
-                      <li>
-                          <a href="#" class="text-blue-100 hover:text-white hover:translate-x-1 transition-all duration-200 flex items-center group">
-                              <span class="w-1 h-1 bg-blue-300 rounded-full mr-3 group-hover:bg-white transition-colors"></span>
-                              PlayStation 5
-                          </a>
-                      </li>
-                      <li>
-                          <a href="#" class="text-blue-100 hover:text-white hover:translate-x-1 transition-all duration-200 flex items-center group">
-                              <span class="w-1 h-1 bg-blue-300 rounded-full mr-3 group-hover:bg-white transition-colors"></span>
-                              Xbox Series X
-                          </a>
-                      </li>
-                      <li>
-                          <a href="#" class="text-blue-100 hover:text-white hover:translate-x-1 transition-all duration-200 flex items-center group">
-                              <span class="w-1 h-1 bg-blue-300 rounded-full mr-3 group-hover:bg-white transition-colors"></span>
-                              Nintendo Switch
-                          </a>
-                      </li>
-                      <li>
-                          <a href="#" class="text-blue-100 hover:text-white hover:translate-x-1 transition-all duration-200 flex items-center group">
-                              <span class="w-1 h-1 bg-blue-300 rounded-full mr-3 group-hover:bg-white transition-colors"></span>
-                              PlayStation 4
-                          </a>
-                      </li>
-                      <li>
-                          <a href="#" class="text-blue-100 hover:text-white hover:translate-x-1 transition-all duration-200 flex items-center group">
-                              <span class="w-1 h-1 bg-blue-300 rounded-full mr-3 group-hover:bg-white transition-colors"></span>
-                              Acessórios
-                          </a>
-                      </li>
-                      <li>
-                          <a href="#" class="text-blue-100 hover:text-white hover:translate-x-1 transition-all duration-200 flex items-center group">
-                              <span class="w-1 h-1 bg-blue-300 rounded-full mr-3 group-hover:bg-white transition-colors"></span>
-                              Jogos Retro
-                          </a>
-                      </li>
-                  </ul>
+                  <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 gap-4">
+                      @foreach($modelo_consoles->chunk(6) as $chunk)
+                          <ul class="space-y-3">
+                              @foreach($chunk as $modelo)
+                                  <li>
+                                      <a href="/pesquisa?query=&genero=&modelo={{ $modelo->id }}"
+                                         class="text-blue-100 hover:text-white hover:translate-x-1 transition-all duration-200 flex items-center group">
+                                          <span class="w-1 h-1 bg-blue-300 rounded-full mr-3 group-hover:bg-white transition-colors"></span>
+                                          {{ $modelo->nome }}
+                                      </a>
+                                  </li>
+                              @endforeach
+                          </ul>
+                      @endforeach
+                  </div>
               </div>
           </div>
       </div>

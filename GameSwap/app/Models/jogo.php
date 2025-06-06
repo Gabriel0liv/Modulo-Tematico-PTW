@@ -15,8 +15,8 @@ class jogo extends Model
     {
         return [
             'nome' => $this->nome,
-            'console_nome' => $this->modelo_console ? $this->modelo_console->nome : null, // Corrigido
-            'categoria_nome' => $this->categoria ? $this->categoria->nome : null,
+            'console_id' => $this->modelo_console ? $this->modelo_console->id : null,
+            'id_categoria' => $this->categoria ? $this->categoria->id : null,
         ];
     }
 

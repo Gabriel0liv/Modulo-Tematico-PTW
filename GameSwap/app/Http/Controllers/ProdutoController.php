@@ -204,55 +204,57 @@ class ProdutoController extends Controller
     public function search(Request $request)
     {
         $query = $request->input('query');
-        $modelo_consoles = ModeloConsole::all();
+        $categoriaId = $request->input('genero');
         $categorias = Categoria::all();
+        $modelo_consolesId = $request->input('modelo');
+        $modelo_consoles = ModeloConsole::all();
+        $tipo = $request->input('tipo');
 
-        $jogosPaginated = Jogo::search($query)
+        if ($tipo === 'console') {
+            $jogosPaginated = collect([]); // Nenhum jogo
+            $consolesQuery = empty($query) ? Console::query() : Console::search($query);
+        } elseif ($tipo === 'jogo') {
+            $consolesPaginated = collect([]); // Nenhum console
+            $jogosQuery = empty($query) ? Jogo::query() : Jogo::search($query);
+        } else {
+            $jogosQuery = empty($query) ? Jogo::query() : Jogo::search($query);
+            $consolesQuery = empty($query) ? Console::query() : Console::search($query);
+        }
 
-            ->when($request->filled('generos'), function ($q) use ($request) {
-                $ids = $request->input('generos', []);
-                if (!empty($ids)) {
-                    $q->whereIn('categoria_nome', $ids);
-                }
-            })
-            ->when($request->filled('consoles'), function ($q) use ($request) {
-                $ids = $request->input('consoles', []);
-                if (!empty($ids)) {
-                    $q->whereIn('console_nome', $ids);
-                }
-            })
+        if (isset($jogosQuery)) {
+            if ($categoriaId) {
+                $jogosQuery->where('id_categoria', $categoriaId);
+            }
+            if ($modelo_consolesId) {
+                $jogosQuery->where('console_id', $modelo_consolesId);
+            }
+            $jogosPaginated = $jogosQuery->paginate(10);
+            $jogosPaginated->getCollection()->transform(function ($jogo) {
+                $jogo->load('imagens');
+                $jogo->imagem_capa = $jogo->imagens->first()
+                    ? \App\Helpers\GoogleDriveHelper::transformGoogleDriveUrl($jogo->imagens->first()->caminho)
+                    : '/placeholder.svg';
+                return $jogo;
+            });
+        }
 
-            ->paginate(10);
-
-        $jogosPaginated->getCollection()->transform(function ($jogo) {
-            $jogo->load('imagens');
-            $jogo->imagem_capa = $jogo->imagens->first()
-                ? \App\Helpers\GoogleDriveHelper::transformGoogleDriveUrl($jogo->imagens->first()->caminho)
-                : '/placeholder.svg';
-            return $jogo;
-        });
-
-        $consolesPaginated = Console::search($query)
-
-            ->when($request->filled('consoles'), function ($q) use ($request) {
-                $ids = $request->input('consoles', []);
-                if (!empty($ids)) {
-                    $q->whereIn('modelo_console_nome', $ids);
-                }
-            })
-            ->paginate(10);
-
-        $consolesPaginated->getCollection()->transform(function ($console) {
-            $console->load('imagens');
-            $console->imagem_capa = $console->imagens->first()
-                ? \App\Helpers\GoogleDriveHelper::transformGoogleDriveUrl($console->imagens->first()->path)
-                : '/placeholder.svg';
-            return $console;
-        });
+        if (isset($consolesQuery)) {
+            if ($modelo_consolesId) {
+                $consolesQuery->where('modelo_console_id', $modelo_consolesId);
+            }
+            $consolesPaginated = $consolesQuery->paginate(10);
+            $consolesPaginated->getCollection()->transform(function ($console) {
+                $console->load('imagens');
+                $console->imagem_capa = $console->imagens->first()
+                    ? \App\Helpers\GoogleDriveHelper::transformGoogleDriveUrl($console->imagens->first()->path)
+                    : '/placeholder.svg';
+                return $console;
+            });
+        }
 
         return view('paginas.pesquisa', [
-            'jogos' => $jogosPaginated,
-            'consoles' => $consolesPaginated,
+            'jogos' => $jogosPaginated ?? collect([]),
+            'consoles' => $consolesPaginated ?? collect([]),
             'query' => $query,
             'categorias' => $categorias,
             'modelo_consoles' => $modelo_consoles
@@ -355,7 +357,7 @@ class ProdutoController extends Controller
             abort(404, 'Tipo de produto inválido.');
         }
 
-        $produto->ativo = false; // Desativa o anúncio
+        $produto->ativo = 0; // Desativa o anúncio
         $produto->save();
 
         return redirect()->back()->with('success', 'Anúncio desativado com sucesso!');

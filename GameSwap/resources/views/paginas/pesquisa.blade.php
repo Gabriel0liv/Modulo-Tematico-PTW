@@ -20,30 +20,26 @@
                     <!-- Genre Filter -->
                     <div class="space-y-3">
                         <h3 class="text-sm font-semibold text-gray-700 uppercase tracking-wider">Gênero</h3>
-                        <div class="space-y-2">
-                            @foreach($categorias as $genero)
-                                <label class="custom-checkbox flex items-center">
-                                    <input type="checkbox" name="generos[]" value="{{ $genero->id }}" class="sr-only"
-                                        {{ in_array($genero->id, (array) request('generos', [])) ? 'checked' : '' }}>
-                                    <span class="checkmark mr-2"></span>
-                                    <span class="text-sm text-gray-700">{{$genero->nome}}</span>
-                                </label>
+                        <select name="genero" class="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm">
+                            <option value="">Todos</option>
+                            @foreach($categorias as $categoria)
+                                <option value="{{ $categoria->id }}" {{ request('genero') == $categoria->id ? 'selected' : '' }}>
+                                    {{ $categoria->nome }}
+                                </option>
                             @endforeach
-                        </div>
+                        </select>
                     </div>
 
                     <div class="space-y-3">
                         <h3 class="text-sm font-semibold text-gray-700 uppercase tracking-wider">Console</h3>
-                        <div class="space-y-2">
+                        <select name="modelo" class="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm">
+                            <option value="">Todos</option>
                             @foreach($modelo_consoles as $modelo_console)
-                                <label class="custom-checkbox flex items-center">
-                                    <input type="checkbox" name="consoles[]" value="{{ $modelo_console->id }}" class="sr-only"
-                                        {{ in_array($modelo_console->id, (array) request('consoles', [])) ? 'checked' : '' }}>
-                                    <span class="checkmark mr-2"></span>
-                                    <span class="text-sm text-gray-700">{{$modelo_console->nome}}</span>
-                                </label>
+                                <option value="{{ $modelo_console->id }}" {{ request('modelo') == $modelo_console->id ? 'selected' : '' }}>
+                                    {{ $modelo_console->nome }}
+                                </option>
                             @endforeach
-                        </div>
+                        </select>
                     </div>
 
                     <div class="mt-6">
@@ -70,9 +66,7 @@
                 @else
                     <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
                         @foreach ($jogos as $jogo)
-                            @if($jogo->moderado == 1)
-                                <x-jogo-card :jogo="$jogo"/>
-                            @endif
+                            <x-jogo-card :jogo="$jogo"/>
                         @endforeach
                     </div>
                 @endif
@@ -92,12 +86,16 @@
                 @endif
 
                 <!-- Pagination -->
-                <div class="mt-12 flex justify-center">
-                    {{ $jogos->links() }}
-                </div>
-                <div class="mt-12 flex justify-center">
-                    {{ $consoles->links() }}
-                </div>
+                @if($jogos instanceof \Illuminate\Pagination\LengthAwarePaginator || $jogos instanceof \Illuminate\Pagination\Paginator)
+                    <div class="mt-12 flex justify-center">
+                        {{ $jogos->links() }}
+                    </div>
+                @endif
+                @if($consoles instanceof \Illuminate\Pagination\LengthAwarePaginator || $consoles instanceof \Illuminate\Pagination\Paginator)
+                    <div class="mt-12 flex justify-center">
+                        {{ $consoles->links() }}
+                    </div>
+                @endif
             </main>
         </div>
     </div>

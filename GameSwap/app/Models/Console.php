@@ -16,7 +16,7 @@ class Console extends Model
     {
         return [
             'nome' => $this->nome,
-            'modelo_console_nome' => $this->modelo_console ? $this->modelo_console->nome : null,        ];
+            'console_id' => $this->modelo_console ? $this->modelo_console->id : null,        ];
     }
 
     public function anunciante()

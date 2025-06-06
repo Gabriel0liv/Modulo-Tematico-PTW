@@ -7,7 +7,6 @@ use Illuminate\Http\Request;
 
 class ModeloConsoleController extends Controller
 {
-
     public function store(Request $request)
     {
         // Valida os dados do request

@@ -117,10 +117,10 @@ return [
         'secret' => env('ALGOLIA_SECRET', ''),
         'index-settings' => [
             'jogos' => [
-                'attributesForFaceting' => ['filterOnly(console_nome)', 'filterOnly(categoria_nome)'],
+                'attributesForFaceting' => ['filterOnly(console_id)', 'filterOnly(id_categoria)'],
             ],
             'consoles' => [
-                'attributesForFaceting' => ['filterOnly(modelo_console_nome)'],
+                'attributesForFaceting' => ['filterOnly(modelo_console_id)'],
             ],
             // 'users' => [
             //     'searchableAttributes' => ['id', 'name', 'email'],

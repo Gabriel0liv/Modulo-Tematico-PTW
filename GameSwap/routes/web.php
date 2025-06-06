@@ -21,6 +21,7 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::get('/', [ProdutoController::class, 'paginaInicial'])->name('pagina_inicial');
+Route::get('/footer', [ModeloConsoleController::class, 'footer'])->name('footer');
 
 // Rotas de Layout
 Route::get('/components/layout', function () {
