@@ -39,6 +39,7 @@
             </div>
             <!-- Action Buttons Section -->
             @auth
+                @if(Auth::user()->id != $user->id)
                     <div class="flex flex-col items-center justify-center w-full md:w-auto">
                         <a href="/denunciar/{{ $user->id }}" class="glass-effect bg-red-50 border border-red-200 hover:border-red-300 text-red-600 hover:text-red-700 px-8 py-3 rounded-xl font-semibold transition-all transform hover:scale-105 text-center">
                             <svg class="w-5 h-5 inline mr-2" fill="currentColor" viewBox="0 0 20 20">
@@ -47,6 +48,7 @@
                             Denunciar
                         </a>
                     </div>
+                @endif
             @endauth
         </div>
 
@@ -133,7 +135,7 @@
 
                                 <!-- Informações do remetente -->
                                 <div>
-                                    <div class="font-medium">{{ $comentario->remetente->username }}</div>
+                                    <a href="{{$comentario->remetente->id}}" class="font-medium">{{ $comentario->remetente->username }}</a>
                                     <div class="text-sm text-gray-500">{{ $comentario->created_at }}</div>
                                 </div>
                             </div>

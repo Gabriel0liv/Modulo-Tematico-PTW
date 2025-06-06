@@ -40,7 +40,7 @@
                 </div>
                 <span id="username-display" class="text-white text-sm hidden md:inline-block">Usuário</span>
             </a>
-            <a href="{{route('carrinhoPage')}}" class="relative group" aria-label="Carrinho">
+            <a href="{{route('loginPage')}}" class="relative group" aria-label="Carrinho">
                 <i class="bi bi-cart text-white text-xl"></i>
 
             </a>

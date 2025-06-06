@@ -162,7 +162,7 @@
 
                         <div class="text-xs text-gray-600 text-center mt-4">
                             Ao finalizar a compra, aceita os nossos
-                            <a href="#" class="text-blue-600 hover:underline">Termos e Condições</a>
+                            <a href="{{route('termos')}}" class="text-blue-600 hover:underline">Termos e Condições</a>
                         </div>
                     </div>
                 </div>

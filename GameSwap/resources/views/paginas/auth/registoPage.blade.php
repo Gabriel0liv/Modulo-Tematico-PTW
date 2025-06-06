@@ -57,8 +57,8 @@
                     <div class="flex items-start">
                         <input type="checkbox" id="termos" name="termos" value="1" {{ old('termos') ? 'checked' : '' }} class="h-4 w-4 mt-1 text-blue-600 focus:ring-blue-600 border-gray-300 rounded">
                         <label for="termos" class="ml-2 block text-sm text-gray-700">
-                            Eu concordo com os <a href="#" class="text-blue-600 hover:underline">Termos de Serviço</a> e
-                            <a href="#" class="text-blue-600 hover:underline">Política de Privacidade</a>.
+                            Eu concordo com os <a href="{{route('termos')}}" class="text-blue-600 hover:underline">Termos de Serviço</a> e
+                            <a href="{{route('privacidade')}}" class="text-blue-600 hover:underline">Política de Privacidade</a>.
                         </label>
                     </div>
                     <p id="error-termos" class="text-red-500 text-sm mt-1 hidden"></p>

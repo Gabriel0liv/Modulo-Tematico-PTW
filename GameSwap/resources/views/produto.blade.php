@@ -10,12 +10,12 @@
                  stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
             </svg>
-            <a href="#" class="hover:text-[#0a66c2] hover:underline">{{$produto->tipo_produto}}</a>
+            <a href="/pesquisa?tipo={{$produto->tipo_produto}}" class="hover:text-[#0a66c2] hover:underline">{{$produto->tipo_produto}}</a>
             <svg class="h-3 w-3 mx-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                  stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
             </svg>
-            <a href="/pesquisa?query={{$produto->modelo_console->nome}}" class="hover:text-[#0a66c2] hover:underline">{{$produto->modelo_console->nome}}</a>
+            <a href="/pesquisa?query=&genero=&modelo={{$produto->modelo_console->id}}" class="hover:text-[#0a66c2] hover:underline">{{$produto->modelo_console->nome}}</a>
             <svg class="h-3 w-3 mx-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                  stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>

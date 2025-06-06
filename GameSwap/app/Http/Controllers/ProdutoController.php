@@ -228,10 +228,22 @@ class ProdutoController extends Controller
             if ($modelo_consolesId) {
                 $jogosQuery->where('console_id', $modelo_consolesId);
             }
-            $jogosPaginated = $jogosQuery
-                ->where('ativo', 1)
-                ->orderBy('destaque', 'desc')
-                ->paginate(10);
+
+            $jogosCollection = $jogosQuery->get()
+                ->filter(fn($item) => $item->ativo == 1)
+                ->sortByDesc('destaque')
+                ->values();
+
+            $page = LengthAwarePaginator::resolveCurrentPage();
+            $perPage = 10;
+            $items = $jogosCollection->slice(($page - 1) * $perPage, $perPage)->values();
+            $jogosPaginated = new LengthAwarePaginator(
+                $items,
+                $jogosCollection->count(),
+                $perPage,
+                $page,
+                ['path' => $request->url(), 'query' => $request->query()]
+            );
 
             $jogosPaginated->getCollection()->transform(function ($jogo) {
                 $jogo->load('imagens');
@@ -246,10 +258,21 @@ class ProdutoController extends Controller
             if ($modelo_consolesId) {
                 $consolesQuery->where('modelo_console_id', $modelo_consolesId);
             }
-            $consolesPaginated = $consolesQuery
-                ->where('ativo', 1)
-                ->orderBy('destaque', 'desc')
-                ->paginate(10);
+            $consolesCollection = $consolesQuery->get()
+                ->filter(fn($item) => $item->ativo == 1)
+                ->sortByDesc('destaque')
+                ->values();
+
+            $page = LengthAwarePaginator::resolveCurrentPage();
+            $perPage = 10;
+            $items = $consolesCollection->slice(($page - 1) * $perPage, $perPage)->values();
+            $consolesPaginated = new LengthAwarePaginator(
+                $items,
+                $consolesCollection->count(),
+                $perPage,
+                $page,
+                ['path' => $request->url(), 'query' => $request->query()]
+            );
 
             $consolesPaginated->getCollection()->transform(function ($console) {
                 $console->load('imagens');
