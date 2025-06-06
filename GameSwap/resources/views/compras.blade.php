@@ -229,76 +229,120 @@
 
 
     <script>
-        // Função genérica para configurar sliders
-        function configurarSlider(sliderId, prevBtnId, nextBtnId) {
+        function initInfiniteCarousel(sliderId, prevButtonId, nextButtonId) {
             const slider = document.getElementById(sliderId);
-            const prevButton = document.getElementById(prevBtnId);
-            const nextButton = document.getElementById(nextBtnId);
-            const items = slider ? slider.children : [];
-            const itemCount = items.length;
+            const prevButton = document.getElementById(prevButtonId);
+            const nextButton = document.getElementById(nextButtonId);
 
-            // Verificar se existem itens no slider
-            if (itemCount === 0) {
-                slider.parentElement.innerHTML = `
-            <div class="bg-gray-100 p-6 rounded-md text-center text-gray-600">
-                <p class="font-semibold text-lg">Nenhum produto disponível</p>
-                <p class="text-sm">Atualmente não temos produtos nesta categoria. Verifique novamente em breve!</p>
-            </div>
-        `;
+            if (!slider) {
+                console.warn(`O slider com ID "${sliderId}" não foi encontrado.`);
                 return;
             }
 
-            // Esconder botões de navegação se houver 6 ou menos itens
-            if (itemCount <= 6) {
-                prevButton?.classList.add('hidden');
-                nextButton?.classList.add('hidden');
-                slider.classList.remove('transition-transform'); // Remove animações desnecessárias
+            const items = Array.from(slider.children);
+            const itemWidth = items[0]?.offsetWidth + 16 || 0; // Largura do item + gap
+            const totalItems = items.length;
+
+            // Verificar se há menos ou igual a 6 itens no slider
+            if (totalItems <= 6) {
+                console.log(`Slider com ID "${sliderId}" desativado por ter 6 ou menos itens.`);
+                prevButton?.classList.add('hidden'); // Ocultar botão "anterior"
+                nextButton?.classList.add('hidden'); // Ocultar botão "próximo"
                 return;
             }
 
-            // Variáveis para navegação
-            let currentIndex = 0;
-            const itemWidth = items[0].offsetWidth + 16; // Largura do item + espaçamento (gap)
+            let currentIndex = totalItems; // Posição inicial no meio (após clonar)
+            let isTransitioning = false;
 
-            // Função para atualizar a posição do slider
-            function atualizarPosicaoSlider() {
-                slider.style.transform = `translateX(-${currentIndex * itemWidth}px)`;
-            }
+            // Clonar items nos dois extremos (para suportar looping infinito)
+            items.forEach(item => {
+                slider.appendChild(item.cloneNode(true));
+                slider.insertBefore(item.cloneNode(true), slider.firstChild);
+            });
 
-            // Eventos de clique nos botões
-            if (prevButton) {
-                prevButton.addEventListener('click', () => {
-                    if (currentIndex > 0) {
-                        currentIndex--;
-                        atualizarPosicaoSlider();
+            // Definir a posição inicial para centralizar os itens clonados
+            slider.style.transform = `translateX(${-currentIndex * itemWidth}px)`;
+
+            /** Atualiza a posição do slider ao clicar nos botões */
+            function updateSliderPosition() {
+                if (isTransitioning) return; // Evitar múltiplas transições simultâneas
+                isTransitioning = true;
+
+                slider.style.transition = 'transform 0.5s ease';
+                slider.style.transform = `translateX(${-currentIndex * itemWidth}px)`;
+
+                slider.addEventListener('transitionend', () => {
+                    isTransitioning = false;
+
+                    // Verificar se estamos no início ou no final para ajustar o looping
+                    if (currentIndex <= 0) {
+                        slider.style.transition = 'none'; // Remove a transição
+                        currentIndex = totalItems; // Reseta para o outro extremo
+                        slider.style.transform = `translateX(${-currentIndex * itemWidth}px)`;
                     }
-                });
+
+                    if (currentIndex >= totalItems * 2) {
+                        slider.style.transition = 'none';
+                        currentIndex = totalItems; // Reseta para o outro extremo
+                        slider.style.transform = `translateX(${-currentIndex * itemWidth}px)`;
+                    }
+                }, { once: true });
             }
 
-            if (nextButton) {
-                nextButton.addEventListener('click', () => {
-                    if (currentIndex < itemCount - 6) {
+            /** Configura os botões de navegação */
+            prevButton?.addEventListener('click', () => {
+                if (!isTransitioning) {
+                    currentIndex--;
+                    updateSliderPosition();
+                }
+            });
+
+            nextButton?.addEventListener('click', () => {
+                if (!isTransitioning) {
+                    currentIndex++;
+                    updateSliderPosition();
+                }
+            });
+
+            /** Configura o auto-slide */
+            let autoSlide = setInterval(() => {
+                if (!isTransitioning) {
+                    currentIndex++;
+                    updateSliderPosition();
+                }
+            }, 3000); // Tempo entre slides
+
+            /** Pausar o auto-slide na interação do usuário */
+            slider.addEventListener('mouseenter', () => {
+                clearInterval(autoSlide);
+            });
+
+            slider.addEventListener('mouseleave', () => {
+                autoSlide = setInterval(() => {
+                    if (!isTransitioning) {
                         currentIndex++;
-                        atualizarPosicaoSlider();
+                        updateSliderPosition();
                     }
-                });
-            }
+                }, 3000);
+            });
 
-            // Atualização automática apenas para sliders com mais de 6 itens
-            if (itemCount > 6) {
-                setInterval(() => {
-                    currentIndex = (currentIndex + 1) % itemCount; // Loop infinito
-                    atualizarPosicaoSlider();
-                }, 5000); // Atualiza a cada 5 segundos
-            }
+            // Ajustar o slider de forma responsiva
+            window.addEventListener('resize', () => {
+                slider.style.transition = 'none'; // Remove transições durante resize
+                slider.style.transform = `translateX(${-currentIndex * (items[0].offsetWidth + 16)}px)`;
+            });
         }
 
-        // Inicializar sliders na página
+
         document.addEventListener('DOMContentLoaded', () => {
-            configurarSlider('consoles-slider', 'prev-consoles', 'next-consoles'); // Slider de consoles em destaque
-            configurarSlider('jogos-slider', 'prev-jogos', 'next-jogos'); // Slider de jogos em destaque
-            configurarSlider('consoles-moderados-slider', 'prev-consoles-moderados', 'next-consoles-moderados'); // Consoles moderados
+            initInfiniteCarousel('consoles-slider', 'prev-consoles', 'next-consoles');
+            initInfiniteCarousel('jogos-slider', 'prev-jogos', 'next-jogos');
+            initInfiniteCarousel('consoles-moderados-slider', 'prev-consoles-moderados', 'next-consoles-moderados');
+            initInfiniteCarousel('jogos-moderados-slider', 'prev-jogos-moderados', 'next-jogos-moderados');
         });
+
+
+
 
 
     </script>

@@ -116,7 +116,7 @@
               <div>
                   <div class="flex items-center mb-6">
                       <i class="bi bi-display text-lg mr-2 text-blue-200"></i>
-                      <h3 class="text-lg font-semibold text-white">Categorias</h3>
+                      <h3 class="text-lg font-semibold text-white">Consoles</h3>
                   </div>
                   <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 gap-4">
                       @foreach($modelo_consoles->chunk(6) as $chunk)

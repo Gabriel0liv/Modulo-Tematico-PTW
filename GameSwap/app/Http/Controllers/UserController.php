@@ -45,11 +45,12 @@ class UserController
 
                 // Obter o registro existente da imagem do usuário
                 $imagemExistente = ImagemUser::where('user_id', $user->id)->first();
+                $googleDriveService = new GoogleDriveService();
+
 
                 if ($imagemExistente) {
                     try {
                         // Apagar a imagem antiga no Google Drive
-                        $googleDriveService = new GoogleDriveService();
                         $googleDriveService->delete($imagemExistente->imagem_url);
 
                         Log::info('Imagem de perfil antiga removida.', [

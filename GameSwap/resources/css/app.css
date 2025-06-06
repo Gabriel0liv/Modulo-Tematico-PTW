@@ -382,3 +382,14 @@
     border-radius: 10px;
     box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
 }
+
+#slider-id {
+    display: flex;
+    gap: 1rem;
+    transition: transform 0.5s ease-in-out;
+}
+
+.slider-item {
+    flex-shrink: 0;
+    width: 16rem; /* Ajuste conforme necessário */
+}
