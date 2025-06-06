@@ -40,9 +40,9 @@
                         Se encontrar um anúncio enganoso ou um comentário ofensivo, utilize a funcionalidade de denúncia. A
                         equipa administrativa irá analisar o conteúdo e, caso aplicável, aplicar sanções conforme descrito nos
                         nossos{" "}
-                        <Link href="/termos" class="text-blue-600 hover:text-blue-800 underline">
+                        <a href="/termos" class="text-blue-600 hover:text-blue-800 underline">
                         Termos de Uso
-                        </Link>
+                        </a>
                         .
                     </p>
                 </section>
@@ -68,7 +68,7 @@
                             </a>
                         </li>
                         <li>
-                            <a href="#" class="text-blue-600 hover:text-blue-800 underline">
+                            <a href="{{ route('comoDenunciar') }}" class="text-blue-600 hover:text-blue-800 underline">
                                 Como denunciar um utilizador ou conteúdo
                             </a>
                         </li>
