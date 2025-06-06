@@ -228,7 +228,11 @@ class ProdutoController extends Controller
             if ($modelo_consolesId) {
                 $jogosQuery->where('console_id', $modelo_consolesId);
             }
-            $jogosPaginated = $jogosQuery->where('ativo', 1)->paginate(10);
+            $jogosPaginated = $jogosQuery
+                ->where('ativo', 1)
+                ->orderBy('destaque', 'desc')
+                ->paginate(10);
+
             $jogosPaginated->getCollection()->transform(function ($jogo) {
                 $jogo->load('imagens');
                 $jogo->imagem_capa = $jogo->imagens->first()
@@ -242,7 +246,11 @@ class ProdutoController extends Controller
             if ($modelo_consolesId) {
                 $consolesQuery->where('modelo_console_id', $modelo_consolesId);
             }
-            $consolesPaginated = $consolesQuery->where('ativo', 1)->paginate(10);
+            $consolesPaginated = $consolesQuery
+                ->where('ativo', 1)
+                ->orderBy('destaque', 'desc')
+                ->paginate(10);
+
             $consolesPaginated->getCollection()->transform(function ($console) {
                 $console->load('imagens');
                 $console->imagem_capa = $console->imagens->first()
