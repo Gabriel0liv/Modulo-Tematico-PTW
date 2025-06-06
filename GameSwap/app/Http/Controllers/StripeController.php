@@ -97,7 +97,7 @@ class StripeController extends Controller
             return redirect()->route('checkout.index')->with('success', 'Morada adicionada com sucesso!');
         }
 
-        return redirect()->route('perfil-cartões')->with('success', 'Cartão salvo com sucesso!');
+        return redirect()->route('perfilCartoes')->with('success', 'Cartão salvo com sucesso!');
     }
 
     public function setDefaultCard($id)

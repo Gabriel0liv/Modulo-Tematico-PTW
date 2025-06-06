@@ -35,45 +35,61 @@
                 <!-- Número do Cartão -->
                 <div class="mb-4">
                     <label class="block text-sm text-gray-600 mb-1">Número do Cartão</label>
-                    <div class="flex items-center border border-gray-300 rounded-md px-3 py-2 bg-white">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-gray-400 mr-2" viewBox="0 0 24 24" fill="none"
-                             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <rect width="20" height="14" x="2" y="5" rx="2"/>
-                            <line x1="2" y1="10" x2="22" y2="10"/>
-                        </svg>
+                    <div class="relative">
+                        <!-- Ícone (fora do Stripe container) -->
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <rect width="20" height="14" x="2" y="5" rx="2"/>
+                                <line x1="2" y1="10" x2="22" y2="10"/>
+                            </svg>
+                        </div>
+
+                        <!-- Container onde o Stripe vai montar o campo -->
                         <div id="card-number-element"
-                             class="w-full focus:outline-none"
-                             placeholder="1234 1234 1234 1234"></div>
+                             class="pl-10 pr-3 py-2 border border-gray-300 rounded-md bg-white focus:outline-none focus:ring focus:border-blue-300 transition-shadow">
+                        </div>
                     </div>
                 </div>
 
                 <!-- Validade e CVC -->
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-                    <div>
-                        <label class="block text-sm text-gray-600 mb-1">Validade</label>
-                        <div class="flex items-center border border-gray-300 rounded-md px-3 py-2">
-                            <svg class="w-5 h-5 text-gray-400 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                <!-- Validade -->
+                <div class="mb-4">
+                    <label class="block text-sm text-gray-600 mb-1">Validade</label>
+                    <div class="relative">
+                        <!-- Ícone calendário -->
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                                  xmlns="http://www.w3.org/2000/svg">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                      d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z">
-                                </path>
+                                      d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                             </svg>
-                            <input type="text" name="card_expiry" placeholder="MM/AA" class="w-full outline-none" required>
+                        </div>
+
+                        <!-- Container para Stripe.js montar -->
+                        <div id="card-expiry-element"
+                             class="pl-10 pr-3 py-2 border border-gray-300 rounded-md bg-white focus:outline-none focus:ring focus:border-blue-300 transition-shadow">
                         </div>
                     </div>
+                </div>
 
-                    <!-- CVC -->
-                    <div>
-                        <label class="block text-sm text-gray-600 mb-1">CVC</label>
-                        <div class="flex items-center border border-gray-300 rounded-md px-3 py-2">
-                            <svg class="w-5 h-5 text-gray-400 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                <!-- CVC -->
+                <div class="mb-4">
+                    <label class="block text-sm text-gray-600 mb-1">CVC</label>
+                    <div class="relative">
+                        <!-- Ícone cadeado -->
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                                  xmlns="http://www.w3.org/2000/svg">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                      d="M12 11c0-.5304-.2107-1.0391-.5858-1.4142C11.0391 9.2107 10.5304 9 10 9s-1.0391.2107-1.4142.5858C8.2107 9.9609 8 10.4696 8 11c0 .5304.2107 1.0391.5858 1.4142C9.0391 12.7893 9.5304 13 10 13s1.0391-.2107 1.4142-.5858C11.7893 12.0391 12 11.5304 12 11z"></path>
+                                      d="M12 11c0-.5304-.2107-1.0391-.5858-1.4142C11.0391 9.2107 10.5304 9 10 9s-1.0391.2107-1.4142.5858C8.2107 9.9609 8 10.4696 8 11c0 .5304.2107 1.0391.5858 1.4142C9.0391 12.7893 9.5304 13 10 13s1.0391-.2107 1.4142-.5858C11.7893 12.0391 12 11.5304 12 11z" />
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                      d="M4 7h16M4 7v10a2 2 0 002 2h12a2 2 0 002-2V7M4 7h16"></path>
+                                      d="M4 7h16M4 7v10a2 2 0 002 2h12a2 2 0 002-2V7M4 7h16" />
                             </svg>
-                            <input type="text" name="card_cvc" placeholder="CVC" class="w-full outline-none" required>
+                        </div>
+
+                        <!-- Container para Stripe.js montar -->
+                        <div id="card-cvc-element"
+                             class="pl-10 pr-3 py-2 border border-gray-300 rounded-md bg-white focus:outline-none focus:ring focus:border-blue-300 transition-shadow">
                         </div>
                     </div>
                 </div>
