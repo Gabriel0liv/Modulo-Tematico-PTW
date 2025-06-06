@@ -279,6 +279,7 @@ class ProdutoController extends Controller
 
         // Consoles moderados SEM destaque
         $consolesModerados = Console::where('moderado', true)
+            ->where('ativo', 1)
             ->whereNull('id_comprador')
             ->where(function ($q) {
                 $q->where('destaque', false)->orWhereNull('destaque');
