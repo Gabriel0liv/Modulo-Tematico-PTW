@@ -168,6 +168,17 @@
                 </div>
             </div>
         </div>
+        @if ($errors->has('cartao_id'))
+            <div class="mb-4 p-4 bg-red-100 border border-red-400 text-red-700 rounded">
+                {{ $errors->first('cartao_id') }}
+            </div>
+        @endif
+
+        @if ($errors->has('morada_id'))
+            <div class="mb-4 p-4 bg-red-100 border border-red-400 text-red-700 rounded">
+                {{ $errors->first('morada_id') }}
+            </div>
+        @endif
     </form>
 
 

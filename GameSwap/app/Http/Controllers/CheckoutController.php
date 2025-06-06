@@ -27,7 +27,7 @@ class CheckoutController extends Controller
         \Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
 
         $user = auth()->user();
-        $moradas = $user->moradas;
+        $moradas = $user->moradas()->where('ativo', true)->get();
         $carrinho = session()->get('carrinho', []);
 
         // Atualizar os itens no carrinho com imagens e informações do banco de dados
@@ -63,7 +63,7 @@ class CheckoutController extends Controller
 
         // Obter métodos de pagamento detalhados
         $cartoesDetalhados = [];
-        foreach ($user->paymentMethods as $cartao) {
+        foreach ($user->paymentMethods()->where('ativo', true)->get() as $cartao) {
             $stripeCard = \Stripe\PaymentMethod::retrieve($cartao->stripe_payment_method_id);
 
             $cartoesDetalhados[] = (object) [
@@ -125,8 +125,11 @@ class CheckoutController extends Controller
         Log::debug('carrinho:', [session('carrinho')]);
 
         $request->validate([
-            'morada_id' => 'required|exists:moradas,id',
-            'cartao_id' => 'required|exists:payment_methods,id',
+            'morada_id' => 'required',
+            'cartao_id' => 'required',
+        ], [
+            'morada_id.required' => 'Morada não selecionada.',
+            'cartao_id.required' => 'Cartão não selecionado.',
         ]);
 
         $user = auth()->user();
@@ -227,7 +230,7 @@ class CheckoutController extends Controller
             return redirect()->route('pagina_inical')->with('error', 'Nada para destacar.');
         }
 
-        $cartoesSalvos = $user->paymentMethods;
+        $cartoesSalvos = $user->paymentMethods->where('ativo',true);
         $cartoesDetalhados = [];
 
         foreach ($cartoesSalvos as $cartao) {
@@ -257,7 +260,9 @@ class CheckoutController extends Controller
         Log::debug('item:', [session('carrinho_destaque')]);
 
         $request->validate([
-            'cartao_id' => 'required|exists:payment_methods,id',
+            'cartao_id' => 'required',
+        ], [
+            'cartao_id.required' => 'Cartão não selecionado.',
         ]);
 
         $user = auth()->user();

@@ -33,7 +33,7 @@ class CarrinhoController extends Controller
             return back()->with('error', 'Produto sem vendedor.');
         }
 
-        $carrinho = session()->get('carrinho', []);
+        $carrinho = collect(session()->get('carrinho', []))->toArray();
         $key = $tipo . '_' . $produtoId;
 
         if (isset($carrinho[$key])) {

@@ -10,9 +10,9 @@
                 </p>
                 <div class="flex flex-wrap gap-4 justify-center">
                     <a class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium bg-white text-blue-800 hover:bg-blue-50 px-4 py-2"
-                       href="/pesquisa?tipo=console">Explorar Consoles</a>
+                       href="/pesquisa?tipo=console"><p class="font-bold">Explorar Consoles</p></a>
                     <a class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium bg-transparent border border-white text-white hover:bg-blue-800 px-4 py-2"
-                       href="/pesquisa?tipo=jogo">Ver Jogos</a>
+                       href="/pesquisa?tipo=jogo"><p class="font-bold">Ver Jogos</p></a>
                 </div>
             </div>
         </div>
@@ -47,7 +47,7 @@
                     </ul>
                     <a href="{{route('perfil-Anuncios')}}"
                        class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium bg-blue-600 hover:bg-blue-700 text-white w-full px-4 py-2">
-                        Destaque Agora
+                        <p class="font-bold">Destaque Agora</p>
                     </a>
                 </div>
             </div>
@@ -66,7 +66,7 @@
                     <div class="flex gap-2">
                         <a href="{{ route('comoFazer') }}"
                             class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded text-sm font-medium transition">
-                            Aprender como anunciar
+                            <p class="font-bold">Aprender como anunciar</p>
                         </a>
                     </div> <!-- Fechando o formulário de inscrição -->
                 </div> <!-- Fechando a caixa de informação -->

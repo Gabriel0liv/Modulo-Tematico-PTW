@@ -45,7 +45,7 @@
 
             </a>
             <a href="{{route('loginPage')}}" class="inline-flex items-center justify-center whitespace-nowrap rounded-full text-sm font-medium bg-amber-400 hover:bg-amber-500 text-gray-800 px-5 py-2 transition-colors shadow-sm">
-                Anunciar Produto
+                <p class="font-bold">Anunciar Produto</p>
             </a>
 
         </div>
