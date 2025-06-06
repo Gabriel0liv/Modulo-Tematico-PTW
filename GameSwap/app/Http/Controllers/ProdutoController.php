@@ -228,7 +228,7 @@ class ProdutoController extends Controller
             if ($modelo_consolesId) {
                 $jogosQuery->where('console_id', $modelo_consolesId);
             }
-            $jogosPaginated = $jogosQuery->paginate(10);
+            $jogosPaginated = $jogosQuery->where('ativo', 1)->paginate(10);
             $jogosPaginated->getCollection()->transform(function ($jogo) {
                 $jogo->load('imagens');
                 $jogo->imagem_capa = $jogo->imagens->first()
@@ -242,7 +242,7 @@ class ProdutoController extends Controller
             if ($modelo_consolesId) {
                 $consolesQuery->where('modelo_console_id', $modelo_consolesId);
             }
-            $consolesPaginated = $consolesQuery->paginate(10);
+            $consolesPaginated = $consolesQuery->where('ativo', 1)->paginate(10);
             $consolesPaginated->getCollection()->transform(function ($console) {
                 $console->load('imagens');
                 $console->imagem_capa = $console->imagens->first()
@@ -297,6 +297,7 @@ class ProdutoController extends Controller
 
         // Jogos moderados SEM destaque
         $jogosModerados = Jogo::where('moderado', true)
+            ->where('ativo', 1)
             ->whereNull('id_comprador')
             ->where(function ($q) {
                 $q->where('destaque', false)->orWhereNull('destaque');
@@ -315,6 +316,7 @@ class ProdutoController extends Controller
 
         // Consoles em destaque
         $consolesDestaque = Console::where('moderado', true)
+            ->where('ativo', 1)
             ->where('destaque', true)
             ->whereNull('id_comprador')
             ->when($userId, fn($q) => $q->where('id_anunciante', '!=', $userId))
@@ -331,6 +333,7 @@ class ProdutoController extends Controller
 
         // Jogos em destaque
         $jogos = Jogo::where('moderado', true)
+            ->where('ativo', 1)
             ->where('destaque', true)
             ->whereNull('id_comprador')
             ->when($userId, fn($q) => $q->where('id_anunciante', '!=', $userId))

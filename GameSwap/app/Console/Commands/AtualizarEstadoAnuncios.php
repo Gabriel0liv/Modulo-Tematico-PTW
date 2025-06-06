@@ -30,7 +30,7 @@ class AtualizarEstadoAnuncios extends Command
     public function handle()
     {
         // Desativar anúncios de contas banidas/inativas
-        $users = User::whereIn('estado', ['banido', 'suspenso'])->get();
+        $users = User::whereIn('estado', ['banido', 'suspenso', 'cancelado'])->get();
         foreach ($users as $user) {
             Jogo::where('id_anunciante', $user->id)->update(['ativo' => 0]);
             ConsoleModel::where('id_anunciante', $user->id)->update(['ativo' => 0]);
