@@ -39,6 +39,9 @@ class ProdutoController extends Controller
             // Produtos relacionados (consoles)
             $produtosRelacionados = Console::where('modelo_console_id', $produto->modelo_console_id)
                 ->where('id', '!=', $produto->id)
+                ->when(auth()->check(), function ($query) {
+                    return $query->where('id_anunciante', '!=', auth()->id());
+                })
                 ->with('imagens')
                 ->inRandomOrder()
                 ->limit(14)
@@ -47,7 +50,7 @@ class ProdutoController extends Controller
                     $item->imagem_capa = $item->imagens->first()
                         ? GoogleDriveHelper::transformGoogleDriveUrl($item->imagens->first()->path)
                         : '/placeholder.svg';
-                    return $item; // Retorna o OBJETO do modelo
+                    return $item;
                 });
         } elseif ($tipo_produto === 'jogo') {
             $produto = Jogo::with(['imagens', 'anunciante', 'modelo_console'])->findOrFail($id); // Incluímos 'modelo_console'
@@ -60,17 +63,21 @@ class ProdutoController extends Controller
             });
 
             // Produtos relacionados (jogos)
-            $produtosRelacionados = Jogo::where('id_categoria', $produto->id_categoria)
+            $produtosRelacionados = Jogo::where('console_id', $produto->console_id)
                 ->where('id', '!=', $produto->id)
+                ->whereNull('id_comprador')
+                ->when(auth()->check(), function ($query) {
+                    return $query->where('id_anunciante', '!=', auth()->id());
+                })
                 ->with('imagens')
                 ->inRandomOrder()
                 ->limit(14)
                 ->get()
                 ->map(function ($item) {
                     $item->imagem_capa = $item->imagens->first()
-                        ? GoogleDriveHelper::transformGoogleDriveUrl($item->imagens->first()->caminho)
+                        ? GoogleDriveHelper::transformGoogleDriveUrl($item->imagens->first()->path)
                         : '/placeholder.svg';
-                    return $item; // Retorna o OBJETO do modelo
+                    return $item;
                 });
 
             // Adicionado para garantir que o nome do console esteja disponível
@@ -82,12 +89,14 @@ class ProdutoController extends Controller
         // Publicações do mesmo vendedor
         $outrasPublicacoes = Jogo::where('id_anunciante', $produto->id_anunciante)
             ->where('id', '!=', $produto->id)
+            ->whereNull('id_comprador')
             ->with('imagens')
             ->inRandomOrder()
             ->limit(7)
             ->get()
             ->concat(Console::where('id_anunciante', $produto->id_anunciante)
                 ->where('id', '!=', $produto->id)
+                ->whereNull('id_comprador')
                 ->with('imagens')
                 ->inRandomOrder()
                 ->limit(7)
@@ -199,6 +208,7 @@ class ProdutoController extends Controller
         $categorias = Categoria::all();
 
         $jogosPaginated = Jogo::search($query)
+
             ->when($request->filled('generos'), function ($q) use ($request) {
                 $ids = $request->input('generos', []);
                 if (!empty($ids)) {
@@ -211,6 +221,7 @@ class ProdutoController extends Controller
                     $q->whereIn('console_nome', $ids);
                 }
             })
+
             ->paginate(10);
 
         $jogosPaginated->getCollection()->transform(function ($jogo) {
@@ -222,6 +233,7 @@ class ProdutoController extends Controller
         });
 
         $consolesPaginated = Console::search($query)
+
             ->when($request->filled('consoles'), function ($q) use ($request) {
                 $ids = $request->input('consoles', []);
                 if (!empty($ids)) {

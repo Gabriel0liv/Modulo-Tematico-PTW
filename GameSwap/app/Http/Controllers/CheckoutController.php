@@ -131,6 +131,9 @@ class CheckoutController extends Controller
 
         $user = auth()->user();
         $carrinho = session()->get('carrinho', []);
+        if (is_array($carrinho) && count($carrinho) === 1 && $carrinho[0] instanceof \Illuminate\Support\Collection) {
+            $carrinho = $carrinho[0]->toArray();
+        }
 
         if (empty($carrinho)) {
             return redirect()->back()->withErrors(['carrinho' => 'O carrinho está vazio.']);

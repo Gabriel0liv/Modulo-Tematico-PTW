@@ -115,11 +115,21 @@
                     <input type="hidden" name="produto_id" value="{{ $produto->id }}">
                     <input type="hidden" name="quantidade" value="1">
                     <input type="hidden" name="tipo_produto" value="{{ $produto->tipo_produto }}">
-                    <!-- Aqui está a correção -->
-                    <button type="submit"
-                            class="w-full bg-amber-400 hover:bg-amber-500 text-gray-800 font-medium rounded-lg py-6 text-base transition-all">
-                        Adicionar ao carrinho
-                    </button>
+
+                    @if (auth()->check() && auth()->id() === $produto->id_anunciante)
+
+                        <div class="w-full bg-blue-500 text-white font-medium rounded-lg py-6 text-center transition-all">
+                            Anuncio do Utilizador
+                        </div>
+                    @else
+                        <!-- Botão adicionar ao carrinho padrão -->
+                        <form method="POST" action="{{ route('carrinho.adicionar', $produto->id) }}">
+                            @csrf
+                            <button type="submit" class="w-full bg-amber-400 hover:bg-amber-500 text-gray-800 font-medium rounded-lg py-6 text-base transition-all">
+                                Adicionar ao Carrinho
+                            </button>
+                        </form>
+                    @endif
                 </form>
 
                 <!-- CSS-only Tabs -->
@@ -184,41 +194,49 @@
         <div class="mt-8 relative">
             <h2 class="text-lg font-semibold text-gray-900 mb-4">Outras publicações do vendedor</h2>
 
-            @if ($outrasPublicacoes->isEmpty())
+            @if(auth()->check() && auth()->id() === $produto->id_anunciante)
                 <!-- Mensagem caso NÃO existam outras publicações -->
                 <div class="bg-gray-100 p-6 rounded-md text-center text-gray-600">
-                    <p class="font-semibold text-lg">Nenhuma outra publicação encontrada</p>
-                    <p class="text-sm">Este vendedor ainda não possui outras publicações disponíveis. Volte mais tarde!</p>
+                    <p class="font-semibold text-lg">Publicação do Utilizador</p>
+                    <p class="text-sm">Explore o site e procure produtos incríveis de outros utilizadores.</p>
                 </div>
-            @else
-                <!-- Slider -->
-                <div class="overflow-hidden relative">
-                    <div id="vendedor-slider" class="flex gap-4 transition-transform duration-500">
-                        @foreach ($outrasPublicacoes as $publicacao)
-                            <div class="w-64 flex-shrink-0">
-                                @if ($publicacao instanceof \App\Models\Console)
-                                    <x-console-card :console="$publicacao" />
-                                @elseif ($publicacao instanceof \App\Models\Jogo)
-                                    <x-jogo-card :jogo="$publicacao" />
-                                @endif
-                            </div>
-                        @endforeach
+                @elseif ($outrasPublicacoes->isEmpty())
+
+                    <!-- Mensagem caso NÃO existam outras publicações -->
+                    <div class="bg-gray-100 p-6 rounded-md text-center text-gray-600">
+                        <p class="font-semibold text-lg">Nenhuma outra publicação encontrada</p>
+                        <p class="text-sm">Este vendedor ainda não possui outras publicações disponíveis. Volte mais tarde!</p>
+                    </div>
+                @else
+                    <!-- Slider -->
+                    <div class="overflow-hidden relative">
+                        <div id="vendedor-slider" class="flex gap-4 transition-transform duration-500">
+                            @foreach ($outrasPublicacoes as $publicacao)
+                                <div class="w-64 flex-shrink-0">
+                                    @if ($publicacao instanceof \App\Models\Console)
+                                        <x-console-card :console="$publicacao" />
+                                    @elseif ($publicacao instanceof \App\Models\Jogo)
+                                        <x-jogo-card :jogo="$publicacao" />
+                                    @endif
+                                </div>
+                            @endforeach
+                        </div>
+
+                        <!-- Nav Buttons (apenas se houver mais de um item) -->
+                        @if ($outrasPublicacoes->count() > 1)
+                            <button id="prev-vendedor" class="absolute left-0 top-1/2 transform -translate-y-1/2 bg-gray-800 text-white p-2 rounded-full z-10">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-6 h-6">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+                                </svg>
+                            </button>
+                            <button id="next-vendedor" class="absolute right-0 top-1/2 transform -translate-y-1/2 bg-gray-800 text-white p-2 rounded-full z-10">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-6 h-6">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                                </svg>
+                            </button>
+                        @endif
                     </div>
 
-                    <!-- Nav Buttons (apenas se houver mais de um item) -->
-                    @if ($outrasPublicacoes->count() > 1)
-                        <button id="prev-vendedor" class="absolute left-0 top-1/2 transform -translate-y-1/2 bg-gray-800 text-white p-2 rounded-full z-10">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-6 h-6">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
-                            </svg>
-                        </button>
-                        <button id="next-vendedor" class="absolute right-0 top-1/2 transform -translate-y-1/2 bg-gray-800 text-white p-2 rounded-full z-10">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-6 h-6">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
-                            </svg>
-                        </button>
-                    @endif
-                </div>
             @endif
         </div>
 

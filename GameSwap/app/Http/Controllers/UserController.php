@@ -14,6 +14,7 @@ use App\Models\User;
 use App\Services\GoogleDriveService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Pagination\LengthAwarePaginator;
 
@@ -108,26 +109,35 @@ class UserController
 
     public function deletarConta(Request $request)
     {
-        $user = auth()->user();
+        $user = Auth::user();
 
-        // Validação da senha enviada
+        if (!$user) {
+            return redirect('/')->withErrors(['error' => 'Usuário não autenticado.']);
+        }
+
+        // Validação da senha
         $request->validate([
             'password' => 'required|string',
         ]);
 
-        // Verifica se a senha está correta
-        if (!Hash::check($request->password, $user->password)) {
-            return response()->json(['message' => 'Senha incorreta.'], 401);
+        if (!Hash::check($request->input('password'), $user->password)) {
+            return back()->withErrors(['password' => 'Senha incorreta.']);
         }
 
-        // Altera o status para "cancelado"
-        $user->status = 'cancelado';
+        // Atualiza o estado do utilizador para cancelado
+        $user->estado = 'cancelado';
         $user->save();
 
-        // Logout do usuário
-        auth()->logout();
+        // Desativa todos os anúncios do utilizador (jogos e consoles)
+        Jogo::where('id_anunciante', $user->id)->update(['ativo' => 0]);
+        Console::where('id_anunciante', $user->id)->update(['ativo' => 0]);
 
-        return response()->json(['message' => 'Conta cancelada com sucesso.']);
+        // Faz logout e invalida sessão
+        Auth::logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        return redirect()->route('pagina_inicial')->with('success', 'Conta cancelada com sucesso.');
     }
 
     public function adicionarMorada(Request $request)
@@ -217,12 +227,14 @@ class UserController
             ->when($search, function ($query, $search) {
                 $query->where('nome', 'like', '%' . $search . '%');
             })
+            ->whereNull('id_comprador')
             ->with('imagens')
             ->get();
         $consoles = Console::where('id_anunciante', $id)
             ->when($search, function ($query, $search) {
                 $query->where('nome', 'like', '%' . $search . '%');
             })
+            ->whereNull('id_comprador')
             ->with('imagens')
             ->get();
 
