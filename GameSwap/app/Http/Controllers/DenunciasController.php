@@ -9,6 +9,9 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\Denuncias;
 use Illuminate\Support\Facades\Auth;
+use App\Notifications\EmailConfirmacaoDenuncia;
+use App\Notifications\EmailSuspensaoConta;
+use App\Notifications\EmailBanimentoConta;
 
 class DenunciasController extends Controller
 {
@@ -69,6 +72,7 @@ class DenunciasController extends Controller
             'motivo' => $request->motivo,
             'status' => 0, // Status 0 para pendente
         ]);
+        $denunciante->notify(new EmailConfirmacaoDenuncia());
 
         return redirect()->route('pagina_inicial')
             ->with('success', "Denúncia contra @{$denunciado->username} enviada com sucesso. Nossa equipe irá analisá-la em breve.");
@@ -148,12 +152,15 @@ class DenunciasController extends Controller
         $user = $denuncia->denunciado;
         $denuncia->status = 1;
         $denuncia->resolvido_em = now();
-        $denuncia->data_reativacao = now()->addDays($duracao);
+        $reativacao = now()->addDays($duracao);
+        $denuncia->data_reativacao = $reativacao;
         $denuncia->save();
 
         if ($user) {
             $user->estado = 'suspenso';
             $user->save();
+
+            $user->notify(new EmailSuspensaoConta($reativacao));
         }
 
         return redirect('/perfilAdmin/denuncias')->with('success', 'Usuário suspenso com sucesso.');
@@ -179,6 +186,8 @@ class DenunciasController extends Controller
         if ($user) {
             $user->estado = 'banido';
             $user->save();
+
+            $user->notify(new EmailBanimentoConta());
         }
 
         return redirect('/perfilAdmin/denuncias')->with('success', 'Denúncia resolvida com sucesso.');

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Helpers\GoogleDriveHelper;
+use App\Models\User;
 use App\Models\Compra;
 use App\Models\CompraProduto;
 use App\Models\Console;
@@ -19,6 +20,8 @@ use Stripe\Checkout\Session;
 use Stripe\PaymentIntent;
 use Stripe\Stripe;
 use Stripe\Checkout\Session as StripeSession;
+use App\Notifications\EmailCompraEfetuadaComprador;
+use App\Notifications\EmailProdutoVendidoVendedor;
 
 class CheckoutController extends Controller
 {
@@ -149,6 +152,7 @@ class CheckoutController extends Controller
             'cartao_id.required' => 'Cartão não selecionado.',
         ]);
 
+
         $user = auth()->user();
         $carrinho = session()->get('carrinho', []);
         if (is_array($carrinho) && count($carrinho) === 1 && $carrinho[0] instanceof \Illuminate\Support\Collection) {
@@ -205,23 +209,26 @@ class CheckoutController extends Controller
                     'preco_unitario' => $item['preco'],
                 ]);
 
-                // Tornar o produto inativo
+                // Tornar o produto inativo e atribuir comprador
                 if ($item['tipo_produto'] === 'jogo') {
-                    \App\Models\Jogo::where('id', $item['id'])->update(['ativo' => false]);
-                } elseif ($item['tipo_produto'] === 'console') {
-                    \App\Models\Console::where('id', $item['id'])->update(['ativo' => false]);
+                    $produto = Jogo::findOrFail($item['id']);
+                } else {
+                    $produto = Console::findOrFail($item['id']);
                 }
-                if ($item['tipo_produto'] === 'jogo') {
-                    \App\Models\Jogo::where('id', $item['id'])->update([
-                        'ativo' => false,
-                        'id_comprador' => $user->id,
-                    ]);
-                } elseif ($item['tipo_produto'] === 'console') {
-                    \App\Models\Console::where('id', $item['id'])->update([
-                        'ativo' => false,
-                        'id_comprador' => $user->id,
-                    ]);
+
+                $produto->ativo = false;
+                $produto->id_comprador = $user->id;
+                $produto->save();
+
+                // Enviar email ao vendedor
+                $vendedor = User::find($item['vendedor_id']);
+                if ($vendedor) {
+                    $vendedor->notify(new EmailProdutoVendidoVendedor($produto, $user));
                 }
+
+                $produtosComprados[] = $produto;
+
+                $user->notify(new EmailCompraEfetuadaComprador($produtosComprados));
             }
 
 
