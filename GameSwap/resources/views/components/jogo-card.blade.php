@@ -1,4 +1,5 @@
 @props(['jogo'])
+
 <a href="{{ route('produto.show', ['tipo_produto' => 'jogo', 'id' => $jogo->id]) }}" class="rounded-lg border bg-card text-card-foreground shadow-sm overflow-hidden border-0 shadow-md hover:shadow-lg transition-shadow group">
     <div class="relative">
         <img
@@ -7,7 +8,8 @@
             class="w-full h-auto object-cover aspect-square group-hover:scale-105 transition-transform"
         />
         <div class="absolute top-2 right-2 bg-blue-600 text-white text-xs px-2 py-1 rounded-full">
-            {{ $jogo->publicador ?? 'Anunciante' }}
+            {{-- Mostra o nome do modelo do console ou um texto padrão caso não esteja disponível --}}
+            {{ $jogo->modelo_console->nome ?? 'Console não especificado' }}
         </div>
     </div>
     <div class="p-3">
