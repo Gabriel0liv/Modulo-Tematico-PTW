@@ -335,6 +335,7 @@ class UserController
             ->filter(function ($denuncias) {
                 return $denuncias->status == 1 && $denuncias->data_reativacao != null;
             });
+        $compras = Compra::where('comprador_id', $user->id)->paginate(3);
         $jogos = Jogo::where('id_anunciante', $user->id)->get();
         $consoles = Console::where('id_anunciante', $user->id)->get();
         $produtos = $jogos->merge($consoles);
@@ -343,7 +344,7 @@ class UserController
             ->orderBy('created_at', 'desc')
             ->paginate(5);
 
-        return view('paginas.perfilAdmin.detalhesUtilizador', compact('denuncias', 'banimentos', 'user', 'produtos', 'comentarios'));
+        return view('paginas.perfilAdmin.detalhesUtilizador', compact('denuncias', 'banimentos', 'user', 'produtos', 'comentarios', 'compras'));
     }
 
     /**

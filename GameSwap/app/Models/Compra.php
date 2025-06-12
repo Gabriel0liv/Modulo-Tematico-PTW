@@ -10,21 +10,21 @@ class Compra extends Model
 
     public function produtos()
     {
-        return $this->hasMany(\App\Models\CompraProduto::class);
+        return $this->hasMany(CompraProduto::class);
     }
 
     public function comprador()
     {
-        return $this->belongsTo(\App\Models\User::class, 'comprador_id');
+        return $this->belongsTo(User::class, 'comprador_id');
     }
 
     public function morada()
     {
-        return $this->belongsTo(\App\Models\Morada::class);
+        return $this->belongsTo(Morada::class);
     }
 
     public function cartao()
     {
-        return $this->belongsTo(\App\Models\PaymentMethod::class, 'cartao_id');
+        return $this->belongsTo(PaymentMethod::class, 'cartao_id');
     }
 }

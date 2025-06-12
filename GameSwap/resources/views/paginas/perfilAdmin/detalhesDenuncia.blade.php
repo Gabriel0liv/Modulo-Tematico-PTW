@@ -7,7 +7,7 @@
                 <div class="bg-white border border-gray-200 rounded-lg shadow-md p-6">
                     <div class="flex items-center mb-6">
                         <div class="h-16 w-16 rounded-full bg-gray-300 flex items-center justify-center mr-4">
-                            <i data-lucide="user" class="w-8 h-8 text-gray-600"></i>
+                                <img class="h-full w-full object-cover" src="{{ \App\Helpers\GoogleDriveHelper::transformGoogleDriveUrl($user->imagemUser->imagem_url ?? '') }}" alt="Foto do utilizador">
                         </div>
                         <div>
                             <h4 class="text-xl font-semibold text-gray-900">{{ $user->name ?? '-' }}</h4>

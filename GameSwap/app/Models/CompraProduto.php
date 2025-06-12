@@ -21,11 +21,11 @@ class CompraProduto extends Model
     public function produto()
     {
         if ($this->tipo_produto === 'jogo') {
-            return \App\Models\Jogo::find($this->produto_id);
+            return Jogo::find($this->produto_id);
         }
 
         if ($this->tipo_produto === 'console') {
-            return \App\Models\Console::find($this->produto_id);
+            return Console::find($this->produto_id);
         }
 
         return null;

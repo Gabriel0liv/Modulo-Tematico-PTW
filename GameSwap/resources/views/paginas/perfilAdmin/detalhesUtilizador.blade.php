@@ -7,7 +7,7 @@
                 <div class="bg-white border border-gray-200 rounded-lg shadow-md p-6">
                     <div class="flex items-center mb-6">
                         <div class="h-16 w-16 rounded-full bg-gray-300 flex items-center justify-center mr-4">
-                            <i data-lucide="user" class="w-8 h-8 text-gray-600"></i>
+                                <img class="h-full w-full object-cover" src="{{ \App\Helpers\GoogleDriveHelper::transformGoogleDriveUrl($user->imagemUser->imagem_url ?? '') }}" alt="Foto do utilizador">
                         </div>
                         <div>
                             <h4 class="text-xl font-semibold text-gray-900">{{ $user->name ?? '-' }}</h4>
@@ -75,6 +75,10 @@
                         <button onclick="showTab('commentary')" id="commentaryTab"
                                 class="tab-button border-b-2 border-transparent py-2 px-1 text-sm font-medium text-gray-500 hover:text-gray-700 hover:border-gray-300">
                             Comentários ({{$comentarios->count() ?? 0}})
+                        </button>
+                        <button onclick="showTab('purchases')" id="purchasesTab"
+                                class="tab-button border-b-2 border-transparent py-2 px-1 text-sm font-medium text-gray-500 hover:text-gray-700 hover:border-gray-300">
+                            Compras ({{$compras->count() ?? 0}})
                         </button>
                     </nav>
                 </div>
@@ -195,6 +199,49 @@
                                     </div>
                                 @endforeach
                                 {{$comentarios->links()}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Purchases Tab -->
+                <div id="purchasesContent" class="tab-content hidden">
+                    <div class="bg-white border border-gray-200 rounded-lg shadow-md">
+                        <div class="px-6 py-4 border-b border-gray-200">
+                            <h5 class="text-lg font-medium text-gray-900">Histórico de Compras</h5>
+                        </div>
+                        <div class="p-6">
+                            <div class="grid grid-cols-1 gap-4">
+                                @foreach($compras as $compra)
+                                    <div class="border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow">
+                                        <div class="flex items-start justify-between mb-3">
+                                            <div class="flex items-center space-x-3">
+                                                <div>
+                                                    <h6 class="text-sm font-semibold text-gray-900">Compra #{{$compra->id}}</h6>
+                                                    <p class="text-xs text-gray-500">{{$compra->created_at}}</p>
+                                                </div>
+                                            </div>
+                                            @if($compra->status == "pago")
+                                                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">Pago</span>
+                                            @else
+                                                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">Pendente</span>
+                                            @endif
+                                        </div>
+                                        <div class="space-y-2 mb-4">
+                                            <div class="flex justify-between text-sm">
+                                                <span class="text-gray-500">Comprador:</span>
+                                                <span class="text-gray-900 font-medium">{{$user->nome}}</span>
+                                            </div>
+                                            <div class="flex justify-between text-sm">
+                                                <span class="text-gray-500">Total:</span>
+                                                <span class="text-lg font-bold text-green-600">€ {{$compra->total}}</span>
+                                            </div>
+                                        </div>
+                                        <a href="/detalhesDaCompra/{{$compra->id}}" class="w-full bg-blue-600 text-white text-sm py-2 px-4 rounded-md hover:bg-blue-700 transition-colors">
+                                            Detalhes da Compra
+                                        </a>
+                                    </div>
+                                @endforeach
                             </div>
                         </div>
                     </div>

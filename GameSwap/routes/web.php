@@ -7,6 +7,7 @@ use App\Http\Controllers\CarrinhoController;
 use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\ComentarioController;
+use App\Http\Controllers\comprasController;
 use App\Http\Controllers\ConsoleController;
 use App\Http\Controllers\DenunciasController;
 use App\Http\Controllers\ImagemProxyController;
@@ -188,6 +189,7 @@ Route::middleware(['auth', 'is_admin'])->group(function () {
 
     Route::get("/perfilAdmin/utilizadores", [UserController::class, 'listarUtilizadores'])->name('perfilAdmin.utilizadores');
     Route::get("/perfilAdmin/utilizadores/{id}", [UserController::class, 'exibirUtilizador'])->name('perfilAdmin.utilizador.exibir');
+    Route::get("/detalhesDaCompra/{id}", [comprasController::class, 'detalhesCompras'])->name('detalhesCompra');
 
     Route::get("/perfilAdmin/denuncias",function(){
         return view('paginas.perfilAdmin.denuncias');
@@ -196,7 +198,18 @@ Route::middleware(['auth', 'is_admin'])->group(function () {
     Route::get("/perfilAdmin/aprovar", [ProdutoController::class, 'aprovarAnuncios']);
     Route::post("/perfilAdmin/aprovar/{id}", [ProdutoController::class, 'aprovar'])->name('produto.aprovar');
     Route::post("/perfilAdmin/reprovar/{id}", [ProdutoController::class, 'reprovar'])->name('produto.reprovar');
-    Route::get("/perfilAdmin/Edicao", [AdminController::class, 'edicao'])->name('editar');;
+
+    Route::get("/perfilAdmin/Edicao", [AdminController::class, 'edicao'])->name('editar');
+
+    // Rotas para Modelos de Consoles
+    Route::post('/perfilAdmin/modelo_consoles/adicionar', [ModeloConsoleController::class, 'adicionarModeloConsoles'])->name('modelo_consoles.adicionar');
+    Route::post('/perfilAdmin/modelo_consoles/editar/{id}', [ModeloConsoleController::class, 'editarModeloConsoles'])->name('modelo_consoles.editarModelo');
+    Route::post('/perfilAdmin/modelo_consoles/eliminar/{id}', [ModeloConsoleController::class, 'eliminarModeloConsoles'])->name('modelo_consoles.eliminarModelo');
+
+// Rotas para Categorias (ajuste o controller se necessário)
+    Route::post('/perfilAdmin/categoria/adicionar', [CategoriaController::class, 'adicionarCategoria'])->name('categoria.adicionar');
+    Route::post('/perfilAdmin/categoria/editar/{id}', [CategoriaController::class, 'editarCategoria'])->name('categoria.editarCategoria');
+    Route::post('/perfilAdmin/categoria/eliminar/{id}', [CategoriaController::class, 'eliminarCategoria'])->name('categoria.eliminarCategoria');
 
     Route::get("/perfilAdmin/denuncias", [DenunciasController::class, 'resolverDenuncias']);
     Route::get('/perfilAdmin/denuncias/detalhes/{id}', [DenunciasController::class, 'exibirDenuncia'])->name('denuncias.exibir');
