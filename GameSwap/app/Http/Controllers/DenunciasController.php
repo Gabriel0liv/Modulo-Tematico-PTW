@@ -30,6 +30,7 @@ class DenunciasController extends Controller
         // Verifica se o usuário já denunciou este usuário
         $denunciaExistente = Denuncias::where('id_denunciante', $denunciante->id)
             ->where('id_denunciado', $denunciado->id)
+            ->whereNull('resolvido_em')
             ->first();
 
         if ($denunciaExistente) {
@@ -60,6 +61,7 @@ class DenunciasController extends Controller
         // Evita denúncias duplicadas
         $denunciaExistente = Denuncias::where('id_denunciante', $denunciante->id)
             ->where('id_denunciado', $denunciado->id)
+            ->whereNull('resolvido_em')
             ->first();
 
         if ($denunciaExistente) {
