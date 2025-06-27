@@ -198,6 +198,9 @@ class DenunciasController extends Controller
 
         $denuncia = Denuncias::findOrFail($id);
         $user = $denuncia->denunciado;
+        $denuncia->status = '1';
+        $denuncia->resolvido_em = now();
+        $denuncia->save();
 
         if ($user) {
             $user->notify(new \App\Notifications\EmailAviso($request->mensagem));
