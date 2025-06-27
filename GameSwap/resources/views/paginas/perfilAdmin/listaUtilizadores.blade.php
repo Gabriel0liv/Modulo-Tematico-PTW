@@ -26,7 +26,7 @@
                             </tr>
                             </thead>
                             <tbody class="bg-white divide-y divide-gray-200">
-                            <x-ListaUtilizadores.utilizadoresAtivos :users="$users" />
+                            <x-ListaUtilizadores.utilizadoresAtivos :users="$ativos" />
                             </tbody>
                         </table>
                     </div>
@@ -44,12 +44,15 @@
                             </tr>
                             </thead>
                             <tbody class="bg-white divide-y divide-gray-200">
-                            <x-ListaUtilizadores.utilizadoresInativos :users="$users" />
+                            <x-ListaUtilizadores.utilizadoresInativos :users="$inativos" />
                             </tbody>
                         </table>
-                        {{$users->links()}}
                     </div>
                 </div>
+            </div>
+            <div>
+                {{ $ativos->links() }}
+                {{ $inativos->links() }}
             </div>
         </main>
     </div>

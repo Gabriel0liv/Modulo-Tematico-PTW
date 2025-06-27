@@ -313,11 +313,35 @@ class UserController
      *
      * @return \Illuminate\View\View
      */
-    public function listarUtilizadores()
+    public function listarUtilizadores(Request $request)
     {
-        $users = User::paginate(10);
+        $allUsers = User::with('imagemUser')->get();
 
-        return view('paginas.perfilAdmin.listaUtilizadores', compact('users'));
+        $ativos = $allUsers->where('estado', 'ativo')->values();
+        $inativos = $allUsers->where('estado', '!=', 'ativo')->values();
+
+        $perPage = 10;
+
+        $ativosPaginator = new LengthAwarePaginator(
+            $ativos->slice(($request->input('ativos_page', 1) - 1) * $perPage, $perPage)->values(),
+            $ativos->count(),
+            $perPage,
+            $request->input('ativos_page', 1),
+            ['pageName' => 'ativos_page', 'path' => $request->url(), 'query' => $request->query()]
+        );
+
+        $inativosPaginator = new LengthAwarePaginator(
+            $inativos->slice(($request->input('inativos_page', 1) - 1) * $perPage, $perPage)->values(),
+            $inativos->count(),
+            $perPage,
+            $request->input('inativos_page', 1),
+            ['pageName' => 'inativos_page', 'path' => $request->url(), 'query' => $request->query()]
+        );
+
+        return view('paginas.perfilAdmin.listaUtilizadores', [
+            'ativos' => $ativosPaginator,
+            'inativos' => $inativosPaginator,
+        ]);
     }
 
     /**

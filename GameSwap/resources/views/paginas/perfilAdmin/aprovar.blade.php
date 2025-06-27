@@ -48,7 +48,7 @@
                             </tr>
                             </thead>
                             <tbody class="bg-white divide-y divide-gray-200">
-                            <x-AprovarAnuncios_anuncios.anunciosPendentes :produtos="$produtos"/>
+                            <x-AprovarAnuncios_anuncios.anunciosPendentes :produtos="$pendentes"/>
                             </tbody>
                         </table>
                     </div>
@@ -81,7 +81,7 @@
                             </tr>
                             </thead>
                             <tbody class="bg-white divide-y divide-gray-200">
-                            <x-AprovarAnuncios_anuncios.anunciosAprovados :produtos="$produtos"/>
+                            <x-AprovarAnuncios_anuncios.anunciosAprovados :produtos="$aprovados"/>
                             </tbody>
                         </table>
                     </div>
@@ -114,11 +114,16 @@
                             </tr>
                             </thead>
                             <tbody class="bg-white divide-y divide-gray-200">
-                            <x-AprovarAnuncios_anuncios.anunciosReprovados :produtos="$produtos"/>
+                            <x-AprovarAnuncios_anuncios.anunciosReprovados :produtos="$rejeitados"/>
                             </tbody>
                         </table>
                     </div>
                 </div>
+            </div>
+            <div>
+                {{ $pendentes->links() }}
+                {{ $aprovados->links() }}
+                {{ $rejeitados->links() }}
             </div>
         </main>
     </div>

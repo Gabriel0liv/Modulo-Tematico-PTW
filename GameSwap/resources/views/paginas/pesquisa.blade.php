@@ -69,6 +69,11 @@
                             <x-jogo-card :jogo="$jogo"/>
                         @endforeach
                     </div>
+                    @if($jogos instanceof \Illuminate\Pagination\LengthAwarePaginator || $jogos instanceof \Illuminate\Pagination\Paginator)
+                        <div class="mt-12 flex justify-center">
+                            {{ $jogos->links() }}
+                        </div>
+                    @endif
                 @endif
 
                 <div class="border-t border-gray-200 my-12"></div>
@@ -84,18 +89,12 @@
                         @endforeach
                     </div>
                 @endif
-
-                <!-- Pagination -->
-                @if($jogos instanceof \Illuminate\Pagination\LengthAwarePaginator || $jogos instanceof \Illuminate\Pagination\Paginator)
-                    <div class="mt-12 flex justify-center">
-                        {{ $jogos->links() }}
-                    </div>
-                @endif
                 @if($consoles instanceof \Illuminate\Pagination\LengthAwarePaginator || $consoles instanceof \Illuminate\Pagination\Paginator)
                     <div class="mt-12 flex justify-center">
                         {{ $consoles->links() }}
                     </div>
                 @endif
+
             </main>
         </div>
     </div>
