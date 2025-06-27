@@ -175,6 +175,7 @@ class DenunciasController extends Controller
         $user = $denuncia->denunciado;
         $denuncia->status = 1;
         $denuncia->resolvido_em = now();
+        $duracao = (int) $request->input('duracao');
         $reativacao = now()->addDays($duracao);
         $denuncia->data_reativacao = $reativacao;
         $denuncia->save();
@@ -187,6 +188,22 @@ class DenunciasController extends Controller
         }
 
         return redirect('/perfilAdmin/denuncias')->with('success', 'Usuário suspenso com sucesso.');
+    }
+
+    public function avisar(Request $request, $id)
+    {
+        $request->validate([
+            'mensagem' => 'required|string|max:555',
+        ]);
+
+        $denuncia = Denuncias::findOrFail($id);
+        $user = $denuncia->denunciado;
+
+        if ($user) {
+            $user->notify(new \App\Notifications\EmailAviso($request->mensagem));
+        }
+
+        return redirect()->back()->with('success', 'Aviso enviado com sucesso.');
     }
 
 
