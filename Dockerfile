@@ -40,9 +40,8 @@ RUN composer install --no-interaction --prefer-dist --optimize-autoloader
 # Instala dependências JS e compila Vite
 RUN npm install && npm run build
 
-# Gera caches do Laravel
+# Gera caches do Laravel (sem route:cache para evitar erro com closures)
 RUN php artisan config:cache \
- && php artisan route:cache \
  && php artisan view:cache
 
 # Permissões
