@@ -21,9 +21,11 @@ RUN apt-get update && apt-get install -y \
     libicu-dev \
     g++ \
     libmagickwand-dev \
+    nodejs \
+    npm \
     && docker-php-ext-install pdo pdo_mysql mbstring exif pcntl bcmath gd zip
 
-# Instala o Composer
+# Instala Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
 # Define diretório de trabalho
@@ -32,8 +34,16 @@ WORKDIR /var/www
 # Copia os arquivos do projeto
 COPY GameSwap/ .
 
-# Instala dependências do Laravel
+# Instala dependências PHP
 RUN composer install --no-interaction --prefer-dist --optimize-autoloader
+
+# Instala dependências JS e compila Vite
+RUN npm install && npm run build
+
+# Gera caches do Laravel
+RUN php artisan config:cache \
+ && php artisan route:cache \
+ && php artisan view:cache
 
 # Permissões
 RUN chown -R www-data:www-data /var/www \
