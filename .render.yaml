@@ -13,12 +13,12 @@ services:
       - key: DB_CONNECTION
         value: mysql
       - key: DB_HOST
-        value: shuttle.proxy.rlwy.net
+        value: crossover.proxy.rlwy.net
       - key: DB_PORT
-        value: 43507
+        value: 36941
       - key: DB_DATABASE
         value: railway
       - key: DB_USERNAME
         value: root
       - key: DB_PASSWORD
-        value: PeQuTRMrhQcyxbKjrXRbfLfjMEHocHnY
+        value: mMGcFiJsDhbrcZZCFXhwvWznGARrodEv
