@@ -1,0 +1,24 @@
+services:
+  - type: web
+    name: gameswap
+    env: docker
+    plan: free
+    envVars:
+      - key: APP_ENV
+        value: production
+      - key: APP_KEY
+        generateValue: true
+      - key: APP_DEBUG
+        value: false
+      - key: DB_CONNECTION
+        value: mysql
+      - key: DB_HOST
+        value: estga-dev.ua.pt
+      - key: DB_PORT
+        value: 3306
+      - key: DB_DATABASE
+        value: PTAW-2025-GR1
+      - key: DB_USERNAME
+        value: ptaw-2025-gr1
+      - key: DB_PASSWORD
+        value: u/$PXLf$69|t

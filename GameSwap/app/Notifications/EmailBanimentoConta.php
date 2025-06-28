@@ -7,7 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class EmailBanimentoConta extends Notification
+class EmailBanimentoConta extends Notification implements ShouldQueue
 {
     public function via($notifiable)
     {
