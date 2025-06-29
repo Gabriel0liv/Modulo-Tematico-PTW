@@ -8,7 +8,7 @@ use App\Models\Console;
 use App\Models\Denuncias;
 use App\Models\ImagemUser;
 use App\Models\Comentario;
-use App\Models\Jogo;
+use App\Models\jogo;
 use App\Models\Morada;
 use App\Models\User;
 use App\Services\GoogleDriveService;
