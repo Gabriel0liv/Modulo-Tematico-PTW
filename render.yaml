@@ -1,0 +1,25 @@
+services:
+  - type: web
+    name: gameswap
+    env: docker
+    plan: free
+    envVars:
+      - key: APP_ENV
+        value: production
+      - key: APP_KEY
+        generateValue: true
+      - key: APP_DEBUG
+        value: false
+      - key: DB_CONNECTION
+        value: mysql
+      - key: DB_HOST
+        value: mainline.proxy.rlwy.net
+      - key: DB_PORT
+        value: 17684
+      - key: DB_DATABASE
+        value: railway
+      - key: DB_USERNAME
+        value: root
+      - key: DB_PASSWORD
+        value: WPMgQdHoCrGlsYMtPIPNYspvDCeifoxd
+
