@@ -140,7 +140,7 @@ class UserController
         $user->save();
 
         // Desativa todos os anúncios do utilizador (jogos e consoles)
-        Jogo::where('id_anunciante', $user->id)->update(['ativo' => 0]);
+        jogo::where('id_anunciante', $user->id)->update(['ativo' => 0]);
         Console::where('id_anunciante', $user->id)->update(['ativo' => 0]);
 
         // Faz logout e invalida sessão
@@ -222,7 +222,7 @@ class UserController
         $userId = auth()->id();
 
         // Obter todos os jogos e consoles anunciados pelo utilizador
-        $jogos = Jogo::where('id_anunciante', $userId)->with(['imagens', 'comprador'])->get();
+        $jogos = jogo::where('id_anunciante', $userId)->with(['imagens', 'comprador'])->get();
         $consoles = Console::where('id_anunciante', $userId)->with(['imagens', 'comprador'])->get();
 
         // Mesclar ambas as coleções
@@ -260,7 +260,7 @@ class UserController
         $search = request('search');
 
 
-        $jogos = Jogo::where('id_anunciante', $id)
+        $jogos = jogo::where('id_anunciante', $id)
             ->when($search, function ($query, $search) {
                 $query->where('nome', 'like', '%' . $search . '%');
             })
@@ -360,7 +360,7 @@ class UserController
                 return $denuncias->status == 1 && $denuncias->data_reativacao != null;
             });
         $compras = Compra::where('comprador_id', $user->id)->paginate(3);
-        $jogos = Jogo::where('id_anunciante', $user->id)->get();
+        $jogos = jogo::where('id_anunciante', $user->id)->get();
         $consoles = Console::where('id_anunciante', $user->id)->get();
         $produtos = $jogos->merge($consoles);
         $comentarios = Comentario::where('id_remetente', $user->id)
