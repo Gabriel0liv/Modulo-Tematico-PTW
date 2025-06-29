@@ -34,6 +34,9 @@ WORKDIR /var/www
 # Copia os arquivos do projeto
 COPY GameSwap/ .
 
+# ✅ Copia o arquivo .env
+COPY GameSwap/.env .env
+
 # Instala dependências PHP
 RUN composer install --no-interaction --prefer-dist --optimize-autoloader
 
@@ -41,7 +44,8 @@ RUN composer install --no-interaction --prefer-dist --optimize-autoloader
 RUN npm install && npm run build
 
 # Gera caches do Laravel (sem route:cache para evitar erro com closures)
-RUN php artisan config:cache \
+RUN php artisan config:clear \
+ && php artisan config:cache \
  && php artisan view:cache
 
 # Permissões
