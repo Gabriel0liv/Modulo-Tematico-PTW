@@ -95,7 +95,7 @@
                                     <a href="/produto/{{$produto->tipo_produto}}/{{$produto->id}}" class="flex items-start space-x-4">
                                         <div
                                             class="h-16 w-16 bg-gray-200 rounded-lg flex items-center justify-center">
-                                            <i data-lucide="image" class="w-8 h-8 text-gray-400"></i>
+                                            <img src="{{ $produto->imagens->first() ? \App\Helpers\GoogleDriveHelper::transformGoogleDriveUrl($produto->imagens->first()->path ?? $produto->imagens->first()->caminho) : '/placeholder.svg' }}" alt="Produto" class="w-full h-full object-cover">
                                         </div>
                                         <div class="flex-1 min-w-0">
                                             <h6 class="text-sm font-medium text-gray-900">{{ $produto->nome }}</h6>
@@ -186,10 +186,12 @@
                                             <div class="flex items-center gap-3">
                                                 <div
                                                     class="h-10 w-10 rounded-full bg-gray-200 flex items-center justify-center text-gray-500 font-medium">
-                                                    JP
+                                                    <img class="h-full w-full object-cover" src="{{ \App\Helpers\GoogleDriveHelper::transformGoogleDriveUrl($comentario->remetente->imagemUser->imagem_url ?? '') }}" alt="Foto do utilizador">
+
                                                 </div>
                                                 <div>
-                                                    <p class="font-medium">{{$comentario->remetente->username}}</p>                                    <div class="text-sm text-gray-500">{{$comentario->created_at}}</div>
+                                                    <p class="font-medium">{{$comentario->remetente->username}}</p>
+                                                    <div class="text-sm text-gray-500">{{$comentario->created_at}}</div>
                                                 </div>
                                             </div>
                                         </div>
@@ -228,10 +230,6 @@
                                             @endif
                                         </div>
                                         <div class="space-y-2 mb-4">
-                                            <div class="flex justify-between text-sm">
-                                                <span class="text-gray-500">Comprador:</span>
-                                                <span class="text-gray-900 font-medium">{{$user->nome}}</span>
-                                            </div>
                                             <div class="flex justify-between text-sm">
                                                 <span class="text-gray-500">Total:</span>
                                                 <span class="text-lg font-bold text-green-600">€ {{$compra->total}}</span>

@@ -77,6 +77,6 @@ class CategoriaController
         // Remove a categoria da base de dados
         $categoria->delete();
 
-        return redirect()->back()-with('success', 'Categoria eliminada com sucesso');
+        return redirect()->back()->with('success', 'Categoria eliminada com sucesso');
     }
 }

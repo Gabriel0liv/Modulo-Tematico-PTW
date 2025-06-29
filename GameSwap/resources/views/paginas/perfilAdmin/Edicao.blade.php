@@ -15,7 +15,7 @@
                         @foreach ($modelo_consoles as $modelo_console)
                             <div class="flex justify-between items-center p-3 border border-gray-200 rounded-md">
                                 <div class="flex items-center">
-                                    <div class="h-10 w-10 bg-blue-100 rounded-full flex items-center justify-center mr-3">
+                                    <div class="h-10 w-10 bg-blue-600 rounded-full flex items-center justify-center mr-3">
                                         <i class="fas fa-gamepad text-blue-600"></i>
                                     </div>
                                 </div>
@@ -52,7 +52,7 @@
                         @foreach ($categorias as $categoria)
                         <div class="flex justify-between items-center p-3 border border-gray-200 rounded-md">
                             <div class="flex items-center">
-                                <div class="h-10 w-10 bg-blue-100 rounded-full flex items-center justify-center mr-3">
+                                <div class="h-10 w-10 bg-blue-600 rounded-full flex items-center justify-center mr-3">
                                     <i class="fas fa-gamepad text-blue-600"></i>
                                 </div>
                             </div>

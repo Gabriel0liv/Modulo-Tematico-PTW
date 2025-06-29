@@ -267,23 +267,23 @@
 
                             <!-- Avisar usuário -->
                             <div class="border-2 border-yellow-200 bg-yellow-50 rounded-lg p-3 hover:shadow-md transition-shadow duration-200">
-                                <button onclick="resolveReport('warn')" class="w-full flex items-center p-3 rounded-lg bg-yellow-50 hover:bg-yellow-100 transition-all duration-200 group hover:shadow-md">
-                                    <div class="flex items-center justify-center w-8 h-8 bg-yellow-500 rounded-full mr-3 group-hover:bg-yellow-600 transition-colors">
-                                        <i data-lucide="alert-triangle" class="w-4 h-4 text-white"></i>
-                                    </div>
-                                    <div class="text-left">
-                                        <div class="font-medium text-yellow-800">Avisar usuário</div>
-                                        <div class="text-sm text-yellow-600">Enviar aviso sobre comportamento</div>
-                                    </div>
-
-                                </button>
-
                                 <form action="{{ route('utilizador.avisar', $denuncia->id) }}" method="POST" class="mt-3">
                                     @csrf
+                                    <button type="submit" class="w-full flex items-center p-3 rounded-lg bg-yellow-50 hover:bg-yellow-100 transition-all duration-200 group hover:shadow-md">
+                                        <div class="flex items-center justify-center w-8 h-8 bg-yellow-500 rounded-full mr-3 group-hover:bg-yellow-600 transition-colors">
+                                            <i data-lucide="alert-triangle" class="w-4 h-4 text-white"></i>
+                                        </div>
+                                        <div class="text-left">
+                                            <div class="font-medium text-yellow-800">Avisar usuário</div>
+                                            <div class="text-sm text-yellow-600">Enviar aviso sobre comportamento</div>
+                                        </div>
+                                    </button>
+
+
+
                                     <div class="flex flex-col gap-2">
                                         <label class="block text-sm font-medium text-yellow-800 mb-2">Mensagem</label>
                                         <input type="text" name="mensagem" required maxlength="555" placeholder="Escreva aqui a mensagem" class="flex-1 px-3 py-2 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500">
-                                        <button type="submit" class="mt-2 px-4 py-2 bg-yellow-500 text-white rounded hover:bg-yellow-600">Enviar Aviso</button>
                                     </div>
                                 </form>
                             </div>
