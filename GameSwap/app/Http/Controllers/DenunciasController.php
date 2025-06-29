@@ -203,7 +203,7 @@ class DenunciasController extends Controller
         $denuncia->save();
 
         if ($user) {
-            $user->notify(new \App\Notifications\EmailAviso($request->mensagem));
+            //$user->notify(new \App\Notifications\EmailAviso($request->mensagem));
         }
 
         return redirect()->back()->with('success', 'Aviso enviado com sucesso.');

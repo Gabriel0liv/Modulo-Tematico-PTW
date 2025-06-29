@@ -7,7 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class EmailAviso extends Notification
+class EmailAviso extends Notification implements ShouldQueue
 {
     protected $mensagem;
 

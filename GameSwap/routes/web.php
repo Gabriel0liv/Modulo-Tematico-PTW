@@ -20,7 +20,16 @@ use App\Http\Controllers\ProdutoController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
+
+Route::get('/teste-email', function () {
+    $user = User::first(); // ou outro user válido
+    $user->notify(new EmailBanimentoConta());
+    return 'Email enviado (deveria ir para fila)';
+});
+
 Route::get('/', [ProdutoController::class, 'paginaInicial'])->name('pagina_inicial');
+
+
 Route::get('/footer', [ModeloConsoleController::class, 'footer'])->name('footer');
 
 // Rotas de Layout

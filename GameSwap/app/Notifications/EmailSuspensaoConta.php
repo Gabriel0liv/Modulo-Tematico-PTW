@@ -7,7 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class EmailSuspensaoConta extends Notification
+class EmailSuspensaoConta extends Notification implements ShouldQueue
 {
     protected $reativacao;
 
