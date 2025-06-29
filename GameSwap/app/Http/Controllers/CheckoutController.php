@@ -32,8 +32,7 @@ class CheckoutController extends Controller
      */
     public function index()
     {
-        \Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
-
+        \Stripe\Stripe::setApiKey(config('services.stripe.secret'));
         $user = auth()->user();
         $moradas = $user->moradas()->where('ativo', true)->get();
         $carrinho = session()->get('carrinho', []);
@@ -41,7 +40,7 @@ class CheckoutController extends Controller
         // Atualizar os itens no carrinho com imagens e informações do banco de dados
         $carrinhoAtualizado = collect($carrinho)->map(function ($item) {
             if ($item['tipo_produto'] === 'jogo') {
-                $produto = Jogo::with('imagens')->find($item['id']);
+                $produto = jogo::with('imagens')->find($item['id']);
             } elseif ($item['tipo_produto'] === 'console') {
                 $produto = Console::with('imagens')->find($item['id']);
             } else {
@@ -103,7 +102,7 @@ class CheckoutController extends Controller
      */
     public function checkout()
     {
-        Stripe::setApiKey(env('STRIPE_SECRET'));
+        \Stripe\Stripe::setApiKey(config('services.stripe.secret'));
         $user = auth()->user();
 
         $cartoesSalvos = $user->paymentMethods;
@@ -171,7 +170,7 @@ class CheckoutController extends Controller
             ->where('user_id', $user->id)
             ->firstOrFail();
 
-        Stripe::setApiKey(env('STRIPE_SECRET'));
+        \Stripe\Stripe::setApiKey(config('services.stripe.secret'));
 
         try {
             $intent = \Stripe\PaymentIntent::create([
@@ -211,7 +210,7 @@ class CheckoutController extends Controller
 
                 // Tornar o produto inativo e atribuir comprador
                 if ($item['tipo_produto'] === 'jogo') {
-                    $produto = Jogo::findOrFail($item['id']);
+                    $produto = jogo::findOrFail($item['id']);
                 } else {
                     $produto = Console::findOrFail($item['id']);
                 }
@@ -250,7 +249,7 @@ class CheckoutController extends Controller
      */
     public function checkoutDestaque()
     {
-        Stripe::setApiKey(env('STRIPE_SECRET'));
+        \Stripe\Stripe::setApiKey(config('services.stripe.secret'));
 
         $user = auth()->user();
         $item = session('carrinho_destaque');
@@ -312,7 +311,7 @@ class CheckoutController extends Controller
             ->where('user_id', $user->id)
             ->firstOrFail();
 
-        Stripe::setApiKey(env('STRIPE_SECRET'));
+        \Stripe\Stripe::setApiKey(config('services.stripe.secret'));
 
         try {
             $intent = PaymentIntent::create([
@@ -334,7 +333,7 @@ class CheckoutController extends Controller
             $dataFinal = now()->addDays(30);
 
             if ($tipo === 'jogo') {
-                Jogo::where('id', $id)->update([
+                jogo::where('id', $id)->update([
                     'destaque' => true,
                     'destacado_ate' => $dataFinal,
                 ]);
