@@ -24,8 +24,11 @@ class JogoController extends Controller
     /**
      * Exibe o formulário para anunciar um novo jogo.
      *
-     * @return \Illuminate\View\View
+     * @return \Illuminate\Http\RedirectResponse
      */
+
+
+
     public function store(Request $request)
     {
         try {
@@ -68,7 +71,7 @@ class JogoController extends Controller
             ]);
 
             // Criar o jogo
-            $jogo = Jogo::create([
+            $jogo = jogo::create([
                 'nome' => $validatedData['nome'],
                 'descricao' => $validatedData['descricao'],
                 'preco' => $validatedData['preco'],
@@ -89,6 +92,8 @@ class JogoController extends Controller
 
             $driveService = new \Google_Service_Drive($client);
 
+            $folderId = config('services.google.folder_id') ?? 'root';
+
             if ($request->hasFile('imagens')) {
                 foreach ($request->file('imagens') as $imagem) {
                     $uploadedFileUrl = $driveService->upload(
@@ -105,7 +110,10 @@ class JogoController extends Controller
                 }
             }
 
+
             return redirect()->route('pagina_inicial')->with('success', 'Jogo anunciado com sucesso!');
+
+
         } catch (\Illuminate\Validation\ValidationException $e) {
             // Captura todas as mensagens de erro e combina em uma única string
             $mensagensDeErro = [];
@@ -146,7 +154,7 @@ class JogoController extends Controller
      */
     public function jogosEmDestaque()
     {
-        $jogos = \App\Models\Jogo::where('moderado', true)
+        $jogos = \App\Models\jogo::where('moderado', true)
             ->where('destaque', true)
             ->inRandomOrder()
             ->get()
@@ -170,7 +178,7 @@ class JogoController extends Controller
     public function search(Request $request)
     {
         $query = $request->input('query');
-        $jogos = Jogo::search($query)->paginate(10);
+        $jogos = jogo::search($query)->paginate(10);
 
         return view('paginas.pesquisa', compact('jogos', 'query'));
     }
@@ -183,7 +191,7 @@ class JogoController extends Controller
     public function searchSuggestions(Request $request)
     {
         $query = $request->input('query');
-        $jogos = Jogo::search($query)->take(5)->get();
+        $jogos = jogo::search($query)->take(5)->get();
 
         return response()->json($jogos);
     }
