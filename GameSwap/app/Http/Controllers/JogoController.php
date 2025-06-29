@@ -82,11 +82,16 @@ class JogoController extends Controller
             ]);
 
             // Upload imagens
-            $googleDriveService = new GoogleDriveService();
+            $client = new \Google_Client();
+            $client->setClientId(config('services.google.client_id'));
+            $client->setClientSecret(config('services.google.client_secret'));
+            $client->refreshToken(config('services.google.refresh_token'));
+
+            $driveService = new \Google_Service_Drive($client);
 
             if ($request->hasFile('imagens')) {
                 foreach ($request->file('imagens') as $imagem) {
-                    $uploadedFileUrl = $googleDriveService->upload(
+                    $uploadedFileUrl = $driveService->upload(
                         $imagem->getRealPath(),
                         $imagem->getClientOriginalName(),
                         $jogo->id,

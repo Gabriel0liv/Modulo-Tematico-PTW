@@ -65,7 +65,12 @@ class ConsoleController extends Controller
             Log::info('Console criado com sucesso.', ['console_id' => $console->id]);
 
             // Upload das imagens no Google Drive (caso existam)
-            $googleDriveService = new GoogleDriveService();
+            $client = new \Google_Client();
+            $client->setClientId(config('services.google.client_id'));
+            $client->setClientSecret(config('services.google.client_secret'));
+            $client->refreshToken(config('services.google.refresh_token'));
+
+            $service = new \Google_Service_Drive($client);
 
             if ($request->hasFile('imagens')) {
                 $imagens = $request->file('imagens');
@@ -75,7 +80,7 @@ class ConsoleController extends Controller
 
                     Log::info('Iniciando envio de imagem.', ['file_name' => $fileName]);
 
-                    $uploadedFileUrl = $googleDriveService->upload($filePath, $fileName, $console->id, 'consoles');
+                    $uploadedFileUrl = $service->upload($filePath, $fileName, $console->id, 'consoles');
 
                     Log::info('Upload concluído.', ['uploaded_url' => $uploadedFileUrl]);
 
