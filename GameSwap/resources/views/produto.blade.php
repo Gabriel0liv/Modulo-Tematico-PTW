@@ -1,4 +1,7 @@
 <x-layout>
+
+
+
     <!-- Breadcrumbs -->
     <div class="max-w-7xl mx-auto px-6 pt-6 pb-2">
         <div class="flex items-center text-sm text-gray-500">
