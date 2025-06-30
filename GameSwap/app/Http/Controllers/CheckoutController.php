@@ -328,21 +328,12 @@ class CheckoutController extends Controller
         }
 
         try {
-            $compra = Compra::create([
+            Compra::create([
                 'comprador_id' => $user->id,
                 'morada_id' => null,
                 'cartao_id' => $cartao->id,
                 'total' => $valor,
                 'status' => 'pago',
-            ]);
-
-            CompraProduto::create([
-                'compra_id' => $compra->id,
-                'produto_id' => null,
-                'tipo_produto' => "destaque",
-                'vendedor_id' => null,
-                'quantidade' => 1,
-                'preco_unitario' => $valor,
             ]);
 
             $tipo = $item['referencia'];
