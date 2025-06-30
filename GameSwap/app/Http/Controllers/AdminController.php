@@ -35,8 +35,8 @@ class AdminController extends Controller
     public function edicao()
     {
         $user = auth()->user();
-        $categorias = Categoria::paginate(10);
-        $modelo_consoles = ModeloConsole::paginate(10);
+        $categorias = Categoria::orderBy('nome', 'asc')->paginate(10, ['*'], 'modelo_page');
+        $modelo_consoles = ModeloConsole::orderBy('nome', 'asc')->paginate(10, ['*'], 'categoria_page');
         return view('paginas.perfilAdmin.Edicao', compact('user', 'categorias', 'modelo_consoles'));
     }
 }

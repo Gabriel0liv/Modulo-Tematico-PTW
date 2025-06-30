@@ -315,7 +315,7 @@ class UserController
      */
     public function listarUtilizadores(Request $request)
     {
-        $allUsers = User::with('imagemUser')->get();
+        $allUsers = User::with('imagemUser')->where('tipo', '!=', 'admin')->get();
 
         $ativos = $allUsers->where('estado', 'ativo')->values();
         $inativos = $allUsers->where('estado', '!=', 'ativo')->values();

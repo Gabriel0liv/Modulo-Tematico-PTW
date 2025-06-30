@@ -26,7 +26,6 @@
             </td>
             <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
                 <a href="/perfilAdmin/denuncias/detalhes/{{$denuncia->id}}" class="text-blue-600 hover:text-blue-900 mr-3">Ver</a>
-                <a href="#" class="text-red-600 hover:text-red-900">Excluir</a>
             </td>
         </tr>
     @endif

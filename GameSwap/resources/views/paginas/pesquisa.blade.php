@@ -71,7 +71,13 @@
                     </div>
                     @if($jogos instanceof \Illuminate\Pagination\LengthAwarePaginator || $jogos instanceof \Illuminate\Pagination\Paginator)
                         <div class="mt-12 flex justify-center">
-                            {{ $jogos->links() }}
+                            {{ $jogos->appends([
+                                'consoles_page' => request('consoles_page'),
+                                'query' => request('query'),
+                                'genero' => request('genero'),
+                                'modelo' => request('modelo'),
+                                'tipo' => request('tipo')
+                            ])->links() }}
                         </div>
                     @endif
                 @endif
@@ -91,7 +97,13 @@
                 @endif
                 @if($consoles instanceof \Illuminate\Pagination\LengthAwarePaginator || $consoles instanceof \Illuminate\Pagination\Paginator)
                     <div class="mt-12 flex justify-center">
-                        {{ $consoles->links() }}
+                        {{ $consoles->appends([
+                            'jogos_page' => request('jogos_page'),
+                            'query' => request('query'),
+                            'genero' => request('genero'),
+                            'modelo' => request('modelo'),
+                            'tipo' => request('tipo')
+                        ])->links() }}
                     </div>
                 @endif
 

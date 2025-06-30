@@ -48,7 +48,6 @@ class ProdutoController extends Controller
 
             $produto->regiao = $produto->regiao ?? 'Região não especificada';
 
-
             // Produtos relacionados (consoles)
             $produtosRelacionados = Console::where('modelo_console_id', $produto->modelo_console_id)
                 ->where('id', '!=', $produto->id)
@@ -284,6 +283,10 @@ class ProdutoController extends Controller
             $consolesQuery = empty($query) ? Console::query() : Console::search($query);
         }
 
+        $perPage = 10;
+        $pageJogos = LengthAwarePaginator::resolveCurrentPage('jogos_page');
+        $pageConsoles = LengthAwarePaginator::resolveCurrentPage('consoles_page');
+
         if (isset($jogosQuery)) {
             if ($categoriaId) {
                 $jogosQuery->where('id_categoria', $categoriaId);
@@ -297,15 +300,13 @@ class ProdutoController extends Controller
                 ->sortByDesc('destaque')
                 ->values();
 
-            $page = LengthAwarePaginator::resolveCurrentPage();
-            $perPage = 10;
-            $items = $jogosCollection->slice(($page - 1) * $perPage, $perPage)->values();
+            $items = $jogosCollection->slice(($pageJogos - 1) * $perPage, $perPage)->values();
             $jogosPaginated = new LengthAwarePaginator(
                 $items,
                 $jogosCollection->count(),
                 $perPage,
-                $page,
-                ['path' => $request->url(), 'query' => $request->query()]
+                $pageJogos,
+                ['pageName' => 'jogos_page', 'path' => $request->url(), 'query' => $request->query()]
             );
 
             $jogosPaginated->getCollection()->transform(function ($jogo) {
@@ -326,15 +327,13 @@ class ProdutoController extends Controller
                 ->sortByDesc('destaque')
                 ->values();
 
-            $page = LengthAwarePaginator::resolveCurrentPage();
-            $perPage = 10;
-            $items = $consolesCollection->slice(($page - 1) * $perPage, $perPage)->values();
+            $items = $consolesCollection->slice(($pageConsoles - 1) * $perPage, $perPage)->values();
             $consolesPaginated = new LengthAwarePaginator(
                 $items,
                 $consolesCollection->count(),
                 $perPage,
-                $page,
-                ['path' => $request->url(), 'query' => $request->query()]
+                $pageConsoles,
+                ['pageName' => 'consoles_page', 'path' => $request->url(), 'query' => $request->query()]
             );
 
             $consolesPaginated->getCollection()->transform(function ($console) {

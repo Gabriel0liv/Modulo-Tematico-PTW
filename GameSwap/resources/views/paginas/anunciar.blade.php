@@ -142,7 +142,8 @@
                 <select id="game-category" name="id_categoria"
                         class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary">
                     <option value="" disabled selected>Selecione uma categoria</option>
-                    @foreach($categorias as $categoria)
+                    <option value="outro">Outro</option>
+                @foreach($categorias as $categoria)
                         <option value="{{$categoria->id}}">{{$categoria->nome}}</option>
                     @endforeach
                 </select>
@@ -176,6 +177,8 @@
                 <label for="console-type" class="block text-text font-medium mb-2">Tipo de Console</label>
                 <select id="console-type" name="console_id"
                         class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary">
+                    <option value="" disabled selected>Selecione uma categoria</option>
+                    <option value="outro">Outro</option>
                     @foreach($modelo_consoles as $modelo_console)
                         <option value="{{ $modelo_console->id }}">{{ $modelo_console->nome }}</option>
                     @endforeach
@@ -261,8 +264,10 @@
             <div>
                 <label for="console-tipo" class="block text-text font-medium mb-2">Tipo de Console</label>
                 <select id="console-tipo" name="modelo_console_id"
-                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary">
-                    @foreach($modelo_consoles as $modelo_console)
+                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"><option value="outro">Outro</option>
+                    <option value="" disabled selected>Selecione uma categoria</option>
+                    <option value="outro">Outro</option>
+                @foreach($modelo_consoles as $modelo_console)
                         <option value="{{ $modelo_console->id }}">{{ $modelo_console->nome }}</option>
                     @endforeach
                 </select>

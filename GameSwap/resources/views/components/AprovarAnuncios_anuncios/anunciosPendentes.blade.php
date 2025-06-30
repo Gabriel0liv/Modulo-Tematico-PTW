@@ -1,3 +1,4 @@
+<div>
 @foreach($produtos as $produto)
     @if($produto->moderado == 0)
         <tr>
@@ -36,3 +37,4 @@
         </tr>
     @endif
 @endforeach
+</div>
