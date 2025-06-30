@@ -30,8 +30,6 @@ class JogoController extends Controller
 
 
 
-    use Illuminate\Support\Facades\DB;
-    use Illuminate\Support\Facades\Log;
 
     public function store(Request $request)
     {
@@ -41,7 +39,6 @@ class JogoController extends Controller
         ]);
 
         try {
-            DB::beginTransaction();
 
             $validatedData = $request->validate([
                 'nome' => 'required|string|max:255',
@@ -95,12 +92,10 @@ class JogoController extends Controller
                 }
             }
 
-            DB::commit();
             Log::info('[STORE] Jogo cadastrado com sucesso.');
 
             return redirect()->route('pagina_inicial')->with('success', 'Jogo anunciado com sucesso!');
         } catch (\Illuminate\Validation\ValidationException $e) {
-            DB::rollBack();
 
             Log::error('[STORE] Erro de validação.', ['errors' => $e->errors()]);
 
@@ -108,7 +103,6 @@ class JogoController extends Controller
                 'erro' => "Erro ao cadastrar o jogo: " . implode(', ', array_merge(...array_values($e->errors())))
             ]);
         } catch (\Throwable $e) {
-            DB::rollBack();
 
             Log::error('[STORE] Erro inesperado.', [
                 'message' => $e->getMessage(),
