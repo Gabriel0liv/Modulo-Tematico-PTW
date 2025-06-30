@@ -45,53 +45,54 @@
         </div>
     </div>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const form = document.getElementById('loginForm');
-            const username = document.getElementById('username');
-            const password = document.getElementById('password');
-            const errorUsername = document.getElementById('error-username');
-            const errorPassword = document.getElementById('error-password');
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                const form = document.getElementById('loginForm');
+                const username = document.getElementById('username');
+                const password = document.getElementById('password');
+                const errorUsername = document.getElementById('error-username');
+                const errorPassword = document.getElementById('error-password');
 
-            let touched = {
-                username: false,
-                password: false
-            };
+                let touched = {
+                    username: false,
+                    password: false
+                };
 
-            function validateField(field, errorEl, message, condition = true) {
-                const value = field.value.trim();
-                if (!value || !condition) {
-                    field.classList.add('border-red-500');
-                    errorEl.textContent = message;
-                    errorEl.classList.remove('hidden');
-                    return false;
-                } else {
-                    field.classList.remove('border-red-500');
-                    errorEl.classList.add('hidden');
-                    return true;
+                function validateField(field, errorEl, message, condition = true) {
+                    const value = field.value.trim();
+                    if (!value || !condition) {
+                        field.classList.add('border-red-500');
+                        errorEl.textContent = message;
+                        errorEl.classList.remove('hidden');
+                        return false;
+                    } else {
+                        field.classList.remove('border-red-500');
+                        errorEl.classList.add('hidden');
+                        return true;
+                    }
                 }
-            }
 
-            username.addEventListener('blur', () => {
-                touched.username = true;
-                validateField(username, errorUsername, "Insira o seu username.");
+                username.addEventListener('blur', () => {
+                    touched.username = true;
+                    validateField(username, errorUsername, "Insira o seu username.");
+                });
+
+                password.addEventListener('blur', () => {
+                    touched.password = true;
+                    validateField(password, errorPassword, "A senha deve ter pelo menos 6 caracteres.", password.value.length >= 6);
+                });
+
+                form.addEventListener('submit', (e) => {
+                    touched.username = touched.password = true;
+
+                    const validUsername = validateField(username, errorUsername, "Insira o seu username.");
+                    const validPassword = validateField(password, errorPassword, "A senha deve ter pelo menos 6 caracteres.", password.value.length >= 6);
+
+                    if (!validUsername || !validPassword) {
+                        e.preventDefault();
+                    }
+                });
             });
+        </script>
 
-            password.addEventListener('blur', () => {
-                touched.password = true;
-                validateField(password, errorPassword, "A senha deve ter pelo menos 6 caracteres.", password.value.length >= 6);
-            });
-
-            form.addEventListener('submit', (e) => {
-                touched.username = touched.password = true;
-
-                const validUsername = validateField(username, errorUsername, "Insira o seu username.");
-                const validPassword = validateField(password, errorPassword, "A senha deve ter pelo menos 6 caracteres.", password.value.length >= 6);
-
-                if (!validUsername || !validPassword) {
-                    e.preventDefault();
-                }
-            });
-        });
-    </script>
 </x-layout>
