@@ -6,8 +6,11 @@
             <div class="lg:col-span-1">
                 <div class="bg-white border border-gray-200 rounded-lg shadow-md p-6">
                     <div class="flex items-center mb-6">
-                        <div class="h-16 w-16 rounded-full bg-gray-300 flex items-center justify-center mr-4">
-                                <img class="h-full w-full object-cover" src="{{ \App\Helpers\GoogleDriveHelper::transformGoogleDriveUrl($user->imagemUser->imagem_url ?? '') }}" alt="Foto do utilizador">
+                        <div class="relative h-16 w-16 rounded-full bg-gray-300 flex items-center justify-center mr-4 overflow-hidden">
+                            <img class="h-full w-full object-cover" src="{{ \App\Helpers\GoogleDriveHelper::transformGoogleDriveUrl($user->imagemUser->imagem_url ?? '') }}" alt="Foto do utilizador" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                            <span class="absolute inset-0 flex items-center justify-center text-xs text-gray-700 bg-white bg-opacity-80" style="display:none;">
+        Foto do utilizador
+    </span>
                         </div>
                         <div>
                             <h4 class="text-xl font-semibold text-gray-900">{{ $user->name ?? '-' }}</h4>
