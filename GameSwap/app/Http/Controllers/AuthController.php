@@ -105,7 +105,7 @@ class AuthController extends Controller
         }
 
         // Se falhar a autenticação
-        return back();
+        return back()->with('error', 'Credenciais inválidas. Verifique o username e a senha.')->withInput();
 
     }
 

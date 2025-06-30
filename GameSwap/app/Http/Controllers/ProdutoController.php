@@ -389,7 +389,6 @@ class ProdutoController extends Controller
             ->where(function ($q) {
                 $q->where('destaque', false)->orWhereNull('destaque');
             })
-            ->when($userId, fn($q) => $q->where('id_anunciante', '!=', $userId))
             ->with('imagens')
             ->inRandomOrder()
             ->limit(12)
@@ -408,7 +407,6 @@ class ProdutoController extends Controller
             ->where(function ($q) {
                 $q->where('destaque', false)->orWhereNull('destaque');
             })
-            ->when($userId, fn($q) => $q->where('id_anunciante', '!=', $userId))
             ->with('imagens')
             ->inRandomOrder()
             ->limit(12)
@@ -425,7 +423,7 @@ class ProdutoController extends Controller
             ->where('ativo', 1)
             ->where('destaque', true)
             ->whereNull('id_comprador')
-            ->when($userId, fn($q) => $q->where('id_anunciante', '!=', $userId))
+
             ->with('imagens')
             ->orderBy('created_at', 'desc')
             ->limit(14)
@@ -442,7 +440,7 @@ class ProdutoController extends Controller
             ->where('ativo', 1)
             ->where('destaque', true)
             ->whereNull('id_comprador')
-            ->when($userId, fn($q) => $q->where('id_anunciante', '!=', $userId))
+
             ->with('imagens')
             ->orderBy('created_at', 'desc')
             ->limit(14)
