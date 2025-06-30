@@ -330,7 +330,7 @@ class CheckoutController extends Controller
         try {
             $compra = Compra::create([
                 'comprador_id' => $user->id,
-                'morada_id' => $request->morada_id,
+                'morada_id' => null,
                 'cartao_id' => $cartao->id,
                 'total' => $valor,
                 'status' => 'pago',
