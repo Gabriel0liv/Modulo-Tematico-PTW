@@ -338,7 +338,7 @@ class CheckoutController extends Controller
 
             CompraProduto::create([
                 'compra_id' => $compra->id,
-                'produto_id' => $item['id'],
+                'produto_id' => null,
                 'tipo_produto' => "destaque",
                 'vendedor_id' => null,
                 'quantidade' => 1,
