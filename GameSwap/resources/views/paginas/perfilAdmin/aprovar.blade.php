@@ -51,6 +51,9 @@
                             <x-AprovarAnuncios_anuncios.anunciosPendentes :produtos="$pendentes"/>
                             </tbody>
                         </table>
+                        <div>
+                            {{ $pendentes->links() }}
+                        </div>
                     </div>
 
                     <div id="aprovados" class="anuncios hidden">
@@ -84,6 +87,9 @@
                             <x-AprovarAnuncios_anuncios.anunciosAprovados :produtos="$aprovados"/>
                             </tbody>
                         </table>
+                        <div>
+                            {{ $aprovados->links() }}
+                        </div>
                     </div>
 
                     <div id="rejeitados" class="anuncios hidden">
@@ -117,14 +123,15 @@
                             <x-AprovarAnuncios_anuncios.anunciosReprovados :produtos="$rejeitados"/>
                             </tbody>
                         </table>
+                        <div>
+                            {{ $rejeitados->links() }}
+                        </div>
                     </div>
                 </div>
             </div>
-            <div>
-                {{ $pendentes->links() }}
-                {{ $aprovados->links() }}
-                {{ $rejeitados->links() }}
-            </div>
+
+
+
         </main>
     </div>
 
@@ -140,10 +147,20 @@
 
             botao.classList.remove('bg-gray-200', 'text-gray-800');
             botao.classList.add('bg-blue-600', 'text-white');
+
+            // Salva o painel selecionado no localStorage
+            localStorage.setItem('painelAprovarAnuncios', tipo);
         }
 
         document.addEventListener('DOMContentLoaded', () => {
-            mostrar('pendentes', document.getElementById('anunciosPendentesBtn'));
+            // Recupera o painel salvo ou usa 'pendentes' como padrão
+            const tipoSalvo = localStorage.getItem('painelAprovarAnuncios') || 'pendentes';
+            const botao = document.getElementById(
+                tipoSalvo === 'pendentes' ? 'anunciosPendentesBtn' :
+                    tipoSalvo === 'aprovados' ? 'anunciosAprovadosBtn' :
+                        'anunciosRejeitadosBtn'
+            );
+            mostrar(tipoSalvo, botao);
         });
     </script>
 </x-layout>

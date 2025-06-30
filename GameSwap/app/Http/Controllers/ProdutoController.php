@@ -156,18 +156,17 @@ class ProdutoController extends Controller
      */
     public function aprovarAnuncios(Request $request)
     {
-        $jogos = Jogo::get()->filter(function ($jogo) {
-            return $jogo->id_comprador === null; // Filtra jogos que ainda não foram comprados
-        });
-        $consoles = Console::get()->filter(function ($console) {
-            return $console->id_comprador === null; // Filtra consoles que ainda não foram comprados
-        });
+        $pendentesJogos = Jogo::where('moderado', 0)->whereNull('id_comprador')->get();
+        $pendentesConsoles = Console::where('moderado', 0)->whereNull('id_comprador')->get();
+        $pendentes = $pendentesJogos->merge($pendentesConsoles)->values();
 
-        $produtos = $jogos->merge($consoles);
+        $aprovadosJogos = Jogo::where('moderado', 1)->whereNull('id_comprador')->get();
+        $aprovadosConsoles = Console::where('moderado', 1)->whereNull('id_comprador')->get();
+        $aprovados = $aprovadosJogos->merge($aprovadosConsoles)->values();
 
-        $pendentes = $produtos->filter(fn($p) => $p->moderado == 0)->values();
-        $aprovados = $produtos->filter(fn($p) => $p->moderado == 1)->values();
-        $rejeitados = $produtos->filter(fn($p) => $p->moderado == 2)->values();
+        $rejeitadosJogos = Jogo::where('moderado', 2)->whereNull('id_comprador')->get();
+        $rejeitadosConsoles = Console::where('moderado', 2)->whereNull('id_comprador')->get();
+        $rejeitados = $rejeitadosJogos->merge($rejeitadosConsoles)->values();
 
         $perPage = 10;
         $pendentesPaginator = new LengthAwarePaginator(
@@ -198,6 +197,7 @@ class ProdutoController extends Controller
             'rejeitados' => $rejeitadosPaginator,
         ]);
     }
+
 
     /**
      * Aprova ou reprova um produto (jogo ou console).
