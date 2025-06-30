@@ -88,7 +88,7 @@ class ProdutoController extends Controller
                 ->get()
                 ->map(function ($item) {
                     $item->imagem_capa = $item->imagens->first()
-                        ? GoogleDriveHelper::transformGoogleDriveUrl($item->imagens->first()->path)
+                        ? GoogleDriveHelper::transformGoogleDriveUrl($item->imagens->first()->path ?? $item->imagens->first()->caminho)
                         : '/placeholder.svg';
                     return $item;
                 });
