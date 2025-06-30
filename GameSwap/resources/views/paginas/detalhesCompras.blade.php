@@ -23,9 +23,17 @@
                             <span class="text-gray-500">Status:</span>
                             <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full {{$purchase->statusClass ?? ''}}">{{$compra->status}}</span>
                         </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-500">Subtotal:</span>
+                            <span class="font-medium">€ {{$compra->total - 4.99}}</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-500">Taxa de entrega:</span>
+                            <span class="font-medium">€ 4.99</span>
+                        </div>
                         <div class="flex justify-between text-lg">
                             <span class="text-gray-500">Total:</span>
-                            <span class="font-bold text-green-600">{{$compra->total}}</span>
+                            <span class="font-bold text-green-600">€ {{$compra->total}}</span>
                         </div>
                     </div>
                 </div>
