@@ -328,14 +328,6 @@ class CheckoutController extends Controller
         }
 
         try {
-            Compra::create([
-                'comprador_id' => $user->id,
-                'morada_id' => null,
-                'cartao_id' => $cartao->id,
-                'total' => $valor,
-                'status' => 'pago',
-            ]);
-
             $tipo = $item['referencia'];
             $id = $item['id'];
             $dataFinal = now()->addDays(30);
