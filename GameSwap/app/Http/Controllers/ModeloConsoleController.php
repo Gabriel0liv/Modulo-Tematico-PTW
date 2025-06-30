@@ -30,7 +30,7 @@ class ModeloConsoleController extends Controller
      */
     public function adicionarModeloConsoles()
     {
-        $baseNome = "Novo Modelo";
+        $baseNome = "!novoModelo";
         $nome = $baseNome;
         $contador = 1;
 

@@ -16,7 +16,7 @@ class CategoriaController
      * @return \Illuminate\View\View
      */
     public function adicionarCategoria(){
-        $baseNome = "novaCategoria";
+        $baseNome = "!novaCategoria";
         $nome = $baseNome;
         $contador = 1;
 

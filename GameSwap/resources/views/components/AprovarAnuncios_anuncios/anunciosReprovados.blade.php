@@ -1,5 +1,4 @@
 @foreach($produtos as $produto)
-    @if($produto->moderado == 2)
         <tr>
             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">#{{$produto->id}}</td>
             <td class="px-6 py-4 whitespace-nowrap">
@@ -26,12 +25,6 @@
                     <input type="hidden" name="tipo_produto" value="{{ $produto->tipo_produto }}">
                     <button type="submit" class="text-green-600 hover:text-green-900 mr-3">Aprovar</button>
                 </form>
-                <form action="{{ route('produto.reprovar', $produto->id) }}" method="POST" class="inline">
-                    @csrf
-                    <input type="hidden" name="tipo_produto" value="{{ $produto->tipo_produto }}">
-                    <button type="submit" class="text-red-600 hover:text-red-900">Rejeitar</button>
-                </form>
             </td>
         </tr>
-    @endif
 @endforeach

@@ -1,6 +1,5 @@
 <div>
 @foreach($produtos as $produto)
-    @if($produto->moderado == 0)
         <tr>
             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">#{{$produto->id}}</td>
             <td class="px-6 py-4 whitespace-nowrap">
@@ -35,6 +34,5 @@
                 </form>
             </td>
         </tr>
-    @endif
 @endforeach
 </div>

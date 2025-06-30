@@ -10,7 +10,7 @@
             <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 text-left">{{$user->name}}</td>            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{$user->username}}</td>
             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{$user->email}}</td>
             <td class="px-6 py-4 whitespace-nowrap">
-                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">Ativo</span>
+                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">Inativo</span>
             </td>
             <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
                 <a href="/perfilAdmin/utilizadores/{{$user->id}}" class="text-blue-600 hover:text-blue-900 mr-3">Ver</a>
