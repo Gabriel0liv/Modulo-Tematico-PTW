@@ -417,10 +417,6 @@
             initInfiniteCarousel('vendedor-slider', 'prev-vendedor', 'next-vendedor');
             initInfiniteCarousel('relacionados-slider', 'prev-relacionados', 'next-relacionados');
 
-
-
-
         });
     </script>
-    <script src="{{ mix('js/app.js') }}"></script>
 </x-layout>

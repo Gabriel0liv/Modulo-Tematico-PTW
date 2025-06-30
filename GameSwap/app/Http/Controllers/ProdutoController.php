@@ -166,19 +166,38 @@ class ProdutoController extends Controller
 
         $produtos = $jogos->merge($consoles);
 
-        $perPage = 10;
-        $currentPage = LengthAwarePaginator::resolveCurrentPage();
-        $currentItems = $produtos->slice(($currentPage - 1) * $perPage, $perPage)->values();
+        $pendentes = $produtos->filter(fn($p) => $p->moderado == 0)->values();
+        $aprovados = $produtos->filter(fn($p) => $p->moderado == 1)->values();
+        $rejeitados = $produtos->filter(fn($p) => $p->moderado == 2)->values();
 
-        $paginator = new LengthAwarePaginator(
-            $currentItems,
-            $produtos->count(),
+        $perPage = 10;
+        $pendentesPaginator = new LengthAwarePaginator(
+            $pendentes->slice(($request->input('pendentes_page', 1) - 1) * $perPage, $perPage)->values(),
+            $pendentes->count(),
             $perPage,
-            $currentPage,
-            ['path' => $request->url(), 'query' => $request->query()]
+            $request->input('pendentes_page', 1),
+            ['pageName' => 'pendentes_page', 'path' => $request->url(), 'query' => $request->query()]
+        );
+        $aprovadosPaginator = new LengthAwarePaginator(
+            $aprovados->slice(($request->input('aprovados_page', 1) - 1) * $perPage, $perPage)->values(),
+            $aprovados->count(),
+            $perPage,
+            $request->input('aprovados_page', 1),
+            ['pageName' => 'aprovados_page', 'path' => $request->url(), 'query' => $request->query()]
+        );
+        $rejeitadosPaginator = new LengthAwarePaginator(
+            $rejeitados->slice(($request->input('rejeitados_page', 1) - 1) * $perPage, $perPage)->values(),
+            $rejeitados->count(),
+            $perPage,
+            $request->input('rejeitados_page', 1),
+            ['pageName' => 'rejeitados_page', 'path' => $request->url(), 'query' => $request->query()]
         );
 
-        return view('paginas.perfilAdmin.aprovar', ['produtos' => $paginator]);
+        return view('paginas.perfilAdmin.aprovar', [
+            'pendentes' => $pendentesPaginator,
+            'aprovados' => $aprovadosPaginator,
+            'rejeitados' => $rejeitadosPaginator,
+        ]);
     }
 
     /**

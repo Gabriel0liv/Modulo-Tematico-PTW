@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Helpers\GoogleDriveHelper;
 use App\Models\Console;
-use App\Models\Jogo;
+use App\Models\jogo;
 use App\Models\Morada;
 use Illuminate\Http\Request;
 
@@ -24,7 +24,7 @@ class CarrinhoController extends Controller
 
         // Buscar pelo tipo correto
         if ($tipo === 'jogo') {
-            $produto = Jogo::find($produtoId);
+            $produto = jogo::find($produtoId);
         } elseif ($tipo === 'console') {
             $produto = Console::find($produtoId);
         } else {
@@ -73,7 +73,7 @@ class CarrinhoController extends Controller
         // Atualizar os itens do carrinho com informações mais completas
         $itensAtualizados = collect($itens)->map(function ($item) {
             if ($item['tipo_produto'] === 'jogo') {
-                $produto = Jogo::with('imagens')->find($item['id']);
+                $produto = jogo::with('imagens')->find($item['id']);
             } elseif ($item['tipo_produto'] === 'console') {
                 $produto = Console::with('imagens')->find($item['id']);
             } else {
@@ -126,7 +126,7 @@ class CarrinhoController extends Controller
 
         // Lógica para identificar produto e sua imagem relevante
         if ($tipo === 'jogo') {
-            $produto = Jogo::with('imagens')->find($id);
+            $produto = jogo::with('imagens')->find($id);
         } elseif ($tipo === 'console') {
             $produto = Console::with('imagens')->find($id);
         } else {

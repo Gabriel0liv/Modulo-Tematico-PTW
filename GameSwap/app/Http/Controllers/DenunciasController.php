@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Notifications\EmailConfirmacaoDenuncia;
 use App\Notifications\EmailSuspensaoConta;
 use App\Notifications\EmailBanimentoConta;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class DenunciasController extends Controller
 {
@@ -29,6 +30,7 @@ class DenunciasController extends Controller
         // Verifica se o usuário já denunciou este usuário
         $denunciaExistente = Denuncias::where('id_denunciante', $denunciante->id)
             ->where('id_denunciado', $denunciado->id)
+            ->whereNull('resolvido_em')
             ->first();
 
         if ($denunciaExistente) {
@@ -59,6 +61,7 @@ class DenunciasController extends Controller
         // Evita denúncias duplicadas
         $denunciaExistente = Denuncias::where('id_denunciante', $denunciante->id)
             ->where('id_denunciado', $denunciado->id)
+            ->whereNull('resolvido_em')
             ->first();
 
         if ($denunciaExistente) {
@@ -87,9 +90,29 @@ class DenunciasController extends Controller
      */
     public function resolverDenuncias(Request $request)
     {
-        $denuncias = Denuncias::paginate(10);
+        $pendentes = Denuncias::where('status', 0)->get();
+        $resolvidas = Denuncias::where('status', 1)->get();
 
-        return view('paginas.perfilAdmin.denuncias', ['denuncias' => $denuncias]);
+        $perPage = 10;
+        $pendentesPaginator = new LengthAwarePaginator(
+            $pendentes->slice(($request->input('pendentes_page', 1) - 1) * $perPage, $perPage)->values(),
+            $pendentes->count(),
+            $perPage,
+            $request->input('pendentes_page', 1),
+            ['pageName' => 'pendentes_page', 'path' => $request->url(), 'query' => $request->query()]
+        );
+        $resolvidasPaginator = new LengthAwarePaginator(
+            $resolvidas->slice(($request->input('resolvidas_page', 1) - 1) * $perPage, $perPage)->values(),
+            $resolvidas->count(),
+            $perPage,
+            $request->input('resolvidas_page', 1),
+            ['pageName' => 'resolvidas_page', 'path' => $request->url(), 'query' => $request->query()]
+        );
+
+        return view('paginas.perfilAdmin.denuncias', [
+            'pendentes' => $pendentesPaginator,
+            'resolvidas' => $resolvidasPaginator,
+        ]);
     }
 
     /**
@@ -152,6 +175,7 @@ class DenunciasController extends Controller
         $user = $denuncia->denunciado;
         $denuncia->status = 1;
         $denuncia->resolvido_em = now();
+        $duracao = (int) $request->input('duracao');
         $reativacao = now()->addDays($duracao);
         $denuncia->data_reativacao = $reativacao;
         $denuncia->save();
@@ -164,6 +188,25 @@ class DenunciasController extends Controller
         }
 
         return redirect('/perfilAdmin/denuncias')->with('success', 'Usuário suspenso com sucesso.');
+    }
+
+    public function avisar(Request $request, $id)
+    {
+        $request->validate([
+            'mensagem' => 'required|string|max:555',
+        ]);
+
+        $denuncia = Denuncias::findOrFail($id);
+        $user = $denuncia->denunciado;
+        $denuncia->status = '1';
+        $denuncia->resolvido_em = now();
+        $denuncia->save();
+
+        if ($user) {
+            //$user->notify(new \App\Notifications\EmailAviso($request->mensagem));
+        }
+
+        return redirect()->back()->with('success', 'Aviso enviado com sucesso.');
     }
 
 

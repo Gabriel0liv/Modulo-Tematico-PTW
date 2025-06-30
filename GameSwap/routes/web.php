@@ -20,7 +20,16 @@ use App\Http\Controllers\ProdutoController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
+
+Route::get('/teste-email', function () {
+    $user = User::first(); // ou outro user válido
+    $user->notify(new EmailBanimentoConta());
+    return 'Email enviado (deveria ir para fila)';
+});
+
 Route::get('/', [ProdutoController::class, 'paginaInicial'])->name('pagina_inicial');
+
+
 Route::get('/footer', [ModeloConsoleController::class, 'footer'])->name('footer');
 
 // Rotas de Layout
@@ -195,6 +204,7 @@ Route::middleware(['auth', 'is_admin'])->group(function () {
         return view('paginas.perfilAdmin.denuncias');
     });
 
+
     Route::get("/perfilAdmin/aprovar", [ProdutoController::class, 'aprovarAnuncios']);
     Route::post("/perfilAdmin/aprovar/{id}", [ProdutoController::class, 'aprovar'])->name('produto.aprovar');
     Route::post("/perfilAdmin/reprovar/{id}", [ProdutoController::class, 'reprovar'])->name('produto.reprovar');
@@ -214,6 +224,7 @@ Route::middleware(['auth', 'is_admin'])->group(function () {
     Route::get("/perfilAdmin/denuncias", [DenunciasController::class, 'resolverDenuncias']);
     Route::get('/perfilAdmin/denuncias/detalhes/{id}', [DenunciasController::class, 'exibirDenuncia'])->name('denuncias.exibir');
     Route::post('/perfilAdmin/denuncias/banir/{id}', [DenunciasController::class, 'banir'])->name('utilizador.banir');
+    Route::post('/perfilAdmin/denuncias/{id}/avisar', [DenunciasController::class, 'avisar'])->name('utilizador.avisar');
     Route::post('/perfilAdmin/denuncias/resolver/{id}', [DenunciasController::class, 'resolver'])->name('utilizador.resolver');
     Route::post('/perfilAdmin/denuncias/suspender/{id}', [DenunciasController::class, 'suspender'])->name('utilizador.suspender');
 

@@ -16,9 +16,9 @@ class GoogleDriveService
     {
         // Inicializa o cliente do Google
         $this->client = new GoogleClient();
-        $this->client->setClientId(env('GOOGLE_CLIENT_ID'));
-        $this->client->setClientSecret(env('GOOGLE_CLIENT_SECRET'));
-        $this->client->setAccessToken($this->refreshAccessToken());
+        $this->client->setClientId(config('services.google.client_id'));
+        $this->client->setClientSecret(config('services.google.client_secret'));
+        $this->client->refreshToken(config('services.google.refresh_token'));
 
         // Inicializa o serviço da API Google Drive
         $this->driveClient = new GoogleDrive($this->client);

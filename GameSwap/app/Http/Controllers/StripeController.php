@@ -170,7 +170,7 @@ class StripeController extends Controller
      */
     public function listarCartoes()
     {
-        \Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
+        \Stripe\Stripe::setApiKey(config('services.stripe.secret'));
 
         $user = auth()->user();
         $cartoesSalvos = $user->paymentMethods->where('ativo',true);
@@ -203,7 +203,7 @@ class StripeController extends Controller
      */
     public function listarCartoesCheckout()
     {
-        \Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
+        \Stripe\Stripe::setApiKey(config('services.stripe.secret'));
 
         $user = auth()->user();
         $cartoesSalvos = $user->paymentMethods;

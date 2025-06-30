@@ -27,10 +27,9 @@
                             </tr>
                         </thead>
                         <tbody class="bg-white divide-y divide-gray-200">
-                            <x-AprovarDenuncias_denuncias.denunciasPendentes :denuncias="$denuncias" />
+                            <x-AprovarDenuncias_denuncias.denunciasPendentes :denuncias="$pendentes" />
                         </tbody>
                     </table>
-                    {{$denuncias->links()}}
                 </div>
             </div>
 
@@ -48,10 +47,14 @@
                         </tr>
                         </thead>
                         <tbody class="bg-white divide-y divide-gray-200">
-                        <x-AprovarDenuncias_denuncias.denunciasResolvidas :denuncias="$denuncias" />
+                        <x-AprovarDenuncias_denuncias.denunciasResolvidas :denuncias="$resolvidas" />
                         </tbody>
                     </table>
                 </div>
+            </div>
+            <div>
+                {{ $pendentes->links() }}
+                {{ $resolvidas->links() }}
             </div>
         </main>
     </div>
