@@ -203,13 +203,14 @@ class UserController
     /**
      * Exibe a página de perfil do utilizador autenticado.
      *
-     * @return \Illuminate\View\View
+     * @return \Illuminate\Http\JsonResponse
      */
     public function verificarUsername(Request $request)
     {
+        $username = urldecode($request->query('username'));
         $existe = \App\Models\User::where('username', $request->username)->exists();
 
-        return response()->json(['existe' => $existe]);
+        return response()->json(['exists' => $existe]);
     }
 
     /**
