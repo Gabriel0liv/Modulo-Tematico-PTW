@@ -2,7 +2,7 @@
 
 ## Descrição
 
-Este projeto é uma plataforma focada em trocas, compras e vendas de jogos e consoles, com funcionalidades voltadas para a segurança, privacidade e praticidade dos utilizadores. O sistema segue as normas do RGPD (Regulamento Geral sobre a Proteção de Dados) e adota boas práticas de desenvolvimento em Blade, PHP/Laravel e JavaScript.
+Projeto temático desenvolvido no âmbito da unidade curricular de Desenvolvimento Web, este projeto é uma plataforma focada em trocas, compras e vendas de jogos e consoles, com funcionalidades voltadas para a segurança, privacidade e praticidade dos utilizadores. O sistema segue as normas do RGPD (Regulamento Geral sobre a Proteção de Dados) e adota boas práticas de desenvolvimento em Blade, PHP/Laravel e JavaScript.
 
 ## Funcionalidades Principais
 
